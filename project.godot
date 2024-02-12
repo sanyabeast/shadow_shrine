@@ -18,8 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 world="*res://scripts/core/world.gd"
-player="*res://scripts/core/player.gd"
 characters="*res://scripts/core/characters.gd"
+player="*res://scripts/core/player.gd"
+camera="*res://scripts/core/camera.gd"
 game="*res://scripts/core/game.gd"
 
 [input]

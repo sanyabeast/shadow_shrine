@@ -1,6 +1,6 @@
 extends Node
 
-class_name CharactersManager
+class_name S2CharactersManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

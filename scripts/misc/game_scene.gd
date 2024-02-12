@@ -1,6 +1,6 @@
 extends Node3D
 
-class_name GameSceneController
+class_name S2GameSceneController
 
 @onready var environment_node: Node3D = $Environment
 @onready var architecture_node: Node3D = $Architecture

@@ -1,6 +1,6 @@
 extends Node
 
-class_name WorldManager
+class_name S2WorldManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
