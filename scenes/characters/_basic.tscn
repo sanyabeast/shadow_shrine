@@ -24,3 +24,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="arrow_red" parent="Aim" instance=ExtResource("3_nekau")]
 transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0.335, 0, 0.5, -1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38838, 0.201083)
+light_color = Color(0.709804, 0.572549, 0.47451, 1)
+light_energy = 3.0

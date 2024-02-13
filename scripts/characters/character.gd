@@ -31,9 +31,11 @@ func _physics_process(delta):
 	
 	velocity.x = move_direction.x * SPEED
 	velocity.z = move_direction.z * SPEED
-
+	velocity.y = 0
 	
 	move_and_slide()
+	
+	global_position.y = 0
 	
 	
 func rotate_body(delta):

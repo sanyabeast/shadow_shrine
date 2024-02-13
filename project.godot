@@ -23,6 +23,16 @@ player="*res://scripts/core/player.gd"
 camera="*res://scripts/core/camera.gd"
 game="*res://scripts/core/game.gd"
 
+[file_customization]
+
+folder_colors={
+"res://_dev/": "red",
+"res://assets/": "purple",
+"res://misc/": "gray",
+"res://scenes/": "teal",
+"res://scripts/": "yellow"
+}
+
 [input]
 
 move_up={
@@ -89,3 +99,7 @@ use_ability_b={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[rendering]
+
+anti_aliasing/quality/use_taa=true
