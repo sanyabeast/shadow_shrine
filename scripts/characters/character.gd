@@ -52,8 +52,8 @@ func rotate_body(delta):
 
 
 func _process(delta):
-	print("move direction: %s" % move_direction)
-	print("aim direction: %s" % aim_direction)
+	#print("move direction: %s" % move_direction)
+	#print("aim direction: %s" % aim_direction)
 	
 	rotate_body(delta)
 	

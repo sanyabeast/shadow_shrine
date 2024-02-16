@@ -16,3 +16,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func is_player(character: S2Character) -> bool:
+	return character == current
