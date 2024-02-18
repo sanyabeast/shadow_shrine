@@ -1,9 +1,9 @@
 extends Area3D
 
-class_name S2DoorHelper
+class_name S2DoorController
 
+@export var direction: world.EDirection = world.EDirection.North
 var room_controller: S2RoomController
-var direction: S2WorldManager.EDirection = S2WorldManager.EDirection.North
 var has_entered_body: bool = false
 
 # Called when the node enters the scene tree for the first time.

@@ -9,6 +9,8 @@ enum EDirection {
 	West
 }
 
+var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("world manager ready...")

@@ -2,74 +2,66 @@ extends Node3D
 
 class_name S2RoomController
 
-@export var north_door_enabled: bool = true
-@export var east_door_enabled: bool = true
-@export var south_door_enabled: bool = true
-@export var west_door_enabled: bool = true
+@export var player_spawn: Node3D
+@export var doors_opened: bool = false
 
-@export_category("Referencies")
+@export var doors_map: Dictionary = {
+	world.EDirection.North: true,
+	world.EDirection.East: true,
+	world.EDirection.South: true,
+	world.EDirection.West: true,
+}
 
+@export_subgroup("Referencies")
 @export var doors_container: Node3D
-
-@export_subgroup("Doors")
-@export var north_door: S2DoorHelper
-@export var east_door: S2DoorHelper
-@export var south_door: S2DoorHelper
-@export var west_door: S2DoorHelper
-
-@export_subgroup("Gridmaps")
 @export var walls_gridmap: GridMap
 @export var obstacles_gridmap: GridMap
 
+@export_subgroup("Misc")
+@export var auto_initialize: bool = false
 
-func _prepare_doors():
-	if north_door_enabled: 
-		var cell_idx = world_to_gridmap(walls_gridmap, north_door.global_position)
-		print("cell idx for north door: %s" % cell_idx)
-		walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, north_door.global_position), -1)
-	else:
-		north_door.hide()
+var door_controllers: Dictionary = {}
+var game_mode: S2GameModeDefaultGame
+
+func _apply_doors_map():
+	for dir in world.directions_list:
+		if doors_map[dir] == true:
+			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
+			var cell_idx = world_to_gridmap(walls_gridmap, door_controllers[dir].global_position)
+			print("cell idx for %s door: %s" % [dir, cell_idx])
+			walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, door_controllers[dir].global_position), -1)
+			door_controllers[dir].show()
+		else:
+			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
+			door_controllers[dir].hide()
 	
-	if east_door_enabled: 
-		var cell_idx = world_to_gridmap(walls_gridmap, east_door.global_position)
-		print("cell idx for east door: %s" % cell_idx)
-		walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, east_door.global_position), -1)
-	else:
-		east_door.hide()
-	
-	if south_door_enabled: 
-		var cell_idx = world_to_gridmap(walls_gridmap, south_door.global_position)
-		print("cell idx for south door: %s" % cell_idx)
-		walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, south_door.global_position), -1)	
-	else:
-		south_door.hide()
-	
-	if west_door_enabled: 
-		var cell_idx = world_to_gridmap(walls_gridmap, west_door.global_position)
-		print("cell idx for west door: %s" % cell_idx)
-		walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, west_door.global_position), -1)
-	else:
-		west_door.hide()
-		
-	north_door.room_controller = self;
-	east_door.room_controller = self;
-	south_door.room_controller = self;
-	west_door.room_controller = self;
-	
-	north_door.direction = S2WorldManager.EDirection.North;
-	east_door.direction = S2WorldManager.EDirection.East;
-	south_door.direction = S2WorldManager.EDirection.South;
-	west_door.direction = S2WorldManager.EDirection.West;
 		
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	doors_container.global_position.y = 0
-	_prepare_doors()
+	if auto_initialize:
+		initialize()
+	
 	pass # Replace with function body.
+
+func initialize():
+	doors_container.global_position.y = 0
+	_traverse(self)
+	_apply_doors_map()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func _traverse(node):
+	# Call the callback function on the current node
+	if node is S2DoorController:
+		assert(not door_controllers.has(node.direction), "there already door with direction %s exists in this room (%s)" % [node.direction, self.name])
+		door_controllers[node.direction] = node
+		node.room_controller = self
+	
+	# Recursively call this function on all children
+	for child in node.get_children():
+		_traverse(child)
 
 func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	var cell_x: int = 0
@@ -85,8 +77,18 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	
 	return Vector3i(cell_x, 0, cell_z)
 	
-func handle_player_entered_door_area(door: S2DoorHelper, player: S2Character):
-	print("player %s entered door %s" % [player.name, door.direction])
+func handle_player_entered_door_area(door: S2DoorController, player: S2Character):
+	if doors_opened:
+		print("player %s entered door %s" % [player.name, door.direction])
+		game_mode.handle_player_entered_door_area(door.direction, player)
+	
 
-func handle_player_exited_door_area(door: S2DoorHelper, player: S2Character):
+func handle_player_exited_door_area(door: S2DoorController, player: S2Character):
 	print("player %s exited door %s" % [player.name, door.direction])
+	game_mode.handle_player_exited_door_area(door.direction, player)
+	
+func open_doors():
+	doors_opened = true
+	
+func close_doors():
+	doors_opened = false

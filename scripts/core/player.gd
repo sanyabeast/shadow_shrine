@@ -2,6 +2,8 @@ extends Node
 
 class_name PlayerManager
 
+const TAG: String = "PlayerManager: "
+
 var current: S2Character
 
 func set_active(character: S2Character):
@@ -19,3 +21,9 @@ func _process(delta):
 
 func is_player(character: S2Character) -> bool:
 	return character == current
+
+func teleport(position: Vector3):
+	if current != null:
+		current.global_position = position
+	else:
+		print(TAG + "no players to teleport")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=9 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_1lro1"]
-[ext_resource type="PackedScene" uid="uid://dir4wp4krqhop" path="res://scenes/rooms/room_a1.tscn" id="2_ch1uu"]
+[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://data/_game_level_a1.tres" id="2_gmi04"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
+[ext_resource type="Script" path="res://_dev/hud/screen_printer.gd" id="5_pnjr4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
 sky_top_color = Color(0.690196, 0.658824, 0.901961, 1)
@@ -32,6 +33,7 @@ volumetric_fog_density = 0.02
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1lro1")
+config = ExtResource("2_gmi04")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -44,8 +46,6 @@ light_color = Color(1, 0.843137, 0.65098, 1)
 shadow_enabled = true
 
 [node name="Architecture" type="Node3D" parent="."]
-
-[node name="DevRoomA1" parent="Architecture" instance=ExtResource("2_ch1uu")]
 
 [node name="Characters" type="Node3D" parent="."]
 
@@ -63,28 +63,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="_DevGUI"]
+[node name="ScreenPrinter" type="Control" parent="_DevGUI"]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_right = 1.0
+offset_left = -275.0
+offset_bottom = 168.0
+grow_horizontal = 0
+script = ExtResource("5_pnjr4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="_DevGUI/ScreenPrinter"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -458.0
-offset_top = -53.0
-offset_right = -18.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="MazeCellIndex" type="Label" parent="_DevGUI/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "maze cell: [0, 5]"
-horizontal_alignment = 2
-
-[node name="MazeCellType" type="Label" parent="_DevGUI/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "maze cell type: start"
-horizontal_alignment = 2
+offset_top = 14.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2

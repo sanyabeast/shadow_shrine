@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RGameLevelConfig" load_steps=4 format=3 uid="uid://dlqq5u5jnmnob"]
+
+[ext_resource type="Script" path="res://scripts/resources/game_level_config.gd" id="1_3rr6x"]
+[ext_resource type="PackedScene" uid="uid://dir4wp4krqhop" path="res://scenes/rooms/room_a1.tscn" id="1_onodg"]
+[ext_resource type="PackedScene" uid="uid://emmfkb3x7813" path="res://_dev/scenes/rooms/_dev_room_a1.tscn" id="2_vlhpk"]
+
+[resource]
+script = ExtResource("1_3rr6x")
+rooms = Array[PackedScene]([ExtResource("1_onodg"), ExtResource("2_vlhpk")])

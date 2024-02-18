@@ -24,20 +24,28 @@ enum EGenerationOrder {
 	Shift
 }
 
-const TAG: String = "S2MazeGenerator: "
+const TAG: String = "MazeGenerator: "
 
 # MazeCell class
 class Cell:
 	var maze_generator: S2MazeGenerator
 	var x: int
 	var y: int
-	var walls = {"north": true, "east": true, "south": true, "west": true}
+	var walls = {
+		world.EDirection.North: true, 
+		world.EDirection.East: true, 
+		world.EDirection.South: true, 
+		world.EDirection.West: true
+	}
 	var category: ECellCategory
 	var visited: bool = false
 	var index: int
 	var distance: int
 	var route: int
 	var neighbours_offsets = [{"x": -1, "y": 0}, {"x": 0, "y": -1}, {"x": 1, "y": 0}, {"x": 0, "y": 1}]
+
+	func _to_string():
+		return "Cell(x: %s, y: %s, idx: %s, category: %s)" % [x, y, index, ECellCategory.keys()[category]]
 
 	func _init(_maze_generator: S2MazeGenerator, _x: int, _y: int, _category):
 		maze_generator = _maze_generator
@@ -47,13 +55,13 @@ class Cell:
 
 	func get_walls_count():
 		var result = 0
-		if walls.north:
+		if walls[world.EDirection.North]:
 			result += 1
-		if walls.east:
+		if walls[world.EDirection.East]:
 			result += 1
-		if walls.south:
+		if walls[world.EDirection.South]:
 			result += 1
-		if walls.west:
+		if walls[world.EDirection.West]:
 			result += 1
 		return result
 
@@ -90,32 +98,53 @@ class Cell:
 		var y_diff = y - cell2.y
 
 		if x_diff == 1:
-			walls.west = value
-			cell2.walls.east = value
+			walls[world.EDirection.West] = value
+			cell2.walls[world.EDirection.East] = value
 		elif x_diff == -1:
-			walls.east = value
-			cell2.walls.west = value
+			walls[world.EDirection.East] = value
+			cell2.walls[world.EDirection.West] = value
 
 		if y_diff == 1:
-			walls.north = value
-			cell2.walls.south = value
+			walls[world.EDirection.North] = value
+			cell2.walls[world.EDirection.South] = value
 		elif y_diff == -1:
-			walls.south = value
-			cell2.walls.north = value
+			walls[world.EDirection.South] = value
+			cell2.walls[world.EDirection.North] = value
+			
+	func get_sibling_to(direction: world.EDirection) -> Cell:
+		var dx: int = 0
+		var dy: int = 0
+		
+		match direction:
+			world.EDirection.North:
+				dy = -1
+			world.EDirection.East:
+				dx = +1
+			world.EDirection.South:
+				dy = +1
+			world.EDirection.West:
+				dx = -1
+		
+		if (x + dx) < 0 or (x + dx) >= maze_generator.grid_size or (y + dy) < 0 or (y + dy) >= maze_generator.grid_size:
+			return null
+			
+				
+		return maze_generator.cells[x + dx][y + dy]
+		
 
 	func get_wall_between(cell2):
 		var x_diff = x - cell2.x
 		var y_diff = y - cell2.y
 
 		if x_diff == 1:
-			return walls.west
+			return walls[world.EDirection.West]
 		elif x_diff == -1:
-			return walls.east
+			return walls[world.EDirection.East]
 
 		if y_diff == 1:
-			return walls.north
+			return walls[world.EDirection.North]
 		elif y_diff == -1:
-			return walls.south
+			return walls[world.EDirection.South]
 
 	func get_neighbour_cell(offset):
 		if offset < 0 or offset > 3:
@@ -129,20 +158,22 @@ class Cell:
 			return null
 
 		return maze_generator.cells[neighbour_x][neighbour_y]
+		
+	
 
 # MazeGenerator class
 var cells = []
-var start_cell
-var end_cell
+var start_cell: Cell
+var end_cell: Cell
 
-var seed = 0
-var grid_size = 4
-var sparseness = 0.5
-var dead_ends_ratio = 0.75
-var shortcuts_ratio = 0.2
+var seed: int = 0
+var grid_size: int = 4
+var sparseness: float = 0
+var dead_ends_ratio: float = 0.75
+var shortcuts_ratio: float = 0.2
 var generation_order = EGenerationOrder.Shift
 
-var current_cell_index = 0
+var current_cell_index: int = 0
 var routes = []
 
 func _init():
