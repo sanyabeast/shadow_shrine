@@ -84,3 +84,13 @@ func random_bool2(ratio: float) -> bool:
 func change_material(node: MeshInstance3D, index: int, new_material: Material):
 	if node and node is MeshInstance3D:
 		node.set_surface_override_material(index, new_material)
+
+func get_time()->float:
+	return Time.get_ticks_msec() / 1000.0
+
+func get_seeded_rng(seed_key: int) -> RandomNumberGenerator:
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = seed_key
+	return rng
+
+var timer_gate: S2TimerGateManager = S2TimerGateManager.new()

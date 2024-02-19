@@ -1,6 +1,6 @@
 extends S2GameMode
 
-class_name S2GameModeDefaultGame 
+class_name S2GameModeDefaultGame
 
 const TAG = "GameModeDefaultGame: "
 
@@ -18,22 +18,28 @@ var current_maze_cell: S2MazeGenerator.Cell = null
 var current_room: S2RoomController
 var EDirection = world.EDirection
 
+var tasks: S2TaskPlanner = S2TaskPlanner.new()
+
+var rooms_data: Dictionary = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super._ready()
 	pass # Replace with function body.
 
 func prepare():
+	super.prepare()
+	
 	environment_node = $Environment
 	architecture_node = $Architecture
 	characters_node = $Characters
 	collectibles_node = $Collectibles
 	
-	reset_game_mode()
+	reset()
 	
-	super.prepare()
+	game.resume()
 
-func reset_game_mode():
+func reset():
 	reset_maze()
 	_is_new_game_session = true
 
@@ -60,7 +66,17 @@ func spawn_room(from_direction):
 	from_direction = from_direction if from_direction != null else world.EDirection.North
 	var oposite_direction = get_oposite_direction(from_direction)
 		
-	current_room = tools.get_random_element_from_array(config.rooms).instantiate()
+	var room_template_index: int = 0
+	
+	if rooms_data.has(current_maze_cell.index):
+		room_template_index = rooms_data[current_maze_cell.index].room_template_index
+	else:
+		room_template_index = randf_range(0, config.rooms.size())
+		rooms_data[current_maze_cell.index] = {
+			"room_template_index": room_template_index
+		}
+		
+	current_room = config.rooms[room_template_index].instantiate()
 	
 	for dir in world.directions_list:
 		current_room.doors_map[dir] = not current_maze_cell.walls[dir]
@@ -80,8 +96,9 @@ func spawn_room(from_direction):
 		
 	player.teleport(player_spawn.global_position)
 	
-	current_room.open_doors()
+	tasks.schedule(current_room, "open_all_doors", 3, current_room.open_doors)
 	
+	#current_room.open_doors()
 	
 func next_room(from_direction: world.EDirection):
 	if current_room != null:
@@ -125,7 +142,10 @@ func handle_player_exited_door_area(direction: world.EDirection, player: S2Chara
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
 
 func _process(delta):
+	super._process(delta)
+	tasks.update()
+	
 	dev.print_screen("maze_cell_xy", "maze cell x/y: %s/%s" % [current_maze_cell.x, current_maze_cell.y])
 	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
-
+	

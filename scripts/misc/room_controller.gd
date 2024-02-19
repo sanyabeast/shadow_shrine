@@ -102,7 +102,13 @@ func handle_player_exited_door_area(door: S2DoorController, player: S2Character)
 	game_mode.handle_player_exited_door_area(door.direction, player)
 	
 func open_doors():
-	doors_opened = true
+	dev.logd(TAG, "opening all doors...")
+	for key in door_controllers:
+		door_controllers[key].open()
+	doors_opened = true	
 	
 func close_doors():
-	doors_opened = false
+	dev.logd(TAG, "closing all doors...")
+	for key in door_controllers:
+		door_controllers[key].close()
+	doors_opened = false	

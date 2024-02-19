@@ -10,7 +10,7 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 agent_height = 1.0
 agent_radius = 0.25
 
-[node name="RoomA1" type="Node3D" node_paths=PackedStringArray("player_spawn", "doors_container", "walls_gridmap", "obstacles_gridmap")]
+[node name="RoomA2" type="Node3D" node_paths=PackedStringArray("player_spawn", "doors_container", "walls_gridmap", "obstacles_gridmap")]
 script = ExtResource("1_0tyov")
 player_spawn = NodePath("PlayerSpawn")
 doors_container = NodePath("Doors")
