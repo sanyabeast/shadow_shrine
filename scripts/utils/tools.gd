@@ -85,6 +85,18 @@ func change_material(node: MeshInstance3D, index: int, new_material: Material):
 	if node and node is MeshInstance3D:
 		node.set_surface_override_material(index, new_material)
 
+func restrict_to_8_axis(raw_direction: Vector2) -> Vector2:
+	return Vector2(
+		round(raw_direction.x),
+		round(raw_direction.y)
+	).normalized()
+
+func restrict_to_4_axis(raw_direction: Vector2) -> Vector2:
+	return Vector2(
+		1 if raw_direction.x > 0 else (-1 if raw_direction.x < 0 else 0),
+		1 if raw_direction.y > 0 else (-1 if raw_direction.y < 0 else 0)
+	).normalized()
+
 func get_time()->float:
 	return Time.get_ticks_msec() / 1000.0
 

@@ -26,23 +26,28 @@ func start(id: String, duration: float):
 		_cooldowns_data[id].start(duration)
 func exists(id: String):
 	return _cooldowns_data.has(id)
+	
 func stop(id: String):
 	if _cooldowns_data.has(id):
 		_cooldowns_data.erase(id)
+		
 func progress(id: String)->float:
 	if _cooldowns_data.has(id):
 		return _cooldowns_data[id].progress()
 	else:
 		return 0
+		
 func estimated(id: String)->float:
 	if _cooldowns_data.has(id):
 		return _cooldowns_data[id].estimated()
 	else:
 		return 0
-func ready(id: String)->bool:
+		
+func ready(id: String, on_first_call = false)->bool:
 	if _cooldowns_data.has(id):
 		return _cooldowns_data[id].ready()
 	else:
-		return false
+		return on_first_call
+		
 func reset():
 	_cooldowns_data = {}

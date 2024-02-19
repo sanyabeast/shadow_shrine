@@ -10,12 +10,14 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 agent_height = 1.0
 agent_radius = 0.25
 
-[node name="RoomA2" type="Node3D" node_paths=PackedStringArray("player_spawn", "doors_container", "walls_gridmap", "obstacles_gridmap")]
+[node name="RoomA2" type="Node3D" node_paths=PackedStringArray("player_spawn", "doors_container", "walls_gridmap", "obstacles_gridmap", "camera_constraint_min", "camera_constraint_max")]
 script = ExtResource("1_0tyov")
 player_spawn = NodePath("PlayerSpawn")
 doors_container = NodePath("Doors")
 walls_gridmap = NodePath("NavigationRegion3D/Walls")
 obstacles_gridmap = NodePath("NavigationRegion3D/Obstacles")
+camera_constraint_min = NodePath("Misc/CameraCosntraintMin")
+camera_constraint_max = NodePath("Misc/CameraCosntraintMax")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -0.5)
@@ -100,3 +102,11 @@ light_color = Color(1, 0.690196, 0.501961, 1)
 light_energy = 4.953
 omni_range = 2.0
 omni_attenuation = 2.46229
+
+[node name="Misc" type="Node3D" parent="."]
+
+[node name="CameraCosntraintMin" type="Node3D" parent="Misc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88533, 0, -1.62523)
+
+[node name="CameraCosntraintMax" type="Node3D" parent="Misc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52621, 0, 0.280091)

@@ -86,6 +86,9 @@ func spawn_room(from_direction):
 	current_room.game_mode = self
 	current_room.initialize()
 	
+	# setting up camera restrictions
+	_apply_camera_constraints_for_current_room()
+	
 	var player_spawn = current_room
 	
 	if _is_new_game_session:
@@ -149,3 +152,7 @@ func _process(delta):
 	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
 	
+
+func _apply_camera_constraints_for_current_room():
+	camera.constraint_min = current_room.camera_constraint_min.global_position
+	camera.constraint_max = current_room.camera_constraint_max.global_position

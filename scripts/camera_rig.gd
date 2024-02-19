@@ -20,6 +20,7 @@ var far_root_elevation: float = 0
 @onready var camera_root: Node3D = $CameraRoot
 @onready var camera_node: Camera3D = $CameraRoot/Camera3D
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("camera rig: ready...")

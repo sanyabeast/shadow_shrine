@@ -25,6 +25,9 @@ const TAG: String = "RoomController"
 var door_controllers: Dictionary = {}
 var game_mode: S2GameModeDefaultGame
 
+@export_subgroup("Camera Contstraints")
+@export var camera_constraint_min: Node3D
+@export var camera_constraint_max: Node3D
 		
 # Called when the node enters the scene tree for the first time.
 

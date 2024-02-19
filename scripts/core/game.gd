@@ -20,7 +20,6 @@ func set_mode(_mode: S2GameMode):
 	set_seed(_mode.seed_key)
 	mode = _mode
 	
-
 func set_seed(seed_key: int):
 	seed(seed_key)
 	
