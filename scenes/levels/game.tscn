@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=10 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_1lro1"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://data/_game_level_a1.tres" id="2_gmi04"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
 [ext_resource type="Script" path="res://_dev/hud/screen_printer.gd" id="5_pnjr4"]
+[ext_resource type="Script" path="res://_dev/hud/debug_maze.gd" id="6_irw78"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
 sky_top_color = Color(0.690196, 0.658824, 0.901961, 1)
@@ -29,7 +30,7 @@ ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
+volumetric_fog_density = 0.005
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1lro1")
@@ -42,7 +43,7 @@ environment = SubResource("Environment_ev1c6")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.731583, 0.373254, 0.570498, 0.141019, -0.735863, 0.662283, 0.667008, 0.564966, 0.485709, 0, 2, 0)
-light_color = Color(1, 0.843137, 0.65098, 1)
+light_color = Color(0.905882, 0.862745, 0.854902, 1)
 shadow_enabled = true
 
 [node name="Architecture" type="Node3D" parent="."]
@@ -82,3 +83,18 @@ offset_top = 14.0
 offset_right = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MazePainter" type="Control" parent="_DevGUI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -115.0
+offset_right = -13.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("6_irw78")

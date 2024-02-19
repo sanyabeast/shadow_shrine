@@ -305,3 +305,19 @@ func reset_visited():
 	for row in cells:
 		for cell in row:
 			cell.visited = false
+			
+func get_cell_category_pretty_name(cat: ECellCategory)->String:
+	match cat:
+		ECellCategory.Empty:
+			return "Empty"
+		ECellCategory.Default:
+			return "Default"
+		ECellCategory.Shortcut:
+			return "Shortcut"
+		ECellCategory.Loop:
+			return "Loop"
+		ECellCategory.Start:
+			return "Start"
+		ECellCategory.End:
+			return "End"
+	return "?"

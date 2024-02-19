@@ -2,6 +2,8 @@ extends Node3D
 
 class_name S2RoomController
 
+const TAG: String = "RoomController"
+
 @export var player_spawn: Node3D
 @export var doors_opened: bool = false
 
@@ -23,20 +25,15 @@ class_name S2RoomController
 var door_controllers: Dictionary = {}
 var game_mode: S2GameModeDefaultGame
 
-func _apply_doors_map():
-	for dir in world.directions_list:
-		if doors_map[dir] == true:
-			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
-			var cell_idx = world_to_gridmap(walls_gridmap, door_controllers[dir].global_position)
-			print("cell idx for %s door: %s" % [dir, cell_idx])
-			walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, door_controllers[dir].global_position), -1)
-			door_controllers[dir].show()
-		else:
-			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
-			door_controllers[dir].hide()
-	
 		
 # Called when the node enters the scene tree for the first time.
+
+func _to_string():
+	var pretty_door_map = {}
+	for dir in world.directions_list:
+		pretty_door_map[world.get_direction_pretty_name(dir)] = doors_map[dir]
+	return "RoomController(name: %s, doors: %s)" % [name, pretty_door_map]
+
 func _ready():
 	if auto_initialize:
 		initialize()
@@ -47,6 +44,8 @@ func initialize():
 	doors_container.global_position.y = 0
 	_traverse(self)
 	_apply_doors_map()
+	
+	dev.logd(TAG, "room initialized: %s" % self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -62,6 +61,20 @@ func _traverse(node):
 	# Recursively call this function on all children
 	for child in node.get_children():
 		_traverse(child)
+
+
+func _apply_doors_map():
+	for dir in world.directions_list:
+		if doors_map[dir] == true:
+			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
+			var cell_idx = world_to_gridmap(walls_gridmap, door_controllers[dir].global_position)
+			print("cell idx for %s door: %s" % [dir, cell_idx])
+			walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, door_controllers[dir].global_position), -1)
+			door_controllers[dir].show()
+		else:
+			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
+			door_controllers[dir].hide()
+	
 
 func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	var cell_x: int = 0
@@ -79,12 +92,13 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	
 func handle_player_entered_door_area(door: S2DoorController, player: S2Character):
 	if doors_opened:
-		print("player %s entered door %s" % [player.name, door.direction])
+		dev.logd(TAG, "player %s entered door %s at room" % [player.name, world.get_direction_pretty_name(door.direction), self])
 		game_mode.handle_player_entered_door_area(door.direction, player)
+		close_doors()
 	
 
 func handle_player_exited_door_area(door: S2DoorController, player: S2Character):
-	print("player %s exited door %s" % [player.name, door.direction])
+	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
 	game_mode.handle_player_exited_door_area(door.direction, player)
 	
 func open_doors():

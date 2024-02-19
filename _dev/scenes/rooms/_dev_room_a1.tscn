@@ -104,7 +104,6 @@ skeleton = NodePath("")
 [node name="EastDoor" type="Area3D" parent="Doors"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11, 0.5, -1)
 script = ExtResource("2_6gfx0")
-direction = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/EastDoor"]
 shape = SubResource("BoxShape3D_sey77")
@@ -117,7 +116,6 @@ skeleton = NodePath("")
 [node name="SouthDoor" type="Area3D" parent="Doors"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0.5, 3)
 script = ExtResource("2_6gfx0")
-direction = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/SouthDoor"]
 shape = SubResource("BoxShape3D_sey77")
@@ -130,7 +128,6 @@ skeleton = NodePath("")
 [node name="WestDoor" type="Area3D" parent="Doors"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0.5, -1)
 script = ExtResource("2_6gfx0")
-direction = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/WestDoor"]
 shape = SubResource("BoxShape3D_sey77")

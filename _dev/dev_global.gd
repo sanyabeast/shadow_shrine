@@ -5,9 +5,9 @@ class_name S2DevGlobal
 const TAG: String = "DevScript: "
 
 var screen_printer: S2DevScreenPrinter
+var maze_painter: S2MazeDebugPainter
 
 var _queued_screen_printer_messages = {}
-
 
 func logd(tag: String, data):
 	print("%s: %s" % [tag, data])
@@ -20,6 +20,9 @@ func print_screen(topic: String, message: String):
 		screen_printer.print(topic, message)
 	else:
 		_queued_screen_printer_messages[topic] = message
+
+func set_maze_painter(node: S2MazeDebugPainter):
+	maze_painter = node
 
 func set_screen_printer(node: S2DevScreenPrinter):
 	screen_printer = node
