@@ -79,5 +79,8 @@ func _process(delta):
 	
 	rotate_body(delta)
 	
+	if weapon:
+		weapon.keeper = self
+	
 	pass
 	#aim_rig.rotation_degrees.y = _target_aim_rotation

@@ -11,6 +11,9 @@ radius = 0.45
 script = ExtResource("1_8c6vy")
 use_as_player = true
 
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.454, 0)
 shape = SubResource("SphereShape3D_fo6s2")

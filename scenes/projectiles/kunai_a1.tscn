@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://4qcybpvtpw3o"]
+[gd_scene load_steps=13 format=3 uid="uid://4qcybpvtpw3o"]
 
 [ext_resource type="Script" path="res://scripts/weapons/projectile.gd" id="1_1flo4"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_config.gd" id="2_6awg3"]
+[ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/gingie - knife throw.ogg" id="3_4gykh"]
 [ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="3_l0uip"]
+[ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="4_5osib"]
 [ext_resource type="Texture2D" uid="uid://go6cgo1nf51g" path="res://assets/props/jerdelia/textures/Image_1.007.png" id="4_jpmn0"]
 [ext_resource type="Texture2D" uid="uid://d3cf0uxq4i0ee" path="res://assets/props/jerdelia/textures/Image_2.007.png" id="5_teyud"]
 
@@ -65,12 +67,33 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
-[node name="KunaiProjectileA1" type="Area3D"]
+[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("launch_audio_stream", "block_audio_stream", "hit_audio_stream", "body")]
 script = ExtResource("1_1flo4")
 config = SubResource("Resource_wdgtl")
+launch_audio_stream = NodePath("LaunchAudioStream")
+launch_audio_pitch_min = 0.9
+launch_audio_pitch_max = 1.1
+block_audio_stream = NodePath("BlockAudioStream")
+block_audio_pitch_min = 0.95
+block_audio_pitch_max = 1.05
+hit_audio_stream = NodePath("HitAudioStream")
+body = NodePath("Body")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_c4877")
+
+[node name="LaunchAudioStream" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_4gykh")
+attenuation_model = 1
+max_db = -1.0
+
+[node name="BlockAudioStream" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_5osib")
+volume_db = -12.0
+max_db = -3.0
+panning_strength = 3.0
+
+[node name="HitAudioStream" type="AudioStreamPlayer3D" parent="."]
 
 [node name="Body" type="Node3D" parent="."]
 

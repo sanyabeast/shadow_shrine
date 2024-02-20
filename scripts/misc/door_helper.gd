@@ -16,6 +16,9 @@ var opened: bool = false
 @onready var entering_area: CollisionShape3D = $EnteringArea
 @onready var blocker: StaticBody3D = $Blocker
 
+@export var open_audio_stream: AudioStreamPlayer3D
+@export var close_audio_stream: AudioStreamPlayer3D
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,12 +61,20 @@ func open():
 	blocker.process_mode = Node.PROCESS_MODE_DISABLED
 	#body.hide()
 	anim_player.play("Open")
+	
+	if open_audio_stream:
+		open_audio_stream.play()
+	
 	opened = true
 	
-func close(skip_animation = false):
+func close(skip_effects = false):
 	entering_area.disabled = true
 	blocker.process_mode = Node.PROCESS_MODE_ALWAYS
-	if not skip_animation:
+	if not skip_effects:
 		anim_player.play("Close")
+	
+		if close_audio_stream:
+			close_audio_stream.play()	
+			
 	#body.show()
 	opened = false

@@ -40,13 +40,13 @@ func prepare():
 	game.resume()
 
 func reset():
-	reset_maze()
 	_is_new_game_session = true
+	reset_maze()
 
 func reset_maze():
-	maze_generator.grid_size = 4
-	maze_generator.sparseness = 0.1
-	maze_generator.dead_ends_ratio = 0.8
+	maze_generator.grid_size = 3
+	maze_generator.sparseness = 0.4
+	maze_generator.dead_ends_ratio = 0.7
 	maze_generator.shortcuts_ratio = 0.1
 	maze_generator.generate()
 	print(maze_generator.cells)
