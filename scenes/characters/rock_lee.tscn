@@ -13,6 +13,8 @@
 script = ExtResource("2_hriub")
 speed = 5.0
 default_weapon = ExtResource("8_f2obc")
+patrolling_distance = 5.0
+target_position_refresh_timeout = 3.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y6lm4"]
 radius = 0.245

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
 [ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://data/characters/boxed_slime.tres" id="2_cr5n3"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="5_r0ga2"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="6_tnji0"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://data/weapons/_baloons.tres" id="8_1x2es"]
+[ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
+[ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="10_u43gf"]
+[ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="11_87sdp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.4
@@ -57,6 +60,53 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ah42i")
 
+[sub_resource type="Curve" id="Curve_mesge"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330731, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qyv7d"]
+curve = SubResource("Curve_mesge")
+
+[sub_resource type="Curve" id="Curve_bq35f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.220724, 0.483773), 0.749346, 0.749346, 0, 0, Vector2(0.802697, 0.496182), 0.741776, 0.741776, 0, 0, Vector2(1, 1), 2.87802, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_bipch"]
+curve = SubResource("Curve_bq35f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wuxt"]
+emission_shape = 3
+emission_box_extents = Vector3(0.4, 0.4, 0.4)
+angle_min = -30.0
+angle_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_bipch")
+alpha_curve = SubResource("CurveTexture_qyv7d")
+hue_variation_max = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6dgcb"]
+transparency = 1
+shading_mode = 2
+specular_mode = 2
+disable_ambient_light = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("10_u43gf")
+emission_enabled = true
+emission_texture = ExtResource("11_87sdp")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+distance_fade_max_distance = 14.75
+
+[sub_resource type="QuadMesh" id="QuadMesh_f6n61"]
+material = SubResource("StandardMaterial3D_6dgcb")
+size = Vector2(0.1, 0.1)
+
 [node name="BoxedSlime" type="CharacterBody3D"]
 script = ExtResource("1_axkfw")
 config = ExtResource("2_cr5n3")
@@ -84,3 +134,12 @@ transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500325, -0.34011)
 script = ExtResource("6_tnji0")
 config = ExtResource("8_1x2es")
+
+[node name="NPCController" type="Node" parent="."]
+script = ExtResource("9_25a3r")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.411516, 0.0325854)
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_6wuxt")
+draw_pass_1 = SubResource("QuadMesh_f6n61")

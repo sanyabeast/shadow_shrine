@@ -66,3 +66,20 @@ func get_direction_pretty_name(dir: EDirection) -> String:
 		EDirection.West:
 			return "West"
 	return "?"
+	
+	
+func get_random_reachable_point_in_square(origin: Vector3, square_size: float):
+	var random_point: Vector3 = Vector3(
+		origin.x + randf_range(-square_size / 2, square_size / 2),
+		origin.y + randf_range(-square_size / 2, square_size / 2),
+		origin.z + randf_range(-square_size / 2, square_size / 2)
+	)
+	
+	var reachable_point: Vector3 = get_closest_reachable_point(random_point)
+	return reachable_point
+
+func get_closest_reachable_point(point: Vector3)->Vector3:
+	if NavigationServer3D.get_maps().size() > 0:
+		return NavigationServer3D.map_get_closest_point(NavigationServer3D.get_maps()[0], point)
+	else:
+		return point

@@ -13,10 +13,12 @@ class_name S2Character
 @export_subgroup("NPC Mode")
 @export var is_friendly: bool = false
 
+
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
 var cooldown: S2CooldownManager = S2CooldownManager.new()
+var npc_controller: S2NPCController
 
 var weapon: S2WeaponController
 
@@ -25,6 +27,10 @@ func _ready():
 	if use_as_player:
 		player.set_active(self)
 		
+	if npc_controller == null:
+		npc_controller = S2NPCController.new()
+	
+	npc_controller.initialize(self)
 	characters.register(self)
 
 func _exit_tree():
@@ -33,6 +39,9 @@ func _exit_tree():
 func _traverse(node):
 	if node is S2WeaponController:
 		weapon = node
+		
+	if node is S2NPCController:
+		npc_controller = node
 		
 	# Recursively call this function on all children
 	for child in node.get_children():
