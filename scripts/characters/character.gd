@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 class_name S2Character
 
-const SPEED = 5.0
+@export var config: RCharacterConfig
 
 @onready var body: Node3D = $Body
 @onready var aim_rig: Node3D = $Aim
@@ -24,6 +24,11 @@ func _ready():
 	_traverse(self)
 	if use_as_player:
 		player.set_active(self)
+		
+	characters.register(self)
+
+func _exit_tree():
+	characters.discharge(self)
 
 func _traverse(node):
 	if node is S2WeaponController:
@@ -34,14 +39,13 @@ func _traverse(node):
 		_traverse(child)
 
 func _physics_process(delta):
-	velocity.x = walk_direction.x * walk_power * SPEED
-	velocity.z = walk_direction.z * walk_power * SPEED
+	velocity.x = walk_direction.x * walk_power * config.speed
+	velocity.z = walk_direction.z * walk_power * config.speed
 	velocity.y = 0
 	
 	move_and_slide()
 	
 	global_position.y = 0
-
 
 	
 func rotate_body(delta):

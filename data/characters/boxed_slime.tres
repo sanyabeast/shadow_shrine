@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RCharacterConfig" load_steps=3 format=3 uid="uid://d4lriv2nvp46m"]
+
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://data/weapons/kunai.tres" id="1_7bok5"]
+[ext_resource type="Script" path="res://scripts/resources/character_config.gd" id="1_r4lff"]
+
+[resource]
+script = ExtResource("1_r4lff")
+speed = 1.0
+default_weapon = ExtResource("1_7bok5")

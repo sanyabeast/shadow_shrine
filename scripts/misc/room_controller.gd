@@ -4,6 +4,8 @@ class_name S2RoomController
 
 const TAG: String = "RoomController"
 
+@export var config: RRoomConfig
+
 @export var player_spawn: Node3D
 @export var doors_opened: bool = false
 
@@ -22,12 +24,23 @@ const TAG: String = "RoomController"
 @export_subgroup("Misc")
 @export var auto_initialize: bool = false
 
+@export_subgroup("Spots")
+@export var enemy_spots: Node3D
+@export var pickup_spots: Node3D
+@export var chest_spots: Node3D
+
 var door_controllers: Dictionary = {}
 var game_mode: S2GameModeDefaultGame
 
 @export_subgroup("Camera Contstraints")
 @export var camera_constraint_min: Node3D
 @export var camera_constraint_max: Node3D
+
+var _enemy_spots_list: Array[Node3D] = []
+var _pickup_spots_list: Array[Node3D] = []
+var _chest_spots_list: Array[Node3D] = []
+
+var _active_enemies: Array[S2Character]
 		
 # Called when the node enters the scene tree for the first time.
 
@@ -46,7 +59,9 @@ func _ready():
 func initialize():
 	doors_container.global_position.y = 0
 	_traverse(self)
+	_init_spots()
 	_apply_doors_map()
+	_apply_spots()
 	
 	dev.logd(TAG, "room initialized: %s" % self)
 
@@ -65,6 +80,40 @@ func _traverse(node):
 	for child in node.get_children():
 		_traverse(child)
 
+
+func _init_spots():
+	if enemy_spots != null:
+		for spot in enemy_spots.get_children():
+			if spot is Node3D:
+				_enemy_spots_list.append(spot)
+				
+	if pickup_spots != null:
+		for spot in pickup_spots.get_children():
+			if spot is Node3D:
+				_pickup_spots_list.append(spot)
+	
+	if chest_spots != null:
+		for spot in chest_spots.get_children():
+			if spot is Node3D:
+				_chest_spots_list.append(spot)
+	
+	dev.logd(TAG, "room spots set up. found %s enemy spots, %s pickup spots, %s chest spots" % [_enemy_spots_list.size(), _pickup_spots_list.size(), _chest_spots_list.size()])
+
+func _apply_spots():
+	for spot in _enemy_spots_list:
+		_spawn_enemy(spot)
+
+func _spawn_enemy(spot: Node3D):
+	if config != null and config.enemies.size() > 0:
+		var prefab: PackedScene = tools.get_random_element_from_array(config.enemies)
+		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
+		var enemy: S2Character = prefab.instantiate()
+		_active_enemies.append(enemy)
+		add_child(enemy)
+		enemy.global_position = spot.global_position
+	else:
+		dev.logr(TAG, "unable to spawn enemys at specifiet spot: room config not congigured proprly")
+	pass
 
 func _apply_doors_map():
 	for dir in world.directions_list:

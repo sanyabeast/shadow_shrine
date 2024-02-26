@@ -71,11 +71,7 @@ shadow_mesh = SubResource("ArrayMesh_2ysj3")
 script = ExtResource("1_1flo4")
 config = SubResource("Resource_wdgtl")
 launch_audio_stream = NodePath("LaunchAudioStream")
-launch_audio_pitch_min = 0.9
-launch_audio_pitch_max = 1.1
 block_audio_stream = NodePath("BlockAudioStream")
-block_audio_pitch_min = 0.95
-block_audio_pitch_max = 1.05
 hit_audio_stream = NodePath("HitAudioStream")
 body = NodePath("Body")
 
