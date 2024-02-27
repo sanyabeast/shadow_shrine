@@ -99,13 +99,13 @@ func _handle_hit():
 
 func _process(delta):
 	
-	if _is_launched:
-		if cooldown.ready("max_lifetime"):
-			queue_free()
-			
+	if _is_launched and not _is_wasted:
 		global_position += -basis.z * current_velocity * delta
 		
 		current_velocity += config.acceleration * delta	
 		current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
+	
+	if cooldown.ready("max_lifetime"):
+			queue_free()
 		
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=30 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
 [ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://data/characters/boxed_slime.tres" id="2_cr5n3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="10_u43gf"]
 [ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="11_87sdp"]
+[ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://data/materials/particles/slime_puddle_a1.tres" id="12_uaxpa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.4
@@ -107,6 +108,31 @@ distance_fade_max_distance = 14.75
 material = SubResource("StandardMaterial3D_6dgcb")
 size = Vector2(0.1, 0.1)
 
+[sub_resource type="Gradient" id="Gradient_1rkra"]
+offsets = PackedFloat32Array(0, 0.258779, 1)
+colors = PackedColorArray(0, 1, 0, 0, 0.47451, 1, 0, 0.117647, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_71h33"]
+gradient = SubResource("Gradient_1rkra")
+
+[sub_resource type="Curve" id="Curve_pnhoc"]
+_data = [Vector2(0, 0.458954), 0.0, 0.0, 0, 0, Vector2(0.611072, 0.583048), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_twjbq"]
+curve = SubResource("Curve_pnhoc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wp6gq"]
+particle_flag_rotate_y = true
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_twjbq")
+color_ramp = SubResource("GradientTexture1D_71h33")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bmd5d"]
+material = ExtResource("12_uaxpa")
+
 [node name="BoxedSlime" type="CharacterBody3D"]
 script = ExtResource("1_axkfw")
 config = ExtResource("2_cr5n3")
@@ -138,8 +164,16 @@ config = ExtResource("8_1x2es")
 [node name="NPCController" type="Node" parent="."]
 script = ExtResource("9_25a3r")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="ToxicBubbles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.411516, 0.0325854)
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_6wuxt")
 draw_pass_1 = SubResource("QuadMesh_f6n61")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0207732, 0.174548, 0.014725)
+amount = 4
+lifetime = 2.0
+visibility_aabb = AABB(-3.93457, -4, -4, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_wp6gq")
+draw_pass_1 = SubResource("PlaneMesh_bmd5d")
