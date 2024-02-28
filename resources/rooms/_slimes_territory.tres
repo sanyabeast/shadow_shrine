@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RRoomConfig" load_steps=3 format=3 uid="uid://parbjaiw46e5"]
+
+[ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/boxed_slime.tscn" id="1_4jbu4"]
+[ext_resource type="Script" path="res://scripts/resources/room_config.gd" id="2_0pc0g"]
+
+[resource]
+script = ExtResource("2_0pc0g")
+enemies = Array[PackedScene]([ExtResource("1_4jbu4")])

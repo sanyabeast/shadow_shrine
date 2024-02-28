@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="3_v2165"]
 [ext_resource type="Texture2D" uid="uid://dj3u40lm6ye5w" path="res://assets/props/jerdelia/textures/Normals_0.001.png" id="4_ldgch"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="6_y11qg"]
-[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://data/weapons/kunai.tres" id="8_f2obc"]
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/kunai.tres" id="8_f2obc"]
 
 [sub_resource type="Resource" id="Resource_8timg"]
 script = ExtResource("2_hriub")

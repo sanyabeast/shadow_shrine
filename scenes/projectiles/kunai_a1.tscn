@@ -126,6 +126,7 @@ skeleton = NodePath("")
 
 [node name="Trail" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0.15)
+amount = 100
 lifetime = 100.0
 explosiveness = 1.0
 fixed_fps = 0

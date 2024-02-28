@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4xjw5gcn3d0n"]
 
 [ext_resource type="Script" path="res://scripts/misc/room_controller.gd" id="1_xljwn"]
-[ext_resource type="Resource" uid="uid://parbjaiw46e5" path="res://data/rooms/_slimes_territory.tres" id="2_hdj03"]
+[ext_resource type="Resource" uid="uid://parbjaiw46e5" path="res://resources/rooms/_slimes_territory.tres" id="2_hdj03"]
 [ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/jerdelia_a1.tres" id="2_ssx6g"]
 [ext_resource type="PackedScene" uid="uid://b2dpxeii4p11d" path="res://scenes/misc/door_basic_a1.tscn" id="3_lmu73"]
 

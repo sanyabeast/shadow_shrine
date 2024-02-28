@@ -15,10 +15,12 @@ run/main_scene="res://scenes/levels/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
 config/icon="res://icon.svg"
+config/data_index="res://resources/data/index.tres"
 
 [autoload]
 
 tools="*res://scripts/utils/tools.gd"
+app="*res://scripts/core/app.gd"
 world="*res://scripts/core/world.gd"
 characters="*res://scripts/core/characters.gd"
 player="*res://scripts/core/player.gd"
@@ -35,8 +37,8 @@ enabled=PackedStringArray("res://addons/gpu_trail/plugin.cfg")
 folder_colors={
 "res://_dev/": "red",
 "res://assets/": "purple",
-"res://data/": "blue",
 "res://misc/": "gray",
+"res://resources/": "blue",
 "res://scenes/": "teal",
 "res://scripts/": "yellow"
 }

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RDataCard" load_steps=2 format=3 uid="uid://v0r4nolw1a0h"]
+
+[ext_resource type="Script" path="res://scripts/resources/data_card.gd" id="1_mamhx"]
+
+[resource]
+script = ExtResource("1_mamhx")
+name = "damage"
+title = "Damage"
+summary = "Damage is the power behind your every attack, serving as a multiplier that amplifies the impact of each weapon or ability your character wields in the game"
+extras = {}

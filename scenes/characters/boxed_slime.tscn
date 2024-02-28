@@ -1,17 +1,17 @@
 [gd_scene load_steps=30 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
-[ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://data/characters/boxed_slime.tres" id="2_cr5n3"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
+[ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://resources/characters/boxed_slime.tres" id="2_vw4ig"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="5_r0ga2"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="6_tnji0"]
-[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://data/weapons/_baloons.tres" id="8_1x2es"]
+[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="8_6nl4f"]
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="10_u43gf"]
 [ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="11_87sdp"]
-[ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://data/materials/particles/slime_puddle_a1.tres" id="12_uaxpa"]
+[ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://resources/materials/particles/slime_puddle_a1.tres" id="12_gaolx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.4
@@ -131,11 +131,11 @@ scale_curve = SubResource("CurveTexture_twjbq")
 color_ramp = SubResource("GradientTexture1D_71h33")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bmd5d"]
-material = ExtResource("12_uaxpa")
+material = ExtResource("12_gaolx")
 
 [node name="BoxedSlime" type="CharacterBody3D"]
 script = ExtResource("1_axkfw")
-config = ExtResource("2_cr5n3")
+config = ExtResource("2_vw4ig")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -159,7 +159,7 @@ transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0
 [node name="Weapon" type="Node3D" parent="Aim"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500325, -0.34011)
 script = ExtResource("6_tnji0")
-config = ExtResource("8_1x2es")
+config = ExtResource("8_6nl4f")
 
 [node name="NPCController" type="Node" parent="."]
 script = ExtResource("9_25a3r")

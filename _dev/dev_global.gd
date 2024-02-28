@@ -10,10 +10,10 @@ var maze_painter: S2MazeDebugPainter
 var _queued_screen_printer_messages = {}
 
 func logd(tag: String, data):
-	print("%s: %s" % [tag, data])
+	print("[ %s ]: %s" % [tag, data])
 	
 func logr(tag: String, data):
-	print("%s: [ERROR!] %s" % [tag, data])
+	print("[ %s ]: [ ERROR! ] %s" % [tag, data])
 
 func print_screen(topic: String, message: String):
 	if screen_printer != null:

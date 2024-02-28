@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RDataIndex" load_steps=3 format=3 uid="uid://daf3eqsem4sqr"]
+
+[ext_resource type="Script" path="res://scripts/resources/data_index.gd" id="1_xqbon"]
+[ext_resource type="Resource" uid="uid://e1rpi20npnfi" path="res://resources/data/skills.tres" id="2_sovvv"]
+
+[resource]
+script = ExtResource("1_xqbon")
+skills = ExtResource("2_sovvv")
