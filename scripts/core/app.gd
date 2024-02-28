@@ -5,7 +5,10 @@ class_name RApp
 const TAG: String = "App"
 
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
+
 var data: RDataIndex
+var tasks: S2TaskPlanner = S2TaskPlanner.new(false)
+var cooldowns: S2CooldownManager = S2CooldownManager.new(false)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

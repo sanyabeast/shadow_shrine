@@ -36,6 +36,9 @@ func _process(delta):
 	dev.print_screen("game_timme", "game time: %s" % [time])	
 	pass
 
+func get_time() -> float:
+	return time
+
 func resume():
 	paused = false
 	

@@ -5,7 +5,7 @@ class_name S2WeaponController
 @export var config: RWeaponConfig
 @export var keeper: Node3D
 
-var cooldowns: S2CooldownManager = S2CooldownManager.new()
+var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

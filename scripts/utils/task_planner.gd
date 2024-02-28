@@ -10,20 +10,22 @@ class Task:
 	var start_callback
 	var finish_callback
 	var started_at: float = -1
+	var use_game_time: bool = false
 	
-	func _init(_owner: Node3D, _id: String, _duration: float, _start_callback, _finish_callback):
+	func _init(_owner: Node3D, _id: String, _duration: float, _start_callback, _finish_callback, _use_game_time):
 		owner = _owner
 		id = _id
 		duration = _duration
 		start_callback = _start_callback
 		finish_callback = _finish_callback
+		use_game_time = _use_game_time
 	func is_expired()->bool:
 		if started_at < 0:
 			return false
 		else:
-			return (tools.get_time() - started_at) > duration
+			return (get_time() - started_at) > duration
 	func start():
-		started_at = tools.get_time()
+		started_at = get_time()
 		
 		if start_callback != null:
 			start_callback.call()
@@ -33,11 +35,21 @@ class Task:
 	
 	func is_valid()->bool:
 		return owner != null
+		
+	func get_time() -> float:
+		if use_game_time:
+			return game.get_time()
+		else:
+			return tools.get_time()	
 
 # TaskPlanner props
 var list: Array[Task] = []
 var schedule_list = {}
 var current: Task
+var use_game_time: bool = false
+
+func _init(_use_game_time: bool):
+	use_game_time = _use_game_time
 
 # TaskPlanner methods
 func update():
@@ -71,7 +83,8 @@ func queue(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 		id,
 		duration,
 		start_callback,
-		finish_callback
+		finish_callback,
+		use_game_time
 	))
 	print("[TaskPlanner] task ADDED to queue %s %s" % [owner.name, id])
 	pass
@@ -83,12 +96,13 @@ func stack(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 		duration,
 		start_callback,
 		finish_callback,
+		use_game_time
 	))
 	print("[TaskPlanner] task ADDED to stack %s %s" % [owner.name, id])
 	pass
 	
 func schedule(owner: Node3D, id: String, timeout: float, finish_callback):
-	var task: Task = Task.new(owner, id, timeout, null, finish_callback)
+	var task: Task = Task.new(owner, id, timeout, null, finish_callback, use_game_time)
 	S2TaskPlanner._schedule_task_index_counter += 1	
 	schedule_list[S2TaskPlanner._schedule_task_index_counter] = task
 	task.start()

@@ -17,7 +17,7 @@ class_name S2Character
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
-var cooldown: S2CooldownManager = S2CooldownManager.new()
+var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 var npc_controller: S2NPCController
 
 var weapon: S2WeaponController
@@ -48,18 +48,19 @@ func _traverse(node):
 		_traverse(child)
 
 func _physics_process(delta):
-	velocity.x = walk_direction.x * walk_power * config.speed
-	velocity.z = walk_direction.z * walk_power * config.speed
-	velocity.y = 0
-	
-	move_and_slide()
-	
-	global_position.y = 0
+	if not game.paused:
+		velocity.x = walk_direction.x * walk_power * config.speed
+		velocity.z = walk_direction.z * walk_power * config.speed
+		velocity.y = 0
+		
+		move_and_slide()
+		
+		global_position.y = 0
 
 	
 func rotate_body(delta):
 	 # Rotate the body toward the move direction if not aiming
-	if cooldown.ready("body_to_look", true) and walk_direction.length_squared() > 0:
+	if cooldowns.ready("body_to_look", true) and walk_direction.length_squared() > 0:
 		body.look_at(body.global_position + walk_direction, Vector3.UP)
 	else:
 		body.look_at(body.global_position + look_direction, Vector3.UP)
@@ -78,7 +79,7 @@ func set_walk_direction(value: Vector2):
 func set_look_direction(value: Vector2):
 	if value.length() > 0.1:
 		print(value.length())
-		cooldown.start("body_to_look", 2)
+		cooldowns.start("body_to_look", 2)
 		value = tools.restrict_to_8_axis(value)
 		look_direction = Vector3(value.x, 0, value.y)
 

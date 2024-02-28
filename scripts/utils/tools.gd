@@ -2,6 +2,12 @@ extends Node
 
 class_name S2Tools
 
+func logd(tag: String, data):
+	print("[ %s ]: %s" % [tag, data])
+	
+func logr(tag: String, data):
+	print("[ %s ]: [ ERROR! ] %s" % [tag, data])
+
 # Recursive function to get all descendants with a specific substring in their names
 func get_descendants_with_substring(root: Node, substring: String, matching_nodes: Array) -> Array:
 	for child in root.get_children():

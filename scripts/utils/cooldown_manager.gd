@@ -1,27 +1,40 @@
 class_name S2CooldownManager
 
+var use_game_time: bool = false
 var _cooldowns_data = {}
 
 class CooldownItem:
 	var id: String
 	var started_at: float = 0
 	var duration: float = 0
-	func _init(_id: String, _duration: float):
+	var use_game_time: bool = false
+	
+	func _init(_id: String, _duration: float, _use_game_time: bool):
 		id = _id
+		use_game_time = _use_game_time
 		start(_duration)
 	func start(_duration: float):
 		duration = _duration
-		started_at = tools.get_time()
+		started_at = get_time()
 	func ready()->bool:
 		return progress() >= 1
 	func progress()->float:
-		return clampf((tools.get_time() - started_at) / duration, 0.0, 1.0)
+		return clampf((get_time() - started_at) / duration, 0.0, 1.0)
 	func estimated()->float:
-		return clampf(duration - (tools.get_time() - started_at), 0, duration)
+		return clampf(duration - (get_time() - started_at), 0, duration)
+
+	func get_time() -> float:
+		if use_game_time:
+			return game.get_time()
+		else:
+			return tools.get_time()
+
+func _init(_use_game_time: bool):
+	use_game_time = _use_game_time
 
 func start(id: String, duration: float):
 	if not _cooldowns_data.has(id):
-		_cooldowns_data[id] = CooldownItem.new(id, duration)
+		_cooldowns_data[id] = CooldownItem.new(id, duration, use_game_time)
 	else:
 		_cooldowns_data[id].start(duration)
 func exists(id: String):

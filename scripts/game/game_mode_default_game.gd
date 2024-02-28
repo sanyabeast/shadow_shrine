@@ -2,7 +2,7 @@ extends S2GameMode
 
 class_name S2GameModeDefaultGame
 
-const TAG = "GameModeDefaultGame: "
+const TAG = "GameModeDefaultGame"
 
 @export var config: RGameLevelConfig
 
@@ -18,7 +18,7 @@ var current_maze_cell: S2MazeGenerator.Cell = null
 var current_room: S2RoomController
 var EDirection = world.EDirection
 
-var tasks: S2TaskPlanner = S2TaskPlanner.new()
+var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
 
 var rooms_data: Dictionary = {}
 
@@ -37,6 +37,7 @@ func prepare():
 	
 	reset()
 	
+	gui.set_mode(S2GUI.EMode.InGame)
 	game.resume()
 
 func reset():
@@ -86,8 +87,6 @@ func spawn_room(from_direction):
 	current_room.game_mode = self
 	current_room.initialize()
 	
-	# setting up camera restrictions
-	_apply_camera_constraints_for_current_room()
 	
 	var player_spawn = current_room
 	
@@ -152,7 +151,9 @@ func _process(delta):
 	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
 	
+	if Input.is_action_just_pressed("pause"):
+		if game.paused:
+			game.resume()
+		else:
+			game.pause()
 
-func _apply_camera_constraints_for_current_room():
-	camera.constraint_min = current_room.camera_constraint_min.global_position
-	camera.constraint_max = current_room.camera_constraint_max.global_position

@@ -21,7 +21,8 @@ func discharge(character: S2Character):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	dev.print_screen("total_characters", "active characters: %s" % list.size())
-	_update_npcs(delta)
+	if not game.paused:
+		_update_npcs(delta)
 
 func _update_npcs(delta):
 	for character in list:
