@@ -87,7 +87,6 @@ func spawn_room(from_direction):
 	current_room.game_mode = self
 	current_room.initialize()
 	
-	
 	var player_spawn = current_room
 	
 	if _is_new_game_session:

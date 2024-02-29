@@ -1,9 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://b2dpxeii4p11d"]
+[gd_scene load_steps=28 format=3 uid="uid://b2dpxeii4p11d"]
 
 [ext_resource type="Script" path="res://scripts/misc/door_helper.gd" id="1_mxn31"]
 [ext_resource type="Texture2D" uid="uid://c6aptq7b747jx" path="res://assets/props/jerdelia/textures/Image_10.003.png" id="2_2vggk"]
 [ext_resource type="Texture2D" uid="uid://cxnvaav6pt6kp" path="res://assets/props/jerdelia/textures/Image_11.002.png" id="3_622wh"]
+[ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/medium_dust_spike_a.tscn" id="3_h518r"]
 [ext_resource type="Texture2D" uid="uid://c8863prec0oc7" path="res://assets/props/jerdelia/textures/Image_12.002.png" id="4_8puwv"]
+[ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="4_al2hb"]
 [ext_resource type="Texture2D" uid="uid://b7guv6jdsvh5l" path="res://assets/props/jerdelia/textures/Image_6.003.png" id="5_wdc0l"]
 [ext_resource type="Texture2D" uid="uid://vmckjrwj562e" path="res://assets/props/jerdelia/textures/Image_7.003.png" id="6_vhu6p"]
 [ext_resource type="Texture2D" uid="uid://lbn8fpe4mgp0" path="res://assets/props/jerdelia/textures/Image_9.003.png" id="7_rwl1p"]
@@ -12,6 +14,26 @@
 [ext_resource type="Texture2D" uid="uid://0ywi4u2dd0tn" path="res://assets/props/jerdelia/textures/Image_1.006.png" id="10_1mkkv"]
 [ext_resource type="Texture2D" uid="uid://dj6u85o5wiaac" path="res://assets/props/jerdelia/textures/Image_2.006.png" id="11_0y6q1"]
 [ext_resource type="AudioStream" uid="uid://du3uuuoxvmfjt" path="res://assets/_dev/sound/sfx/kyles__door-wood-old-open-hall-echo.ogg" id="12_73adw"]
+
+[sub_resource type="Resource" id="Resource_euv2s"]
+script = ExtResource("4_al2hb")
+audio = ExtResource("12_73adw")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+content = Array[PackedScene]([ExtResource("3_h518r")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_ctjbi"]
+script = ExtResource("4_al2hb")
+audio = ExtResource("12_73adw")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+content = Array[PackedScene]([ExtResource("3_h518r")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_of0dw"]
 resource_name = "rock.003"
@@ -194,13 +216,13 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bespo"]
 
-[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("body", "anim_player", "open_audio_stream", "close_audio_stream")]
+[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("body", "anim_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_mxn31")
 body = NodePath("BodyRoot")
 anim_player = NodePath("BodyRoot/AnimationPlayer")
-open_audio_stream = NodePath("OpenAudioStream")
-close_audio_stream = NodePath("CloseAudioStream")
+open_fx = SubResource("Resource_euv2s")
+close_fx = SubResource("Resource_ctjbi")
 
 [node name="BodyRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
@@ -228,15 +250,3 @@ shape = SubResource("BoxShape3D_bespo")
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-
-[node name="OpenAudioStream" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("12_73adw")
-volume_db = -8.0
-max_db = -4.0
-panning_strength = 3.0
-
-[node name="CloseAudioStream" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("12_73adw")
-volume_db = -16.0
-max_db = -4.0
-panning_strength = 3.0

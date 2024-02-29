@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2vlourw215rg"]
+
+[ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail.gdshader" id="1_publk"]
+[ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail_draw_pass.gdshader" id="2_ifkfk"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/gpu_trail/defaults/curve.tres" id="3_n1bac"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/gpu_trail/defaults/texture.tres" id="4_6sxr6"]
+[ext_resource type="Script" path="res://addons/gpu_trail/GPUTrail3D.gd" id="5_e3fv7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qk8e5"]
+shader = ExtResource("1_publk")
+
+[sub_resource type="Gradient" id="Gradient_ax85i"]
+offsets = PackedFloat32Array(0, 0.803379)
+colors = PackedColorArray(1, 1, 1, 0.803922, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_af4gp"]
+gradient = SubResource("Gradient_ax85i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vy8t1"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_ifkfk")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
+shader_parameter/tex = ExtResource("4_6sxr6")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_af4gp")
+shader_parameter/curve = ExtResource("3_n1bac")
+
+[sub_resource type="QuadMesh" id="QuadMesh_eqed5"]
+material = SubResource("ShaderMaterial_vy8t1")
+
+[node name="Trail" type="GPUParticles3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 0
+process_material = SubResource("ShaderMaterial_qk8e5")
+draw_pass_1 = SubResource("QuadMesh_eqed5")
+script = ExtResource("5_e3fv7")
+color_ramp = SubResource("GradientTexture1D_af4gp")
+curve = ExtResource("3_n1bac")
+billboard = true
+_defaults_have_been_set = true

@@ -16,8 +16,9 @@ var opened: bool = false
 @onready var entering_area: CollisionShape3D = $EnteringArea
 @onready var blocker: StaticBody3D = $Blocker
 
-@export var open_audio_stream: AudioStreamPlayer3D
-@export var close_audio_stream: AudioStreamPlayer3D
+@export_subgroup("Door FX")
+@export var open_fx: RFXConfig
+@export var close_fx: RFXConfig
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,38 +44,40 @@ func _process(delta):
 	pass
 
 func handle_body_entered(body: Node3D):
-	
-	if not has_entered_body:
-		if body is S2Character and player.is_player(body):
-			print("entered %s" % self)
-			has_entered_body = true
-			room_controller.handle_player_entered_door_area(self, body)
+	if visible:
+		if not has_entered_body:
+			if body is S2Character and player.is_player(body):
+				print("entered %s" % self)
+				has_entered_body = true
+				room_controller.handle_player_entered_door_area(self, body)
 	
 func handle_body_exited(body: Node3D):
-	if has_entered_body:
-		if body is S2Character and player.is_player(body):
-			has_entered_body = false
-			room_controller.handle_player_exited_door_area(self, body)
+	if visible:
+		if has_entered_body:
+			if body is S2Character and player.is_player(body):
+				has_entered_body = false
+				room_controller.handle_player_exited_door_area(self, body)
 
 func open():
 	entering_area.disabled = false
 	blocker.process_mode = Node.PROCESS_MODE_DISABLED
 	#body.hide()
-	anim_player.play("Open")
-	
-	if open_audio_stream:
-		open_audio_stream.play()
+	if visible:
+		anim_player.play("Open")
+		
+		if open_fx:
+			world.spawn_fx(open_fx, global_position)
 	
 	opened = true
 	
 func close(skip_effects = false):
 	entering_area.disabled = true
 	blocker.process_mode = Node.PROCESS_MODE_ALWAYS
-	if not skip_effects:
+	if not skip_effects and visible:
 		anim_player.play("Close")
 	
-		if close_audio_stream:
-			close_audio_stream.play()	
+		if close_fx:
+			world.spawn_fx(close_fx, global_position)
 			
 	#body.show()
 	opened = false

@@ -71,9 +71,6 @@ script = ExtResource("1_gm5yu")
 config = SubResource("Resource_8timg")
 use_as_player = true
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.454, 0)
 shape = SubResource("CapsuleShape3D_y6lm4")

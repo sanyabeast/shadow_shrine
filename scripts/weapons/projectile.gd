@@ -6,21 +6,10 @@ const TAG: String = "ProjectileController"
 
 @export var config: RProjectileConfig
 
-@export_category("Projectile Audio")
-@export_subgroup("Launch Audio")
-@export var launch_audio_stream: AudioStreamPlayer3D
-@export var launch_audio_pitch_min: float = 1
-@export var launch_audio_pitch_max: float = 1
-
-@export_subgroup("Block Audio")
-@export var block_audio_stream: AudioStreamPlayer3D
-@export var block_audio_pitch_min: float = 1
-@export var block_audio_pitch_max: float = 1
-
-@export_subgroup("Hit Audio")
-@export var hit_audio_stream: AudioStreamPlayer3D
-@export var hit_audio_pitch_min: float = 1
-@export var hit_audio_pitch_max: float = 1
+@export_subgroup("Projectile FX")
+@export var launch_fx: RFXConfig
+@export var block_fx: RFXConfig
+@export var hit_fx: RFXConfig
 
 @export_subgroup("Body")
 @export var body: Node3D
@@ -31,6 +20,12 @@ const TAG: String = "ProjectileController"
 @export var auto_launch: bool = false
 @export var direction: Vector3 = Vector3.FORWARD
 @export var keeper: Node3D
+
+@export_subgroup("FX Anchors")
+@export var launch_fx_anchor: Node3D
+@export var block_fx_anchor: Node3D
+@export var hit_fx_anchor: Node3D
+
 
 var cooldown: S2CooldownManager = S2CooldownManager.new(true)
 var current_velocity: float = 0
@@ -54,9 +49,12 @@ func launch():
 	current_velocity = config.start_velocity
 	_is_launched = true
 	
-	if launch_audio_stream:
-		launch_audio_stream.pitch_scale = randf_range(launch_audio_pitch_min, launch_audio_pitch_max)
-		launch_audio_stream.play()
+	#if launch_audio_stream:
+		#launch_audio_stream.pitch_scale = randf_range(launch_audio_pitch_min, launch_audio_pitch_max)
+		#launch_audio_stream.play()
+	
+	if launch_fx:
+		world.spawn_fx(launch_fx, global_position, launch_fx_anchor if launch_fx_anchor else self)
 	
 	pass
 
@@ -80,10 +78,11 @@ func _handle_block():
 	
 	if hide_body_on_block and body:
 		body.hide()
-	
-	if block_audio_stream:
-		block_audio_stream.pitch_scale = randf_range(block_audio_pitch_min, block_audio_pitch_max)
-		block_audio_stream.play()
+		
+	if block_fx:
+		world.spawn_fx(block_fx, global_position, block_fx_anchor if block_fx_anchor else self)	
+		
+	_dispose()	
 		
 	pass
 	
@@ -91,14 +90,14 @@ func _handle_hit():
 	if hide_body_on_hit and body:
 		body.hide()
 		
-	if hit_audio_stream:
-		hit_audio_stream.pitch_scale = randf_range(hit_audio_pitch_min, hit_audio_pitch_max)
-		hit_audio_stream.play()
+	if hit_fx:
+		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)
+	
+	_dispose()
 	
 	pass
 
 func _process(delta):
-	
 	if not game.paused:
 		if _is_launched and not _is_wasted:
 			global_position += -basis.z * current_velocity * delta
@@ -107,6 +106,10 @@ func _process(delta):
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		
 		if cooldown.ready("max_lifetime"):
-				queue_free()
+				_dispose()
 		
 	pass
+
+
+func _dispose():
+	queue_free()

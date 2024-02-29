@@ -12,3 +12,5 @@ transform = Transform3D(1, 0, 0, 0, 0.819151, -0.573576, 0, 0.573576, 0.819151, 
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 0, 16, 0)
 fov = 30.0
 size = 10.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="CameraRoot/Camera3D"]

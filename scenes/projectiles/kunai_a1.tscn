@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4qcybpvtpw3o"]
+[gd_scene load_steps=19 format=3 uid="uid://4qcybpvtpw3o"]
 
 [ext_resource type="Script" path="res://scripts/weapons/projectile.gd" id="1_1flo4"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_config.gd" id="2_6awg3"]
@@ -6,11 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="3_l0uip"]
 [ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="4_5osib"]
 [ext_resource type="Texture2D" uid="uid://go6cgo1nf51g" path="res://assets/props/jerdelia/textures/Image_1.007.png" id="4_jpmn0"]
+[ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="4_q2w2w"]
 [ext_resource type="Texture2D" uid="uid://d3cf0uxq4i0ee" path="res://assets/props/jerdelia/textures/Image_2.007.png" id="5_teyud"]
-[ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail.gdshader" id="8_m65vs"]
-[ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail_draw_pass.gdshader" id="9_wbfbs"]
-[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/gpu_trail/defaults/curve.tres" id="11_pascq"]
-[ext_resource type="Script" path="res://addons/gpu_trail/GPUTrail3D.gd" id="12_evwuh"]
+[ext_resource type="PackedScene" uid="uid://d3onpx6i7rexb" path="res://scenes/fx/small_dust_spike_a.tscn" id="7_3dg2l"]
+[ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/small_projectile_flight_trail.tscn" id="9_vhvuo"]
 
 [sub_resource type="Resource" id="Resource_wdgtl"]
 script = ExtResource("2_6awg3")
@@ -20,6 +19,35 @@ min_velocity = 4.0
 max_velocity = 8.0
 max_collisions = 1
 max_lifetime = 10.0
+
+[sub_resource type="Resource" id="Resource_ept1m"]
+script = ExtResource("4_q2w2w")
+audio = ExtResource("3_4gykh")
+audio_pitch_min = 0.95
+audio_pitch_max = 1.05
+content = Array[PackedScene]([ExtResource("9_vhvuo")])
+use_game_time = true
+dispose_strategy = 1
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_npqly"]
+script = ExtResource("4_q2w2w")
+audio = ExtResource("4_5osib")
+audio_pitch_min = 0.95
+audio_pitch_max = 1.05
+content = Array[PackedScene]([ExtResource("7_3dg2l")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 2.0
+
+[sub_resource type="Resource" id="Resource_b33vy"]
+script = ExtResource("4_q2w2w")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+content = Array[PackedScene]([])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c4877"]
 radius = 0.2
@@ -71,51 +99,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qk8e5"]
-shader = ExtResource("8_m65vs")
-
-[sub_resource type="Gradient" id="Gradient_ax85i"]
-offsets = PackedFloat32Array(0, 0.803379)
-colors = PackedColorArray(1, 1, 1, 0.0392157, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_af4gp"]
-gradient = SubResource("Gradient_ax85i")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vy8t1"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("9_wbfbs")
-shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 44
-shader_parameter/color_ramp = SubResource("GradientTexture1D_af4gp")
-shader_parameter/curve = ExtResource("11_pascq")
-
-[sub_resource type="QuadMesh" id="QuadMesh_eqed5"]
-material = SubResource("ShaderMaterial_vy8t1")
-
-[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("launch_audio_stream", "block_audio_stream", "hit_audio_stream", "body")]
+[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("body", "launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
 script = ExtResource("1_1flo4")
 config = SubResource("Resource_wdgtl")
-launch_audio_stream = NodePath("LaunchAudioStream")
-block_audio_stream = NodePath("BlockAudioStream")
-hit_audio_stream = NodePath("HitAudioStream")
+launch_fx = SubResource("Resource_ept1m")
+block_fx = SubResource("Resource_npqly")
+hit_fx = SubResource("Resource_b33vy")
 body = NodePath("Body")
+launch_fx_anchor = NodePath("FXAnchor")
+block_fx_anchor = NodePath("FXAnchor")
+hit_fx_anchor = NodePath("FXAnchor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_c4877")
-
-[node name="LaunchAudioStream" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_4gykh")
-attenuation_model = 1
-max_db = -1.0
-
-[node name="BlockAudioStream" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_5osib")
-volume_db = -12.0
-max_db = -3.0
-panning_strength = 3.0
-
-[node name="HitAudioStream" type="AudioStreamPlayer3D" parent="."]
 
 [node name="Body" type="Node3D" parent="."]
 
@@ -124,16 +120,5 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0003
 mesh = SubResource("ArrayMesh_5s6od")
 skeleton = NodePath("")
 
-[node name="Trail" type="GPUParticles3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0.15)
-amount = 100
-lifetime = 100.0
-explosiveness = 1.0
-fixed_fps = 0
-process_material = SubResource("ShaderMaterial_qk8e5")
-draw_pass_1 = SubResource("QuadMesh_eqed5")
-script = ExtResource("12_evwuh")
-color_ramp = SubResource("GradientTexture1D_af4gp")
-curve = ExtResource("11_pascq")
-billboard = true
-_defaults_have_been_set = true
+[node name="FXAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.146514)
