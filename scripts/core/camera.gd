@@ -35,3 +35,5 @@ func _process(delta):
 	if camera.target_node == null and player.current != null:
 		camera.target_node = player.current
 		
+func get_camera3d():
+	return get_viewport().get_camera_3d()

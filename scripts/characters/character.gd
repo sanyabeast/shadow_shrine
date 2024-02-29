@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 class_name S2Character
+const TAG: String = "Character"
 
 @export var config: RCharacterConfig
 
@@ -20,10 +21,20 @@ var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 var npc_controller: S2NPCController
 
+var skill_system: S2SkillSystem = S2SkillSystem.new()
 var weapon: S2WeaponController
 
 func _ready():
 	_traverse(self)
+	
+	# setting up skills
+	skill_system.add_skill("health", 3, 3)
+	skill_system.add_skill("speed", config.speed, config.speed)
+	skill_system.add_skill("damage", 1, 0)
+	skill_system.add_skill("protection", 1, 0)
+	
+	dev.logd(TAG, "character skill system set up: %s" % skill_system)
+	
 	if use_as_player:
 		player.set_active(self)
 		
@@ -31,6 +42,7 @@ func _ready():
 		npc_controller = S2NPCController.new()
 	
 	npc_controller.initialize(self)
+	
 	characters.register(self)
 
 func _exit_tree():
@@ -96,5 +108,9 @@ func _process(delta):
 	if weapon:
 		weapon.keeper = self
 	
+	dev.set_label(self, {
+		"health": "Health: %s" % skill_system.skills["health"].value,
+		"speed": "Speed: %s" % skill_system.skills["speed"].value
+	})
 	pass
 	#aim_rig.rotation_degrees.y = _target_aim_rotation
