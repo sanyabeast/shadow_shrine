@@ -83,3 +83,12 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 		return NavigationServer3D.map_get_closest_point(NavigationServer3D.get_maps()[0], point)
 	else:
 		return point
+
+func get_scene() -> Node3D:
+	return tools.get_scene()
+
+func spawn_fx(fx_config: RFXConfig):
+	var fx_node: S2FX = S2FX.new()
+	fx_node.config = fx_config
+	get_scene().add_child(fx_node)
+	fx_node.start()
