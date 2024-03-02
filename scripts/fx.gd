@@ -97,6 +97,7 @@ func _process(delta):
 	if _is_started:
 		if bound_object != null:
 			global_position = bound_object.global_position
+			rotation = bound_object.global_rotation
 		
 		if not _is_disposed:
 			match config.dispose_strategy:

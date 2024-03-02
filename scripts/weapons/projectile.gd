@@ -80,7 +80,7 @@ func _handle_block():
 		body.hide()
 		
 	if block_fx:
-		world.spawn_fx(block_fx, global_position, block_fx_anchor if block_fx_anchor else self)	
+		world.spawn_fx(block_fx, global_position, block_fx_anchor if block_fx_anchor else self, global_rotation)	
 		
 	_dispose()	
 		

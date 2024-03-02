@@ -1,12 +1,14 @@
-[gd_scene load_steps=30 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=38 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
 [ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://resources/characters/boxed_slime.tres" id="2_vw4ig"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
+[ext_resource type="Script" path="res://scenes/characters/character_body.gd" id="3_i0uoy"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="5_r0ga2"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="6_tnji0"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/humanoid_basic_a1.tres" id="7_lc31e"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="8_6nl4f"]
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="10_u43gf"]
@@ -60,6 +62,104 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ah42i")
+
+[sub_resource type="Animation" id="Animation_4rwen"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00034612, 0.000649148, -0.00128691)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemy:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uru14"]
+_data = {
+"RESET": SubResource("Animation_4rwen")
+}
+
+[sub_resource type="Animation" id="Animation_a6yde"]
+resource_name = "Death"
+
+[sub_resource type="Animation" id="Animation_qcewh"]
+resource_name = "Idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("enemy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00034612, 0.000649148, -0.00128691)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemy:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.98, 1.04, 0.98), Vector3(1.02, 0.94, 1.02)]
+}
+
+[sub_resource type="Animation" id="Animation_wkmhb"]
+resource_name = "Run"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemy:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 0.95), Vector3(1, 1, 0.95), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.001, -0.05), Vector3(0, 0.001, -0.05), Vector3(0, 0.001, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oxk1m"]
+_data = {
+"Death": SubResource("Animation_a6yde"),
+"Idle": SubResource("Animation_qcewh"),
+"Run": SubResource("Animation_wkmhb")
+}
 
 [sub_resource type="Curve" id="Curve_mesge"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330731, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -142,11 +242,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
 shape = SubResource("CapsuleShape3D_174we")
 
 [node name="Body" type="Node3D" parent="."]
+script = ExtResource("3_i0uoy")
 
 [node name="enemy" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00034612, 0.000649148, -0.00128691)
 mesh = SubResource("ArrayMesh_cl1sr")
 skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+libraries = {
+"": SubResource("AnimationLibrary_uru14"),
+"Basic": SubResource("AnimationLibrary_oxk1m")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Body"]
+libraries = {
+"": SubResource("AnimationLibrary_uru14"),
+"Basic": SubResource("AnimationLibrary_oxk1m")
+}
+tree_root = ExtResource("7_lc31e")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_dead = false
+parameters/Move/blend_position = -0.00531185
 
 [node name="Aim" type="Node3D" parent="."]
 

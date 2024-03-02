@@ -1,0 +1,38 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=8 format=3 uid="uid://dfqbhio11bvio"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g4haj"]
+animation = &"Basic/Death"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_f8g2t"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_g4haj")
+nodes/Animation/position = Vector2(151, 131.5)
+nodes/output/position = Vector2(425, 150)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p4638"]
+animation = &"Basic/Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fq2ce"]
+animation = &"Basic/Run"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_vn620"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_p4638")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_fq2ce")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7dehj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m3gdk"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[resource]
+states/Death/node = SubResource("AnimationNodeBlendTree_f8g2t")
+states/Death/position = Vector2(675, 100.034)
+states/Move/node = SubResource("AnimationNodeBlendSpace1D_vn620")
+states/Move/position = Vector2(465, 99.5422)
+states/Start/position = Vector2(242.5, 100.391)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_7dehj"), "Move", "Death", SubResource("AnimationNodeStateMachineTransition_m3gdk")]
+graph_offset = Vector2(3, 0)

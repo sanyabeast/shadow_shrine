@@ -87,9 +87,11 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 func get_scene() -> Node3D:
 	return tools.get_scene()
 
-func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null):
+func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
 	var fx_node: S2FX = S2FX.new()
 	fx_node.global_position = position
+	if rotation is Vector3:
+		fx_node.rotation = rotation
 	fx_node.bound_object = bound_object
 	fx_node.config = fx_config
 	get_scene().add_child(fx_node)
