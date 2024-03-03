@@ -111,4 +111,15 @@ func get_seeded_rng(seed_key: int) -> RandomNumberGenerator:
 	rng.seed = seed_key
 	return rng
 
-var timer_gate: S2TimerGateManager = S2TimerGateManager.new()
+func angle_to_direction(angle_degrees: float) -> Vector3:
+	# Convert degrees to radians
+	var angle_radians = deg_to_rad(angle_degrees)
+
+	# Calculate the direction vector
+	var direction = Vector3(
+		sin(angle_radians),
+		0,  # Assuming rotation is around the y-axis in 3D
+		cos(angle_radians)
+	)
+
+	return direction

@@ -10,6 +10,7 @@ enum EDirection {
 }
 
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
+var dynamic_contant_container: Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,6 +88,15 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 func get_scene() -> Node3D:
 	return tools.get_scene()
 
+func add_object(object: Node3D):
+	if dynamic_contant_container != null:
+		dynamic_contant_container.add_child(object)
+	else:
+		get_scene().add_child(object)
+
+func set_dynamic_contant_container(node: Node3D):
+	dynamic_contant_container = node
+
 func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
 	var fx_node: S2FX = S2FX.new()
 	fx_node.global_position = position
@@ -94,5 +104,5 @@ func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_obje
 		fx_node.rotation = rotation
 	fx_node.bound_object = bound_object
 	fx_node.config = fx_config
-	get_scene().add_child(fx_node)
+	add_object(fx_node)
 	fx_node.start()

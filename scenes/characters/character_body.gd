@@ -22,7 +22,6 @@ func initialize(_character: S2Character):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if is_initialized:
-		
 		if _prev_look_direction != character.look_direction and _prev_look_direction != Vector3.UP:
 			cooldowns.start("body_to_look", 2)
 		
@@ -54,4 +53,5 @@ func _rotate_body(delta):
 func _update_anim_tree(delta):
 	var walk_direction = character.velocity.normalized()
 	anim_tree["parameters/Move/blend_position"] = clamp( walk_direction.length(),0,1)
+	anim_tree["parameters/conditions/is_dead"] = character.is_dead
 	

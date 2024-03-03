@@ -14,7 +14,7 @@ var target_desired_distance: float = 2
 var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 
 func update(delta):
-	if character != null:
+	if character != null and not character.is_dead:
 		if character.is_friendly:
 			_update_friendly(delta)
 		else:

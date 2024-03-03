@@ -23,9 +23,9 @@ func fire(direction: Vector3):
 		
 		projectile.keeper = keeper
 		projectile.global_position = global_position
-		projectile.direction = direction
+		projectile.direction = direction.rotated(Vector3.UP, deg_to_rad(randf_range(-config.spread, config.spread)))
 		
-		tools.get_scene().add_child(projectile)
+		world.add_object(projectile)
 		projectile.launch()
 	
 	pass

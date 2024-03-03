@@ -17,6 +17,7 @@ const TAG: String = "RoomController"
 }
 
 @export_subgroup("Referencies")
+@export var content: Node3D
 @export var doors_container: Node3D
 @export var walls_gridmap: GridMap
 @export var obstacles_gridmap: GridMap
@@ -32,15 +33,11 @@ const TAG: String = "RoomController"
 var door_controllers: Dictionary = {}
 var game_mode: S2GameModeDefaultGame
 
-@export_subgroup("Camera Contstraints")
-@export var camera_constraint_min: Node3D
-@export var camera_constraint_max: Node3D
-
 var _enemy_spots_list: Array[Node3D] = []
 var _pickup_spots_list: Array[Node3D] = []
 var _chest_spots_list: Array[Node3D] = []
 
-var _active_enemies: Array[S2Character]
+var alive_enemies: Array[S2Character]
 		
 # Called when the node enters the scene tree for the first time.
 
@@ -67,7 +64,23 @@ func initialize():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if game.timer_gate.check("_update_alive_enemies_list", 1):
+		_update_alive_enemies_list()
 	pass
+	
+func _update_alive_enemies_list():
+	var dead_enemies_count: int = 0
+	for e in alive_enemies:
+		if e.is_dead:
+			dead_enemies_count += 1
+			
+	if dead_enemies_count > 0:
+		var newalive_enemies_list: Array[S2Character] = []
+		for e in alive_enemies:
+			if not e.is_dead:
+				newalive_enemies_list.append(e)
+	
+		alive_enemies = newalive_enemies_list
 
 func _traverse(node):
 	# Call the callback function on the current node
@@ -108,8 +121,8 @@ func _spawn_enemy(spot: Node3D):
 		var prefab: PackedScene = tools.get_random_element_from_array(config.enemies)
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: S2Character = prefab.instantiate()
-		_active_enemies.append(enemy)
-		add_child(enemy)
+		alive_enemies.append(enemy)
+		content.add_child(enemy)
 		enemy.global_position = spot.global_position
 	else:
 		dev.logr(TAG, "unable to spawn enemys at specifiet spot: room config not congigured proprly")

@@ -27,6 +27,8 @@ func _ready():
 	body_entered.connect(handle_body_entered)
 	body_exited.connect(handle_body_exited)
 	
+	_traverse(self)
+	
 	if opened:
 		open()
 	else:
@@ -35,6 +37,14 @@ func _ready():
 	dev.logd(TAG, "door inited: %s" % self)
 		
 	pass # Replace with function body.
+
+func _traverse(node):
+	if anim_player == null and node is AnimationPlayer:
+		anim_player = node
+		
+	# Recursively call this function on all children
+	for child in node.get_children():
+		_traverse(child)
 
 func _to_string():
 	return "DoorController(name: %s, direction: %s)" % [name, world.get_direction_pretty_name(direction)]
@@ -58,26 +68,27 @@ func handle_body_exited(body: Node3D):
 				has_entered_body = false
 				room_controller.handle_player_exited_door_area(self, body)
 
-func open():
-	entering_area.disabled = false
-	blocker.process_mode = Node.PROCESS_MODE_DISABLED
-	#body.hide()
-	if visible:
-		anim_player.play("Open")
-		
-		if open_fx:
-			world.spawn_fx(open_fx, global_position)
-	
-	opened = true
-	
-func close(skip_effects = false):
-	entering_area.disabled = true
-	blocker.process_mode = Node.PROCESS_MODE_ALWAYS
-	if not skip_effects and visible:
-		anim_player.play("Close")
-	
-		if close_fx:
-			world.spawn_fx(close_fx, global_position)
+func open(force = false):
+	if not opened or force:
+		entering_area.disabled = false
+		blocker.process_mode = Node.PROCESS_MODE_DISABLED
+		#body.hide()
+		if visible:
+			anim_player.play("Open")
 			
-	#body.show()
-	opened = false
+			if open_fx:
+				world.spawn_fx(open_fx, global_position)
+		
+		opened = true
+	
+func close(force = false):
+	if opened or force:
+		entering_area.disabled = true
+		blocker.process_mode = Node.PROCESS_MODE_ALWAYS
+		if visible:
+			anim_player.play("Close")
+			if close_fx:
+				world.spawn_fx(close_fx, global_position)
+				
+		#body.show()
+		opened = false

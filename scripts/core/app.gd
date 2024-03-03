@@ -9,6 +9,7 @@ const TAG: String = "App"
 var data: RDataIndex
 var tasks: S2TaskPlanner = S2TaskPlanner.new(false)
 var cooldowns: S2CooldownManager = S2CooldownManager.new(false)
+var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

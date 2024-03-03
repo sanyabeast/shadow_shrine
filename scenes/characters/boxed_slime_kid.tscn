@@ -1,31 +1,31 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=23 format=3 uid="uid://gajmsefrdp7c"]
 
-[ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
-[ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
-[ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://resources/characters/boxed_slime.tres" id="2_vw4ig"]
-[ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
-[ext_resource type="Script" path="res://scenes/characters/character_body.gd" id="3_i0uoy"]
-[ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
-[ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="5_r0ga2"]
-[ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="6_tnji0"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/humanoid_basic_a1.tres" id="7_lc31e"]
-[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="8_6nl4f"]
-[ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
-[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles.tscn" id="12_srik8"]
+[ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_yjlnt"]
+[ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/boxed_slime_kido.tres" id="2_vy3e7"]
+[ext_resource type="Script" path="res://scenes/characters/character_body.gd" id="3_op30v"]
+[ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="4_if374"]
+[ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="5_2pxgc"]
+[ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="6_hf3yk"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/humanoid_basic_a1.tres" id="7_6kxlq"]
+[ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="8_i4a00"]
+[ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="9_8k31u"]
+[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="10_xwxi6"]
+[ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="11_0bwyr"]
+[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles.tscn" id="12_64ctv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
-radius = 0.4
+radius = 0.26
 height = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt0oj"]
 resource_name = "slime.001"
 transparency = 4
-albedo_texture = ExtResource("2_dx2ui")
+albedo_texture = ExtResource("4_if374")
 roughness = 0.163636
 normal_enabled = true
-normal_texture = ExtResource("4_1km65")
+normal_texture = ExtResource("6_hf3yk")
 ao_enabled = true
-ao_texture = ExtResource("3_1kjhj")
+ao_texture = ExtResource("5_2pxgc")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ah42i"]
 _surfaces = [{
@@ -208,16 +208,17 @@ _data = {
 "Run": SubResource("Animation_wkmhb")
 }
 
-[node name="BoxedSlime" type="CharacterBody3D"]
-script = ExtResource("1_axkfw")
-config = ExtResource("2_vw4ig")
+[node name="BoxedSlimeKiddo" type="CharacterBody3D"]
+script = ExtResource("1_yjlnt")
+config = ExtResource("2_vy3e7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
 shape = SubResource("CapsuleShape3D_174we")
 
 [node name="Body" type="Node3D" parent="."]
-script = ExtResource("3_i0uoy")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("3_op30v")
 
 [node name="enemy" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00034612, 0.000649148, -0.00128691)
@@ -235,24 +236,24 @@ libraries = {
 "": SubResource("AnimationLibrary_uru14"),
 "Basic": SubResource("AnimationLibrary_oxk1m")
 }
-tree_root = ExtResource("7_lc31e")
+tree_root = ExtResource("7_6kxlq")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_dead = false
 parameters/Move/blend_position = -0.00531185
 
 [node name="Aim" type="Node3D" parent="."]
 
-[node name="arrow_red" parent="Aim" instance=ExtResource("5_r0ga2")]
+[node name="arrow_red" parent="Aim" instance=ExtResource("8_i4a00")]
 transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0.335, 0, 0.5, -1)
 visible = false
 
 [node name="Weapon" type="Node3D" parent="Aim"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500325, -0.34011)
-script = ExtResource("6_tnji0")
-config = ExtResource("8_6nl4f")
+script = ExtResource("9_8k31u")
+config = ExtResource("10_xwxi6")
 
 [node name="NPCController" type="Node" parent="."]
-script = ExtResource("9_25a3r")
+script = ExtResource("11_0bwyr")
 
-[node name="ToxicBubbles" parent="." instance=ExtResource("12_srik8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.135, 0)
+[node name="ToxicBubbles" parent="." instance=ExtResource("12_64ctv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.08, 0)

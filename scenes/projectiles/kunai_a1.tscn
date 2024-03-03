@@ -11,7 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_wdgtl"]
 script = ExtResource("2_6awg3")
-acceleration = -8.0
+acceleration = 0.0
 start_velocity = 8.0
 min_velocity = 4.0
 max_velocity = 8.0
@@ -90,10 +90,10 @@ config = SubResource("Resource_wdgtl")
 launch_fx = SubResource("Resource_ept1m")
 block_fx = SubResource("Resource_npqly")
 hit_fx = SubResource("Resource_b33vy")
-body = NodePath("Body")
-launch_fx_anchor = NodePath("FXAnchor")
-block_fx_anchor = NodePath("FXAnchor")
-hit_fx_anchor = NodePath("FXAnchor")
+body = NodePath("")
+launch_fx_anchor = NodePath("")
+block_fx_anchor = NodePath("")
+hit_fx_anchor = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_c4877")

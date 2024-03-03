@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ds2t80o60i6o4"]
+[gd_scene load_steps=25 format=3 uid="uid://ds2t80o60i6o4"]
 
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="1_sajf8"]
 [ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="2_6oh5q"]
@@ -63,7 +63,14 @@ ao_enabled = true
 ao_texture = ExtResource("3_4jdse")
 disable_receive_shadows = true
 
+[sub_resource type="Curve" id="Curve_fi5cw"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_htud1"]
+curve = SubResource("Curve_fi5cw")
 
 [sub_resource type="Curve" id="Curve_fe4wt"]
 min_value = -360.0
@@ -90,7 +97,14 @@ point_count = 3
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_f067w"]
 curve_x = SubResource("Curve_4vvgg")
 
+[sub_resource type="Curve" id="Curve_bfvkm"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_55xi6"]
+curve = SubResource("Curve_bfvkm")
 
 [sub_resource type="CurveTexture" id="CurveTexture_exwwl"]
 

@@ -6,6 +6,9 @@ const TAG: String = "ProjectileController"
 
 @export var config: RProjectileConfig
 
+@export_subgroup("Character Effects")
+@export var damage: float = 1
+
 @export_subgroup("Projectile FX")
 @export var launch_fx: RFXConfig
 @export var block_fx: RFXConfig
@@ -59,19 +62,17 @@ func launch():
 	pass
 
 func _handle_body_entered(body):
-	print(body)
-	
 	if not _is_wasted:
 		if body is S2Character:
 			if keeper and body != keeper:
 				dev.logd(TAG, 'projectile hit character %s' % body)
-				_handle_hit()
+				_handle_hit(body)
 		else:
 			dev.logd(TAG, 'projectile hit something %s' % body)
 			_handle_block()
 	
 func _handle_body_exited(body):
-	print(body)
+	pass
 
 func _handle_block():
 	_is_wasted = true
@@ -86,10 +87,15 @@ func _handle_block():
 		
 	pass
 	
-func _handle_hit():
+func _handle_hit(hit_character: S2Character):
+	_is_wasted = true
+	
 	if hide_body_on_hit and body:
 		body.hide()
-		
+	
+	if damage > 0:
+		hit_character.commit_damage(damage)
+	
 	if hit_fx:
 		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)
 	

@@ -7,6 +7,8 @@ var time: float = 0
 var speed: float = 1
 var paused: bool = true
 
+var timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("game manager: ready...")

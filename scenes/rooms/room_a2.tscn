@@ -16,16 +16,15 @@ agent_max_climb = 0.0
 agent_max_slope = 5.0
 edge_max_length = 0.5
 
-[node name="RoomA2" type="Node3D" node_paths=PackedStringArray("player_spawn", "doors_container", "walls_gridmap", "obstacles_gridmap", "enemy_spots", "camera_constraint_min", "camera_constraint_max")]
+[node name="RoomA2" type="Node3D" node_paths=PackedStringArray("player_spawn", "content", "doors_container", "walls_gridmap", "obstacles_gridmap", "enemy_spots")]
 script = ExtResource("1_0tyov")
 config = ExtResource("2_aib50")
 player_spawn = NodePath("Spots/PlayerSpawn")
+content = NodePath("Content")
 doors_container = NodePath("Doors")
 walls_gridmap = NodePath("NavigationRegion3D/Walls")
 obstacles_gridmap = NodePath("NavigationRegion3D/Obstacles")
 enemy_spots = NodePath("Spots/Enemies")
-camera_constraint_min = NodePath("Misc/CameraCosntraintMin")
-camera_constraint_max = NodePath("Misc/CameraCosntraintMax")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -0.5)
@@ -125,3 +124,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
 
 [node name="Node3D" type="Node3D" parent="Spots/Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Node3D2" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
+
+[node name="Content" type="Node3D" parent="."]

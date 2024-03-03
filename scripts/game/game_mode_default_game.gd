@@ -78,6 +78,7 @@ func spawn_room(from_direction):
 		}
 		
 	current_room = config.rooms[room_template_index].instantiate()
+	world.dynamic_contant_container = current_room.content
 	
 	for dir in world.directions_list:
 		current_room.doors_map[dir] = not current_maze_cell.walls[dir]
@@ -97,7 +98,7 @@ func spawn_room(from_direction):
 		
 	player.teleport(player_spawn.global_position)
 	
-	tasks.schedule(current_room, "open_all_doors", 3, current_room.open_doors)
+	#tasks.schedule(current_room, "open_all_doors", 3, current_room.open_doors)
 	
 	#current_room.open_doors()
 	
@@ -144,15 +145,22 @@ func handle_player_exited_door_area(direction: world.EDirection, player: S2Chara
 
 func _process(delta):
 	super._process(delta)
+	
 	tasks.update()
 	
 	dev.print_screen("maze_cell_xy", "maze cell x/y: %s/%s" % [current_maze_cell.x, current_maze_cell.y])
 	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
+	dev.print_screen("room_alive_enemies", "alive enemies: %s" % [current_room.alive_enemies.size()])
 	
 	if Input.is_action_just_pressed("pause"):
 		if game.paused:
 			game.resume()
 		else:
 			game.pause()
+			
+	if game.timer_gate.check("check_room_is_cleaned", 1):
+		if not current_room.doors_opened:
+			if current_room.alive_enemies.size() == 0:
+				current_room.open_doors()
 
