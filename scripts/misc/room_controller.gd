@@ -161,7 +161,6 @@ func handle_player_entered_door_area(door: S2DoorController, player: S2Character
 		game_mode.handle_player_entered_door_area(door.direction, player)
 		close_doors()
 	
-
 func handle_player_exited_door_area(door: S2DoorController, player: S2Character):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
 	game_mode.handle_player_exited_door_area(door.direction, player)

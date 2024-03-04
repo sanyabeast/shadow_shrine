@@ -34,6 +34,7 @@ speed = 1.0
 default_weapon = ExtResource("1_7bok5")
 protection = 1.0
 damage = 1.0
+mass = 1.0
 patrolling_distance = 5.0
 target_position_refresh_timeout = 3.0
 hurt_fx = SubResource("Resource_avqrj")

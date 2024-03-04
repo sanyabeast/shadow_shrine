@@ -44,6 +44,7 @@ class S2CharacterAbility:
 @onready var body: Node3D = $Body
 @onready var aim_rig: Node3D = $Aim
 @onready var collider: CollisionShape3D = $CollisionShape3D
+@onready var aura: Area3D = $Aura
 
 @export_subgroup("Player Mode")
 @export var use_as_player: bool = false
@@ -57,6 +58,7 @@ var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 var npc_controller: S2NPCController
 
+
 var body_controller: S2CharacterBody
 var weapon: S2WeaponController
 
@@ -68,6 +70,10 @@ var max_health: S2CharacterAbility
 var speed: S2CharacterAbility
 var damage: S2CharacterAbility
 var protection: S2CharacterAbility
+
+var impulse_direction: Vector3
+var impulse_power: float = 0
+
 
 func _ready():
 	_traverse(self)
@@ -92,6 +98,9 @@ func _ready():
 	protection.on_changed.connect(_handle_ability_change)
 	damage.on_changed.connect(_handle_ability_change)
 	
+	aura.body_entered.connect(_handle_aura_body_entered)
+	aura.body_exited.connect(_handle_aura_body_exited)
+	
 	npc_controller.initialize(self)
 	characters.register(self)
 
@@ -114,14 +123,25 @@ func _traverse(node):
 
 func _physics_process(delta):
 	if not game.paused:
+		
 		velocity.x = walk_direction.x * walk_power * speed.value
 		velocity.z = walk_direction.z * walk_power * speed.value
+		
+		velocity += impulse_direction * (impulse_power / config.mass);
 		velocity.y = 0
-		
+				
 		move_and_slide()
-		
 		global_position.y = 0
-
+		
+		impulse_power = move_toward(impulse_power, 0, 2 * delta)
+		
+		# wall impulse
+		if not player.is_player(self) and is_on_wall() and get_slide_collision_count() > 0:
+			var coll: KinematicCollision3D = get_slide_collision(0)
+			if coll != null and coll.get_collider() is GridMap:
+				print("test %s" % coll.get_normal())
+				commit_impulse(coll.get_normal(), 1)
+		
 func set_walk_power(value: float):
 	walk_power = round(value)
 	
@@ -166,6 +186,12 @@ func commit_damage(value: float):
 func commit_heal(value: float):
 	health.alter_value(value)
 	
+func commit_impulse(direction: Vector3, power: float):
+	impulse_direction = (impulse_direction + direction).normalized()
+	impulse_direction.y = 0
+	impulse_power = max(impulse_power, power)
+	pass
+	
 func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
 	dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
 	
@@ -179,6 +205,21 @@ func _handle_ability_change(name: String, old_value: float, new_value: float, in
 				die()
 			
 	pass
+	
+func _handle_aura_body_entered(body):
+	if body != self:
+		print("body entered to aura of %s, body: %s" % [name, body])
+		if body is S2Character:
+			if not player.is_player(self):
+				commit_impulse(body.global_position.direction_to(global_position), 2 * config.mass)
+		
+		
+		print(body)
+		pass
+	
+func _handle_aura_body_exited(body):
+	if body != self:
+		pass
 	
 func die():
 	dev.logd(TAG, "character dies %s" % name)

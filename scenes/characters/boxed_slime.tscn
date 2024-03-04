@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=24 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -13,8 +13,11 @@
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles.tscn" id="12_srik8"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_drguf"]
+height = 1.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
-radius = 0.4
+radius = 0.35
 height = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt0oj"]
@@ -211,6 +214,12 @@ _data = {
 [node name="BoxedSlime" type="CharacterBody3D"]
 script = ExtResource("1_axkfw")
 config = ExtResource("2_vw4ig")
+
+[node name="Aura" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Aura"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CylinderShape3D_drguf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)

@@ -4,10 +4,16 @@ class_name S2ProjectileController
 
 const TAG: String = "ProjectileController"
 
+enum EImpulseDirectionType {
+	Direction,
+	DirectionToTarget,
+}
+
 @export var config: RProjectileConfig
 
 @export_subgroup("Character Effects")
 @export var damage: float = 1
+@export var impulse: float = 1
 
 @export_subgroup("Projectile FX")
 @export var launch_fx: RFXConfig
@@ -23,17 +29,17 @@ const TAG: String = "ProjectileController"
 @export var auto_launch: bool = false
 @export var direction: Vector3 = Vector3.FORWARD
 @export var keeper: Node3D
+@export var impulse_direction_type: EImpulseDirectionType = EImpulseDirectionType.Direction
 
 @export_subgroup("FX Anchors")
 @export var launch_fx_anchor: Node3D
 @export var block_fx_anchor: Node3D
 @export var hit_fx_anchor: Node3D
 
-
 var cooldown: S2CooldownManager = S2CooldownManager.new(true)
 var current_velocity: float = 0
-var _is_launched: bool = false
 
+var _is_launched: bool = false
 var _is_wasted: bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -95,6 +101,14 @@ func _handle_hit(hit_character: S2Character):
 	
 	if damage > 0:
 		hit_character.commit_damage(damage)
+		
+	if impulse > 0:
+		match impulse_direction_type:
+			EImpulseDirectionType.Direction:
+				hit_character.commit_impulse(direction.normalized(), impulse)
+				pass
+			EImpulseDirectionType.DirectionToTarget:
+				hit_character.commit_impulse(global_position.direction_to(hit_character.global_position).normalized(), impulse)
 	
 	if hit_fx:
 		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)
@@ -107,7 +121,6 @@ func _process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
 			global_position += -basis.z * current_velocity * delta
-			
 			current_velocity += config.acceleration * delta	
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		

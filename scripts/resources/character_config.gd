@@ -7,6 +7,7 @@ class_name RCharacterConfig
 @export var default_weapon: RWeaponConfig
 @export var protection: float = 1
 @export var damage: float = 1
+@export var mass: float = 1
 
 @export_subgroup("NPC")
 @export var patrolling_distance: float = 5
