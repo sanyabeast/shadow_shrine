@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://4qcybpvtpw3o"]
+[gd_scene load_steps=17 format=3 uid="uid://4qcybpvtpw3o"]
 
 [ext_resource type="Script" path="res://scripts/weapons/projectile.gd" id="1_1flo4"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_config.gd" id="2_6awg3"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="4_5osib"]
 [ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="4_q2w2w"]
 [ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/kunai_blocked_fx.tscn" id="7_se67i"]
+[ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/metal_hit_sparks_a.tscn" id="8_51f8w"]
 [ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="8_ujsx6"]
 [ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/small_projectile_flight_trail.tscn" id="9_vhvuo"]
 
@@ -33,7 +34,7 @@ script = ExtResource("4_q2w2w")
 audio = ExtResource("4_5osib")
 audio_pitch_min = 0.95
 audio_pitch_max = 1.05
-content = Array[PackedScene]([ExtResource("7_se67i")])
+content = Array[PackedScene]([ExtResource("7_se67i"), ExtResource("8_51f8w")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 2.0
@@ -48,7 +49,7 @@ dispose_strategy = 0
 lifetime = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oudw2"]
-size = Vector3(0.29, 0.39, 0.57)
+size = Vector3(0.232534, 0.41824, 0.477383)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2ysj3"]
 _surfaces = [{
@@ -84,15 +85,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
-[node name="KunaiProjectileA1" type="Area3D"]
+[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
 script = ExtResource("1_1flo4")
 config = SubResource("Resource_wdgtl")
 impulse = 0.5
 launch_fx = SubResource("Resource_ept1m")
 block_fx = SubResource("Resource_npqly")
 hit_fx = SubResource("Resource_b33vy")
+launch_fx_anchor = NodePath("FXAnchor")
+block_fx_anchor = NodePath("FXAnchorBlockHit")
+hit_fx_anchor = NodePath("FXAnchorBlockHit")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0009204, 0.00462525, 0.050642)
 shape = SubResource("BoxShape3D_oudw2")
 
 [node name="Body" type="Node3D" parent="."]
@@ -104,3 +109,6 @@ skeleton = NodePath("")
 
 [node name="FXAnchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.146514)
+
+[node name="FXAnchorBlockHit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.203243)

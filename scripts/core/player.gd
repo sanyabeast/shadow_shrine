@@ -5,6 +5,7 @@ class_name PlayerManager
 const TAG: String = "PlayerManager: "
 
 var current: S2Character
+var mass_scale: float = 4
 
 func set_active(character: S2Character):
 	print("player manager: active character: %s" % character)

@@ -38,6 +38,7 @@ var _pickup_spots_list: Array[Node3D] = []
 var _chest_spots_list: Array[Node3D] = []
 
 var alive_enemies: Array[S2Character]
+var all_enemies: Array[S2Character]
 		
 # Called when the node enters the scene tree for the first time.
 
@@ -53,13 +54,16 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func initialize():
+func initialize(init_content = true):
 	doors_container.global_position.y = 0
 	_traverse(self)
 	_init_spots()
 	_apply_doors_map()
-	_apply_spots()
 	
+	if init_content:
+		_apply_spots()
+		#_spawn_enemies()
+		
 	dev.logd(TAG, "room initialized: %s" % self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,7 +97,6 @@ func _traverse(node):
 	for child in node.get_children():
 		_traverse(child)
 
-
 func _init_spots():
 	if enemy_spots != null:
 		for spot in enemy_spots.get_children():
@@ -122,6 +125,7 @@ func _spawn_enemy(spot: Node3D):
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: S2Character = prefab.instantiate()
 		alive_enemies.append(enemy)
+		all_enemies.append(enemy)
 		content.add_child(enemy)
 		enemy.global_position = spot.global_position
 	else:
@@ -139,8 +143,32 @@ func _apply_doors_map():
 		else:
 			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
 			door_controllers[dir].hide()
-	
 
+func _spawn_enemies():
+	for i in config.max_enemies:
+		var pos = world.get_random_reachable_point_in_square(player_spawn.global_position, 32)
+		var prefab: PackedScene = tools.get_random_element_from_array(config.enemies)
+		var enemy: S2Character = prefab.instantiate()
+		alive_enemies.append(enemy)
+		content.add_child(enemy)
+		enemy.global_position = pos
+	pass
+	
+func upload_saved_content(_content: Node3D):
+	content.queue_free()
+	content = _content
+	add_child(content)
+	pass
+
+func download_saved_content() -> Node3D:
+	# trimming content to save mem?
+	for enemy in all_enemies:
+		if enemy != null:
+			enemy.queue_free()
+		
+	remove_child(content)
+	return content
+	
 func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	var cell_x: int = 0
 	var cell_z: int = 0
@@ -159,20 +187,21 @@ func handle_player_entered_door_area(door: S2DoorController, player: S2Character
 	if doors_opened:
 		dev.logd(TAG, "player %s entered door %s at room" % [player.name, world.get_direction_pretty_name(door.direction), self])
 		game_mode.handle_player_entered_door_area(door.direction, player)
-		close_doors()
+		#close_doors()
 	
 func handle_player_exited_door_area(door: S2DoorController, player: S2Character):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
 	game_mode.handle_player_exited_door_area(door.direction, player)
 	
-func open_doors():
+
+func open_doors(silent = false):
 	dev.logd(TAG, "opening all doors...")
 	for key in door_controllers:
-		door_controllers[key].open()
+		door_controllers[key].open(silent)
 	doors_opened = true	
 	
-func close_doors():
+func close_doors(silent = false):
 	dev.logd(TAG, "closing all doors...")
 	for key in door_controllers:
-		door_controllers[key].close()
+		door_controllers[key].close(silent)
 	doors_opened = false	

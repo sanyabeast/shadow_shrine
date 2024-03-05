@@ -58,7 +58,6 @@ var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 var npc_controller: S2NPCController
 
-
 var body_controller: S2CharacterBody
 var weapon: S2WeaponController
 
@@ -74,6 +73,7 @@ var protection: S2CharacterAbility
 var impulse_direction: Vector3
 var impulse_power: float = 0
 
+signal on_fire(weapon: S2WeaponController, direction: Vector3)
 
 func _ready():
 	_traverse(self)
@@ -127,7 +127,7 @@ func _physics_process(delta):
 		velocity.x = walk_direction.x * walk_power * speed.value
 		velocity.z = walk_direction.z * walk_power * speed.value
 		
-		velocity += impulse_direction * (impulse_power / config.mass);
+		velocity += impulse_direction * (impulse_power / get_mass());
 		velocity.y = 0
 				
 		move_and_slide()
@@ -157,6 +157,7 @@ func set_look_direction(value: Vector2):
 func fire():
 	if weapon:
 		weapon.fire(look_direction)
+		on_fire.emit(weapon, look_direction)
 
 func _process(delta):
 	#print("move direction: %s" % walk_direction)
@@ -211,7 +212,7 @@ func _handle_aura_body_entered(body):
 		print("body entered to aura of %s, body: %s" % [name, body])
 		if body is S2Character:
 			if not player.is_player(self):
-				commit_impulse(body.global_position.direction_to(global_position), 2 * config.mass)
+				commit_impulse(body.global_position.direction_to(global_position), 2 * get_mass())
 		
 		
 		print(body)
@@ -220,6 +221,12 @@ func _handle_aura_body_entered(body):
 func _handle_aura_body_exited(body):
 	if body != self:
 		pass
+	
+func get_mass() -> float:
+	if player.is_player(self):
+		return config.mass * player.mass_scale
+	else:
+		return config.mass
 	
 func die():
 	dev.logd(TAG, "character dies %s" % name)

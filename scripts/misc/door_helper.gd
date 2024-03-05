@@ -30,7 +30,7 @@ func _ready():
 	_traverse(self)
 	
 	if opened:
-		open()
+		open(true)
 	else:
 		close(true)
 	
@@ -68,27 +68,28 @@ func handle_body_exited(body: Node3D):
 				has_entered_body = false
 				room_controller.handle_player_exited_door_area(self, body)
 
-func open(force = false):
-	if not opened or force:
-		entering_area.disabled = false
-		blocker.process_mode = Node.PROCESS_MODE_DISABLED
-		#body.hide()
-		if visible:
-			anim_player.play("Open")
-			
-			if open_fx:
-				world.spawn_fx(open_fx, global_position)
-		
-		opened = true
+func open(silent = false):
+	entering_area.disabled = false
+	blocker.process_mode = Node.PROCESS_MODE_DISABLED
+	anim_player.play("Open")
 	
-func close(force = false):
-	if opened or force:
-		entering_area.disabled = true
-		blocker.process_mode = Node.PROCESS_MODE_ALWAYS
-		if visible:
-			anim_player.play("Close")
-			if close_fx:
-				world.spawn_fx(close_fx, global_position)
-				
-		#body.show()
-		opened = false
+	if silent:
+		anim_player.seek(anim_player.current_animation_length)
+	else:
+		if open_fx:
+			world.spawn_fx(open_fx, global_position)
+		
+	opened = true
+	
+func close(silent = false):
+	entering_area.disabled = true
+	blocker.process_mode = Node.PROCESS_MODE_ALWAYS
+	anim_player.play("Close")
+	
+	if silent:
+		anim_player.seek(anim_player.current_animation_length)
+	else:
+		if close_fx:
+			world.spawn_fx(close_fx, global_position)
+			
+	opened = false

@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/gpu_trail/plugin.cfg")
 folder_colors={
 "res://_dev/": "red",
 "res://assets/": "purple",
+"res://assets/_dev/": "red",
 "res://misc/": "gray",
 "res://resources/": "blue",
 "res://scenes/": "teal",

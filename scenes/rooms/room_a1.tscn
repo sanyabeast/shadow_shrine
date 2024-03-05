@@ -126,11 +126,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.50454, 0, -0.191359)
 [node name="Node3D" type="Node3D" parent="Spots/Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
+[node name="Node3D5" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35082, 0, -3.61405)
+
+[node name="Node3D6" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63732, 0, -4.15009)
+
 [node name="Node3D2" type="Node3D" parent="Spots/Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4)
+
+[node name="Node3D7" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.18522, 0, -3.50684)
 
 [node name="Node3D3" type="Node3D" parent="Spots/Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 
+[node name="Node3D8" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.44252, 0, 1.79334)
+
 [node name="Node3D4" type="Node3D" parent="Spots/Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Node3D9" type="Node3D" parent="Spots/Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0292, 0, 1.85766)

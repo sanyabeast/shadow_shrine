@@ -46,9 +46,9 @@ func reset():
 
 func reset_maze():
 	maze_generator.grid_size = 3
-	maze_generator.sparseness = 0.4
-	maze_generator.dead_ends_ratio = 0.7
-	maze_generator.shortcuts_ratio = 0.1
+	maze_generator.sparseness = 0.1
+	maze_generator.dead_ends_ratio = 0.5
+	maze_generator.shortcuts_ratio = 0.5
 	maze_generator.generate()
 	print(maze_generator.cells)
 	
@@ -60,25 +60,24 @@ func reset_maze():
 func spawn_room(from_direction):
 	print("spawining new room from maze cell %s " % current_maze_cell)
 	
-	if current_room != null:
-		print("destroying current room")
-		current_room.queue_free()
-		
 	from_direction = from_direction if from_direction != null else world.EDirection.North
 	var oposite_direction = get_oposite_direction(from_direction)
 		
 	var room_template_index: int = 0
+	var saved_content = null
 	
 	if rooms_data.has(current_maze_cell.index):
 		room_template_index = rooms_data[current_maze_cell.index].room_template_index
 	else:
 		room_template_index = randf_range(0, config.rooms.size())
 		rooms_data[current_maze_cell.index] = {
-			"room_template_index": room_template_index
+			"room_template_index": room_template_index,
+			"saved_content": null
 		}
-		
+	
+	saved_content = rooms_data[current_maze_cell.index]["saved_content"]
 	current_room = config.rooms[room_template_index].instantiate()
-	world.dynamic_contant_container = current_room.content
+	
 	
 	for dir in world.directions_list:
 		current_room.doors_map[dir] = not current_maze_cell.walls[dir]
@@ -86,7 +85,17 @@ func spawn_room(from_direction):
 	tools.get_scene().add_child(current_room)
 	
 	current_room.game_mode = self
-	current_room.initialize()
+	
+	if saved_content != null:
+		current_room.upload_saved_content(saved_content)
+		
+	world.dynamic_contant_container = current_room.content
+	current_room.initialize(saved_content == null)
+	
+	if saved_content != null:
+		current_room.open_doors(true)
+	else:
+		current_room.close_doors()
 	
 	var player_spawn = current_room
 	
@@ -103,10 +112,12 @@ func spawn_room(from_direction):
 	#current_room.open_doors()
 	
 func next_room(from_direction: world.EDirection):
-	if current_room != null:
-		current_room.queue_free()
-	
 	print("next_room: current room - %s" % current_maze_cell)
+	
+	if current_room != null:
+		print("destroying current room")
+		rooms_data[current_maze_cell.index]["saved_content"] = current_room.download_saved_content()
+		current_room.queue_free()
 	
 	if current_maze_cell == null:
 		current_maze_cell = maze_generator.start_cell
@@ -121,7 +132,6 @@ func next_room(from_direction: world.EDirection):
 	print("switching to the next room from direction: %s, new maze cell: %s" % [from_direction, current_maze_cell])
 	spawn_room(from_direction)
 	pass
-
 
 func get_oposite_direction(direcrion: world.EDirection) -> world.EDirection:
 	match direcrion:
@@ -159,8 +169,18 @@ func _process(delta):
 		else:
 			game.pause()
 			
-	if game.timer_gate.check("check_room_is_cleaned", 1):
-		if not current_room.doors_opened:
-			if current_room.alive_enemies.size() == 0:
-				current_room.open_doors()
+	if game.timer_gate.check("check_door_state", 1):
+		if not current_room.doors_opened and current_room.alive_enemies.size() == 0:
+			current_room.open_doors()
+		elif current_room.doors_opened and current_room.alive_enemies.size() > 0:
+			current_room.close_doors()
 
+	if app.timer_gate.check("switch_ambient_music", 1):
+		if S2AmbientSoundMixer.instance != null:
+			var amb_sound_mixer = S2AmbientSoundMixer.instance
+			
+			if current_room.alive_enemies.size() > 0 and amb_sound_mixer.category != 1:
+				amb_sound_mixer.set_category(1)
+				
+			if current_room.alive_enemies.size() == 0 and amb_sound_mixer.category != 0:
+				amb_sound_mixer.set_category(0)
