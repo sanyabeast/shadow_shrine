@@ -2,19 +2,21 @@ extends Node3D
 
 class_name S2CameraRig
 
-var zoom: float = 0.7
-var target_zoom: float = 0.25
-var zoom_change_speed: float = 1
+static var instance: S2CameraRig
+
+var zoom: float = 1
+var target_zoom: float = 0.5
+var zoom_change_speed: float = 0.1
 var zoom_step: float = 0.1
 
-var close_look_angle: float = 60
+var close_look_angle: float = 40
 var close_look_fov: float = 45
-var close_look_elevation: float = 4
+var close_look_elevation: float = 8
 var close_root_elevation: float = 0
 
-var far_look_angle: float = 0
-var far_look_fov: float = 15
-var far_look_elevation: float = 32
+var far_look_angle: float = 35
+var far_look_fov: float = 25
+var far_look_elevation: float = 18
 var far_root_elevation: float = 0
 
 @onready var camera_root: Node3D = $CameraRoot
@@ -25,6 +27,7 @@ var far_root_elevation: float = 0
 func _ready():
 	print("camera rig: ready...")
 	camera.add_camera(self)
+	instance = self
 	pass # Replace with function body.
 
 func _exit_tree():
@@ -34,7 +37,8 @@ func _exit_tree():
 func _process(delta):
 	pass
 	
-	zoom = move_toward(zoom, target_zoom, zoom_change_speed * delta)
+	#zoom = move_toward(zoom, target_zoom, zoom_change_speed * delta)
+	zoom = lerpf(zoom, target_zoom, 0.0025)
 	
 	if Input.is_action_just_pressed("camera_zoom_in"):
 		target_zoom = zoom + zoom_step

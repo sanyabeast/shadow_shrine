@@ -1,89 +1,76 @@
-extends Node3D
-class_name S2AmbientSoundMixer
-const TAG: String = "AmbientSoundMixer"
+extends AudioStreamPlayer3D
+class_name S2AmbientStreamMixer
 
-static var instance: S2AmbientSoundMixer
+const TAG: String = "AmbientStreamMixer"
 
-enum EAmbientSoundCategory {
-	A,
-	B,
-	C,
-	D
-}
+const min_volume_db: float = -50
+const max_volume_db: float = 0
 
-@export var category: EAmbientSoundCategory = EAmbientSoundCategory.A
-@export var a: Array[AudioStream] = []
-@export var b: Array[AudioStream] = []
-@export var c: Array[AudioStream] = []
-@export var d: Array[AudioStream] = []
+@export var playlist: Array[AudioStream] = []
+@export var track_index: int = 0
 
-var _stream_player: AudioStreamPlayer3D
+var is_playing: bool = false
+var fade_time: float = 0
 
-var _has_any_streams: bool = false
-var _current_stream: AudioStream
-var _stream_player_playing: bool = false
-var _prev_payback_started_at: float = 0
-var _theme_index: int = 0
-
-
+func _init(_playlist: Array[AudioStream] = [], _track_index: int = 0, _is_playing: bool = false):
+	playlist = _playlist
+	track_index = _track_index
+	is_playing = _is_playing
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_check_streams()
-	
-	_stream_player = AudioStreamPlayer3D.new()
-	_stream_player.panning_strength = 0
-	_stream_player.finished.connect(_handle_stream_player_finished)
-	
-	add_child(_stream_player)
-	
-	set_category(EAmbientSoundCategory.A)
-	S2AmbientSoundMixer.instance = self
-	pass # Replace with function body.
-
-func set_category(_category: EAmbientSoundCategory):
-	dev.logd(TAG, "setting ambient sound category to %s" % _category)
-	category = _category
-	next_theme()
-
-func next_theme():
-	if _has_any_streams:
-		_theme_index += 1
-		dev.logd(TAG, "prepare to switch to the next theme in category: %s, theme index: %s" % [category, _theme_index])
-		
-		var _streams_list: Array[AudioStream] = []
-		match category:
-			EAmbientSoundCategory.A:
-				_streams_list = a
-			EAmbientSoundCategory.B:
-				_streams_list = b
-			EAmbientSoundCategory.C:
-				_streams_list = c
-			EAmbientSoundCategory.D:
-				_streams_list = d
-				
-		if _streams_list.size() == 0:
-			dev.logd(TAG, "failed to found stream from category %s, trying to pick something from all streams: %s" % [category, _streams_list])
-			_streams_list = a + b + c + d
-			
-		_current_stream = _streams_list[_theme_index % _streams_list.size()]
-		dev.logd(TAG, "setting player active stream to %s" % _current_stream)
-		_stream_player.stream = _current_stream
-		_stream_player.play()
-		_prev_payback_started_at = tools.get_time()
-
+	panning_strength = 0
+	finished.connect(_handle_stream_player_finished)
+	set_track(track_index)
+	if is_playing:
+		play_mix(0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#if _has_any_streams and not _stream_player.playing:
-		#next_theme()
+	var fade_speed = (max_volume_db - min_volume_db) / fade_time
+	
+	if is_playing and volume_db < 0:
+		volume_db = move_toward(volume_db, 0, fade_speed * delta)
+		
+	if not is_playing and volume_db > min_volume_db:
+		volume_db = move_toward(volume_db, min_volume_db, fade_speed * delta)
+	
+	if not is_playing and volume_db <= min_volume_db:
+		stop()
+		
 	pass
-
-func _check_streams():
-	var streams_count: int = (a + b + c + d).size()
-	dev.logd(TAG, "streams checked, total count: %s" % streams_count)
-	_has_any_streams = streams_count > 0
 
 func _handle_stream_player_finished():
-	dev.logd(TAG, "finsihed playing: %s" % _current_stream)
-	next_theme()
+	dev.logd(TAG, "finsihed playing: %s" % stream)
+	next_track()
 	pass
+
+func play_mix(fade_duration: float = 0.5):
+	is_playing = true
+	fade_time = fade_duration
+	if fade_duration == 0:
+		volume_db = 0
+	play()
+	pass
+
+func pause_mix(fade_duration: float = 0):
+	is_playing = false
+	fade_time = fade_duration
+	if fade_duration == 0:
+		volume_db = min_volume_db
+		stop()
+	
+func next_track():
+	if playlist.size() > 0:
+		track_index = (track_index + 1) % playlist.size()
+		set_track(track_index)
+		
+func set_track(index: int):
+	if playlist.size() > 0:
+		dev.logd(TAG, "setting player active stream to index: %s, stream: %s" % [index, stream])
+		stream = playlist[index]
+		
+		if is_playing:
+			play_mix(0)
+	else:
+		dev.logr(TAG, "failed to set_track at %s, playlist is empty" % self)

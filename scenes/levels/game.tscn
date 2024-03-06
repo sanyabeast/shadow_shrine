@@ -1,18 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=10 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_1lro1"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/_game_level_a1.tres" id="2_gmi04"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
-[ext_resource type="Script" path="res://scripts/utils/amb_sound_mixer.gd" id="3_qfs87"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
-[ext_resource type="AudioStream" uid="uid://c8ldd0aadoib8" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat Intro Loop.ogg" id="4_eq73e"]
-[ext_resource type="AudioStream" uid="uid://8pa4jrwhkli6" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat Intro NO PIANO Loop.ogg" id="5_li1ig"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/gui.tscn" id="5_wkau2"]
-[ext_resource type="AudioStream" uid="uid://d1q3pfoydgeve" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat Beat B FULL Loop.ogg" id="6_gksvx"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="6_hwkyy"]
-[ext_resource type="AudioStream" uid="uid://ocmvyhbjb7o1" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat INTRO Loop Var 2.ogg" id="6_ws145"]
-[ext_resource type="AudioStream" uid="uid://b0non8vbxphct" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat ROCK CHILL Loop.ogg" id="7_fq48c"]
-[ext_resource type="AudioStream" uid="uid://5hu78rb5xkma" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat Beat B NO PNO Loop.ogg" id="9_u30tn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
 sky_top_color = Color(0.690196, 0.658824, 0.901961, 1)
@@ -55,11 +48,6 @@ environment = SubResource("Environment_ev1c6")
 transform = Transform3D(-0.731583, 0.373254, 0.570498, 0.141019, -0.735863, 0.662283, 0.667008, 0.564966, 0.485709, 0, 2, 0)
 light_color = Color(0.905882, 0.862745, 0.854902, 1)
 shadow_enabled = true
-
-[node name="AmbientSoundMixer" type="Node3D" parent="Environment"]
-script = ExtResource("3_qfs87")
-a = Array[AudioStream]([ExtResource("4_eq73e"), ExtResource("5_li1ig"), ExtResource("6_ws145")])
-b = Array[AudioStream]([ExtResource("6_gksvx"), ExtResource("7_fq48c"), ExtResource("9_u30tn")])
 
 [node name="Architecture" type="Node3D" parent="."]
 

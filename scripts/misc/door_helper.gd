@@ -20,9 +20,12 @@ var opened: bool = false
 @export var open_fx: RFXConfig
 @export var close_fx: RFXConfig
 
+var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	cooldowns.start("activation_cooldown", 0.1)
+	
 	direction = world.get_node_direction(self)
 	body_entered.connect(handle_body_entered)
 	body_exited.connect(handle_body_exited)
@@ -54,7 +57,7 @@ func _process(delta):
 	pass
 
 func handle_body_entered(body: Node3D):
-	if visible:
+	if visible and cooldowns.ready("activation_cooldown"):
 		if not has_entered_body:
 			if body is S2Character and player.is_player(body):
 				print("entered %s" % self)
@@ -76,7 +79,7 @@ func open(silent = false):
 	if silent:
 		anim_player.seek(anim_player.current_animation_length)
 	else:
-		if open_fx:
+		if visible and open_fx:
 			world.spawn_fx(open_fx, global_position)
 		
 	opened = true
@@ -89,7 +92,7 @@ func close(silent = false):
 	if silent:
 		anim_player.seek(anim_player.current_animation_length)
 	else:
-		if close_fx:
+		if visible and close_fx:
 			world.spawn_fx(close_fx, global_position)
 			
 	opened = false

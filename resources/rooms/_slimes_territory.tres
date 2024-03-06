@@ -7,3 +7,4 @@
 [resource]
 script = ExtResource("2_0pc0g")
 enemies = Array[PackedScene]([ExtResource("1_4jbu4"), ExtResource("2_eu2qo")])
+max_enemies = 8

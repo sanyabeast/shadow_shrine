@@ -1,50 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://ds2t80o60i6o4"]
+[gd_scene load_steps=17 format=3 uid="uid://ds2t80o60i6o4"]
 
-[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="1_sajf8"]
 [ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="2_6oh5q"]
 [ext_resource type="Texture2D" uid="uid://go6cgo1nf51g" path="res://assets/props/jerdelia/textures/Image_1.007.png" id="3_4jdse"]
 [ext_resource type="ArrayMesh" uid="uid://cbkiup7x7f1mo" path="res://assets/misc/array_mesh/kunai.tres" id="5_u0wav"]
-
-[sub_resource type="Gradient" id="Gradient_nsu77"]
-offsets = PackedFloat32Array(0, 0.265426, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.196078, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_o1a1t"]
-gradient = SubResource("Gradient_nsu77")
-
-[sub_resource type="Curve" id="Curve_02bev"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.308742, 0.750565), 2.90372, 2.90372, 0, 0, Vector2(0.632138, 0.693504), -3.22636, -3.22636, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_noim6"]
-curve = SubResource("Curve_02bev")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_giphl"]
-angle_min = -360.0
-angle_max = 360.0
-direction = Vector3(0, 0, 0)
-radial_velocity_max = 2.0
-gravity = Vector3(0, 0, 0)
-radial_accel_max = 5.0
-scale_min = 0.1
-scale_max = 0.2
-scale_curve = SubResource("CurveTexture_noim6")
-color_ramp = SubResource("GradientTexture1D_o1a1t")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mmrq"]
-transparency = 1
-shading_mode = 0
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_sajf8")
-disable_receive_shadows = true
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_g85c2"]
-material = SubResource("StandardMaterial3D_2mmrq")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3ku8"]
 resource_name = "projectile.001"
@@ -128,18 +86,12 @@ radial_accel_max = 1.0
 color_ramp = SubResource("GradientTexture1D_u5ehk")
 
 [node name="KunaiBlockedFX" type="GPUParticles3D"]
-emitting = false
-lifetime = 0.2
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_giphl")
-draw_pass_1 = SubResource("QuadMesh_g85c2")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 1, -4.37114e-08, 4.37114e-08, 4.37114e-08, 1, 1.91069e-15, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_c3ku8")
 emitting = false
 amount = 1
 one_shot = true
+fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_l4314")
 draw_pass_1 = ExtResource("5_u0wav")

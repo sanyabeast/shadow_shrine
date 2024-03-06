@@ -11,6 +11,7 @@ enum EDirection {
 
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
 var dynamic_contant_container: Node3D
+var fx_queue: Array[Array] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +21,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if fx_queue.size() > 0:
+		var fx_params = fx_queue.pop_front()
+		_spawn_fx(fx_params)
 	pass
 
 	
@@ -98,10 +102,26 @@ func set_dynamic_contant_container(node: Node3D):
 	dynamic_contant_container = node
 
 func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
+	fx_queue.append([
+		fx_config,
+		position,
+		bound_object,
+		rotation
+	])
+	pass
+	
+
+func _spawn_fx(params: Array):
+	var fx_config = params[0]
+	var position = params[1]
+	var bound_object = params[2]
+	var rotation = params[3]
+	
 	var fx_node: S2FX = S2FX.new()
 	fx_node.global_position = position
 	if rotation is Vector3:
 		fx_node.rotation = rotation
+		
 	fx_node.bound_object = bound_object
 	fx_node.config = fx_config
 	add_object(fx_node)

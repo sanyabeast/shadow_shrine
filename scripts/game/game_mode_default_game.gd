@@ -4,6 +4,10 @@ class_name S2GameModeDefaultGame
 
 const TAG = "GameModeDefaultGame"
 
+const AMBIENCE_LONG_FADE_TIME: float = 2
+const AMBIENCE_SHORT_FADE_TIME: float = 0.2
+const AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP: bool = true
+
 @export var config: RGameLevelConfig
 
 var environment_node: Node3D
@@ -19,8 +23,11 @@ var current_room: S2RoomController
 var EDirection = world.EDirection
 
 var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
-
 var rooms_data: Dictionary = {}
+
+# ambient sound
+var _expore_ambience_mixer: S2AmbientStreamMixer
+var _battle_ambience_mixer: S2AmbientStreamMixer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,10 +42,22 @@ func prepare():
 	characters_node = $Characters
 	collectibles_node = $Collectibles
 	
+	_setup_ambient_sound()
+	
 	reset()
 	
 	gui.set_mode(S2GUI.EMode.InGame)
 	game.resume()
+
+func _setup_ambient_sound():
+	_expore_ambience_mixer = S2AmbientStreamMixer.new(config.explore_playlist, 0)
+	_battle_ambience_mixer = S2AmbientStreamMixer.new(config.battle_playlist, 0)
+	
+	_expore_ambience_mixer.name = "ExploreAmbienceMixer"
+	_battle_ambience_mixer.name = "BattleAmbienceMixer"
+	
+	environment_node.add_child(_expore_ambience_mixer)
+	environment_node.add_child(_battle_ambience_mixer)
 
 func reset():
 	_is_new_game_session = true
@@ -107,6 +126,8 @@ func spawn_room(from_direction):
 		
 	player.teleport(player_spawn.global_position)
 	
+	_check_ambient_sound_mix()
+	
 	#tasks.schedule(current_room, "open_all_doors", 3, current_room.open_doors)
 	
 	#current_room.open_doors()
@@ -153,6 +174,7 @@ func handle_player_entered_door_area(direction: world.EDirection, player: S2Char
 func handle_player_exited_door_area(direction: world.EDirection, player: S2Character):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
 
+
 func _process(delta):
 	super._process(delta)
 	
@@ -174,13 +196,31 @@ func _process(delta):
 			current_room.open_doors()
 		elif current_room.doors_opened and current_room.alive_enemies.size() > 0:
 			current_room.close_doors()
-
-	if app.timer_gate.check("switch_ambient_music", 1):
-		if S2AmbientSoundMixer.instance != null:
-			var amb_sound_mixer = S2AmbientSoundMixer.instance
+	
+	if game.timer_gate.check("check_camera_state", 1):
+		if current_room.alive_enemies.size() == 0:
+			camera.current.target_zoom = 0
+		else:
+			camera.current.target_zoom = 1
 			
-			if current_room.alive_enemies.size() > 0 and amb_sound_mixer.category != 1:
-				amb_sound_mixer.set_category(1)
-				
-			if current_room.alive_enemies.size() == 0 and amb_sound_mixer.category != 0:
-				amb_sound_mixer.set_category(0)
+	if app.timer_gate.check("switch_ambient_music", 1):
+		_check_ambient_sound_mix()
+
+func _check_ambient_sound_mix():
+	# has enemies
+	if current_room.alive_enemies.size() > 0 and not _battle_ambience_mixer.is_playing:
+		if AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP:
+			_battle_ambience_mixer.next_track()
+		_battle_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)
+		
+	if current_room.alive_enemies.size() > 0 and _expore_ambience_mixer.is_playing:
+		_expore_ambience_mixer.pause_mix(AMBIENCE_SHORT_FADE_TIME)
+		
+	# no enemies
+	if current_room.alive_enemies.size() == 0 and _battle_ambience_mixer.is_playing:
+		_battle_ambience_mixer.pause_mix(AMBIENCE_LONG_FADE_TIME)
+		
+	if current_room.alive_enemies.size() == 0 and not _expore_ambience_mixer.is_playing:
+		if AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP:
+			_expore_ambience_mixer.next_track()
+		_expore_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)

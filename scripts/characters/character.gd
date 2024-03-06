@@ -102,10 +102,6 @@ func _ready():
 	aura.body_exited.connect(_handle_aura_body_exited)
 	
 	npc_controller.initialize(self)
-	characters.register(self)
-
-func _exit_tree():
-	characters.discharge(self)
 
 func _traverse(node):
 	if node is S2WeaponController:
@@ -164,6 +160,9 @@ func _process(delta):
 	#print("aim direction: %s" % look_direction)
 	
 	#rotate_body(delta)
+	
+	if not player.is_player(self):
+		npc_controller.update(delta)
 	
 	_update_abilities(delta)
 	
