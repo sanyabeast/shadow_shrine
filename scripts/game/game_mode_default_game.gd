@@ -26,8 +26,8 @@ var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
 var rooms_data: Dictionary = {}
 
 # ambient sound
-var _expore_ambience_mixer: S2AmbientStreamMixer
-var _battle_ambience_mixer: S2AmbientStreamMixer
+var _expore_ambience_mixer: S2AmbientSoundPlayer
+var _battle_ambience_mixer: S2AmbientSoundPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,8 +50,8 @@ func prepare():
 	game.resume()
 
 func _setup_ambient_sound():
-	_expore_ambience_mixer = S2AmbientStreamMixer.new(config.explore_playlist, 0)
-	_battle_ambience_mixer = S2AmbientStreamMixer.new(config.battle_playlist, 0)
+	_expore_ambience_mixer = S2AmbientSoundPlayer.new(config.explore_playlist, 0)
+	_battle_ambience_mixer = S2AmbientSoundPlayer.new(config.battle_playlist, 0)
 	
 	_expore_ambience_mixer.name = "ExploreAmbienceMixer"
 	_battle_ambience_mixer.name = "BattleAmbienceMixer"
@@ -74,7 +74,6 @@ func reset_maze():
 	next_room(world.EDirection.North)
 	
 	print(current_maze_cell)
-
 	
 func spawn_room(from_direction):
 	print("spawining new room from maze cell %s " % current_maze_cell)
@@ -96,7 +95,6 @@ func spawn_room(from_direction):
 	
 	saved_content = rooms_data[current_maze_cell.index]["saved_content"]
 	current_room = config.rooms[room_template_index].instantiate()
-	
 	
 	for dir in world.directions_list:
 		current_room.doors_map[dir] = not current_maze_cell.walls[dir]
@@ -127,10 +125,6 @@ func spawn_room(from_direction):
 	player.teleport(player_spawn.global_position)
 	
 	_check_ambient_sound_mix()
-	
-	#tasks.schedule(current_room, "open_all_doors", 3, current_room.open_doors)
-	
-	#current_room.open_doors()
 	
 func next_room(from_direction: world.EDirection):
 	print("next_room: current room - %s" % current_maze_cell)
@@ -173,7 +167,6 @@ func handle_player_entered_door_area(direction: world.EDirection, player: S2Char
 
 func handle_player_exited_door_area(direction: world.EDirection, player: S2Character):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
-
 
 func _process(delta):
 	super._process(delta)

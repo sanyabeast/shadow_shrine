@@ -1,7 +1,7 @@
 extends AudioStreamPlayer3D
-class_name S2AmbientStreamMixer
+class_name S2AmbientSoundPlayer
 
-const TAG: String = "AmbientStreamMixer"
+const TAG: String = "AmbientSoundPlayer"
 
 const min_volume_db: float = -50
 const max_volume_db: float = 0
