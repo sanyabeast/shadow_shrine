@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends S2MenuItem
 
 class_name S2MenuItemButton

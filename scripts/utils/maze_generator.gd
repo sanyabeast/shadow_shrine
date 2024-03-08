@@ -1,3 +1,5 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
 
 class_name S2MazeGenerator
 

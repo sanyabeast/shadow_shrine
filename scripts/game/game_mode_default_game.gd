@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends S2GameMode
 
 class_name S2GameModeDefaultGame

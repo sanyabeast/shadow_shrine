@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 # This script defines a door controller that manages the opening and closing of a door in a 3D game.
 
 extends Area3D

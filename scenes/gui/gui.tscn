@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://duiag5itq7dxf"]
+[gd_scene load_steps=6 format=3 uid="uid://duiag5itq7dxf"]
 
 [ext_resource type="PackedScene" uid="uid://dn64pkqqlfw4k" path="res://scenes/gui/world_space.tscn" id="1_2drf7"]
 [ext_resource type="PackedScene" uid="uid://blyunibxrlnkg" path="res://scenes/gui/hud.tscn" id="2_nxwr5"]
 [ext_resource type="PackedScene" uid="uid://uwvm2a5c8rmj" path="res://scenes/gui/pause_menu.tscn" id="3_m0qic"]
-[ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="4_3bhgu"]
 [ext_resource type="PackedScene" uid="uid://cs3g4hh6nltk5" path="res://scenes/gui/main_menu.tscn" id="4_dp7h2"]
 
 [sub_resource type="GDScript" id="GDScript_iqq7r"]
@@ -30,33 +29,8 @@ layout_mode = 1
 [node name="HUD" parent="." instance=ExtResource("2_nxwr5")]
 layout_mode = 1
 
-[node name="PauseMenu" parent="." node_paths=PackedStringArray("items") instance=ExtResource("3_m0qic")]
+[node name="PauseMenu" parent="." instance=ExtResource("3_m0qic")]
 layout_mode = 1
-id = "pause_menu"
-items = [NodePath("VBoxContainer/MenuButton"), NodePath("VBoxContainer/MenuButton2")]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -250.0
-offset_right = 250.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MenuButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("4_3bhgu")]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MenuButton2" parent="PauseMenu/VBoxContainer" instance=ExtResource("4_3bhgu")]
-layout_mode = 2
-size_flags_vertical = 3
-title = "Menu Item #2"
 
 [node name="MainMenu" parent="." instance=ExtResource("4_dp7h2")]
 layout_mode = 1

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dn64pkqqlfw4k"]
+[gd_scene load_steps=3 format=3 uid="uid://dn64pkqqlfw4k"]
 
 [ext_resource type="Script" path="res://scripts/gui/world_space.gd" id="1_2kl61"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_dr04r"]
 
 [node name="WorldSpace" type="Control"]
 layout_mode = 3
@@ -20,4 +21,5 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_dr04r")
 text = "This is WorldSpace"

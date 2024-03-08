@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends S2MenuController
 
 class_name S2PauseMenu
@@ -8,8 +11,6 @@ func _ready():
 	gui.pause_menu = self
 	dev.logd(TAG, "Pause menu ready")
 	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	super._process(delta)

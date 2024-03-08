@@ -1,32 +1,42 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
+# This script defines a menu item control with customizable options and animations.
+
 extends Control
 
 class_name S2MenuItem
+
+# Constant tag for logging and identification purposes.
 const TAG: String = "MenuItem"
 
+# Exported variables for customization.
 @export var title: String = "Menu Item"
 @export var value: float = 0
 @export var min_value: float = 0
 @export var max_value: float = 1
 @export var step: float = 1
-@export var options: Array = []
-@export var option_index: int = 0
-@export var anim_player: AnimationPlayer
+@export var options: Array = []  # Array of options for the menu item.
+@export var option_index: int = 0  # Index of the selected option.
+@export var anim_player: AnimationPlayer  # Animation player for menu item animations.
 
+# Variable to track the active state of the menu item.
 var is_active: bool = false
-var is_hovered: bool = false
 
+# Variable to determine if the menu item is in options mode.
 var _options_mode: bool = false
 
-
+# Signals emitted when the menu item's active state changes or when it is submitted.
 signal on_active_change(item: S2MenuItem, is_active: bool)
-signal on_hover_change(item: S2MenuItem, is_hovered: bool)
 signal on_submit(item: S2MainMenu)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Determine if the menu item is in options mode.
 	_options_mode = options.size() > 0
 	pass # Replace with function body.
 
+# Method to represent the menu item as a string.
 func _to_string():
 	return "MenuItem(name: %s, title: %s, value: %s)" % [name, title, value]
 
@@ -34,54 +44,51 @@ func _to_string():
 func _process(delta):
 	pass
 
+# Method to get the value as a float.
 func get_float() -> float:
 	return value
-	
+
+# Method to get the value as a boolean.
 func get_bool() -> bool:
 	return value > 0.5
 
+# Method to navigate to the next option or increment the value.
 func next_option():
 	if _options_mode:
 		option_index = (option_index + 1) % options.size()
 	else:
 		value = clampf(value + step, min_value, max_value)
-	
+
+# Method to navigate to the previous option or decrement the value.
 func prev_option():
 	if _options_mode:
 		option_index = (option_index - 1) % options.size()
 	else:
 		value = clampf(value - step, min_value, max_value)
-	
-func toggle():
-	value = 0 if get_bool() else 1 
 
+# Method to toggle the boolean value.
+func toggle():
+	value = 0 if get_bool() else 1
+
+# Method to set the active state of the menu item.
 func set_active(_is_active: bool):
+	# Log the active state change.
 	dev.logd(TAG, "active change for %s, active: %s" % [self, _is_active])
 	is_active = _is_active
 	
+	# Trigger animations based on the active state.
 	if anim_player != null:
 		if is_active:
 			anim_player.play("select")
 		else:
 			anim_player.play("default")
 	
+	# Emit the on_active_change signal.
 	on_active_change.emit(self, is_active)
-	
-func set_hover(_is_hovered: bool):
-	dev.logd(TAG, "hover change for %s, hover: %s" % [self, _is_hovered])
-	is_hovered = _is_hovered
-	
-	if anim_player != null:
-		if is_hovered:
-			anim_player.play("hover")
-		else:
-			anim_player.play("default")
-	
-	on_hover_change.emit(self, is_hovered)
 
+# Method to submit the menu item.
 func submit():
+	# Log the submission.
 	dev.logd(TAG, "submitted %s" % self)
+	# Emit the on_submit signal.
 	on_submit.emit(self)
-	
-	if anim_player:
-		anim_player.play("submit")

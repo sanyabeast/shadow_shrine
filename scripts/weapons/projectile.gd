@@ -1,13 +1,11 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends Area3D
 
 class_name S2ProjectileController
 
 const TAG: String = "ProjectileController"
-
-enum EImpulseDirectionType {
-	Direction,
-	DirectionToTarget,
-}
 
 @export var config: RProjectileConfig
 
@@ -29,7 +27,6 @@ enum EImpulseDirectionType {
 @export var auto_launch: bool = false
 @export var direction: Vector3 = Vector3.FORWARD
 @export var keeper: Node3D
-@export var impulse_direction_type: EImpulseDirectionType = EImpulseDirectionType.Direction
 
 @export_subgroup("FX Anchors")
 @export var launch_fx_anchor: Node3D
@@ -96,19 +93,14 @@ func _handle_block():
 func _handle_hit(hit_character: S2Character):
 	_is_wasted = true
 	
-	if hide_body_on_hit and body:
-		body.hide()
-	
 	if damage > 0:
 		hit_character.commit_damage(damage)
-		
+
 	if impulse > 0:
-		match impulse_direction_type:
-			EImpulseDirectionType.Direction:
-				hit_character.commit_impulse(direction.normalized(), impulse)
-				pass
-			EImpulseDirectionType.DirectionToTarget:
-				hit_character.commit_impulse(global_position.direction_to(hit_character.global_position).normalized(), impulse)
+		hit_character.commit_impulse(direction.normalized(), impulse)
+		
+	if hide_body_on_hit and body:
+		body.hide()
 	
 	if hit_fx:
 		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)

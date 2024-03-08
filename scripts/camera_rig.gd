@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends Node3D
 
 class_name S2CameraRig

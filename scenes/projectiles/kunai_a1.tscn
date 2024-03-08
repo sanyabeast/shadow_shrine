@@ -10,7 +10,7 @@
 [ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="8_ujsx6"]
 [ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/small_projectile_flight_trail.tscn" id="9_vhvuo"]
 
-[sub_resource type="Resource" id="Resource_wdgtl"]
+[sub_resource type="Resource" id="Resource_gdcre"]
 script = ExtResource("2_6awg3")
 acceleration = 0.0
 start_velocity = 8.0
@@ -87,7 +87,7 @@ shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
 [node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
 script = ExtResource("1_1flo4")
-config = SubResource("Resource_wdgtl")
+config = SubResource("Resource_gdcre")
 impulse = 0.5
 launch_fx = SubResource("Resource_ept1m")
 block_fx = SubResource("Resource_npqly")

@@ -1,4 +1,5 @@
 # Author: @sanyabeast
+# Date: Feb. 2024
 # This class serves as a cooldown manager for handling various cooldowns in a game.
 # It can manage both real-time and game-time based cooldowns.
 

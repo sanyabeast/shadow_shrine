@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends Node
 
 class_name S2Tools
@@ -121,5 +124,6 @@ func angle_to_direction(angle_degrees: float) -> Vector3:
 		0,  # Assuming rotation is around the y-axis in 3D
 		cos(angle_radians)
 	)
+
 
 	return direction
