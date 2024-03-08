@@ -1,27 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://duiag5itq7dxf"]
+[gd_scene load_steps=5 format=3 uid="uid://duiag5itq7dxf"]
 
 [ext_resource type="PackedScene" uid="uid://dn64pkqqlfw4k" path="res://scenes/gui/world_space.tscn" id="1_2drf7"]
+[ext_resource type="Script" path="res://scripts/gui/ingame/ingame_gui.gd" id="1_df66y"]
 [ext_resource type="PackedScene" uid="uid://blyunibxrlnkg" path="res://scenes/gui/hud.tscn" id="2_nxwr5"]
 [ext_resource type="PackedScene" uid="uid://uwvm2a5c8rmj" path="res://scenes/gui/pause_menu.tscn" id="3_m0qic"]
-[ext_resource type="PackedScene" uid="uid://cs3g4hh6nltk5" path="res://scenes/gui/main_menu.tscn" id="4_dp7h2"]
 
-[sub_resource type="GDScript" id="GDScript_iqq7r"]
-script/source = "extends Control
-
-class_name S2GUIManager
-
-const tag: String = \"GUIManager\"
-
-"
-
-[node name="GUI" type="Control"]
+[node name="InGameGUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_iqq7r")
+script = ExtResource("1_df66y")
 
 [node name="WorldSpace" parent="." instance=ExtResource("1_2drf7")]
 layout_mode = 1
@@ -30,7 +21,4 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_m0qic")]
-layout_mode = 1
-
-[node name="MainMenu" parent="." instance=ExtResource("4_dp7h2")]
 layout_mode = 1

@@ -23,3 +23,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func quit():
+	dev.logd(TAG, "quitting...")
+	get_tree().quit()

@@ -11,6 +11,7 @@ class_name S2MenuItem
 const TAG: String = "MenuItem"
 
 # Exported variables for customization.
+@export var id: String = ""
 @export var title: String = "Menu Item"
 @export var value: float = 0
 @export var min_value: float = 0
@@ -22,6 +23,7 @@ const TAG: String = "MenuItem"
 
 # Variable to track the active state of the menu item.
 var is_active: bool = false
+var menu: S2MenuController
 
 # Variable to determine if the menu item is in options mode.
 var _options_mode: bool = false
@@ -92,3 +94,4 @@ func submit():
 	dev.logd(TAG, "submitted %s" % self)
 	# Emit the on_submit signal.
 	on_submit.emit(self)
+	menu.actions.handle_submit(id, self)

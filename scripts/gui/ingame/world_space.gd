@@ -8,7 +8,6 @@ const TAG: String = "WorldSpaceGUI"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gui.world_space = self
 	dev.logd(TAG, "World space GUI ready")
 	pass # Replace with function body.
 

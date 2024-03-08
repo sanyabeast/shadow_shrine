@@ -114,6 +114,20 @@ func get_seeded_rng(seed_key: int) -> RandomNumberGenerator:
 	rng.seed = seed_key
 	return rng
 
+func reload_scene():
+	var current_scene = get_tree().current_scene
+	get_tree().reload_current_scene()
+
+func load_scene(scene_path: String):
+	var tree: SceneTree = get_tree()
+	tree.change_scene_to_file(scene_path)
+	
+func load_scene_packed(packed_scene: PackedScene):
+	dev.logd("Tools", "prepare to load scene: %s" % packed_scene)
+	var tree: SceneTree = get_tree()
+	var result = tree.change_scene_to_packed(packed_scene)
+	dev.logd("Tools", "LOADING PACKED SCENE, RESULT: %s" % result)
+
 func angle_to_direction(angle_degrees: float) -> Vector3:
 	# Convert degrees to radians
 	var angle_radians = deg_to_rad(angle_degrees)
@@ -127,3 +141,4 @@ func angle_to_direction(angle_degrees: float) -> Vector3:
 
 
 	return direction
+

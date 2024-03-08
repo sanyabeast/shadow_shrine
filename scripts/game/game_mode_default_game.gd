@@ -48,8 +48,6 @@ func prepare():
 	_setup_ambient_sound()
 	
 	reset()
-	
-	gui.set_mode(S2GUI.EMode.InGame)
 	game.resume()
 
 func _setup_ambient_sound():

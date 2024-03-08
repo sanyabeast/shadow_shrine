@@ -8,7 +8,6 @@ const TAG: String = "MainMenu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gui.main_menu = self
 	dev.logd(TAG, "Main menu ready")
 	pass # Replace with function body.
 

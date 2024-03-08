@@ -128,7 +128,7 @@ libraries = {
 }
 playback_default_blend_time = 1.0
 next/default = &"default"
-blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"default", &"submit", 0.25, &"default", &"hover", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_vcnjb")

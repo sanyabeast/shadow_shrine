@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=3 uid="uid://cu6q2ybvxarm2"]
+
+[ext_resource type="Script" path="res://scripts/game/game_mode_main_menu.gd" id="1_fyh6q"]
+[ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="2_2rewf"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="3_prmyu"]
+[ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="4_enfbp"]
+[ext_resource type="Script" path="res://scripts/gui/main_menu/main_menu_actions.gd" id="5_d6308"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
+sky_top_color = Color(0.690196, 0.658824, 0.901961, 1)
+sky_horizon_color = Color(1, 0.494118, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+sun_curve = 0.261165
+
+[sub_resource type="Sky" id="Sky_wfb0r"]
+sky_material = SubResource("ProceduralSkyMaterial_ob6na")
+
+[sub_resource type="Environment" id="Environment_ie0kh"]
+background_mode = 2
+sky = SubResource("Sky_wfb0r")
+ambient_light_source = 3
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssao_radius = 0.5
+ssao_intensity = 8.0
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_normalized = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2113
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
+blend_mode = 2
+
+[node name="Game" type="Node3D" node_paths=PackedStringArray("demo_room")]
+script = ExtResource("1_fyh6q")
+demo_room = NodePath("Architecture/RoomA3")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_ie0kh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.624785, 0.0689955, 0.777742, 0.405886, -0.822224, 0.399003, 0.667008, 0.564966, 0.485709, 0, 2, 0)
+light_color = Color(0.905882, 0.862745, 0.854902, 1)
+shadow_enabled = true
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="RoomA3" parent="Architecture" instance=ExtResource("2_2rewf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.34341, 0, 0.605349)
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Collectibles" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.374607, -0.112995, -0.920273, 0, 0.992546, -0.121869, 0.927184, -0.0456531, -0.371814, -2.975, 0.35, 0.435)
+fov = 45.0
+
+[node name="MainMenu" type="Control" parent="." node_paths=PackedStringArray("items", "actions")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_prmyu")
+id = "pause_menu"
+items = [NodePath("VBoxContainer/Start"), NodePath("VBoxContainer/Options"), NodePath("VBoxContainer/Quit")]
+actions = NodePath("MenuActions")
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+material = SubResource("CanvasItemMaterial_352pt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.145098, 0.137255, 0.211765, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" parent="MainMenu/VBoxContainer" instance=ExtResource("4_enfbp")]
+layout_mode = 2
+id = "start"
+title = "Start"
+
+[node name="Options" parent="MainMenu/VBoxContainer" instance=ExtResource("4_enfbp")]
+layout_mode = 2
+id = "options"
+title = "Options"
+
+[node name="Quit" parent="MainMenu/VBoxContainer" instance=ExtResource("4_enfbp")]
+layout_mode = 2
+id = "quit"
+title = "Quit"
+
+[node name="MenuActions" type="Node" parent="MainMenu"]
+script = ExtResource("5_d6308")
+default_game_scene = "res://scenes/levels/game.tscn"

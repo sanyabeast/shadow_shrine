@@ -60,4 +60,3 @@ title = "Quit"
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("3_jw8qt")
-main_menu_scene = "res://scenes/levels/main_menu.tscn"

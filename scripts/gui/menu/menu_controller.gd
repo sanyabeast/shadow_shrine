@@ -18,6 +18,7 @@ const MAX_MENU_ITEM_CHANGE_RATE: float = 4
 @export var items: Array[S2MenuItem]
 @export var index: int = 0
 @export var submenus: Array[S2MenuController]
+@export var actions: S2MenuActions
 
 # Variable to store the currently active submenu.
 var _active_submenu: S2MenuController
@@ -26,9 +27,13 @@ var _active_submenu: S2MenuController
 func _ready():
 	# Select the initial menu item.
 	select(index)
+	actions.menu = self
+	for item in items:
+		item.menu = self
 	# Connect the visibility changed signal to the corresponding handler.
 	visibility_changed.connect(_handle_visibility_changed)
 	pass # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
