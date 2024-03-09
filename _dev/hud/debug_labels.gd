@@ -51,7 +51,7 @@ func set_label(target: Node3D, lines: Dictionary):
 	_update_labels()
 
 func _update_labels():
-	var camera3d: Camera3D = camera.get_camera3d()
+	var camera3d: Camera3D = camera_manager.get_camera3d()
 	
 	if camera3d != null:
 		for label_id in _containers.keys():

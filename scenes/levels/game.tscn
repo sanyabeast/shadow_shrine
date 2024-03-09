@@ -38,6 +38,7 @@ volumetric_fog_ambient_inject = 0.05
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1lro1")
 config = ExtResource("2_gmi04")
+player_packed = ExtResource("3_mdfvv")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -50,12 +51,6 @@ light_color = Color(0.905882, 0.862745, 0.854902, 1)
 shadow_enabled = true
 
 [node name="Architecture" type="Node3D" parent="."]
-
-[node name="Characters" type="Node3D" parent="."]
-
-[node name="RockLee" parent="Characters" instance=ExtResource("3_mdfvv")]
-
-[node name="Collectibles" type="Node3D" parent="."]
 
 [node name="CameraRig" parent="." instance=ExtResource("4_250jr")]
 

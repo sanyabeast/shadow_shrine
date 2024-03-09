@@ -84,7 +84,7 @@ func handle_body_entered(body: Node3D):
 	if visible and cooldowns.ready("activation_cooldown"):
 		if not has_entered_body:
 			# Check if the entering body is the player character.
-			if body is S2Character and player.is_player(body):
+			if body is S2Character and player_manager.is_player(body):
 				print("entered %s" % self)
 				has_entered_body = true
 				room_controller.handle_player_entered_door_area(self, body)
@@ -94,7 +94,7 @@ func handle_body_exited(body: Node3D):
 	if visible:
 		if has_entered_body:
 			# Check if the exiting body is the player character.
-			if body is S2Character and player.is_player(body):
+			if body is S2Character and player_manager.is_player(body):
 				has_entered_body = false
 				room_controller.handle_player_exited_door_area(self, body)
 

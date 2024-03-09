@@ -20,6 +20,17 @@ class_name RCharacterConfig
 @export var patrolling_distance: float = 5  # Distance for patrolling behavior.
 @export var target_position_refresh_timeout: float = 3  # Timeout for refreshing the target position.
 
+@export var walk_direction_degrees_change_speed: float = 90
+@export var walk_power_change_speed: float = 2
+
+@export var walk_direction_sinus_rate: float = 1
+@export var walk_direction_sinus_power: float = 0
+
+@export var walk_power_sinus_min_power: float = 0.5
+@export var walk_power_sinus_rate: float = 2
+@export var walk_power_sinus_power: float = 0
+
+
 # Exported variables for character special effects.
 @export_subgroup("Character FX")
 @export var hurt_fx: RFXConfig  # FX configuration for hurt state.

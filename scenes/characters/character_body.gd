@@ -40,23 +40,30 @@ func _traverse(node):
 		_traverse(child)
 
 func _rotate_body(delta):
-	var walk_direction = character.walk_direction
-	var look_direction = character.look_direction
-	var body_direction = look_direction
-	
-	 # Rotate the body toward the move direction if not aiming
-	if cooldowns.ready("body_to_look", true):
-		if walk_direction.length_squared() > 0.1:
-			body_direction = walk_direction
-			look_at(global_position + walk_direction, Vector3.UP)
-		else:
-			return
+	if not game.paused:
+		var walk_direction = character.walk_direction
+		var look_direction = character.look_direction
+		var body_direction = look_direction
 		
-	look_at(global_position + body_direction, Vector3.UP)	
+		 # Rotate the body toward the move direction if not aiming
+		if cooldowns.ready("body_to_look", true):
+			if walk_direction.length_squared() > 0.1:
+				body_direction = walk_direction
+				#look_at(global_position + walk_direction, Vector3.UP)
+			else:
+				return
+			
+		global_rotation_degrees.y = tools.move_toward_deg(
+			global_rotation_degrees.y,
+			tools.rotation_degrees_y_from_direction(-body_direction),
+			720 * delta
+		)
 		
 func _update_anim_tree(delta):
 	var walk_direction = character.velocity.normalized()
 	anim_tree["parameters/Move/blend_position"] = clamp( walk_direction.length(),0,1)
+	if game.paused:
+		anim_tree["parameters/Move/blend_position"] = 0
 	anim_tree["parameters/conditions/is_dead"] = character.is_dead
 	
 func _handle_character_fires(weapon: S2WeaponController, direction: Vector3):

@@ -12,6 +12,8 @@ const AMBIENCE_SHORT_FADE_TIME: float = 0.2
 const AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP: bool = true
 
 @export var config: RGameLevelConfig
+@export var player: S2Character
+@export var player_packed: PackedScene
 
 var environment_node: Node3D
 var architecture_node: Node3D
@@ -45,10 +47,19 @@ func prepare():
 	characters_node = $Characters
 	collectibles_node = $Collectibles
 	
+	_init_player()
 	_setup_ambient_sound()
 	
 	reset()
 	game.resume()
+
+func _init_player():
+	if player == null and player_packed != null:
+		player = player_packed.instantiate()
+		
+	player.use_as_player = true
+	add_child(player)
+	player_manager.set_active(player)
 
 func _setup_ambient_sound():
 	_expore_ambience_mixer = S2AmbientSoundPlayer.new(config.explore_playlist, 0)
@@ -123,7 +134,7 @@ func spawn_room(from_direction):
 	else:
 		player_spawn = current_room.door_controllers[oposite_direction].player_spawn
 		
-	player.teleport(player_spawn.global_position)
+	player_manager.teleport(player_spawn.global_position)
 	
 	_check_ambient_sound_mix()
 	
@@ -163,7 +174,7 @@ func get_oposite_direction(direcrion: world.EDirection) -> world.EDirection:
 			return world.EDirection.East
 
 func handle_player_entered_door_area(direction: world.EDirection, player: S2Character):
-	dev.logd(TAG, "player %s entered door %s" % [player.name, world.get_direction_pretty_name(direction)])
+	dev.logd(TAG, "player %s entered door %s" % [player_manager.name, world.get_direction_pretty_name(direction)])
 	next_room(direction)
 
 func handle_player_exited_door_area(direction: world.EDirection, player: S2Character):
@@ -193,9 +204,9 @@ func _process(delta):
 	
 	if game.timer_gate.check("check_camera_state", 1):
 		if current_room.alive_enemies.size() == 0:
-			camera.current.target_zoom = 0
+			camera_manager.current.target_zoom = 0
 		else:
-			camera.current.target_zoom = 1
+			camera_manager.current.target_zoom = 1
 			
 	if app.timer_gate.check("switch_ambient_music", 1):
 		_check_ambient_sound_mix()

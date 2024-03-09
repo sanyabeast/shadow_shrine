@@ -61,6 +61,7 @@ func initialize(init_content = true):
 	doors_container.global_position.y = 0
 	_traverse(self)
 	_init_spots()
+	
 	_apply_doors_map()
 	
 	if init_content:
@@ -160,7 +161,7 @@ func _spawn_enemies():
 		content.add_child(enemy)
 		enemy.global_position = pos
 	pass
-	
+
 func upload_saved_content(_content: Node3D):
 	content.queue_free()
 	content = _content

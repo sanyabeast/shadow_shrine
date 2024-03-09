@@ -29,12 +29,12 @@ var far_root_elevation: float = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("camera rig: ready...")
-	camera.add_camera(self)
+	camera_manager.add_camera(self)
 	instance = self
 	pass # Replace with function body.
 
 func _exit_tree():
-	camera.remove_camera(self)
+	camera_manager.remove_camera(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

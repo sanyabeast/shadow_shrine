@@ -34,29 +34,15 @@ glow_normalized = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.2113
 
-[sub_resource type="Animation" id="Animation_xsoxo"]
-resource_name = "camera_flight"
-length = 60.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 60),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.375, 0.46, 5.565), Vector3(-0.375, 0.46, 3.65)]
-}
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
+blend_mode = 3
 
 [sub_resource type="Animation" id="Animation_eelnx"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraRoot/Camera3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -66,20 +52,34 @@ tracks/0/keys = {
 "values": [Vector3(-0.375, 0.46, 5.565)]
 }
 
+[sub_resource type="Animation" id="Animation_xsoxo"]
+resource_name = "camera_flight"
+length = 60.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraRoot/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.375, 0.46, 5.565), Vector3(-0.375, 0.46, 3.65)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcy3g"]
 _data = {
 "RESET": SubResource("Animation_eelnx"),
 "camera_flight": SubResource("Animation_xsoxo")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
-blend_mode = 3
-
 [node name="MainMenu" type="Node3D" node_paths=PackedStringArray("demo_room", "bg_music_player", "camera_anim_player")]
 script = ExtResource("1_fyh6q")
 demo_room = NodePath("Architecture/RoomA3")
 bg_music_player = NodePath("Environment/S2AmbientSoundPlayer")
-camera_anim_player = NodePath("AnimationPlayer")
+camera_anim_player = NodePath("CameraRoot/AnimationPlayer")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -100,15 +100,6 @@ playlist = Array[AudioStream]([ExtResource("3_cjp6f")])
 
 [node name="RoomA3" parent="Architecture" instance=ExtResource("2_2rewf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.34341, 0, 0.605349)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_mcy3g")
-}
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999848, -0.00060908, -0.0174418, 0, 0.999391, -0.0348995, 0.0174524, 0.0348942, 0.999239, -0.375, 0.46, 5.565)
-fov = 30.0
 
 [node name="MainMenuGUI" type="Control" parent="." node_paths=PackedStringArray("items", "actions")]
 layout_mode = 3
@@ -164,3 +155,16 @@ title = "Quit"
 [node name="MenuActions" type="Node" parent="MainMenuGUI"]
 script = ExtResource("5_d6308")
 default_game_scene = "res://scenes/levels/game.tscn"
+
+[node name="CameraRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraRoot"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_mcy3g")
+}
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+transform = Transform3D(0.999848, -0.00060908, -0.0174418, 0, 0.999391, -0.0348995, 0.0174524, 0.0348942, 0.999239, -0.375, 0.46, 5.565)
+fov = 30.0

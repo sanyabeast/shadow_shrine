@@ -97,7 +97,7 @@ func _handle_hit(hit_character: S2Character):
 		hit_character.commit_damage(damage)
 
 	if impulse > 0:
-		hit_character.commit_impulse(direction.normalized(), impulse)
+		hit_character.commit_impulse(-basis.z, impulse)
 		
 	if hide_body_on_hit and body:
 		body.hide()
@@ -112,7 +112,7 @@ func _handle_hit(hit_character: S2Character):
 func _process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
-			global_position += -basis.z * current_velocity * delta
+			global_position += direction * current_velocity * delta
 			current_velocity += config.acceleration * delta	
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		

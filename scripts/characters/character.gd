@@ -81,8 +81,8 @@ signal on_fire(weapon: S2WeaponController, direction: Vector3)
 func _ready():
 	_traverse(self)
 	
-	if use_as_player:
-		player.set_active(self)
+	if use_as_player and player_manager.current == null:
+		player_manager.set_active(self)
 		
 	if npc_controller == null:
 		npc_controller = S2NPCController.new()
@@ -126,31 +126,30 @@ func _physics_process(delta):
 		velocity.x = walk_direction.x * walk_power * speed.value
 		velocity.z = walk_direction.z * walk_power * speed.value
 		
-		velocity += impulse_direction * (impulse_power / get_mass());
+		velocity += impulse_direction * (impulse_power);
 		velocity.y = 0
 				
 		move_and_slide()
+		#move_and_collide(global_transform.basis.z)
 		global_position.y = 0
 		
 		impulse_power = move_toward(impulse_power, 0, 2 * delta)
 		
 		# wall impulse
-		if not player.is_player(self) and is_on_wall() and get_slide_collision_count() > 0:
+		if not player_manager.is_player(self) and is_on_wall() and get_slide_collision_count() > 0:
 			var coll: KinematicCollision3D = get_slide_collision(0)
 			if coll != null and coll.get_collider() is GridMap:
 				print("test %s" % coll.get_normal())
 				commit_impulse(coll.get_normal(), 1)
 		
 func set_walk_power(value: float):
-	walk_power = round(value)
+	walk_power = value
 	
 func set_walk_direction(value: Vector2):
-	value = tools.restrict_to_8_axis(value)
 	walk_direction = Vector3(value.x, 0, value.y)
 	
 func set_look_direction(value: Vector2):
-	if value.length() > 0.1:
-		value = tools.restrict_to_8_axis(value)
+	if value.length() > 0.05:
 		look_direction = Vector3(value.x, 0, value.y)
 
 func fire():
@@ -164,7 +163,7 @@ func _process(delta):
 	
 	#rotate_body(delta)
 	
-	if not player.is_player(self):
+	if not player_manager.is_player(self):
 		npc_controller.update(delta)
 	
 	_update_abilities(delta)
@@ -213,9 +212,11 @@ func _handle_aura_body_entered(body):
 	if body != self:
 		print("body entered to aura of %s, body: %s" % [name, body])
 		if body is S2Character:
-			if not player.is_player(self):
-				commit_impulse(body.global_position.direction_to(global_position), 2 * get_mass())
-		
+			if not player_manager.is_player(self):
+				commit_impulse(
+					body.global_position.direction_to(global_position), 
+					min(config.speed * 1.25,  body.get_mass() / get_mass())
+				)
 		
 		print(body)
 		pass
@@ -225,8 +226,8 @@ func _handle_aura_body_exited(body):
 		pass
 	
 func get_mass() -> float:
-	if player.is_player(self):
-		return config.mass * player.mass_scale
+	if player_manager.is_player(self):
+		return config.mass * player_manager.mass_scale
 	else:
 		return config.mass
 	

@@ -128,6 +128,22 @@ func load_scene_packed(packed_scene: PackedScene):
 	var result = tree.change_scene_to_packed(packed_scene)
 	dev.logd("Tools", "LOADING PACKED SCENE, RESULT: %s" % result)
 
+func move_toward_deg(from_angle: float, to_angle: float, delta: float)->float:
+	return rad_to_deg(rotate_toward(deg_to_rad(from_angle + 180), deg_to_rad(to_angle + 180), deg_to_rad(delta))) - 180
+
+func rotation_degrees_y_from_direction(direction: Vector3)->float:
+	return rad_to_deg(atan2(direction.x, direction.z))
+	
+func rotation_degrees_y_from_direction_v2(direction: Vector2)->float:
+	return rad_to_deg(atan2(direction.x, direction.y))
+	
+# returns the difference (in degrees) between angle1 and angle 2
+# the given angles must be in the range [0, 360)
+# the returned value is in the range (-180, 180]
+func angle_difference(angle1, angle2):
+	var diff = angle2 - angle1
+	return diff if abs(diff) < 180 else diff + (360 * -sign(diff))
+
 func angle_to_direction(angle_degrees: float) -> Vector3:
 	# Convert degrees to radians
 	var angle_radians = deg_to_rad(angle_degrees)
@@ -139,6 +155,19 @@ func angle_to_direction(angle_degrees: float) -> Vector3:
 		cos(angle_radians)
 	)
 
+	return direction
+
+func angle_to_direction_v2(angle_degrees: float) -> Vector2:
+	# Convert degrees to radians
+	var angle_radians = deg_to_rad(angle_degrees)
+
+	# Calculate the direction vector
+	var direction = Vector2(
+		sin(angle_radians),
+		cos(angle_radians)
+	)
 
 	return direction
 
+func to_v2(v3: Vector3) -> Vector2:
+	return Vector2(v3.x, v3.z)
