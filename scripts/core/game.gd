@@ -4,11 +4,13 @@
 extends Node
 
 class_name S2GameManager
+const TAG: String = "GameManager"
 
 var mode: S2GameMode
 var time: float = 0
 var speed: float = 1
 var paused: bool = true
+var ai_enabled: bool = false
 
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
 
@@ -49,3 +51,11 @@ func resume():
 	
 func pause():
 	paused = true
+
+func enable_ai():
+	dev.logd(TAG, "ai enabled")
+	ai_enabled = true
+
+func disable_ai():
+	dev.logd(TAG, "ai disabled")
+	ai_enabled = false

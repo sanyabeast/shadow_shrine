@@ -5,11 +5,15 @@ extends Node
 
 class_name S2Tools
 
+var IS_DEBUG: bool = OS.is_debug_build()
+
 func logd(tag: String, data):
-	print("[ %s ]: %s" % [tag, data])
+	if IS_DEBUG:
+		print("[ %s ]: %s" % [tag, data])
 	
 func logr(tag: String, data):
-	print("[ %s ]: [ ERROR! ] %s" % [tag, data])
+	if IS_DEBUG:
+		print("[ %s ]: [ ERROR! ] %s" % [tag, data])
 
 # Recursive function to get all descendants with a specific substring in their names
 func get_descendants_with_substring(root: Node, substring: String, matching_nodes: Array) -> Array:

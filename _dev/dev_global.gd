@@ -7,8 +7,12 @@ const TAG: String = "DevScript: "
 var screen_printer: S2DevScreenPrinter
 var debug_labels: S2DebugLabels
 var maze_painter: S2MazeDebugPainter
+var show_debug_graphics: bool = false
 
 var _queued_screen_printer_messages = {}
+
+func _ready():
+	show_debug_graphics = tools.IS_DEBUG
 
 # CONSOLE
 func logd(tag: String, data):
@@ -28,7 +32,6 @@ func print_screen(topic: String, message: String):
 	else:
 		_queued_screen_printer_messages[topic] = message
 
-
 func set_screen_printer(node: S2DevScreenPrinter):
 	screen_printer = node
 	for key in _queued_screen_printer_messages.keys():
@@ -45,3 +48,17 @@ func remove_label(target: Node3D):
 
 func set_debug_labels(node: S2DebugLabels):
 	debug_labels = node
+
+func _process(delta):
+	if tools.IS_DEBUG:
+		if Input.is_action_just_pressed("_dev_toggle_gizmo"):
+			show_debug_graphics = not show_debug_graphics
+			
+	if debug_labels != null:
+		debug_labels.visible = show_debug_graphics
+		
+	if screen_printer != null:
+		screen_printer.visible = show_debug_graphics	
+		
+	if maze_painter != null:
+		maze_painter.visible = show_debug_graphics	

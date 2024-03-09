@@ -27,6 +27,7 @@ func _init(_playlist: Array[AudioStream] = [], _track_index: int = 0, _is_playin
 	playlist = _playlist
 	track_index = _track_index
 	is_playing = _is_playing
+	bus = "Music"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

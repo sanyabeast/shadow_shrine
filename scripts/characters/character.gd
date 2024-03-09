@@ -139,7 +139,6 @@ func _physics_process(delta):
 		if not player_manager.is_player(self) and is_on_wall() and get_slide_collision_count() > 0:
 			var coll: KinematicCollision3D = get_slide_collision(0)
 			if coll != null and coll.get_collider() is GridMap:
-				print("test %s" % coll.get_normal())
 				commit_impulse(coll.get_normal(), 1)
 		
 func set_walk_power(value: float):
@@ -230,6 +229,9 @@ func get_mass() -> float:
 		return config.mass * player_manager.mass_scale
 	else:
 		return config.mass
+
+func get_scalar_velocity():
+	return tools.to_v2(velocity).length()
 	
 func die():
 	dev.logd(TAG, "character dies %s" % name)

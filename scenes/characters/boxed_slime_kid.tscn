@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=40 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/boxed_slime_kido.tres" id="2_vy3e7"]
@@ -9,9 +9,12 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/humanoid_basic_a1.tres" id="7_6kxlq"]
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="8_i4a00"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_controller.gd" id="9_8k31u"]
+[ext_resource type="Script" path="res://_dev/gizmo.gd" id="9_bwc5m"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="10_xwxi6"]
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="11_0bwyr"]
-[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles.tscn" id="12_64ctv"]
+[ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="12_vkcwu"]
+[ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="13_565yh"]
+[ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://resources/materials/particles/slime_puddle_a1.tres" id="14_n0cbf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6tujv"]
 height = 0.5
@@ -46,7 +49,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_cl1sr"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_m0goi"]
 resource_name = "draft_jerdelia_enemy"
 _surfaces = [{
 "aabb": AABB(-0.391695, 0, -0.392103, 0.78339, 0.750429, 0.784205),
@@ -174,7 +177,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.98, 1.04, 0.98), Vector3(1.02, 0.94, 1.02)]
+"values": [Vector3(0.9, 1, 0.9), Vector3(1.02, 0.85, 1.02)]
 }
 
 [sub_resource type="Animation" id="Animation_wkmhb"]
@@ -187,10 +190,10 @@ tracks/0/path = NodePath("Node3D/enemy:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 1, 0.95), Vector3(1, 1, 0.95), Vector3(1, 1, 1)]
+"values": [Vector3(0.7, 0.8, 1), Vector3(1, 0.8, 0.7), Vector3(0.7, 0.8, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -199,10 +202,10 @@ tracks/1/path = NodePath("Node3D/enemy:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0.001, -0.05), Vector3(0, 0.001, -0.05), Vector3(0, 0.001, 0)]
+"values": [Vector3(0.00034612, 0.000649148, -0.00128691), Vector3(0, 0.001, -0.1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oxk1m"]
@@ -211,6 +214,78 @@ _data = {
 "Idle": SubResource("Animation_qcewh"),
 "Run": SubResource("Animation_wkmhb")
 }
+
+[sub_resource type="Curve" id="Curve_mesge"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330731, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qyv7d"]
+curve = SubResource("Curve_mesge")
+
+[sub_resource type="Curve" id="Curve_bq35f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.220724, 0.483773), 0.749346, 0.749346, 0, 0, Vector2(0.802697, 0.496182), 0.741776, 0.741776, 0, 0, Vector2(1, 1), 2.87802, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_bipch"]
+curve = SubResource("Curve_bq35f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wuxt"]
+emission_shape = 3
+emission_box_extents = Vector3(0.4, 0.4, 0.4)
+angle_min = -30.0
+angle_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_bipch")
+alpha_curve = SubResource("CurveTexture_qyv7d")
+hue_variation_max = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6dgcb"]
+transparency = 1
+shading_mode = 2
+specular_mode = 2
+disable_ambient_light = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("12_vkcwu")
+emission_enabled = true
+emission_texture = ExtResource("13_565yh")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+distance_fade_max_distance = 14.75
+
+[sub_resource type="QuadMesh" id="QuadMesh_f6n61"]
+material = SubResource("StandardMaterial3D_6dgcb")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_1rkra"]
+offsets = PackedFloat32Array(0, 0.258779, 1)
+colors = PackedColorArray(0, 1, 0, 0, 0.47451, 1, 0, 0.117647, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_71h33"]
+gradient = SubResource("Gradient_1rkra")
+
+[sub_resource type="Curve" id="Curve_pnhoc"]
+_data = [Vector2(0, 0.205951), 0.0, 0.0, 0, 0, Vector2(0.611808, 0.307753), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_twjbq"]
+curve = SubResource("Curve_pnhoc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_58son"]
+particle_flag_rotate_y = true
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_twjbq")
+color_ramp = SubResource("GradientTexture1D_71h33")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bmd5d"]
+material = ExtResource("14_n0cbf")
 
 [node name="BoxedSlimeKiddo" type="CharacterBody3D"]
 script = ExtResource("1_yjlnt")
@@ -230,11 +305,11 @@ shape = SubResource("CapsuleShape3D_174we")
 script = ExtResource("3_op30v")
 
 [node name="Node3D" type="Node3D" parent="Body"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0)
 
 [node name="enemy" type="MeshInstance3D" parent="Body/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00034612, 0.000649148, -0.00128691)
-mesh = SubResource("ArrayMesh_cl1sr")
+mesh = SubResource("ArrayMesh_m0goi")
 skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
@@ -251,13 +326,13 @@ libraries = {
 tree_root = ExtResource("7_6kxlq")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_dead = false
-parameters/Move/blend_position = -0.00531185
+parameters/Move/blend_position = 1.0641
 
 [node name="Aim" type="Node3D" parent="."]
 
 [node name="arrow_red" parent="Aim" instance=ExtResource("8_i4a00")]
-transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0.335, 0, 0.5, -1)
-visible = false
+transform = Transform3D(-0.1, 0, -1.50996e-08, 0, 0.1, 0, 1.50996e-08, 0, -0.1, 0, 0.5, -1)
+script = ExtResource("9_bwc5m")
 
 [node name="Weapon" type="Node3D" parent="Aim"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500325, -0.34011)
@@ -267,5 +342,16 @@ config = ExtResource("10_xwxi6")
 [node name="NPCController" type="Node" parent="."]
 script = ExtResource("11_0bwyr")
 
-[node name="ToxicBubbles" parent="." instance=ExtResource("12_64ctv")]
+[node name="ToxicBubbles" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.08, 0)
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_6wuxt")
+draw_pass_1 = SubResource("QuadMesh_f6n61")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="ToxicBubbles"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+amount = 4
+lifetime = 2.0
+visibility_aabb = AABB(-3.93457, -4, -4, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_58son")
+draw_pass_1 = SubResource("PlaneMesh_bmd5d")

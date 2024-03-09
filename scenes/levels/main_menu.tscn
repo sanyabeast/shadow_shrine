@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu6q2ybvxarm2"]
+[gd_scene load_steps=16 format=3 uid="uid://cu6q2ybvxarm2"]
 
 [ext_resource type="Script" path="res://scripts/game/game_mode_main_menu.gd" id="1_fyh6q"]
 [ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="2_2rewf"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://e1sshe8mxlrk" path="res://assets/_dev/sound/Jagged Stone - Dark Theme.ogg" id="3_cjp6f"]
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="3_prmyu"]
 [ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="4_enfbp"]
+[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="4_vcjqk"]
 [ext_resource type="Script" path="res://scripts/gui/main_menu/main_menu_actions.gd" id="5_d6308"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
@@ -95,6 +96,9 @@ shadow_enabled = true
 [node name="S2AmbientSoundPlayer" type="AudioStreamPlayer3D" parent="Environment"]
 script = ExtResource("2_lisr0")
 playlist = Array[AudioStream]([ExtResource("3_cjp6f")])
+
+[node name="SceneMistSoft" parent="Environment" instance=ExtResource("4_vcjqk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.49342, 0.319419, 2.26328)
 
 [node name="Architecture" type="Node3D" parent="."]
 

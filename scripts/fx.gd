@@ -31,6 +31,9 @@ func start():
 	_setup_content()
 	_launch_content()
 	
+	for ap in _audio_players:
+		ap.bus = "SFX"
+	
 	_started_at = get_time()
 	_is_started = true
 	

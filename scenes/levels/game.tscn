@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=11 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_1lro1"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/_game_level_a1.tres" id="2_gmi04"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
+[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="4_v7xvp"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/gui.tscn" id="5_wkau2"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="6_hwkyy"]
 
@@ -21,6 +22,7 @@ sky_material = SubResource("ProceduralSkyMaterial_ob6na")
 background_mode = 2
 sky = SubResource("Sky_wfb0r")
 ambient_light_source = 3
+reflected_light_source = 2
 tonemap_mode = 3
 ssr_enabled = true
 ssao_enabled = true
@@ -30,6 +32,7 @@ ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 glow_normalized = true
+glow_bloom = 1.0
 volumetric_fog_density = 0.1
 volumetric_fog_gi_inject = 0.35
 volumetric_fog_anisotropy = 0.9
@@ -46,9 +49,12 @@ player_packed = ExtResource("3_mdfvv")
 environment = SubResource("Environment_ev1c6")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.731583, 0.373254, 0.570498, 0.141019, -0.735863, 0.662283, 0.667008, 0.564966, 0.485709, 0, 2, 0)
+transform = Transform3D(-0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, 0.433013, -0.75, 0, 2, 0)
 light_color = Color(0.905882, 0.862745, 0.854902, 1)
+light_energy = 0.0
 shadow_enabled = true
+
+[node name="LocationMistSoft" parent="Environment" instance=ExtResource("4_v7xvp")]
 
 [node name="Architecture" type="Node3D" parent="."]
 

@@ -12,6 +12,7 @@ var is_initialized: bool = false
 
 var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
 var _prev_look_direction: Vector3 = Vector3.UP
+var _scalar_velocity_smoothed: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +30,8 @@ func _process(delta):
 		_rotate_body(delta)
 		if anim_tree != null:
 			_update_anim_tree(delta)
+			
+		_scalar_velocity_smoothed = lerpf(_scalar_velocity_smoothed, character.get_scalar_velocity(), 0.2)
 	pass
 
 func _traverse(node):
@@ -61,7 +64,8 @@ func _rotate_body(delta):
 		
 func _update_anim_tree(delta):
 	var walk_direction = character.velocity.normalized()
-	anim_tree["parameters/Move/blend_position"] = clamp( walk_direction.length(),0,1)
+	#anim_tree["parameters/Move/blend_position"] = clamp(walk_direction.length(),0,1)
+	anim_tree["parameters/Move/blend_position"] = _scalar_velocity_smoothed
 	if game.paused:
 		anim_tree["parameters/Move/blend_position"] = 0
 	anim_tree["parameters/conditions/is_dead"] = character.is_dead

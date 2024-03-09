@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcodt2rcm5f7a"]
+
+[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="1_ojbct"]
+
+[sub_resource type="Gradient" id="Gradient_wk8us"]
+offsets = PackedFloat32Array(0, 0.115152, 0.886501, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.0470588, 1, 1, 1, 0.0470588, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4fgdm"]
+gradient = SubResource("Gradient_wk8us")
+
+[sub_resource type="Curve" id="Curve_crlhn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990596, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_dl2dm"]
+curve_x = SubResource("Curve_crlhn")
+
+[sub_resource type="Curve" id="Curve_1xmj4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a37se"]
+curve = SubResource("Curve_1xmj4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_alfvj"]
+emission_shape = 3
+emission_box_extents = Vector3(16, 1, 16)
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_dl2dm")
+gravity = Vector3(0, 0, 0)
+scale_min = 12.0
+scale_max = 24.0
+scale_curve = SubResource("CurveTexture_a37se")
+color_ramp = SubResource("GradientTexture1D_4fgdm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftd5f"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ojbct")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_ed38q"]
+material = SubResource("StandardMaterial3D_ftd5f")
+
+[node name="SceneMistSoft" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+amount = 12
+lifetime = 15.0
+preprocess = 8.0
+fixed_fps = 60
+visibility_aabb = AABB(-7.06723, -4, -5.0005, 14.1345, 8, 10.001)
+process_material = SubResource("ParticleProcessMaterial_alfvj")
+draw_pass_1 = SubResource("QuadMesh_ed38q")

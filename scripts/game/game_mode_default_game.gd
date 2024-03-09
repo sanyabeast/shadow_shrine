@@ -88,6 +88,8 @@ func reset_maze():
 	print(current_maze_cell)
 	
 func spawn_room(from_direction):
+	game.disable_ai()
+	
 	print("spawining new room from maze cell %s " % current_maze_cell)
 	
 	from_direction = from_direction if from_direction != null else world.EDirection.North
@@ -137,6 +139,8 @@ func spawn_room(from_direction):
 	player_manager.teleport(player_spawn.global_position)
 	
 	_check_ambient_sound_mix()
+	
+	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)
 	
 func next_room(from_direction: world.EDirection):
 	print("next_room: current room - %s" % current_maze_cell)

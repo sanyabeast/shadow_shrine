@@ -28,15 +28,18 @@ var _target_look_direction_angle: float = 0
 var _sinus_offset: float = randf_range(0, PI)
 
 func update(delta):
-	if character != null and not character.is_dead:
-		if character.is_friendly:
-			_update_friendly(delta)
-		else:
-			_update_enemy(delta)
-		pass
+	if game.ai_enabled and character != null:
+		if not character.is_dead:
+			if character.is_friendly:
+				_update_friendly(delta)
+			else:
+				_update_enemy(delta)
+			pass
+			
+			_update_movement(delta)
 	pass
 	
-	_update_movement(delta)
+	
 
 func initialize(_character: S2Character):
 	character = _character

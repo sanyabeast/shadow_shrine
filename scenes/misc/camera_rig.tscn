@@ -15,3 +15,10 @@ transform = Transform3D(1, 0, 0, 0, 0.819151, -0.573576, 0, 0.573576, 0.819151, 
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 0, 16, 0)
 fov = 30.0
 size = 10.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraRoot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+light_color = Color(1, 0.941176, 0.831373, 1)
+light_energy = 6.0
+spot_range = 29.6943
+spot_angle = 9.9928
