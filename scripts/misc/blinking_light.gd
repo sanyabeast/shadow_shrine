@@ -1,4 +1,4 @@
-extends OmniLight3D
+extends Light3D
 
 @export var min_energy: float = 0.5
 @export var max_energy: float = 1

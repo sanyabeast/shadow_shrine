@@ -244,6 +244,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.453402, 0.427526, 0.841627)
 light_color = Color(1, 0.780392, 0.588235, 1)
 light_energy = 2.0
 script = ExtResource("15_3u160")
+update_interval = 0.05
+sinus_a_rate = 1.1
+sinus_b_rate = 3.7
 
 [node name="EnteringArea" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.684633)

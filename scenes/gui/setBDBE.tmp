@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://df57o0ekejdac"]
+
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_v3g5x"]
+[ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="2_3m75g"]
+[ext_resource type="Script" path="res://scripts/gui/menu/actions/settings_menu_actions.gd" id="3_spvvw"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
+blend_mode = 2
+
+[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("items")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v3g5x")
+id = "settings_menu"
+items = [NodePath("VBoxContainer/Gameplay"), NodePath("VBoxContainer/Audio"), NodePath("VBoxContainer/Video")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_352pt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.431373, 0.611765, 0.294118, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameplay" parent="VBoxContainer" instance=ExtResource("2_3m75g")]
+layout_mode = 2
+id = "gameplay_settings"
+title = "Gameplay"
+
+[node name="Audio" parent="VBoxContainer" instance=ExtResource("2_3m75g")]
+layout_mode = 2
+id = "audio_settings"
+title = "Audio"
+
+[node name="Video" parent="VBoxContainer" instance=ExtResource("2_3m75g")]
+layout_mode = 2
+id = "video"
+title = "Video"
+
+[node name="MenuActions" type="Node" parent="."]
+script = ExtResource("3_spvvw")

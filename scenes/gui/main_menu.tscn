@@ -1,26 +1,87 @@
-[gd_scene load_steps=2 format=3 uid="uid://ced7tjyvq2uf6"]
+[gd_scene load_steps=6 format=3 uid="uid://d4mddqq5hmhux"]
 
-[ext_resource type="Script" path="res://scripts/gui/main_menu.gd" id="1_jg7rd"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_epcpp"]
+[ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="2_gh1dh"]
+[ext_resource type="Script" path="res://scripts/gui/main_menu/main_menu_actions.gd" id="3_n8dro"]
+[ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/gui/settings_menu.tscn" id="4_260ek"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
+blend_mode = 3
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("items", "actions", "submenus", "content_to_hide_on_submenu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jg7rd")
+script = ExtResource("1_epcpp")
+id = "pause_menu"
+items = [NodePath("ColorRect/VBoxContainer/Start"), NodePath("ColorRect/VBoxContainer/Settings"), NodePath("ColorRect/VBoxContainer/Quit")]
+actions = NodePath("MenuActions")
+submenus = [NodePath("SettingsMenu")]
+content_to_hide_on_submenu = [NodePath("ColorRect")]
 
-[node name="Label3" type="Label" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_352pt")
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -70.0
-offset_top = -23.0
-offset_right = 70.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "This is Main Menu"
+grow_vertical = 2
+color = Color(0.407843, 0.486275, 0.631373, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" parent="ColorRect/VBoxContainer" instance=ExtResource("2_gh1dh")]
+layout_mode = 2
+title = "Start"
+id = "start"
+value = null
+min_value = null
+max_value = null
+step = null
+options = null
+option_index = null
+
+[node name="Settings" parent="ColorRect/VBoxContainer" instance=ExtResource("2_gh1dh")]
+layout_mode = 2
+title = "Options"
+id = "settings"
+value = null
+min_value = null
+max_value = null
+step = null
+options = null
+option_index = null
+
+[node name="Quit" parent="ColorRect/VBoxContainer" instance=ExtResource("2_gh1dh")]
+layout_mode = 2
+title = "Quit"
+id = "quit"
+value = null
+min_value = null
+max_value = null
+step = null
+options = null
+option_index = null
+
+[node name="MenuActions" type="Node" parent="."]
+script = ExtResource("3_n8dro")
+default_game_scene = "res://scenes/levels/game.tscn"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_260ek")]
+layout_mode = 1

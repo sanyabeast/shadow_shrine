@@ -118,8 +118,8 @@ anchors_preset = 0
 offset_right = 285.0
 offset_bottom = 64.0
 script = ExtResource("1_3rpnb")
-title_element = NodePath("Background/Label")
 title = "Button"
+title_element = NodePath("Background/Label")
 anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -13,6 +13,7 @@ var _queued_screen_printer_messages = {}
 
 func _ready():
 	show_debug_graphics = tools.IS_DEBUG
+	show_debug_graphics = false
 
 # CONSOLE
 func logd(tag: String, data):

@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="1_ojbct"]
 
 [sub_resource type="Gradient" id="Gradient_wk8us"]
-offsets = PackedFloat32Array(0, 0.115152, 0.886501, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.0470588, 1, 1, 1, 0.0470588, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.224104, 0.49772, 0.761564, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.0980392, 1, 1, 1, 0.0588235, 1, 1, 1, 0.0980392, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_4fgdm"]
 gradient = SubResource("Gradient_wk8us")
@@ -25,17 +25,17 @@ curve = SubResource("Curve_1xmj4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_alfvj"]
 emission_shape = 3
-emission_box_extents = Vector3(16, 1, 16)
+emission_box_extents = Vector3(16, 4, 16)
 angle_min = -180.0
 angle_max = 180.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-directional_velocity_min = 1.0
+directional_velocity_min = 0.5
 directional_velocity_max = 1.0
 directional_velocity_curve = SubResource("CurveXYZTexture_dl2dm")
 gravity = Vector3(0, 0, 0)
-scale_min = 12.0
-scale_max = 24.0
+scale_min = 8.0
+scale_max = 16.0
 scale_curve = SubResource("CurveTexture_a37se")
 color_ramp = SubResource("GradientTexture1D_4fgdm")
 
@@ -58,7 +58,7 @@ material = SubResource("StandardMaterial3D_ftd5f")
 
 [node name="SceneMistSoft" type="GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-amount = 12
+amount = 32
 lifetime = 15.0
 preprocess = 8.0
 fixed_fps = 60

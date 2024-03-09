@@ -12,7 +12,6 @@ const TAG: String = "MenuItem"
 
 # Exported variables for customization.
 @export var id: String = ""
-@export var title: String = "Menu Item"
 @export var value: float = 0
 @export var min_value: float = 0
 @export var max_value: float = 1
@@ -40,7 +39,7 @@ func _ready():
 
 # Method to represent the menu item as a string.
 func _to_string():
-	return "MenuItem(name: %s, title: %s, value: %s)" % [name, title, value]
+	return "MenuItem(name: %s,  value: %s)" % [name,  value]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

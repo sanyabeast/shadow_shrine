@@ -12,33 +12,53 @@ const TAG: String = "MenuController"
 
 # Constant representing the maximum rate of menu item change.
 const MAX_MENU_ITEM_CHANGE_RATE: float = 4
+const ON_SHOW_SUBMIT_COOLDOWN: float = 0.1
+const CANCEL_COOLDOWN: float = 0.1
 
 # Exported variables for customization.
 @export var id: String = ""
 @export var items: Array[S2MenuItem]
 @export var index: int = 0
-@export var submenus: Array[S2MenuController]
 @export var actions: S2MenuActions
 
+@export_subgroup("Submenus")
+@export var submenus: Array[S2MenuController]
+@export var content_to_hide_on_submenu: Array[Control] = []
+@export var active_submenu: S2MenuController = null
+var parent_menu: S2MenuController = null
+
+@export_subgroup("Behaviour")
+@export var close_submenu_on_hide: bool = true
+var cooldown: S2CooldownManager = S2CooldownManager.new(false)
+
 # Variable to store the currently active submenu.
-var _active_submenu: S2MenuController
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Select the initial menu item.
+	cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
+	cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
+	
 	select(index)
 	actions.menu = self
 	for item in items:
 		item.menu = self
 	# Connect the visibility changed signal to the corresponding handler.
 	visibility_changed.connect(_handle_visibility_changed)
+	_init_submenus()
+	
 	pass # Replace with function body.
 
-
+func _init_submenus():
+	if active_submenu != null:
+		open_submenu(active_submenu.id)
+	else:
+		close_submenu()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Process menu navigation inputs when the menu is visible and no active submenu is present.
-	if visible and _active_submenu == null:
+	if visible and active_submenu == null:
 		if Input.is_action_just_pressed("ui_down"):
 			select_next()
 		if Input.is_action_just_pressed("ui_up"):
@@ -47,9 +67,10 @@ func _process(delta):
 			prev_option()
 		if Input.is_action_just_pressed("ui_right"):
 			next_option()
-			
 		if Input.is_action_just_pressed("ui_accept"):
 			submit()
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("pause"):
+			cancel()
 
 # Method to select a specific menu item by index.
 func select(_index: int):
@@ -89,20 +110,37 @@ func prev_option():
 
 # Method to submit the currently selected menu item.
 func submit():
-	items[index].submit()
+	if cooldown.ready("submit_allowed"):
+		items[index].submit()
+
+func cancel():
+	if cooldown.ready("cancel_allowed"):
+		if actions:
+			actions.handle_cancel()
+
+		if parent_menu != null:
+			parent_menu.close_submenu()
 
 # Handler for the visibility changed signal.
 func _handle_visibility_changed():
 	# When the menu becomes visible, reselect the current index.
 	if visible:
+		cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
+		cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
 		select(index)
+	else:
+		if close_submenu_on_hide:
+			close_submenu()
 	pass
 
 # Method to enter a submenu with a specific ID.
-func enter_submenu(id: String):
+func open_submenu(id: String):
 	# Retrieve the submenu with the specified ID.
-	var submenu = _get_submenu_with_id(id)
-	_active_submenu = submenu
+	var submenu = get_submenu(id)
+	dev.logd(TAG, "opening submenu with id: %s, found: %s" % [id, submenu])
+	
+	submenu.parent_menu = self
+	active_submenu = submenu
 	
 	# Show or hide submenus based on the entered submenu.
 	for item in submenus:
@@ -110,9 +148,21 @@ func enter_submenu(id: String):
 			item.visible = false
 		else:
 			item.visible = true
+	
+	for item in content_to_hide_on_submenu:
+		item.visible = false
+			
+
+func close_submenu():
+	active_submenu = null
+	for item in submenus:
+		item.visible = false
+		
+	for item in content_to_hide_on_submenu:
+		item.visible = true
 
 # Method to get a submenu with a specific ID.
-func _get_submenu_with_id(id: String) -> S2MenuController:
+func get_submenu(id: String) -> S2MenuController:
 	var result
 	for item in submenus:
 		if item.id == id:

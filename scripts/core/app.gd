@@ -25,7 +25,7 @@ func _ready():
 		dev.logd(TAG, "settings_config config error: %s" % settings_config_err_code)
 	
 	data = load(data_index_path)
-	set_music_volume(1)
+	set_music_volume(0)
 	dev.logd(TAG, "app  ready, data index resource loaded: %s" % data)
 	dev.logd(TAG, "is debug: %s" % tools.IS_DEBUG)
 		

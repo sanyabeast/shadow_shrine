@@ -194,11 +194,8 @@ func _process(delta):
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
 	dev.print_screen("room_alive_enemies", "alive enemies: %s" % [current_room.alive_enemies.size()])
 	
-	if Input.is_action_just_pressed("pause"):
-		if game.paused:
-			game.resume()
-		else:
-			game.pause()
+	if not game.paused and Input.is_action_just_pressed("pause"):
+		game.pause()
 			
 	if game.timer_gate.check("check_door_state", 1):
 		if not current_room.doors_opened and current_room.alive_enemies.size() == 0:
