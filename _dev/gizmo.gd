@@ -1,9 +1,12 @@
 extends Node3D
 
+@export var remove_at_production: bool = false
+@export var ingame_scale: float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not tools.IS_DEBUG:
+	scale = scale * ingame_scale
+	if not tools.IS_DEBUG and remove_at_production:
 		queue_free()
 	pass # Replace with function body.
 
