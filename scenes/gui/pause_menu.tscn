@@ -81,7 +81,7 @@ option_index = null
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("3_66gyp")
-main_menu_scene = "res://scenes/levels/main_menu.tscn"
+main_menu_scene = "res://scenes/levels/main_menu_level.tscn"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("4_uyqq5")]
 layout_mode = 1

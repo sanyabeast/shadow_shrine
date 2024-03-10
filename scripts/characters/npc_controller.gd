@@ -28,7 +28,7 @@ var _target_look_direction_angle: float = 0
 var _sinus_offset: float = randf_range(0, PI)
 
 func update(delta):
-	if game.ai_enabled and character != null:
+	if game.ai_enabled and character != null and character.ai_enabled:
 		if not character.is_dead:
 			if character.is_friendly:
 				_update_friendly(delta)

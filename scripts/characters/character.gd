@@ -53,6 +53,7 @@ class S2CharacterAbility:
 @export var use_as_player: bool = false
 
 @export_subgroup("NPC Mode")
+@export var ai_enabled: bool = true
 @export var is_friendly: bool = false
 
 var walk_power: float = 0
