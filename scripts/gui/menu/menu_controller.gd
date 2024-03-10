@@ -17,22 +17,31 @@ const CANCEL_COOLDOWN: float = 0.1
 
 # Exported variables for customization.
 @export var id: String = ""
+@export var anim_player: AnimationPlayer
+
+@export_subgroup("Items")
 @export var items: Array[S2MenuItem]
 @export var index: int = 0
-@export var actions: S2MenuActions
 
 @export_subgroup("Submenus")
 @export var submenus: Array[S2MenuController]
-@export var content_to_hide_on_submenu: Array[Control] = []
 @export var active_submenu: S2MenuController = null
 var parent_menu: S2MenuController = null
 
+@export_subgroup("Actions")
+@export var actions: S2MenuActions
+
 @export_subgroup("Behaviour")
 @export var close_submenu_on_hide: bool = true
+@export var interactive: bool = true
+@export var toggle_visibility_on_submenu: Array[Control] = []
+
 var cooldown: S2CooldownManager = S2CooldownManager.new(false)
+var _anim_on_close_submenu_to_show: String = ""
+var _anim_on_close_close_itself: bool = false
+var _anim_on_close_show_submenu: bool = false
 
 # Variable to store the currently active submenu.
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,7 +71,7 @@ func _init_submenus():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Process menu navigation inputs when the menu is visible and no active submenu is present.
-	if visible and active_submenu == null:
+	if visible and interactive and active_submenu == null:
 		if Input.is_action_just_pressed("ui_down"):
 			select_next()
 		if Input.is_action_just_pressed("ui_up"):
@@ -124,7 +133,12 @@ func cancel():
 			actions.handle_cancel()
 
 		if parent_menu != null:
-			parent_menu.close_submenu()
+			if anim_player != null and anim_player.has_animation("close"):
+				_anim_on_close_close_itself = true
+				disable_interaction()
+				play_animation("close")
+			else:
+				parent_menu.close_submenu()
 
 # Handler for the visibility changed signal.
 func _handle_visibility_changed():
@@ -133,13 +147,34 @@ func _handle_visibility_changed():
 		cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 		cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
 		select(index)
+		
+		if anim_player != null and anim_player.has_animation("open"):
+			play_animation("open")
+		else:
+			enable_interaction()
 	else:
 		if close_submenu_on_hide:
 			close_submenu()
+			disable_interaction()
+			play_animation("close", 1)
 	pass
 
 # Method to enter a submenu with a specific ID.
 func open_submenu(id: String):
+	if anim_player != null and anim_player.has_animation("close"):
+		_anim_on_close_submenu_to_show = id
+		_anim_on_close_show_submenu = true
+		_anim_on_close_close_itself = false
+		
+		for item in toggle_visibility_on_submenu:
+			item.visible = false
+		
+		disable_interaction()
+		play_animation("close")
+	else:
+		_open_submenu(id)
+
+func _open_submenu(id: String):
 	# Retrieve the submenu with the specified ID.
 	var submenu = get_submenu(id)
 	
@@ -156,18 +191,19 @@ func open_submenu(id: String):
 			item.visible = false
 		else:
 			item.visible = true
-	
-	for item in content_to_hide_on_submenu:
-		item.visible = false
 			
-
 func close_submenu():
 	active_submenu = null
 	for item in submenus:
 		item.visible = false
 		
-	for item in content_to_hide_on_submenu:
-		item.visible = true
+	for item in toggle_visibility_on_submenu:
+		item.visible = true	
+		
+	if anim_player != null and anim_player.has_animation("open"):
+		play_animation("open")
+	else:
+		enable_interaction()
 
 # Method to get a submenu with a specific ID.
 func get_submenu(id: String) -> S2MenuController:
@@ -177,3 +213,30 @@ func get_submenu(id: String) -> S2MenuController:
 			result = item
 			break
 	return result
+
+func play_animation(name: String, progress: float = 0):
+	if anim_player != null and anim_player.has_animation(name):
+		anim_player.play(name)
+		anim_player.seek(progress * anim_player.current_animation_length)
+
+func enable_interaction():
+	interactive = true
+	
+func disable_interaction():
+	interactive = false
+
+func handle_animation_finished(name: String):
+	match name:
+		"open":
+			pass
+			enable_interaction()
+		"close":
+			if _anim_on_close_close_itself:
+				parent_menu.close_submenu()
+				
+			if _anim_on_close_show_submenu:
+				_open_submenu(_anim_on_close_submenu_to_show)
+				
+			_anim_on_close_show_submenu = false
+			_anim_on_close_close_itself = false
+			

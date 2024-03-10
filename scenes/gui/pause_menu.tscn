@@ -1,14 +1,96 @@
-[gd_scene load_steps=6 format=3 uid="uid://uwvm2a5c8rmj"]
+[gd_scene load_steps=10 format=3 uid="uid://uwvm2a5c8rmj"]
 
 [ext_resource type="Script" path="res://scripts/gui/ingame/pause_menu.gd" id="1_4lcu6"]
 [ext_resource type="PackedScene" uid="uid://c66bohxi5woy2" path="res://_dev/hud/menu/menu_button.tscn" id="2_ij58p"]
 [ext_resource type="Script" path="res://scripts/gui/pause_menu/pause_menu_actions.gd" id="3_66gyp"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/gui/settings_menu.tscn" id="4_uyqq5"]
 
+[sub_resource type="Animation" id="Animation_x3tae"]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["open"],
+"method": &"handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5p5vp"]
+resource_name = "lose"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["close"],
+"method": &"handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_euc3b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1n2ot"]
+_data = {
+"RESET": SubResource("Animation_euc3b"),
+"close": SubResource("Animation_5p5vp"),
+"open": SubResource("Animation_x3tae")
+}
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
 blend_mode = 3
 
-[node name="PauseMenu" type="Control" node_paths=PackedStringArray("items", "actions", "submenus", "content_to_hide_on_submenu")]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("anim_player", "items", "submenus", "actions")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,10 +99,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4lcu6")
 id = "pause_menu"
+anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/Resume"), NodePath("Content/VBoxContainer/Settings"), NodePath("Content/VBoxContainer/Quit")]
-actions = NodePath("MenuActions")
 submenus = [NodePath("SettingsMenu")]
-content_to_hide_on_submenu = [NodePath("Content")]
+actions = NodePath("MenuActions")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1n2ot")
+}
+blend_times = [&"open", &"close", 0.25, &"open", &"open", 0.25, &"open", &"RESET", 0.25]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_352pt")
@@ -66,4 +154,5 @@ script = ExtResource("3_66gyp")
 main_menu_scene = "res://scenes/levels/main_menu_level.tscn"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("4_uyqq5")]
+visible = false
 layout_mode = 1

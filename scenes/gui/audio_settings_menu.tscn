@@ -1,9 +1,91 @@
-[gd_scene load_steps=12 format=3 uid="uid://by66kvhnhkn2b"]
+[gd_scene load_steps=16 format=3 uid="uid://by66kvhnhkn2b"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_58r2h"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="2_y3e2j"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_5ft24"]
 [ext_resource type="Script" path="res://scripts/gui/settings_menu/audio_settings_menu_action.gd" id="4_ivomp"]
+
+[sub_resource type="Animation" id="Animation_j06sh"]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["open"],
+"method": &"handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pwedb"]
+resource_name = "close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["close"],
+"method": &"handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2uq4h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mknif"]
+_data = {
+"RESET": SubResource("Animation_2uq4h"),
+"close": SubResource("Animation_pwedb"),
+"open": SubResource("Animation_j06sh")
+}
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4lfd"]
 blend_mode = 3
@@ -140,7 +222,7 @@ blend_mode = 1
 
 [sub_resource type="Theme" id="Theme_urh5j"]
 
-[node name="AudioSettingsMenu" type="Control" node_paths=PackedStringArray("items", "actions")]
+[node name="AudioSettingsMenu" type="Control" node_paths=PackedStringArray("anim_player", "items", "actions")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,8 +231,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_58r2h")
 id = "audio_settings_menu"
+anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/MasterVolume"), NodePath("Content/VBoxContainer/MusicVolume"), NodePath("Content/VBoxContainer/SFXVolume")]
 actions = NodePath("MenuActions")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mknif")
+}
+blend_times = [&"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
