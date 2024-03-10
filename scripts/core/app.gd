@@ -8,6 +8,15 @@ class_name RApp
 const TAG: String = "App"
 const SETTINGS_CONFIG_PATH: String = "user://settings.cfg"
 
+const SETTINGS_KEY: String = "settings"
+
+const SETTINGS_AUDIO_MASTER_VOLUME_KEY: String = "audio_settings__master_volume"
+const SETTINGS_AUDIO_MUSIC_VOLUME_KEY: String = "audio_settings__music_volume"
+const SETTINGS_AUDIO_SFX_VOLUME_KEY: String = "audio_settings__sfx_volume"
+
+const SETTINGS_VIDEO_RENDER_SCALE: String = "video_settings__render_scale"
+const SETTINGS_VIDEO_RENDER_SHARPNESS: String = "video_settings__render_sharpness"
+
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
 
 var data: RDataIndex
@@ -25,10 +34,9 @@ func _ready():
 		dev.logd(TAG, "settings_config config error: %s" % settings_config_err_code)
 	
 	data = load(data_index_path)
-	set_music_volume(1)
 	dev.logd(TAG, "app  ready, data index resource loaded: %s" % data)
 	dev.logd(TAG, "is debug: %s" % tools.IS_DEBUG)
-		
+	_load_settings()
 	#AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(0))
 	pass # Replace with function body.
 
@@ -36,36 +44,71 @@ func _ready():
 func _process(delta):
 	pass
 
+
 func quit():
 	dev.logd(TAG, "quitting...")
 	get_tree().quit()
 
 # SETTINGS
-func set_setting(section: String, key: String, value: Variant):
-	settings_config.set_value(section, key, value)
+func set_setting(key: String, value: Variant):
+	tools.logd(TAG, "saving setting at %s, value: %s" % [key, value])
+	settings_config.set_value(SETTINGS_KEY, key, value)
 	settings_config.save(SETTINGS_CONFIG_PATH)
 
-func get_setting(section: String, key: String, default: Variant = null):
-	return settings_config.get_value(section, key, default)
-
+func get_setting(key: String, default: Variant = null):
+	if not settings_config.has_section_key(SETTINGS_KEY, key):
+		tools.logd(TAG, "settings item at %s does NOT exist: creating new with default value: %s" % [key, default])
+		settings_config.set_value(SETTINGS_KEY, key, default)
+		
+	var result = settings_config.get_value(SETTINGS_KEY, key, default)
+	tools.logd(TAG, "loaded setting at %s is %s" % [key, result])
+	return result
 # SOUND
 func set_volume(value: float):
-	set_setting("sound", "master_volume", value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(clampf(value, 0, 1)))
+	set_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, value)
 	
 func set_music_volume(value: float):
-	set_setting("sound", "music_volume", value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(clampf(value, 0, 1)))
+	set_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, value)
 
 func set_sfx_volume(value: float):
-	set_setting("sound", "sfx_volume", value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(clampf(value, 0, 1)))
+	set_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, value)
 # getters
 func get_volume()->float:
-	return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+	return get_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, 1)
 
 func get_music_volume()->float:
-	return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))
+	return get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 1)
 	
 func get_sfx_volume()->float:
-	return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))
+	return get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1)
+
+func _load_settings():
+	set_volume(get_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, 1))
+	set_music_volume(get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 1))
+	set_sfx_volume(get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1))
+	
+	set_render_scale(get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1))
+	set_render_sharpness(get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1))
+
+# RENDERING
+func set_render_scale(value: float):
+	value = clampf(value, 0, 1)
+	var viewport = get_viewport()
+	viewport.scaling_3d_scale = value
+	set_setting(SETTINGS_VIDEO_RENDER_SCALE, value)
+
+func get_render_scale()->float:
+	return get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1)
+
+# fsr sharpness
+func set_render_sharpness(value: float):
+	value = clampf(value, 0, 2)
+	var viewport = get_viewport()
+	viewport.fsr_sharpness = value
+	set_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, value)
+
+func get_render_sharpness()->float:
+	return get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1)

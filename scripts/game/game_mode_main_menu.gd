@@ -18,7 +18,9 @@ func _ready():
 	demo_room.open_doors(true)
 	
 	bg_music_player.play_mix()
-	demo_room.close_doors()
+	app.tasks.schedule(self, "doors", 1, demo_room.close_doors)
+	
+	game.resume()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

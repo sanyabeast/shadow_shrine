@@ -50,34 +50,16 @@ grow_vertical = 2
 layout_mode = 2
 title = "Resume"
 id = "resume"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 
 [node name="Settings" parent="Content/VBoxContainer" instance=ExtResource("2_ij58p")]
 layout_mode = 2
 title = "Settings"
 id = "settings"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 
 [node name="Quit" parent="Content/VBoxContainer" instance=ExtResource("2_ij58p")]
 layout_mode = 2
 title = "Quit"
 id = "quit"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("3_66gyp")

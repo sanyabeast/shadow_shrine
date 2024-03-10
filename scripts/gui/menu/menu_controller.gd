@@ -36,16 +36,20 @@ var cooldown: S2CooldownManager = S2CooldownManager.new(false)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	assert(actions != null, "actions not found at %s" % name)
 	# Select the initial menu item.
 	cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 	cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
 	
 	select(index)
+	
 	actions.menu = self
 	for item in items:
 		item.menu = self
 	# Connect the visibility changed signal to the corresponding handler.
 	visibility_changed.connect(_handle_visibility_changed)
+	actions.initialize_items(items)
+	
 	_init_submenus()
 	
 	pass # Replace with function body.
@@ -87,6 +91,7 @@ func select(_index: int):
 	
 	# Set the active state for each menu item.
 	for i in items.size():
+		assert(items[i] != null, "failed to parse item at index %s in menu %s" % [index, name])
 		if i != index:
 			items[i].set_active(false)
 		else:
@@ -137,8 +142,11 @@ func _handle_visibility_changed():
 func open_submenu(id: String):
 	# Retrieve the submenu with the specified ID.
 	var submenu = get_submenu(id)
-	dev.logd(TAG, "opening submenu with id: %s, found: %s" % [id, submenu])
 	
+	assert(submenu != null, "submenu with id %s not found at %s" % [id, name])
+	assert(submenu is S2MenuController, "submenu with id %s must be a S2MenuController type, found: %s at %s" % [id, submenu, name])
+
+	dev.logd(TAG, "opening submenu with id: %s, found: %s" % [id, submenu])
 	submenu.parent_menu = self
 	active_submenu = submenu
 	

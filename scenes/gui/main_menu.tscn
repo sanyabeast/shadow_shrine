@@ -116,7 +116,7 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_epcpp")
-id = "pause_menu"
+id = "main_menu"
 items = [NodePath("ColorRect/Start"), NodePath("ColorRect/Settings"), NodePath("ColorRect/Quit")]
 actions = NodePath("MenuActions")
 submenus = [NodePath("SettingsMenu")]
@@ -142,12 +142,6 @@ offset_right = 480.0
 offset_bottom = 264.0
 script = ExtResource("2_2fp76")
 id = "start"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/Start"]
@@ -200,12 +194,6 @@ offset_right = 480.0
 offset_bottom = 334.0
 script = ExtResource("2_2fp76")
 id = "settings"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/Settings"]
@@ -258,12 +246,6 @@ offset_right = 480.0
 offset_bottom = 404.0
 script = ExtResource("2_2fp76")
 id = "quit"
-value = null
-min_value = null
-max_value = null
-step = null
-options = null
-option_index = null
 anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/Quit"]

@@ -1,14 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://df57o0ekejdac"]
+[gd_scene load_steps=12 format=3 uid="uid://l3lmp6jclmu0"]
 
-[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_v3g5x"]
-[ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="2_fesav"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_p77a6"]
-[ext_resource type="Script" path="res://scripts/gui/settings_menu/settings_menu_action.gd" id="3_spvvw"]
-[ext_resource type="PackedScene" uid="uid://by66kvhnhkn2b" path="res://scenes/gui/audio_settings_menu.tscn" id="5_mdb5d"]
-[ext_resource type="PackedScene" uid="uid://l3lmp6jclmu0" path="res://scenes/gui/video_settings_menu.tscn" id="6_thmy2"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_3r0r5"]
+[ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="2_s4igg"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_lp17m"]
+[ext_resource type="Script" path="res://scripts/gui/settings_menu/video_settings_menu_action.gd" id="4_a7odh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4lfd"]
-blend_mode = 3
 
 [sub_resource type="Animation" id="Animation_68ae3"]
 length = 0.001
@@ -27,7 +24,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/path = NodePath("Background/TitleLabel:theme_override_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -35,6 +32,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.027451, 0.027451, 0.027451, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/ValueLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.854902, 0.45098, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_0lmg2"]
@@ -55,7 +64,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/path = NodePath("Background/TitleLabel:theme_override_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -63,6 +72,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.901961, 0.901961, 0.901961, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/ValueLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.854902, 0.45098, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_3gyr4"]
@@ -76,18 +97,30 @@ tracks/0/path = NodePath("Background:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0, 0.168627, 0.878431), Color(1, 0.25098, 0, 0.878431), Color(1, 0, 0.168627, 0.878431)]
+"values": [Color(0.556863, 0.501961, 0.690196, 0.878431)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/path = NodePath("Background/TitleLabel:theme_override_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/ValueLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -102,24 +135,20 @@ _data = {
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vcnjb"]
-blend_mode = 1
 
 [sub_resource type="Theme" id="Theme_urh5j"]
 
-[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("items", "actions", "submenus", "content_to_hide_on_submenu")]
+[node name="VideoSettingsMenu" type="Control" node_paths=PackedStringArray("items", "actions")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v3g5x")
-id = "settings_menu"
-items = [NodePath("Content/VBoxContainer/Gameplay"), NodePath("Content/VBoxContainer/Audio"), NodePath("Content/VBoxContainer/Video")]
-index = 1
+script = ExtResource("1_3r0r5")
+id = "video_settings_menu"
+items = [NodePath("Content/VBoxContainer/RenderScale"), NodePath("Content/VBoxContainer/RenderSharpness")]
 actions = NodePath("MenuActions")
-submenus = [NodePath("AudioSettingsMenu"), NodePath("VideoSettingsMenu")]
-content_to_hide_on_submenu = [NodePath("Content")]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
@@ -129,7 +158,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.52549, 0.678431, 0.541176, 1)
+color = Color(0, 0, 0, 0.235294)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content"]
 layout_mode = 1
@@ -145,15 +174,19 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gameplay" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("title_element", "anim_player")]
+[node name="RenderScale" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-script = ExtResource("2_fesav")
-title_element = NodePath("Background/Label")
-id = "gameplay_settings"
+script = ExtResource("2_s4igg")
+value_element = NodePath("Background/ValueLabel")
+value_format_type = 1
+id = "render_scale"
+has_options = true
+value = 1.0
+step = 0.1
 anim_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Gameplay"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/RenderScale"]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_rqw5d")
@@ -162,7 +195,7 @@ playback_default_blend_time = 1.0
 next/default = &"default"
 blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Gameplay"]
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/RenderScale"]
 material = SubResource("CanvasItemMaterial_vcnjb")
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 1
@@ -173,33 +206,58 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.305882)
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/Gameplay/Background"]
+[node name="TitleLabel" type="Label" parent="Content/VBoxContainer/RenderScale/Background"]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+offset_left = 16.0
+offset_top = -26.0
+offset_right = 345.0
+offset_bottom = 26.0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
+theme_override_fonts/font = ExtResource("3_lp17m")
 theme_override_font_sizes/font_size = 32
-text = "Gameplay
-"
-horizontal_alignment = 1
+text = "Render Scale"
 vertical_alignment = 1
 
-[node name="Audio" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
+[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/RenderScale/Background"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -26.0
+offset_right = -10.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
+theme_override_fonts/font = ExtResource("3_lp17m")
+theme_override_font_sizes/font_size = 32
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="RenderSharpness" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-script = ExtResource("2_fesav")
-id = "audio_settings"
+script = ExtResource("2_s4igg")
+value_element = NodePath("Background/ValueLabel")
+value_format_type = 1
+id = "render_sharpness"
+has_options = true
+value = 1.0
+max_value = 2.0
+step = 0.2
 anim_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Audio"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/RenderSharpness"]
 libraries = {
 "": SubResource("AnimationLibrary_rqw5d")
 }
@@ -207,7 +265,7 @@ playback_default_blend_time = 1.0
 next/default = &"default"
 blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Audio"]
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/RenderSharpness"]
 material = SubResource("CanvasItemMaterial_vcnjb")
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 1
@@ -218,76 +276,43 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.305882)
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/Audio/Background"]
+[node name="TitleLabel" type="Label" parent="Content/VBoxContainer/RenderSharpness/Background"]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+offset_left = 16.0
+offset_top = -26.0
+offset_right = 345.0
+offset_bottom = 26.0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
+theme_override_fonts/font = ExtResource("3_lp17m")
 theme_override_font_sizes/font_size = 32
-text = "Audio
-"
-horizontal_alignment = 1
+text = "Render Sharpness"
 vertical_alignment = 1
 
-[node name="Video" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-script = ExtResource("2_fesav")
-id = "video_settings"
-anim_player = NodePath("AnimationPlayer")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Video"]
-libraries = {
-"": SubResource("AnimationLibrary_rqw5d")
-}
-playback_default_blend_time = 1.0
-next/default = &"default"
-blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
-
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Video"]
-material = SubResource("CanvasItemMaterial_vcnjb")
-custom_minimum_size = Vector2(0, 64)
+[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/RenderSharpness/Background"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0.305882)
-
-[node name="Label" type="Label" parent="Content/VBoxContainer/Video/Background"]
-layout_mode = 1
-anchors_preset = 14
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+offset_left = -200.0
+offset_top = -26.0
+offset_right = -10.0
+offset_bottom = 26.0
+grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
-theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
+theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
+theme_override_fonts/font = ExtResource("3_lp17m")
 theme_override_font_sizes/font_size = 32
-text = "Video"
-horizontal_alignment = 1
+text = "100%"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="MenuActions" type="Node" parent="."]
-script = ExtResource("3_spvvw")
-
-[node name="AudioSettingsMenu" parent="." instance=ExtResource("5_mdb5d")]
-visible = false
-layout_mode = 1
-
-[node name="VideoSettingsMenu" parent="." instance=ExtResource("6_thmy2")]
-visible = false
-layout_mode = 1
+script = ExtResource("4_a7odh")
