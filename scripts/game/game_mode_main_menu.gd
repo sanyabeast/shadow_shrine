@@ -17,9 +17,7 @@ func _ready():
 	demo_room.initialize(false)
 	demo_room.open_doors(true)
 	
-	
 	bg_music_player.play_mix()
-	
 	demo_room.close_doors()
 	
 
