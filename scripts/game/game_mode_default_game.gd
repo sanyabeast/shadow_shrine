@@ -11,6 +11,9 @@ const AMBIENCE_LONG_FADE_TIME: float = 2
 const AMBIENCE_SHORT_FADE_TIME: float = 0.2
 const AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP: bool = true
 
+const ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION: float = 0.25
+const ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION: float = 0.5
+
 @export var config: RGameLevelConfig
 @export var player: S2Character
 @export var player_packed: PackedScene
@@ -34,6 +37,8 @@ var rooms_data: Dictionary = {}
 var _expore_ambience_mixer: S2AmbientSoundPlayer
 var _battle_ambience_mixer: S2AmbientSoundPlayer
 
+var screen_fx: S2ScreenFX
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super._ready()
@@ -41,6 +46,8 @@ func _ready():
 
 func prepare():
 	super.prepare()
+	
+	screen_fx = gui.controller.screen_fx
 	
 	environment_node = $Environment
 	architecture_node = $Architecture
@@ -83,7 +90,7 @@ func reset_maze():
 	maze_generator.generate()
 	print(maze_generator.cells)
 	
-	next_room(world.EDirection.North)
+	next_room(world.EDirection.North, true)
 	
 	print(current_maze_cell)
 	
@@ -142,7 +149,17 @@ func spawn_room(from_direction):
 	
 	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)
 	
-func next_room(from_direction: world.EDirection):
+	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
+	
+func next_room(from_direction: world.EDirection, skip_fade: bool = false):
+	if skip_fade:
+		_next_room(from_direction)
+	else:
+		screen_fx.fade_out(ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION)
+		tasks.schedule(self, "next_room", ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION * 1.1, _next_room.bind(from_direction))
+
+func _next_room(from_direction: world.EDirection):
+	print("kekekek", from_direction)
 	print("next_room: current room - %s" % current_maze_cell)
 	
 	if current_room != null:

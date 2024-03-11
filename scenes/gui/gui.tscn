@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://duiag5itq7dxf"]
+[gd_scene load_steps=6 format=3 uid="uid://duiag5itq7dxf"]
 
 [ext_resource type="PackedScene" uid="uid://dn64pkqqlfw4k" path="res://scenes/gui/world_space.tscn" id="1_2drf7"]
 [ext_resource type="Script" path="res://scripts/gui/ingame/ingame_gui.gd" id="1_df66y"]
 [ext_resource type="PackedScene" uid="uid://blyunibxrlnkg" path="res://scenes/gui/hud.tscn" id="2_nxwr5"]
 [ext_resource type="PackedScene" uid="uid://uwvm2a5c8rmj" path="res://scenes/gui/pause_menu.tscn" id="3_m0qic"]
+[ext_resource type="PackedScene" uid="uid://dd4cusqsvp4ur" path="res://scenes/gui/screen_fx.tscn" id="4_bbpqx"]
 
 [node name="InGameGUI" type="Control"]
 layout_mode = 3
@@ -18,6 +19,9 @@ script = ExtResource("1_df66y")
 layout_mode = 1
 
 [node name="HUD" parent="." instance=ExtResource("2_nxwr5")]
+layout_mode = 1
+
+[node name="ScreenFX" parent="." instance=ExtResource("4_bbpqx")]
 layout_mode = 1
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_m0qic")]

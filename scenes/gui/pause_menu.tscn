@@ -5,9 +5,8 @@
 [ext_resource type="Script" path="res://scripts/gui/pause_menu/pause_menu_actions.gd" id="3_66gyp"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/gui/settings_menu.tscn" id="4_uyqq5"]
 
-[sub_resource type="Animation" id="Animation_x3tae"]
-resource_name = "open"
-length = 0.3
+[sub_resource type="Animation" id="Animation_euc3b"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -19,20 +18,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": ["open"],
-"method": &"handle_animation_finished"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_5p5vp"]
@@ -65,8 +50,9 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_euc3b"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_x3tae"]
+resource_name = "open"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -78,6 +64,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["open"],
+"method": &"handle_animation_finished"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1n2ot"]

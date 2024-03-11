@@ -6,6 +6,7 @@ const TAG: String = "nGameGUI"
 @onready var world_space: S2WorldSpaceGUI = $WorldSpace
 @onready var hud: S2HUD = $HUD
 @onready var pause_menu: S2PauseMenu = $PauseMenu
+@onready var screen_fx: S2ScreenFX = $ScreenFX
 
 var world_space_visible: bool = true
 var hud_visible: bool = false
