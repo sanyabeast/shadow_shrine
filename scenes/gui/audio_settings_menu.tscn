@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://by66kvhnhkn2b"]
+[gd_scene load_steps=20 format=3 uid="uid://by66kvhnhkn2b"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_58r2h"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_d0ivd"]
 [ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_qnium"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_y3e2j"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_5ft24"]
@@ -12,22 +13,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Content:modulate")
+tracks/0/path = NodePath("Content/VBoxContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Content/VBoxContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -58,52 +47,40 @@ tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_j06sh"]
 resource_name = "open"
 length = 0.2
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Content:modulate")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["open"],
 "method": &"handle_animation_finished"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Content/VBoxContainer:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mknif"]
@@ -260,12 +237,13 @@ id = "audio_settings_menu"
 anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/MasterVolume"), NodePath("Content/VBoxContainer/MusicVolume"), NodePath("Content/VBoxContainer/SFXVolume")]
 actions = NodePath("MenuActions")
+menu_sfx = ExtResource("2_d0ivd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_mknif")
 }
-blend_times = [&"open", &"close", 0.2, &"open", &"open", 0.2, &"open", &"RESET", 0.2, &"RESET", &"close", 0.3, &"RESET", &"open", 0.3, &"RESET", &"RESET", 0.3]
+blend_times = [&"open", &"close", 0.2, &"open", &"open", 0.2, &"open", &"RESET", 0.2]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")

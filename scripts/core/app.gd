@@ -37,13 +37,14 @@ func _ready():
 	dev.logd(TAG, "app  ready, data index resource loaded: %s" % data)
 	dev.logd(TAG, "is debug: %s" % tools.IS_DEBUG)
 	_load_settings()
+	
 	#AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(0))
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	tasks.update()
 	pass
-
 
 func quit():
 	dev.logd(TAG, "quitting...")

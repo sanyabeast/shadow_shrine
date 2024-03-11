@@ -552,7 +552,7 @@ shader_parameter/MULTIPLIER = 0.56
 shader_parameter/SCALE = 0.0
 shader_parameter/SOFTNESS = 0.2
 
-[node name="ScreenFX" type="Control"]
+[node name="ScreenFX" type="Control" node_paths=PackedStringArray("dark_fader")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -560,6 +560,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xqruw")
+dark_fader = NodePath("FaderDark")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

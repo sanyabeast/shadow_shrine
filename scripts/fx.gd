@@ -30,10 +30,6 @@ func start():
 	dev.logd(TAG, "starting new FX: %s" % config)
 	_setup_content()
 	_launch_content()
-	
-	for ap in _audio_players:
-		ap.bus = "SFX"
-	
 	_started_at = get_time()
 	_is_started = true
 	
@@ -42,6 +38,7 @@ func _traverse(node):
 		_particle_systems.append(node)
 		
 	if node is AudioStreamPlayer:
+		node.bus = "SFX"
 		_audio_players.append(node)
 		
 	# Recursively call this function on all children
@@ -50,12 +47,10 @@ func _traverse(node):
 	
 func _launch_content():
 	for ps in _particle_systems:
-		if not ps.emitting:
-			ps.emitting = true
+		ps.emitting = true
 			
 	for ap in _audio_players:
-		if not ap.playing:
-			ap.play()
+		ap.play()
 	
 func _check_active_content():
 	var count: int = 0
@@ -66,25 +61,27 @@ func _check_active_content():
 			
 	for ap in _audio_players:
 		if ap.playing:
-			count+=1
+			count += 1
 	
 	_active_content = count
 	
 func _setup_content():
+	_traverse(self)
+	
 	if config:
 		if config.audio != null:
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
+			audio_player.bus = "SFX"
 			audio_player.stream = config.audio
 			audio_player.pitch_scale = randf_range(config.audio_pitch_min, config.audio_pitch_max)
+
+			_audio_players.append(audio_player)
 			add_child(audio_player)
 			audio_player.play()
 		
 		for item in config.content:
 			var scene = item.instantiate()
 			add_child(scene)
-			
-		_traverse(self)
-		
 	else:
 		dev.logr(TAG, "fail to start FX at %s: no config" % name)
 		_dispose()

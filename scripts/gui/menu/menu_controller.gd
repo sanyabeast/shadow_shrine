@@ -11,9 +11,9 @@ class_name S2MenuController
 const TAG: String = "MenuController"
 
 # Constant representing the maximum rate of menu item change.
-const MAX_MENU_ITEM_CHANGE_RATE: float = 4
-const ON_SHOW_SUBMIT_COOLDOWN: float = 0.1
-const CANCEL_COOLDOWN: float = 0.1
+const MAX_MENU_ITEM_CHANGE_RATE: float = 8
+const ON_SHOW_SUBMIT_COOLDOWN: float = 0.05
+const CANCEL_COOLDOWN: float = 0.05
 
 # Exported variables for customization.
 @export var id: String = ""
@@ -36,10 +36,15 @@ var parent_menu: S2MenuController = null
 @export var interactive: bool = true
 @export var toggle_visibility_on_submenu: Array[Control] = []
 
+@export_subgroup("sound")
+@export var menu_sfx: RMenuSFX
+
 var cooldown: S2CooldownManager = S2CooldownManager.new(false)
 var _anim_on_close_submenu_to_show: String = ""
 var _anim_on_close_close_itself: bool = false
 var _anim_on_close_show_submenu: bool = false
+
+var _audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 
 # Variable to store the currently active submenu.
 
@@ -49,6 +54,10 @@ func _ready():
 	# Select the initial menu item.
 	cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 	cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
+	
+	_audio_player.panning_strength = 0
+	_audio_player.bus = "SFX"
+	add_child(_audio_player)
 	
 	select(index)
 	
@@ -109,23 +118,29 @@ func select(_index: int):
 # Method to select the next menu item.
 func select_next():
 	select(index + 1)
+	play_sound()
 	
 # Method to select the previous menu item.
 func select_prev():
 	select(index - 1)
+	play_sound()
 
 # Method to navigate to the next option within the currently selected menu item.
 func next_option():
 	items[index].next_option()
+	play_sound(false, false, true)
 
 # Method to navigate to the previous option within the currently selected menu item.
 func prev_option():
 	items[index].prev_option()
+	play_sound(false, false, true)
 
 # Method to submit the currently selected menu item.
 func submit():
 	if cooldown.ready("submit_allowed"):
 		items[index].submit()
+	
+		play_sound(true)
 
 func cancel():
 	if cooldown.ready("cancel_allowed"):
@@ -139,7 +154,8 @@ func cancel():
 				play_animation("close")
 			else:
 				parent_menu.close_submenu()
-
+				
+		play_sound(false, true)
 # Handler for the visibility changed signal.
 func _handle_visibility_changed():
 	# When the menu becomes visible, reselect the current index.
@@ -240,3 +256,16 @@ func handle_animation_finished(name: String):
 			_anim_on_close_show_submenu = false
 			_anim_on_close_close_itself = false
 			
+func play_sound(is_submit: bool = false, is_cancel: bool = false, is_alter: bool = false):
+	if menu_sfx != null:
+		var stream = menu_sfx.interaction_sound
+		if is_submit:
+			stream = stream if menu_sfx.submit_sound == null else menu_sfx.submit_sound
+		if is_cancel:
+			stream = stream if menu_sfx.cancel_sound == null else menu_sfx.cancel_sound
+		if is_alter:
+			stream = stream if menu_sfx.alter_sound == null else menu_sfx.alter_sound
+		
+		if stream != null:
+			_audio_player.stream = stream
+			_audio_player.play()

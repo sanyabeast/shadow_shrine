@@ -17,6 +17,7 @@ const ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION: float = 0.5
 @export var config: RGameLevelConfig
 @export var player: S2Character
 @export var player_packed: PackedScene
+@export var main_menu_scene: String
 
 var environment_node: Node3D
 var architecture_node: Node3D
@@ -247,3 +248,7 @@ func _check_ambient_sound_mix():
 		if AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP:
 			_expore_ambience_mixer.next_track()
 		_expore_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)
+
+func quit_to_main_menu():
+	screen_fx.fade_out(0.2)
+	app.tasks.schedule(world.get_scene(), "load_main_menu_level", 0.4, tools.load_scene.bind(main_menu_scene))

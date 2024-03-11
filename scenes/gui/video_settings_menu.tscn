@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://l3lmp6jclmu0"]
+[gd_scene load_steps=20 format=3 uid="uid://l3lmp6jclmu0"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_3r0r5"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_85otx"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_s4igg"]
 [ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="3_1loa7"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_lp17m"]
@@ -32,7 +33,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["close"],
@@ -46,10 +47,10 @@ tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_fbejn"]
@@ -62,7 +63,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["open"],
@@ -76,10 +77,10 @@ tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0m1lt"]
@@ -236,6 +237,7 @@ id = "video_settings_menu"
 anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/RenderScale"), NodePath("Content/VBoxContainer/RenderSharpness")]
 actions = NodePath("MenuActions")
+menu_sfx = ExtResource("2_85otx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

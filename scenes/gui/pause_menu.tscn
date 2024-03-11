@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://uwvm2a5c8rmj"]
+[gd_scene load_steps=20 format=3 uid="uid://uwvm2a5c8rmj"]
 
 [ext_resource type="Script" path="res://scripts/gui/ingame/pause_menu.gd" id="1_4lcu6"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_88haa"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_g8a6e"]
 [ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_mrken"]
 [ext_resource type="Script" path="res://scripts/gui/pause_menu/pause_menu_actions.gd" id="3_66gyp"]
@@ -24,7 +25,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_5p5vp"]
 resource_name = "lose"
-length = 0.3
+length = 0.2
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -32,7 +33,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["close"],
@@ -46,15 +47,15 @@ tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_x3tae"]
 resource_name = "open"
-length = 0.3
+length = 0.2
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -62,7 +63,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["open"],
@@ -76,10 +77,10 @@ tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1n2ot"]
@@ -214,6 +215,7 @@ anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/Resume"), NodePath("Content/VBoxContainer/Settings"), NodePath("Content/VBoxContainer/Quit")]
 submenus = [NodePath("SettingsMenu")]
 actions = NodePath("MenuActions")
+menu_sfx = ExtResource("2_88haa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -409,7 +411,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("3_66gyp")
-main_menu_scene = "res://scenes/levels/main_menu_level.tscn"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("4_uyqq5")]
 visible = false

@@ -11,7 +11,7 @@ var time: float = 0
 var speed: float = 1
 var paused: bool = true
 var ai_enabled: bool = false
-
+var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +38,7 @@ func unset_mode(_mode: S2GameMode):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not paused: 
+		tasks.update()
 		time += delta * speed
 		
 	dev.print_screen("game_timme", "game time: %s" % [time])	

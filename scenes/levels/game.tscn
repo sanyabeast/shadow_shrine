@@ -49,6 +49,11 @@ adjustment_saturation = 1.5
 script = ExtResource("1_1lro1")
 config = ExtResource("2_gmi04")
 player_packed = ExtResource("3_mdfvv")
+main_menu_scene = "res://scenes/levels/main_menu_level.tscn"
+
+[node name="_DevGUI" parent="." instance=ExtResource("6_hwkyy")]
+
+[node name="GUI" parent="." instance=ExtResource("5_wkau2")]
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -67,7 +72,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
 [node name="Architecture" type="Node3D" parent="."]
 
 [node name="CameraRig" parent="." instance=ExtResource("4_250jr")]
-
-[node name="_DevGUI" parent="." instance=ExtResource("6_hwkyy")]
-
-[node name="GUI" parent="." instance=ExtResource("5_wkau2")]

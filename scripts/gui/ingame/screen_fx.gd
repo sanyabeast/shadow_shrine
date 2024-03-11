@@ -4,11 +4,16 @@ class_name S2ScreenFX
 const TAG: String = "ScreenFX"
 
 @onready var anim_player = $AnimationPlayer
+@export var start_from_black: bool = true
+@export var dark_fader: CanvasItem
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-	anim_player.play("clear")
+	if start_from_black:
+		show_dark_fader()
+	else:
+		anim_player.play("clear")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,12 +32,20 @@ func get_duration(anim_name = null) -> float:
 	
 	return result
 	
+func show_dark_fader():
+	dark_fader.visible = true
+	dark_fader.modulate = Color.WHITE
+	pass
+	
 func fade_out(duration: float = 1, light: bool = false):
-	anim_player.speed_scale = 1 / duration
-	if light:
-		anim_player.play("fade_out_light")
+	if duration == 0:
+		show_dark_fader()
 	else:
-		anim_player.play("fade_out_dark")
+		anim_player.speed_scale = 1 / duration
+		if light:
+			anim_player.play("fade_out_light")
+		else:
+			anim_player.play("fade_out_dark")
 		
 func fade_in(duration: float = 1, light: bool = false):
 	anim_player.speed_scale = 1 / duration

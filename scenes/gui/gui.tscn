@@ -21,8 +21,9 @@ layout_mode = 1
 [node name="HUD" parent="." instance=ExtResource("2_nxwr5")]
 layout_mode = 1
 
-[node name="ScreenFX" parent="." instance=ExtResource("4_bbpqx")]
+[node name="PauseMenu" parent="." instance=ExtResource("3_m0qic")]
+visible = false
 layout_mode = 1
 
-[node name="PauseMenu" parent="." instance=ExtResource("3_m0qic")]
+[node name="ScreenFX" parent="." instance=ExtResource("4_bbpqx")]
 layout_mode = 1
