@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://df57o0ekejdac"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_v3g5x"]
-[ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="2_fesav"]
+[ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_2vqlp"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_p77a6"]
 [ext_resource type="Script" path="res://scripts/gui/settings_menu/settings_menu_action.gd" id="3_spvvw"]
 [ext_resource type="PackedScene" uid="uid://by66kvhnhkn2b" path="res://scenes/gui/audio_settings_menu.tscn" id="5_mdb5d"]
@@ -235,7 +235,7 @@ grow_vertical = 2
 [node name="Gameplay" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("title_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-script = ExtResource("2_fesav")
+script = ExtResource("2_2vqlp")
 title_element = NodePath("Background/Label")
 id = "gameplay_settings"
 anim_player = NodePath("AnimationPlayer")
@@ -282,7 +282,7 @@ vertical_alignment = 1
 [node name="Audio" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-script = ExtResource("2_fesav")
+script = ExtResource("2_2vqlp")
 id = "audio_settings"
 anim_player = NodePath("AnimationPlayer")
 
@@ -327,7 +327,7 @@ vertical_alignment = 1
 [node name="Video" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-script = ExtResource("2_fesav")
+script = ExtResource("2_2vqlp")
 id = "video_settings"
 anim_player = NodePath("AnimationPlayer")
 

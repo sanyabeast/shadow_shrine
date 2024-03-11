@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c66bohxi5woy2"]
 
-[ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="1_3rpnb"]
+[ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="1_3rpnb"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="2_f38n5"]
 
 [sub_resource type="Animation" id="Animation_68ae3"]

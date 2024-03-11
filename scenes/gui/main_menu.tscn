@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://d4mddqq5hmhux"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_epcpp"]
-[ext_resource type="Script" path="res://scripts/gui/menu/kit/button.gd" id="2_2fp76"]
+[ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_2fp76"]
 [ext_resource type="Script" path="res://scripts/gui/main_menu/main_menu_actions.gd" id="3_n8dro"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_vhu03"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/gui/settings_menu.tscn" id="4_260ek"]

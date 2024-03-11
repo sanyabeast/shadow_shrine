@@ -3,7 +3,7 @@
 
 extends S2MenuItem
 
-class_name S2MenuItemButton
+class_name S2MenuAdvancedItem
 
 enum EValueFormatType {
 	None,
