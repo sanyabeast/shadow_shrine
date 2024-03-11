@@ -173,5 +173,21 @@ func angle_to_direction_v2(angle_degrees: float) -> Vector2:
 
 	return direction
 
+func reverse_lerp(value: float, min_value: float, max_value: float) -> float:
+	# Ensure that min is smaller than max to avoid division by zero
+	if min_value >= max_value:
+		return 0.0
+	# Calculate the alpha (position value) based on the given value, min, and max
+	var alpha = (value - min_value) / (max_value - min_value)
+	# Clamp the alpha value between 0.0 and 1.0
+	alpha = clampf(alpha, 0.0, 1.0)
+	return alpha
+
+func repeat_substring(substring: String, times: int) -> String:
+	var result: String = ""
+	for i in range(times):
+		result += substring
+	return result
+
 func to_v2(v3: Vector3) -> Vector2:
 	return Vector2(v3.x, v3.z)

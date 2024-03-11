@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://by66kvhnhkn2b"]
+[gd_scene load_steps=17 format=3 uid="uid://by66kvhnhkn2b"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_58r2h"]
-[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_qnium"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_y3e2j"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_5ft24"]
 [ext_resource type="Script" path="res://scripts/gui/settings_menu/audio_settings_menu_action.gd" id="4_ivomp"]
@@ -90,8 +89,7 @@ _data = {
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4lfd"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cotrv"]
+blend_mode = 3
 
 [sub_resource type="Animation" id="Animation_68ae3"]
 length = 0.001
@@ -145,7 +143,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -186,7 +184,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0.627451, 0.517647, 0.878431)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -221,6 +219,7 @@ _data = {
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vcnjb"]
+blend_mode = 1
 
 [sub_resource type="Theme" id="Theme_urh5j"]
 
@@ -251,7 +250,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.239216, 0.231373, 0.266667, 0.639216)
+color = Color(0.631373, 0.52549, 0.678431, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content"]
 layout_mode = 1
@@ -266,18 +265,6 @@ offset_right = 250.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="Content/VBoxContainer"]
-material = SubResource("CanvasItemMaterial_cotrv")
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_qnium")
-theme_override_font_sizes/font_size = 56
-text = "AUDIO SETTINGS"
-
-[node name="ColorRect" type="ColorRect" parent="Content/VBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-color = Color(0, 0, 0, 1)
 
 [node name="MasterVolume" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -329,6 +316,16 @@ text = "Master
 "
 vertical_alignment = 1
 uppercase = true
+script = ExtResource("4_owspp")
+mode = null
+format = null
+text = "Master
+"
+value = null
+options = null
+min_value = null
+max_value = null
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
 
 [node name="ValueLabel" type="Label" parent="Content/VBoxContainer/MasterVolume/Background" node_paths=PackedStringArray("render_label")]
 layout_mode = 1
@@ -337,9 +334,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -134.0
+offset_left = -200.0
 offset_top = -26.0
-offset_right = -14.0
+offset_right = -10.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -348,10 +345,18 @@ theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
 theme_override_fonts/font = ExtResource("3_5ft24")
 theme_override_font_sizes/font_size = 32
 text = "100%"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("4_owspp")
 render_label = NodePath(".")
-format = 5
+mode = null
+format = null
+text = "100%"
+value = null
+options = null
+min_value = null
+max_value = null
+theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
 
 [node name="MusicVolume" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -403,16 +408,16 @@ text = "Music
 vertical_alignment = 1
 uppercase = true
 
-[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/MusicVolume/Background" node_paths=PackedStringArray("render_label")]
+[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/MusicVolume/Background"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -134.0
+offset_left = -200.0
 offset_top = -26.0
-offset_right = -14.0
+offset_right = -10.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -421,10 +426,8 @@ theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
 theme_override_fonts/font = ExtResource("3_5ft24")
 theme_override_font_sizes/font_size = 32
 text = "100%"
+horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("4_owspp")
-render_label = NodePath(".")
-format = 5
 
 [node name="SFXVolume" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -476,16 +479,16 @@ text = "EFFECTS
 vertical_alignment = 1
 uppercase = true
 
-[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/SFXVolume/Background" node_paths=PackedStringArray("render_label")]
+[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/SFXVolume/Background"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -134.0
+offset_left = -200.0
 offset_top = -26.0
-offset_right = -14.0
+offset_right = -10.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -493,16 +496,9 @@ theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
 theme_override_fonts/font = ExtResource("3_5ft24")
 theme_override_font_sizes/font_size = 32
-text = "IIIIIIIIII"
+text = "100%"
+horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("4_owspp")
-render_label = NodePath(".")
-format = 5
-
-[node name="ColorRect2" type="ColorRect" parent="Content/VBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-color = Color(0, 0, 0, 1)
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("4_ivomp")
