@@ -21,40 +21,52 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_pwedb"]
-resource_name = "close"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Content:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("Content/VBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pwedb"]
+resource_name = "close"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["close"],
 "method": &"handle_animation_finished"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_j06sh"]
 resource_name = "open"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -80,6 +92,18 @@ tracks/1/keys = {
 "args": ["open"],
 "method": &"handle_animation_finished"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Content/VBoxContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mknif"]
@@ -169,7 +193,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0.854902, 0.45098, 1)]
+"values": [Color(1, 0.698039, 0.478431, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_3gyr4"]
@@ -241,7 +265,7 @@ actions = NodePath("MenuActions")
 libraries = {
 "": SubResource("AnimationLibrary_mknif")
 }
-blend_times = [&"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
+blend_times = [&"open", &"close", 0.2, &"open", &"open", 0.2, &"open", &"RESET", 0.2, &"RESET", &"close", 0.3, &"RESET", &"open", 0.3, &"RESET", &"RESET", 0.3]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
@@ -251,9 +275,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.239216, 0.231373, 0.266667, 0.639216)
+color = Color(1, 1, 1, 0)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content"]
+modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -261,20 +286,23 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -100.0
+offset_top = -150.0
 offset_right = 250.0
-offset_bottom = 100.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Content/VBoxContainer"]
+[node name="MenuTitleLabel" type="Label" parent="Content/VBoxContainer"]
 material = SubResource("CanvasItemMaterial_cotrv")
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.698039, 0.478431, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_qnium")
 theme_override_font_sizes/font_size = 56
 text = "AUDIO SETTINGS"
 
-[node name="ColorRect" type="ColorRect" parent="Content/VBoxContainer"]
+[node name="DecoSeparator" type="ColorRect" parent="Content/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
@@ -499,7 +527,7 @@ script = ExtResource("4_owspp")
 render_label = NodePath(".")
 format = 5
 
-[node name="ColorRect2" type="ColorRect" parent="Content/VBoxContainer"]
+[node name="DecoSeparator2" type="ColorRect" parent="Content/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d4mddqq5hmhux"]
+[gd_scene load_steps=19 format=3 uid="uid://d4mddqq5hmhux"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_epcpp"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_2fp76"]
@@ -11,10 +11,22 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/path = NodePath("ColorRect/VBoxContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/MenuTitleLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -24,25 +36,13 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_ssk20"]
 resource_name = "close"
 length = 0.5
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -50,35 +50,71 @@ tracks/1/keys = {
 "method": &"handle_animation_finished"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/MenuTitleLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_60mut"]
 resource_name = "default"
 length = 0.5
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["open"],
 "method": &"handle_animation_finished"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/MenuTitleLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kxkj3"]
@@ -89,7 +125,8 @@ _data = {
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
-blend_mode = 3
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rhsa0"]
 
 [sub_resource type="Animation" id="Animation_68ae3"]
 length = 0.001
@@ -131,7 +168,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -143,7 +180,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_3gyr4"]
@@ -157,10 +194,10 @@ tracks/0/path = NodePath("Background:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 0.921569), Color(0, 0, 0, 1), Color(0, 0, 0, 0.921569)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,7 +209,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rqw5d"]
@@ -208,9 +245,9 @@ actions = NodePath("MenuActions")
 libraries = {
 "": SubResource("AnimationLibrary_kxkj3")
 }
+blend_times = [&"close", &"close", 0.3, &"close", &"open", 0.3, &"close", &"RESET", 0.3, &"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 material = SubResource("CanvasItemMaterial_352pt")
 layout_mode = 1
 anchors_preset = 15
@@ -218,23 +255,45 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.839216, 0.831373, 1, 0.498039)
+color = Color(0.6, 0.619608, 0.588235, 0)
+
+[node name="MenuTitleLabel" type="Label" parent="ColorRect"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_rhsa0")
+layout_mode = 2
+offset_left = 94.0
+offset_top = 108.0
+offset_right = 549.0
+offset_bottom = 312.0
+theme_override_colors/font_color = Color(1, 0.764706, 0.631373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/line_spacing = -25
+theme_override_fonts/font = ExtResource("3_vhu03")
+theme_override_font_sizes/font_size = 48
+text = "YET 
+ANOTHER 
+GAME"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -112.0
-offset_right = 200.0
-offset_bottom = 112.0
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.244
+anchor_right = 0.329
+anchor_bottom = 0.79
+offset_left = 0.399994
+offset_top = 0.399979
+offset_right = -0.400024
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
 alignment = 1
+
+[node name="DecoSeparator" type="ColorRect" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Start" type="Control" parent="ColorRect/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -281,6 +340,7 @@ text = "Start
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="Settings" type="Control" parent="ColorRect/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -327,6 +387,7 @@ text = "Settings
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="Quit" type="Control" parent="ColorRect/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 64)
@@ -373,6 +434,12 @@ text = "Quit
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
+
+[node name="DecoSeparator2" type="ColorRect" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
 [node name="MenuActions" type="Node" parent="."]
 script = ExtResource("3_n8dro")
