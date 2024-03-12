@@ -14,6 +14,7 @@ config/name="Shadow Shrine"
 run/main_scene="res://scenes/levels/main_menu_level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 config/data_index="res://resources/data/index.tres"
 

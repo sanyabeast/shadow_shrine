@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/kunai.tres" id="1_7bok5"]
 [ext_resource type="Script" path="res://scripts/resources/character_config.gd" id="1_r4lff"]
 [ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="2_hadbq"]
-[ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/toxic_bubbles_oneshot.tscn" id="2_oldbh"]
+[ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/toxic_bubbles_vfx_oneshot.tscn" id="2_oldbh"]
 [ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/340794__kuchenanderung1__slime-squish.ogg" id="4_og7dc"]
 
 [sub_resource type="Resource" id="Resource_0104i"]

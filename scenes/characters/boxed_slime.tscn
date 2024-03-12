@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="8_6nl4f"]
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://_dev/gizmos/arrow_gizmo.tscn" id="10_pdf4v"]
-[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles.tscn" id="12_srik8"]
+[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles_vfx.tscn" id="12_ykgel"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_drguf"]
 height = 1.0
@@ -268,5 +268,5 @@ transform = Transform3D(-0.1, 0, -2.14569e-08, 0, 0.1, 0, 2.14569e-08, 0, -0.1, 
 [node name="NPCController" type="Node" parent="."]
 script = ExtResource("9_25a3r")
 
-[node name="ToxicBubbles" parent="." instance=ExtResource("12_srik8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.135, 0)
+[node name="ToxicBubbles" parent="." instance=ExtResource("12_ykgel")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=24 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/boxed_slime_kido.tres" id="2_vy3e7"]
@@ -11,9 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://_dev/gizmos/arrow_gizmo.tscn" id="10_0cs4p"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_baloons.tres" id="10_xwxi6"]
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="11_0bwyr"]
-[ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="12_vkcwu"]
-[ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="13_565yh"]
-[ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://resources/materials/particles/slime_puddle_a1.tres" id="14_n0cbf"]
+[ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles_vfx.tscn" id="12_s6jrf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6tujv"]
 height = 0.5
@@ -93,18 +91,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(1, 1, 1)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ToxicBubbles:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uru14"]
 _data = {
@@ -137,18 +123,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.229, -0.001)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ToxicBubbles:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_qcewh"]
@@ -214,78 +188,6 @@ _data = {
 "Run": SubResource("Animation_wkmhb")
 }
 
-[sub_resource type="Curve" id="Curve_mesge"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330731, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_qyv7d"]
-curve = SubResource("Curve_mesge")
-
-[sub_resource type="Curve" id="Curve_bq35f"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.220724, 0.483773), 0.749346, 0.749346, 0, 0, Vector2(0.802697, 0.496182), 0.741776, 0.741776, 0, 0, Vector2(1, 1), 2.87802, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_bipch"]
-curve = SubResource("Curve_bq35f")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wuxt"]
-emission_shape = 3
-emission_box_extents = Vector3(0.4, 0.4, 0.4)
-angle_min = -30.0
-angle_max = 30.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_bipch")
-alpha_curve = SubResource("CurveTexture_qyv7d")
-hue_variation_max = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6dgcb"]
-transparency = 1
-shading_mode = 2
-specular_mode = 2
-disable_ambient_light = true
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("12_vkcwu")
-emission_enabled = true
-emission_texture = ExtResource("13_565yh")
-disable_receive_shadows = true
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-distance_fade_max_distance = 14.75
-
-[sub_resource type="QuadMesh" id="QuadMesh_f6n61"]
-material = SubResource("StandardMaterial3D_6dgcb")
-size = Vector2(0.1, 0.1)
-
-[sub_resource type="Gradient" id="Gradient_1rkra"]
-offsets = PackedFloat32Array(0, 0.258779, 1)
-colors = PackedColorArray(0, 1, 0, 0, 0.47451, 1, 0, 0.117647, 1, 1, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_71h33"]
-gradient = SubResource("Gradient_1rkra")
-
-[sub_resource type="Curve" id="Curve_pnhoc"]
-_data = [Vector2(0, 0.205951), 0.0, 0.0, 0, 0, Vector2(0.611808, 0.307753), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_twjbq"]
-curve = SubResource("Curve_pnhoc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_58son"]
-particle_flag_rotate_y = true
-angle_min = -720.0
-angle_max = 720.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_twjbq")
-color_ramp = SubResource("GradientTexture1D_71h33")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bmd5d"]
-material = ExtResource("14_n0cbf")
-
 [node name="BoxedSlimeKiddo" type="CharacterBody3D"]
 script = ExtResource("1_yjlnt")
 config = ExtResource("2_vy3e7")
@@ -340,16 +242,5 @@ transform = Transform3D(-0.1, 0, -3.89415e-08, 0, 0.1, 0, 3.89415e-08, 0, -0.1, 
 [node name="NPCController" type="Node" parent="."]
 script = ExtResource("11_0bwyr")
 
-[node name="ToxicBubbles" type="GPUParticles3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.08, 0)
-lifetime = 2.0
-process_material = SubResource("ParticleProcessMaterial_6wuxt")
-draw_pass_1 = SubResource("QuadMesh_f6n61")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="ToxicBubbles"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-amount = 4
-lifetime = 2.0
-visibility_aabb = AABB(-3.93457, -4, -4, 8, 8, 8)
-process_material = SubResource("ParticleProcessMaterial_58son")
-draw_pass_1 = SubResource("PlaneMesh_bmd5d")
+[node name="ToxicBubbles" parent="." instance=ExtResource("12_s6jrf")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
