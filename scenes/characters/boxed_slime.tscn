@@ -214,9 +214,10 @@ _data = {
 "Run": SubResource("Animation_wkmhb")
 }
 
-[node name="BoxedSlime" type="CharacterBody3D"]
+[node name="BoxedSlime" type="CharacterBody3D" node_paths=PackedStringArray("hide_on_death")]
 script = ExtResource("1_axkfw")
 config = ExtResource("2_vw4ig")
+hide_on_death = [NodePath("ToxicBubbles")]
 
 [node name="Aura" type="Area3D" parent="."]
 

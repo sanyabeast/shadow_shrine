@@ -102,7 +102,7 @@ func _update_final_value():
 		EValueFormatType.LX10_FROM_PROGRESS:
 			_render_text = tools.repeat_substring("l", round(_progress * 10))	
 		EValueFormatType.YES_NO_FROM_PROGRESS:
-			_render_text = "NO" if _progress < 0.5 else "YES"	
+			_render_text = "No" if _progress < 0.5 else "Yes"	
 		EValueFormatType.NONE:
 			_render_text = str(val)
 		EValueFormatType.CUSTOM:

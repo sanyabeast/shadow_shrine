@@ -1,13 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://df57o0ekejdac"]
+[gd_scene load_steps=20 format=3 uid="uid://dugi2yr5i4hv3"]
 
-[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_v3g5x"]
-[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_0q56f"]
-[ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_2vqlp"]
-[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_xiw2j"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_p77a6"]
-[ext_resource type="Script" path="res://scripts/gui/settings_menu/settings_menu_action.gd" id="3_spvvw"]
-[ext_resource type="PackedScene" uid="uid://by66kvhnhkn2b" path="res://scenes/gui/audio_settings_menu.tscn" id="5_mdb5d"]
-[ext_resource type="PackedScene" uid="uid://l3lmp6jclmu0" path="res://scenes/gui/video_settings_menu.tscn" id="6_thmy2"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_hxvce"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_1cfny"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="3_rpa2w"]
+[ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="4_aqf3h"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_label.gd" id="5_4s57h"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="5_id5cx"]
+[ext_resource type="Script" path="res://_dev/hud/_dev_menu_actions.gd" id="7_1lpwv"]
 
 [sub_resource type="Animation" id="Animation_m761b"]
 length = 0.001
@@ -165,7 +164,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 0.815686, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -191,27 +190,26 @@ _data = {
 
 [sub_resource type="Theme" id="Theme_urh5j"]
 
-[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("anim_player", "items", "submenus", "actions")]
+[node name="_DevMenu" type="Control" node_paths=PackedStringArray("anim_player", "items", "actions")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v3g5x")
-id = "settings_menu"
+script = ExtResource("1_hxvce")
+id = "_dev_menu"
 anim_player = NodePath("AnimationPlayer")
-items = [NodePath("Content/VBoxContainer/Gameplay"), NodePath("Content/VBoxContainer/Audio"), NodePath("Content/VBoxContainer/Video")]
-index = 1
-submenus = [NodePath("AudioSettingsMenu"), NodePath("VideoSettingsMenu")]
+items = [NodePath("Content/VBoxContainer/ReloadCurrentLevel"), NodePath("Content/VBoxContainer/AlterSeed"), NodePath("Content/VBoxContainer/GameSpeed"), NodePath("Content/VBoxContainer/AiEnabled")]
 actions = NodePath("MenuActions")
-menu_sfx = ExtResource("2_0q56f")
+reinitialize_items_on_show = true
+menu_sfx = ExtResource("2_1cfny")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_cymmk")
 }
-blend_times = [&"close", &"open", 0.1, &"close", &"close", 0.1, &"close", &"RESET", 0.1]
+blend_times = [&"close", &"close", 0.1, &"close", &"open", 0.1, &"close", &"RESET", 0.1]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
@@ -241,28 +239,26 @@ grow_vertical = 2
 [node name="MenuTitleLabel" type="Label" parent="Content/VBoxContainer"]
 material = SubResource("CanvasItemMaterial_llybx")
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.698039, 0.478431, 1)
+theme_override_colors/font_color = Color(1, 0.478431, 0.478431, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("2_xiw2j")
+theme_override_fonts/font = ExtResource("3_rpa2w")
 theme_override_font_sizes/font_size = 56
-text = "SETTINGS
-"
+text = "debug menu"
 
 [node name="DecoSeparator" type="ColorRect" parent="Content/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Gameplay" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("title_element", "anim_player")]
-custom_minimum_size = Vector2(0, 64)
+[node name="ReloadCurrentLevel" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-script = ExtResource("2_2vqlp")
-title_element = NodePath("Background/Label")
-id = "gameplay_settings"
+script = ExtResource("4_aqf3h")
+id = "reload_current_scene"
 anim_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Gameplay"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/ReloadCurrentLevel"]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_rqw5d")
@@ -271,9 +267,9 @@ playback_default_blend_time = 1.0
 next/default = &"default"
 blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Gameplay"]
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/ReloadCurrentLevel"]
 material = SubResource("CanvasItemMaterial_vcnjb")
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -282,34 +278,32 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.305882)
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/Gameplay/Background"]
+[node name="Label" type="Label" parent="Content/VBoxContainer/ReloadCurrentLevel/Background"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
-theme_override_font_sizes/font_size = 32
-text = "Gameplay
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Reload current level
 "
-horizontal_alignment = 1
 vertical_alignment = 1
-uppercase = true
 
-[node name="Audio" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
-custom_minimum_size = Vector2(0, 64)
+[node name="AlterSeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-script = ExtResource("2_2vqlp")
-id = "audio_settings"
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value")
+id = "alter_seed"
+has_options = true
+max_value = 999.0
 anim_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Audio"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/AlterSeed"]
 libraries = {
 "": SubResource("AnimationLibrary_rqw5d")
 }
@@ -317,9 +311,9 @@ playback_default_blend_time = 1.0
 next/default = &"default"
 blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Audio"]
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/AlterSeed"]
 material = SubResource("CanvasItemMaterial_vcnjb")
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -328,34 +322,54 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.305882)
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/Audio/Background"]
+[node name="Label" type="Label" parent="Content/VBoxContainer/AlterSeed/Background"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
-theme_override_font_sizes/font_size = 32
-text = "Audio
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Alter Seed
 "
-horizontal_alignment = 1
 vertical_alignment = 1
-uppercase = true
 
-[node name="Video" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
-custom_minimum_size = Vector2(0, 64)
+[node name="Value" type="Label" parent="Content/VBoxContainer/AlterSeed/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "35"
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+mode = 1
+
+[node name="GameSpeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-script = ExtResource("2_2vqlp")
-id = "video_settings"
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value2")
+id = "game_speed"
+has_options = true
+min_value = 0.5
+max_value = 2.0
+step = 0.25
 anim_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/Video"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/GameSpeed"]
 libraries = {
 "": SubResource("AnimationLibrary_rqw5d")
 }
@@ -363,9 +377,9 @@ playback_default_blend_time = 1.0
 next/default = &"default"
 blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
 
-[node name="Background" type="ColorRect" parent="Content/VBoxContainer/Video"]
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/GameSpeed"]
 material = SubResource("CanvasItemMaterial_vcnjb")
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -374,24 +388,103 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.305882)
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/Video/Background"]
+[node name="Label" type="Label" parent="Content/VBoxContainer/GameSpeed/Background"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
-theme_override_fonts/font = ExtResource("3_p77a6")
-theme_override_font_sizes/font_size = 32
-text = "Video"
-horizontal_alignment = 1
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Game Speed
+"
 vertical_alignment = 1
-uppercase = true
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/GameSpeed/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "YES"
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+mode = 1
+
+[node name="AiEnabled" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value2")
+id = "ai_enabled"
+has_options = true
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/AiEnabled"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/AiEnabled"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/AiEnabled/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "AI Enabled"
+vertical_alignment = 1
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/AiEnabled/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "YES"
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+mode = 1
+format = 9
 
 [node name="DecoSeparator2" type="ColorRect" parent="Content/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
@@ -399,12 +492,4 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="MenuActions" type="Node" parent="."]
-script = ExtResource("3_spvvw")
-
-[node name="AudioSettingsMenu" parent="." instance=ExtResource("5_mdb5d")]
-visible = false
-layout_mode = 1
-
-[node name="VideoSettingsMenu" parent="." instance=ExtResource("6_thmy2")]
-visible = false
-layout_mode = 1
+script = ExtResource("7_1lpwv")

@@ -66,8 +66,6 @@ func _check_active_content():
 	_active_content = count
 	
 func _setup_content():
-	_traverse(self)
-	
 	if config:
 		if config.audio != null:
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
@@ -75,7 +73,6 @@ func _setup_content():
 			audio_player.stream = config.audio
 			audio_player.pitch_scale = randf_range(config.audio_pitch_min, config.audio_pitch_max)
 
-			_audio_players.append(audio_player)
 			add_child(audio_player)
 			audio_player.play()
 		
@@ -85,6 +82,8 @@ func _setup_content():
 	else:
 		dev.logr(TAG, "fail to start FX at %s: no config" % name)
 		_dispose()
+		
+	_traverse(self)	
 	
 func get_time()->float:
 	if config and config.use_game_time:

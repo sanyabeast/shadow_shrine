@@ -107,7 +107,7 @@ func submit():
 func parse_value(_value):
 	if has_options:
 		if _value != null:
-			if _value is float:
+			if _value is float or _value is int:
 				value = clampf(_value, min_value, max_value)
 			if _value is String:
 				var _index = options.find(_value)

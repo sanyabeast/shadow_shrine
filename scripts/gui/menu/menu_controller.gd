@@ -35,8 +35,9 @@ var parent_menu: S2MenuController = null
 @export var close_submenu_on_hide: bool = true
 @export var interactive: bool = true
 @export var toggle_visibility_on_submenu: Array[Control] = []
+@export var reinitialize_items_on_show: bool = false
 
-@export_subgroup("sound")
+@export_subgroup("Sound")
 @export var menu_sfx: RMenuSFX
 
 var cooldown: S2CooldownManager = S2CooldownManager.new(false)
@@ -162,12 +163,18 @@ func _handle_visibility_changed():
 	if visible:
 		cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 		cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
+		
+		if reinitialize_items_on_show:
+			actions.initialize_items(items)
+		
 		select(index)
+		
 		
 		if anim_player != null and anim_player.has_animation("open"):
 			play_animation("open")
 		else:
 			enable_interaction()
+			
 	else:
 		if close_submenu_on_hide:
 			close_submenu()

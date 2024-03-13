@@ -129,3 +129,7 @@ func _spawn_fx(params: Array):
 	fx_node.config = fx_config
 	add_object(fx_node)
 	fx_node.start()
+
+func reload():
+	tools.load_scene(get_tree().current_scene.scene_file_path)
+	#tools.reload_scene()e

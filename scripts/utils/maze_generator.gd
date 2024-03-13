@@ -178,15 +178,20 @@ var generation_order = EGenerationOrder.Shift
 var current_cell_index: int = 0
 var routes = []
 
+var random: S2RandomnessManager = S2RandomnessManager.new()
+
 func _init():
 	pass
+
+func set_seed(_seed):
+	random.set_seed(_seed)
 
 func get_max_cells_count():
 	return grid_size * grid_size
 
 func get_random_cell():
-	var x = randi() % grid_size
-	var y = randi() % grid_size
+	var x = random.randi() % grid_size
+	var y = random.randi() % grid_size
 	return cells[x][y]
 
 func initialize():
@@ -231,7 +236,7 @@ func generate():
 				unvisited_neighbours.append(cell)
 
 		if unvisited_neighbours.size() > 0:
-			var random_index = randi() % unvisited_neighbours.size()
+			var random_index = random.randi() % unvisited_neighbours.size()
 			var random_neighbour = unvisited_neighbours[random_index]
 			current_cell.remove_wall_between(random_neighbour)
 			random_neighbour.visited = true
@@ -262,13 +267,13 @@ func generate():
 	# DEAD ENDS
 	var dead_ends = find_cells_with_accessibility(ECellAccessibilityLevel.DeadEnd)
 	for cell in dead_ends:
-		if randf() > dead_ends_ratio:
+		if random.randf() > dead_ends_ratio:
 			if cell.category in [ECellCategory.Start, ECellCategory.End]:
 				continue
 
 			var closed_neighbours = cell.get_closed_neighbours()
 			if closed_neighbours.size() > 0:
-				var random_index = randi() % closed_neighbours.size()
+				var random_index = random.randi() % closed_neighbours.size()
 				var random_neighbour = closed_neighbours[random_index]
 
 				cell.remove_wall_between(random_neighbour)
@@ -280,9 +285,9 @@ func generate():
 	for cell in transitive_cells:
 		var closed_neighbours = cell.get_closed_neighbours()
 		if closed_neighbours.size() > 1:
-			var random_index = randi() % closed_neighbours.size()
+			var random_index = random.randi() % closed_neighbours.size()
 			var random_neighbour = closed_neighbours[random_index]
-			if randf() < shortcuts_ratio:
+			if random.randf() < shortcuts_ratio:
 				cell.remove_wall_between(random_neighbour)
 				cell.category = ECellCategory.Shortcut
 				routes.append([cell, random_neighbour])

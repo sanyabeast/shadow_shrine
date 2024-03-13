@@ -14,6 +14,8 @@ const AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP: bool = true
 const ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION: float = 0.25
 const ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION: float = 0.5
 
+const MAX_SEED_OFFSET_OF_ROOM: int = 64
+
 @export var config: RGameLevelConfig
 @export var player: S2Character
 @export var player_packed: PackedScene
@@ -39,6 +41,7 @@ var _expore_ambience_mixer: S2AmbientSoundPlayer
 var _battle_ambience_mixer: S2AmbientSoundPlayer
 
 var screen_fx: S2ScreenFX
+var random: S2RandomnessManager = S2RandomnessManager.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +50,8 @@ func _ready():
 
 func prepare():
 	super.prepare()
+	
+	random.set_seed(game.seed)
 	
 	screen_fx = gui.controller.screen_fx
 	
@@ -84,6 +89,7 @@ func reset():
 	reset_maze()
 
 func reset_maze():
+	maze_generator.set_seed(game.seed)
 	maze_generator.grid_size = 3
 	maze_generator.sparseness = 0.1
 	maze_generator.dead_ends_ratio = 0.5
@@ -109,10 +115,11 @@ func spawn_room(from_direction):
 	if rooms_data.has(current_maze_cell.index):
 		room_template_index = rooms_data[current_maze_cell.index].room_template_index
 	else:
-		room_template_index = randf_range(0, config.rooms.size())
+		room_template_index = random.range(0, config.rooms.size())
 		rooms_data[current_maze_cell.index] = {
 			"room_template_index": room_template_index,
-			"saved_content": null
+			"saved_content": null,
+			"seed_offset": random.randi() % MAX_SEED_OFFSET_OF_ROOM
 		}
 	
 	saved_content = rooms_data[current_maze_cell.index]["saved_content"]
@@ -129,6 +136,8 @@ func spawn_room(from_direction):
 		current_room.upload_saved_content(saved_content)
 		
 	world.dynamic_contant_container = current_room.content
+	
+	current_room.set_seed_offset(rooms_data[current_maze_cell.index]["seed_offset"])
 	current_room.initialize(saved_content == null)
 	
 	if saved_content != null:

@@ -28,19 +28,21 @@ var _target_look_direction_angle: float = 0
 var _sinus_offset: float = randf_range(0, PI)
 
 func update(delta):
-	if game.ai_enabled and character != null and character.ai_enabled:
-		if not character.is_dead:
-			if character.is_friendly:
-				_update_friendly(delta)
-			else:
-				_update_enemy(delta)
-			pass
+	if character != null:
+		if game.ai_enabled and character.ai_enabled:
+			if not character.is_dead:
+				if character.is_friendly:
+					_update_friendly(delta)
+				else:
+					_update_enemy(delta)
+				pass
+		else:
+			_target_walk_power = 0
+			_target_walk_direction_angle = _current_walk_direction_angle
+			_target_look_direction_angle = _current_look_direction_angle
 			
-			_update_movement(delta)
-	pass
+		_update_movement(delta)
 	
-	
-
 func initialize(_character: S2Character):
 	character = _character
 	nav_agent = NavigationAgent3D.new()

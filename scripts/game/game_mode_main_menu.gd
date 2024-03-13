@@ -16,7 +16,8 @@ func _ready():
 
 	for dir in world.directions_list:
 		demo_room.doors_map[dir] = true
-		
+	
+	demo_room.set_seed_offset(0)
 	demo_room.initialize(false)
 	demo_room.open_doors(true)
 	

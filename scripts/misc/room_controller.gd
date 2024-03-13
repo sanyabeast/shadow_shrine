@@ -42,6 +42,10 @@ var _chest_spots_list: Array[Node3D] = []
 
 var alive_enemies: Array[S2Character]
 var all_enemies: Array[S2Character]
+
+# Randomness
+var random: S2RandomnessManager = S2RandomnessManager.new()
+var seed_offset: int = 0
 		
 # Called when the node enters the scene tree for the first time.
 
@@ -53,12 +57,14 @@ func _to_string():
 
 func _ready():
 	if auto_initialize:
+		random.set_seed(game.seed + seed_offset)
 		initialize()
 	
 	pass # Replace with function body.
 
 func initialize(init_content = true):
 	doors_container.global_position.y = 0
+	
 	_traverse(self)
 	_init_spots()
 	
@@ -66,9 +72,13 @@ func initialize(init_content = true):
 	
 	if init_content:
 		_apply_spots()
-		#_spawn_enemies()
 		
 	dev.logd(TAG, "room initialized: %s" % self)
+
+func set_seed_offset(_seed_offset: int):
+	seed_offset = _seed_offset
+	random.set_seed(game.seed + seed_offset)
+	dev.logd(TAG, "seed offset set to %s" % _seed_offset)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -125,7 +135,7 @@ func _apply_spots():
 
 func _spawn_enemy(spot: Node3D):
 	if config != null and config.enemies.size() > 0:
-		var prefab: PackedScene = tools.get_random_element_from_array(config.enemies)
+		var prefab: PackedScene = random.choice_from_array(config.enemies)
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: S2Character = prefab.instantiate()
 		alive_enemies.append(enemy)
@@ -152,15 +162,6 @@ func _apply_doors_map():
 			door_controllers[dir].close(true)
 			door_controllers[dir].hide()
 
-func _spawn_enemies():
-	for i in config.max_enemies:
-		var pos = world.get_random_reachable_point_in_square(player_spawn.global_position, 32)
-		var prefab: PackedScene = tools.get_random_element_from_array(config.enemies)
-		var enemy: S2Character = prefab.instantiate()
-		alive_enemies.append(enemy)
-		content.add_child(enemy)
-		enemy.global_position = pos
-	pass
 
 func upload_saved_content(_content: Node3D):
 	content.queue_free()

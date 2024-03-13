@@ -56,6 +56,9 @@ class S2CharacterAbility:
 @export var ai_enabled: bool = true
 @export var is_friendly: bool = false
 
+@export_subgroup("Misc")
+@export var hide_on_death: Array[Node3D] = []
+
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
@@ -124,10 +127,10 @@ func _traverse(node):
 func _physics_process(delta):
 	if not game.paused:
 		
-		velocity.x = walk_direction.x * walk_power * speed.value
-		velocity.z = walk_direction.z * walk_power * speed.value
+		velocity.x = walk_direction.x * walk_power * speed.value * game.speed
+		velocity.z = walk_direction.z * walk_power * speed.value * game.speed
 		
-		velocity += impulse_direction * (impulse_power);
+		velocity += impulse_direction * (impulse_power) * game.speed;
 		velocity.y = 0
 				
 		move_and_slide()
@@ -239,6 +242,9 @@ func die():
 	is_dead = true
 	collision_layer = 0
 	set_walk_power(0)
+	
+	for node in hide_on_death:
+		node.visible = false
 	
 	collider.disabled = true
 	collider.process_mode = Node.PROCESS_MODE_DISABLED

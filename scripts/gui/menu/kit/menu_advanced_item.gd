@@ -17,7 +17,6 @@ enum EValueFormatType {
 
 @export_subgroup("Value")
 @export var value_element: S2MenuLabel
-@export var value_format_type: EValueFormatType = EValueFormatType.None
 
 var _prev_value: String = ""
 

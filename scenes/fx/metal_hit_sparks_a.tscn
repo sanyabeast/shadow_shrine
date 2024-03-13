@@ -44,7 +44,7 @@ material = SubResource("StandardMaterial3D_bpmy3")
 [node name="MetalHitSparksParticles" type="GPUParticles3D"]
 emitting = false
 amount = 16
-lifetime = 0.15
+lifetime = 0.2
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_tsue7")
 draw_pass_1 = SubResource("QuadMesh_xdpcg")
