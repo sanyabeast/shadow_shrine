@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends Node
-
 class_name CameraManager
 
 var current: S2CameraRig

@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends Node3D
 
 class_name S2FX
@@ -6,7 +9,6 @@ const TAG: String = "FX"
 @export var config: RFXConfig
 @export var bound_object: Node3D
 @export var autostart: bool = false
-
 
 var _is_started: bool = false
 var _started_at: float

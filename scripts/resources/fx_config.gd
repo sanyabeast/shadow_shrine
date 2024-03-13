@@ -4,7 +4,6 @@
 # This script defines a resource configuration for special effects (FX).
 
 extends Resource
-
 class_name RFXConfig
 
 # Enumeration for different strategies to dispose of FX.

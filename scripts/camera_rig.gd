@@ -48,8 +48,6 @@ func _exit_tree():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-	
 	#zoom = move_toward(zoom, target_zoom, zoom_change_speed * delta)
 	zoom = lerpf(zoom, target_zoom, 0.0025)
 	

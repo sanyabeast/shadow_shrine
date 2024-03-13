@@ -1,5 +1,7 @@
-extends Resource
+# Author: @sanyabeast
+# Date: Feb. 2024
 
+extends Resource
 class_name RDataCard
 
 @export var name: String = ""

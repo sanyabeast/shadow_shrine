@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Jan. 2024
+
 extends Control
 
 class_name S2DebugLabels

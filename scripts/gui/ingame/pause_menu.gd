@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends S2MenuController
-
 class_name S2PauseMenu
 
 # Called when the node enters the scene tree for the first time.

@@ -4,10 +4,7 @@
 # This script defines a door controller that manages the opening and closing of a door in a 3D game.
 
 extends Area3D
-
 class_name S2DoorController
-
-# Constant tag for logging and identification purposes.
 const TAG: String = "DoorController"
 
 # Exposed variables for the connected body, animation player, and other parameters.

@@ -4,10 +4,7 @@
 # This script defines a menu controller for managing navigation and interaction with a menu system.
 
 extends Control
-
 class_name S2MenuController
-
-# Constant tag for logging and identification purposes.
 const TAG: String = "MenuController"
 
 # Constant representing the maximum rate of menu item change.

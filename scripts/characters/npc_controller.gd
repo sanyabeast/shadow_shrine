@@ -2,9 +2,7 @@
 # Date: Feb. 2024
 
 extends Node
-
 class_name S2NPCController
-
 const TAG: String = "NPCController"
 
 var character: S2Character

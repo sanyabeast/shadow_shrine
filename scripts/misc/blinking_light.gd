@@ -1,4 +1,8 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
 extends Light3D
+class_name S2BlinkingLight
 
 @export var min_energy: float = 0.5
 @export var max_energy: float = 1
@@ -11,11 +15,6 @@ var _sinus_a_offset: float = randf_range(0, PI)
 var _sinus_b_offset: float = randf_range(0, PI)
 
 var _timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

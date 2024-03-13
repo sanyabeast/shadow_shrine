@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
 extends Node3D
 
 @export var remove_at_production: bool = false

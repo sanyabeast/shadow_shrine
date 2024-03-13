@@ -4,7 +4,6 @@
 # This script defines a projectile configuration resource.
 
 extends Resource
-
 class_name RProjectileConfig
 
 # Exported variables for customizing projectile behavior.

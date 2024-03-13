@@ -1,5 +1,7 @@
-extends S2GameMode
+# Author: @sanyabeast
+# Date: Mar. 2024
 
+extends S2GameMode
 class_name S2GameModeMainMenue
 const TAG: String = "GameModeMainMenu"
 

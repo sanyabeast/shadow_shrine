@@ -1,5 +1,7 @@
-extends Resource
+# Author: @sanyabeast
+# Date: Mar. 2024
 
+extends Resource
 class_name RMenuSFX
 
 @export var interaction_sound: AudioStream

@@ -4,7 +4,6 @@
 # This script defines a resource configuration for character attributes.
 
 extends Resource
-
 class_name RCharacterConfig
 
 # Exported variables for customizing character attributes.
@@ -29,7 +28,6 @@ class_name RCharacterConfig
 @export var walk_power_sinus_min_power: float = 0.5
 @export var walk_power_sinus_rate: float = 2
 @export var walk_power_sinus_power: float = 0
-
 
 # Exported variables for character special effects.
 @export_subgroup("Character FX")

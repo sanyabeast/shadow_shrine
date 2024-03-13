@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
 extends Control
 
 class_name S2ScreenFX

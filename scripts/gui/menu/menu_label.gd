@@ -1,5 +1,7 @@
-extends Control
+# Author: @sanyabeast
+# Date: Mar. 2024
 
+extends Control
 class_name S2MenuLabel
 const TAG: String = "MenuLabel"
 
@@ -73,10 +75,6 @@ func set_content(val, _options = null, _min_value = null, _max_value = null):
 			value = val
 			mode = EOperatingMode.FLOAT
 			update_content()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _update_final_value():
 	var val

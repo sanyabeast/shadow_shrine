@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Jan. 2024
+
 extends Control  # Or any other GUI node
 
 class_name S2MazeDebugPainter

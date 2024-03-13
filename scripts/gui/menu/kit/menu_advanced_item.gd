@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends S2MenuItem
-
 class_name S2MenuAdvancedItem
 
 enum EValueFormatType {
@@ -26,7 +25,6 @@ func _ready():
 	if title_element != null and title != "":
 		title_element.text = title
 	pass
-
 
 func _generate_console_type(value: float) -> String:
 	var r = ""

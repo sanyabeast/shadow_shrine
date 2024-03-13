@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends Resource
-
 class_name RGameLevelConfig
 
 @export var rooms: Array[PackedScene] = []

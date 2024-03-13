@@ -1,7 +1,8 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
 extends Resource
-
 class_name RWeaponConfig
-
 
 enum EDamageType {
 	Projectile,

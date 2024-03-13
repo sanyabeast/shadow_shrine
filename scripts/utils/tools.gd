@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends Node
-
 class_name S2Tools
 
 var IS_DEBUG: bool = OS.is_debug_build()

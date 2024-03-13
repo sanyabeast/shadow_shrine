@@ -2,13 +2,10 @@
 # Date: Feb. 2024
 
 extends Node3D
-
 class_name S2RoomController
-
 const TAG: String = "RoomController"
 
 @export var config: RRoomConfig
-
 @export var player_spawn: Node3D
 @export var doors_opened: bool = false
 

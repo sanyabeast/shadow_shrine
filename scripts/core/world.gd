@@ -2,9 +2,7 @@
 # Date: Feb. 2024
 
 extends Node
-
 class_name S2WorldManager
-
 enum EDirection {
 	North,
 	East,

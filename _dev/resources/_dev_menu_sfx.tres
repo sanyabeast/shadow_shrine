@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RMenuSFX" load_steps=6 format=3 uid="uid://dl0nikf305rwm"]
+
+[ext_resource type="AudioStream" uid="uid://x7hyfr6v4vgm" path="res://assets/_dev/sound/gui/kenney_ui-audio/Audio/switch20.ogg" id="1_lpvv8"]
+[ext_resource type="AudioStream" uid="uid://2vrpjvd0h4y6" path="res://assets/_dev/sound/gui/kenney_ui-audio/Audio/switch38.ogg" id="2_g1d6p"]
+[ext_resource type="AudioStream" uid="uid://utyhkkdnxqcn" path="res://assets/_dev/sound/gui/kenney_ui-audio/Audio/click1.ogg" id="3_28xvf"]
+[ext_resource type="Script" path="res://scripts/resources/menu_sfx_config.gd" id="4_ob0e4"]
+[ext_resource type="AudioStream" uid="uid://b5lwchoavhmv3" path="res://assets/_dev/sound/gui/kenney_ui-audio/Audio/rollover6.ogg" id="5_pqw0m"]
+
+[resource]
+script = ExtResource("4_ob0e4")
+interaction_sound = ExtResource("3_28xvf")
+submit_sound = ExtResource("5_pqw0m")
+cancel_sound = ExtResource("2_g1d6p")
+alter_sound = ExtResource("1_lpvv8")

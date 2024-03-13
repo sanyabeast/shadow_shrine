@@ -1,12 +1,22 @@
-[gd_scene load_steps=20 format=3 uid="uid://l3lmp6jclmu0"]
+[gd_scene load_steps=24 format=3 uid="uid://l3lmp6jclmu0"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_3r0r5"]
-[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_85otx"]
+[ext_resource type="AudioStream" uid="uid://2vrpjvd0h4y6" path="res://assets/_dev/sound/gui/kenney_ui-audio/Audio/switch38.ogg" id="2_a2kvm"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_s4igg"]
 [ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="3_1loa7"]
+[ext_resource type="AudioStream" uid="uid://dyi4p3f63t5el" path="res://assets/_dev/sound/gui/Menu Selection Click.ogg" id="3_fd2kn"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_lp17m"]
 [ext_resource type="Script" path="res://scripts/gui/settings_menu/video_settings_menu_action.gd" id="4_a7odh"]
+[ext_resource type="AudioStream" uid="uid://nvh3ipifhyla" path="res://assets/_dev/sound/gui/zipclick.ogg" id="4_aesbc"]
+[ext_resource type="Script" path="res://scripts/resources/menu_sfx_config.gd" id="5_4gxfn"]
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_label.gd" id="5_c45jn"]
+
+[sub_resource type="Resource" id="Resource_qq3xy"]
+script = ExtResource("5_4gxfn")
+interaction_sound = ExtResource("4_aesbc")
+submit_sound = ExtResource("3_fd2kn")
+cancel_sound = ExtResource("3_fd2kn")
+alter_sound = ExtResource("2_a2kvm")
 
 [sub_resource type="Animation" id="Animation_a5xx5"]
 length = 0.001
@@ -237,7 +247,7 @@ id = "video_settings_menu"
 anim_player = NodePath("AnimationPlayer")
 items = [NodePath("Content/VBoxContainer/RenderScale"), NodePath("Content/VBoxContainer/RenderSharpness")]
 actions = NodePath("MenuActions")
-menu_sfx = ExtResource("2_85otx")
+menu_sfx = SubResource("Resource_qq3xy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -289,7 +299,6 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 script = ExtResource("2_s4igg")
 value_element = NodePath("Background/ValueLabel")
-value_format_type = 1
 id = "render_scale"
 has_options = true
 value = 1.0
@@ -363,7 +372,6 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 script = ExtResource("2_s4igg")
 value_element = NodePath("Background/ValueLabel")
-value_format_type = 1
 id = "render_sharpness"
 has_options = true
 value = 1.0

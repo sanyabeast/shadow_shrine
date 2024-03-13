@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends Control
-
 class_name S2MainMenu
 const TAG: String = "MainMenu"
 

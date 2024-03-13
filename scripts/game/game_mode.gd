@@ -1,5 +1,7 @@
-extends Node3D
+# Author: @sanyabeast
+# Date: Feb. 2024
 
+extends Node3D
 class_name S2GameMode
 
 @export var seed_key: int = 0

@@ -2,9 +2,7 @@
 # Date: Feb. 2024
 
 extends Node
-
 class_name PlayerManager
-
 const TAG: String = "PlayerManager: "
 
 var current: S2Character

@@ -1,7 +1,8 @@
+# Author: @sanyabeast
+# Date: Jan. 2024
+
 extends Node
-
 class_name S2DevGlobal
-
 const TAG: String = "DevScript: "
 
 var screen_printer: S2DevScreenPrinter

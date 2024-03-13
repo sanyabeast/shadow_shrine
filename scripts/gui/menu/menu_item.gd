@@ -4,10 +4,7 @@
 # This script defines a menu item control with customizable options and animations.
 
 extends Control
-
 class_name S2MenuItem
-
-# Constant tag for logging and identification purposes.
 const TAG: String = "MenuItem"
 
 # Exported variables for customization.
