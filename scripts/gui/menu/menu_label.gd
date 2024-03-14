@@ -29,15 +29,18 @@ enum EOperatingMode {
 }
 
 @export_category("Rendering")
+@export_subgroup("Textual")
 @export var use_textual_rendering: bool = true
 @export var render_label: Label
+@export var use_template: bool = false
+@export var template: String = "< {content} >"
 
 @export_subgroup("Animated")
 @export var use_animated_rendering: bool = false
 @export var total_progress_animation_player: AnimationPlayer
-@export var total_progress_animation_name: String
+@export var total_progress_animation_name: String = "progress"
 @export var fraction_progress_animation_players: Array[AnimationPlayer]
-@export var fraction_progress_animation_name: String
+@export var fraction_progress_animation_name: String = "progress"
 
 @export_category("Content")
 @export var txt: String = ""
@@ -76,8 +79,17 @@ func _ready():
 		if render_label != null:
 			if render_label.text != "":
 				txt = render_label.text
-				mode = EOperatingMode.TEXT
 				
+				mode = EOperatingMode.TEXT
+		
+	if use_animated_rendering:
+		if total_progress_animation_player != null:
+			total_progress_animation_player.play(total_progress_animation_name)
+			total_progress_animation_player.pause()	
+		for ap in fraction_progress_animation_players:
+			ap.play(fraction_progress_animation_name)	
+			ap.pause()
+			
 	update_content()
 	pass
 	
@@ -149,6 +161,11 @@ func _update_textual_content():
 		EValueFormatType.CUSTOM:
 			_textual_content = _format_value(val)
 			
+	if use_template:
+		_textual_content = template.format({
+			"content": _textual_content
+		})
+			
 func _format_value(val)->String:
 	dev.logd(TAG, "implement custom format function in inherited class")
 	return str(value)
@@ -175,10 +192,26 @@ func update_content():
 	
 func _update_animated_rendering():
 	if total_progress_animation_player != null:
+		total_progress_animation_player.seek(_progress, true)
 		pass
 		
-	for anim_player in fraction_progress_animation_players:
-		pass
+	if fraction_progress_animation_players.size() > 0:
+		
+		var _all_fractions_progress = _progress
+		var _max_fraction_progress = 1. /  fraction_progress_animation_players.size()
+		print(_progress, ", ", _max_fraction_progress)
+		
+		for anim_player in fraction_progress_animation_players:
+			if _all_fractions_progress - _max_fraction_progress > 0:
+				anim_player.seek(1, true)
+				_all_fractions_progress -= _max_fraction_progress
+			else:
+				# last fraction
+				var _fraction_progress = fmod(_all_fractions_progress, _max_fraction_progress) / _max_fraction_progress
+				anim_player.seek(_fraction_progress, true)
+				_all_fractions_progress = 0
+				
+			pass
 		
 func _process(delta):
 	if visible:

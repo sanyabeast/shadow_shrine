@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://blyunibxrlnkg"]
+[gd_scene load_steps=6 format=3 uid="uid://blyunibxrlnkg"]
 
 [ext_resource type="Script" path="res://scripts/gui/ingame/hud.gd" id="1_kgvs1"]
 [ext_resource type="FontFile" uid="uid://cg5nyh57rpmy6" path="res://assets/fonts/SuperSalad-qZgvV.ttf" id="2_pjyfq"]
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_label.gd" id="3_wov81"]
+[ext_resource type="PackedScene" uid="uid://c6106voq6o8m3" path="res://_dev/hud/heart_progress_bar_a1.tscn" id="4_32e7h"]
+[ext_resource type="PackedScene" uid="uid://bi8tu2dcpdbar" path="res://_dev/hud/very_basic_progress_bar.tscn" id="4_ajy3b"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -25,56 +27,134 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_pjyfq")
 text = "This is HUD"
 
-[node name="PlayerHealth" type="Control" parent="." node_paths=PackedStringArray("render_label")]
+[node name="PlayerHealth" type="Control" parent="." node_paths=PackedStringArray("render_label", "fraction_progress_animation_players")]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 150.0
+offset_left = 100.0
 offset_top = 50.0
-offset_right = 350.0
+offset_right = 300.0
 offset_bottom = 100.0
 script = ExtResource("3_wov81")
 render_label = NodePath("Label")
+use_template = true
+template = "Health: {content}"
+use_animated_rendering = true
+fraction_progress_animation_players = [NodePath("HeartsProgress/HBoxContainer/HeartProgressBar/AnimationPlayer"), NodePath("HeartsProgress/HBoxContainer/HeartProgressBar2/AnimationPlayer"), NodePath("HeartsProgress/HBoxContainer/HeartProgressBar3/AnimationPlayer")]
 mode = 1
 format = 13
 pick_initial_txt_from_render_label = false
 use_bound_value = true
 bound_token = "player_health"
 bound_token_max = "player_max_health"
+
+[node name="HeartsProgress" type="Control" parent="PlayerHealth"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerHealth/HeartsProgress"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 7.0
+offset_right = 128.0
+grow_vertical = 2
+
+[node name="HeartProgressBar" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="HeartProgressBar2" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="HeartProgressBar3" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
 
 [node name="Label" type="Label" parent="PlayerHealth"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "sdvsdg"
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameTime" type="Control" parent="." node_paths=PackedStringArray("render_label")]
+[node name="GameTime" type="Control" parent="." node_paths=PackedStringArray("render_label", "total_progress_animation_player", "fraction_progress_animation_players")]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 150.0
-offset_top = 50.0
-offset_right = 350.0
-offset_bottom = 100.0
+offset_left = 75.0
+offset_top = 150.0
+offset_right = 275.0
+offset_bottom = 200.0
 script = ExtResource("3_wov81")
-render_label = NodePath("../PlayerHealth/Label")
+render_label = NodePath("Label")
+use_template = true
+template = "Time: {content}s"
+use_animated_rendering = true
+total_progress_animation_player = NodePath("VeryBasicProgressBar/AnimationPlayer")
+fraction_progress_animation_players = [NodePath("FractVeryBasicProgressBar2/AnimationPlayer"), NodePath("FractVeryBasicProgressBar3/AnimationPlayer"), NodePath("FractVeryBasicProgressBar4/AnimationPlayer")]
 mode = 1
 format = 13
+max_value = 5.0
+cycle_float = true
 pick_initial_txt_from_render_label = false
 use_bound_value = true
-bound_token = "player_health"
-bound_token_max = "player_max_health"
+bound_token = "game_time"
+
+[node name="VeryBasicProgressBar" parent="GameTime" instance=ExtResource("4_ajy3b")]
+layout_mode = 1
+offset_top = 15.0
+offset_bottom = -25.0
+
+[node name="FractVeryBasicProgressBar2" parent="GameTime" instance=ExtResource("4_ajy3b")]
+layout_mode = 1
+offset_top = 30.0
+offset_right = -140.0
+offset_bottom = -10.0
+
+[node name="FractVeryBasicProgressBar3" parent="GameTime" instance=ExtResource("4_ajy3b")]
+layout_mode = 1
+offset_left = 70.0
+offset_top = 30.0
+offset_right = -70.0
+offset_bottom = -10.0
+
+[node name="FractVeryBasicProgressBar4" parent="GameTime" instance=ExtResource("4_ajy3b")]
+layout_mode = 1
+offset_left = 140.0
+offset_top = 30.0
+offset_bottom = -10.0
 
 [node name="Label" type="Label" parent="GameTime"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "sdvsdg"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+text = "game time
+"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[editable path="PlayerHealth/HeartsProgress/HBoxContainer/HeartProgressBar"]
+[editable path="PlayerHealth/HeartsProgress/HBoxContainer/HeartProgressBar2"]
+[editable path="PlayerHealth/HeartsProgress/HBoxContainer/HeartProgressBar3"]
+[editable path="GameTime/VeryBasicProgressBar"]
+[editable path="GameTime/FractVeryBasicProgressBar2"]
+[editable path="GameTime/FractVeryBasicProgressBar3"]
+[editable path="GameTime/FractVeryBasicProgressBar4"]
