@@ -14,11 +14,13 @@ var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
 var seed: int = 0
 
+var is_over: bool = false
+var is_won: bool = false
+
 signal on_seed_changed(seed: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("game manager: ready...")
 	var saved_seed: int = app.get_setting("game_seed", randi())
 	set_seed(saved_seed)
 	pass # Replace with function body.
@@ -34,7 +36,6 @@ func set_mode(_mode: S2GameMode):
 	if mode != null:
 		unset_mode(mode)
 		
-	print("game: setting game mode to %s" % _mode)
 	mode = _mode
 	
 func unset_mode(_mode: S2GameMode):
@@ -71,3 +72,14 @@ func enable_ai():
 func disable_ai():
 	dev.logd(TAG, "ai disabled")
 	ai_enabled = false
+
+func finish(_is_won: bool):
+	is_over = true
+	is_won = _is_won
+
+func start():
+	is_over = false
+	is_won = false
+	
+	if mode != null:
+		mode.start_game()

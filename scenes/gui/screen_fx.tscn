@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dd4cusqsvp4ur"]
 
 [ext_resource type="Script" path="res://scripts/gui/ingame/screen_fx.gd" id="1_xqruw"]
-[ext_resource type="Shader" path="res://_dev/shders/vignette.gdshader" id="2_awjit"]
+[ext_resource type="Shader" path="res://_dev/shaders/vignette.gdshader" id="2_eio5m"]
 
 [sub_resource type="Animation" id="Animation_dtxgh"]
 length = 0.001
@@ -545,7 +545,7 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ixh86"]
-shader = ExtResource("2_awjit")
+shader = ExtResource("2_eio5m")
 shader_parameter/player_position = Vector2(0.5, 0.5)
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/MULTIPLIER = 0.56

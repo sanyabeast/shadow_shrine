@@ -199,7 +199,6 @@ func _update_animated_rendering():
 		
 		var _all_fractions_progress = _progress
 		var _max_fraction_progress = 1. /  fraction_progress_animation_players.size()
-		print(_progress, ", ", _max_fraction_progress)
 		
 		for anim_player in fraction_progress_animation_players:
 			if _all_fractions_progress - _max_fraction_progress > 0:

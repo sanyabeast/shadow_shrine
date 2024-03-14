@@ -3,6 +3,7 @@
 
 extends Node
 class_name S2Tools
+const TAG: String = "Tools"
 
 var IS_DEBUG: bool = OS.is_debug_build()
 
@@ -42,7 +43,7 @@ func spawn_object(template: PackedScene) -> Node:
 func spawn_object_and_replace(packed_scene: PackedScene, existing_object: Node) -> Node:
 	# Check if the arguments are valid
 	if packed_scene == null or existing_object == null:
-		print("Invalid arguments passed to the function.")
+		logd(TAG, "Invalid arguments passed to the function.")
 		return
 
 	# Instantiate the new object from the PackedScene

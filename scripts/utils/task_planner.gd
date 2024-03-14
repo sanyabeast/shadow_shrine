@@ -2,6 +2,7 @@
 # This script defines a task planner that manages various tasks with scheduling, queuing, and stacking.
 
 class_name S2TaskPlanner
+const TAG: String = "TaskPlanner"
 
 # Counter for generating unique indices for scheduled tasks.
 static var _schedule_task_index_counter: int = 0
@@ -71,14 +72,14 @@ func update():
 		if list.size() > 0:
 			current = list.pop_back()
 			if current.is_valid():
-				print("[TaskPlanner] task STARTED %s %s" % [current.owner.name, current.id])
+				tools.logd(TAG, "task STARTED %s %s" % [current.owner.name, current.id])
 				current.start()
 			else:
 				current = null
 	else:
 		if current.is_expired():
 			if current.is_valid():
-				print("[TaskPlanner] task FINISHED %s %s" % [current.owner.name, current.id])
+				tools.logd(TAG, "task FINISHED %s %s" % [current.owner.name, current.id])
 				current.finish()
 				
 			current = null	
@@ -87,7 +88,7 @@ func update():
 		var task: Task = schedule_list[key]
 		if task.is_expired():
 			if task.is_valid():
-				print("[TaskPlanner] scheduled task FINISHED %s %s" % [task.owner.name, task.id])
+				tools.logd(TAG, "scheduled task FINISHED %s %s" % [task.owner.name, task.id])
 				task.finish()
 			schedule_list.erase(key)
 
@@ -101,7 +102,7 @@ func queue(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 		finish_callback,
 		use_game_time
 	))
-	print("[TaskPlanner] task ADDED to queue %s %s" % [owner.name, id])
+	tools.logd(TAG, "task ADDED to queue %s %s" % [owner.name, id])
 	pass
 
 # Method to stack a new task onto the list with the specified properties.
@@ -114,7 +115,7 @@ func stack(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 		finish_callback,
 		use_game_time
 	))
-	print("[TaskPlanner] task ADDED to stack %s %s" % [owner.name, id])
+	tools.logd(TAG, "task ADDED to stack %s %s" % [owner.name, id])
 	pass
 	
 # Method to schedule a new task with a timeout and finish callback.

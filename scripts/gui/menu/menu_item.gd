@@ -59,7 +59,8 @@ func next_option():
 		else:
 			value = clampf(value + step, min_value, max_value)
 	
-	menu.actions.handle_option_change(id, self)
+	if menu.actions != null:
+		menu.actions.handle_option_change(id, self)
 	_after_option_updated()
 
 # Method to navigate to the previous option or decrement the value.
@@ -70,7 +71,9 @@ func prev_option():
 		else:
 			value = clampf(value - step, min_value, max_value)
 	
-	menu.actions.handle_option_change(id, self)
+	if menu.actions != null:
+		menu.actions.handle_option_change(id, self)
+		
 	_after_option_updated()
 
 # Method to toggle the boolean value.
@@ -99,7 +102,9 @@ func submit():
 	dev.logd(TAG, "submitted %s" % self)
 	# Emit the on_submit signal.
 	on_submit.emit(self)
-	menu.actions.handle_submit(id, self)
+	
+	if menu.actions != null:
+		menu.actions.handle_submit(id, self)
 
 func parse_value(_value):
 	if has_options:

@@ -147,8 +147,8 @@ func _apply_doors_map():
 	for dir in world.directions_list:
 		if doors_map[dir] == true:
 			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
+			
 			var cell_idx = world_to_gridmap(walls_gridmap, door_controllers[dir].global_position)
-			print("cell idx for %s door: %s" % [dir, cell_idx])
 			walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, door_controllers[dir].global_position), -1)
 			
 			door_controllers[dir].close(true)
@@ -164,7 +164,6 @@ func upload_saved_content(_content: Node3D):
 	content.queue_free()
 	content = _content
 	add_child(content)
-	pass
 
 func download_saved_content() -> Node3D:
 	# trimming content to save mem?

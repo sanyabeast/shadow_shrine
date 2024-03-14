@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://2yp2i57kf7cx"]
 
-[ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://_dev/particles/bubble_a025.png" id="1_ooloq"]
-[ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://_dev/particles/bubble_toxic_green.png" id="2_0by87"]
+[ext_resource type="Texture2D" uid="uid://dr6jgfx54bbst" path="res://assets/_dev/particles/bubble_a025.png" id="1_ooloq"]
+[ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://assets/_dev/particles/bubble_toxic_green.png" id="2_0by87"]
 [ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://resources/materials/particles/slime_puddle_a1.tres" id="3_1sd7d"]
 
 [sub_resource type="Curve" id="Curve_mesge"]

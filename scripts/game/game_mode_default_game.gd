@@ -50,11 +50,10 @@ func _ready():
 
 func prepare():
 	super.prepare()
-	
+	game.start()
 	random.set_seed(game.seed)
 	
 	screen_fx = gui.controller.screen_fx
-	
 	environment_node = $Environment
 	architecture_node = $Architecture
 	characters_node = $Characters
@@ -64,7 +63,9 @@ func prepare():
 	_setup_ambient_sound()
 	
 	reset()
+	
 	game.resume()
+	tasks.schedule(self, "gameover_test", 4, game.finish.bind(false))
 
 func _init_player():
 	if player == null and player_packed != null:
@@ -169,11 +170,7 @@ func next_room(from_direction: world.EDirection, skip_fade: bool = false):
 		tasks.schedule(self, "next_room", ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION * 1.1, _next_room.bind(from_direction))
 
 func _next_room(from_direction: world.EDirection):
-	print("kekekek", from_direction)
-	print("next_room: current room - %s" % current_maze_cell)
-	
 	if current_room != null:
-		print("destroying current room")
 		rooms_data[current_maze_cell.index]["saved_content"] = current_room.download_saved_content()
 		current_room.queue_free()
 	
@@ -181,13 +178,7 @@ func _next_room(from_direction: world.EDirection):
 		current_maze_cell = maze_generator.start_cell
 	else:
 		current_maze_cell = current_maze_cell.get_sibling_to(from_direction)
-	
-	print("sib cell: ", current_maze_cell.get_sibling_to(world.EDirection.North))
-	print("sib cell: ", current_maze_cell.get_sibling_to(world.EDirection.East))
-	print("sib cell: ", current_maze_cell.get_sibling_to(world.EDirection.South))
-	print("sib cell: ", current_maze_cell.get_sibling_to(world.EDirection.West))
-	
-	print("switching to the next room from direction: %s, new maze cell: %s" % [from_direction, current_maze_cell])
+		
 	spawn_room(from_direction)
 	pass
 
@@ -221,7 +212,7 @@ func _process(delta):
 	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
 	dev.print_screen("room_alive_enemies", "alive enemies: %s" % [current_room.alive_enemies.size()])
 	
-	if not game.paused and Input.is_action_just_pressed("pause"):
+	if not game.is_over and not game.paused and Input.is_action_just_pressed("pause"):
 		game.pause()
 			
 	if game.timer_gate.check("check_door_state", 1):

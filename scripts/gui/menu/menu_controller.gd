@@ -48,7 +48,6 @@ var _audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	assert(actions != null, "actions not found at %s" % name)
 	# Select the initial menu item.
 	cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 	cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
@@ -59,16 +58,19 @@ func _ready():
 	
 	select(index)
 	
-	actions.menu = self
 	for item in items:
 		item.menu = self
 	# Connect the visibility changed signal to the corresponding handler.
-	visibility_changed.connect(_handle_visibility_changed)
-	actions.initialize_items(items)
 	
+	if actions != null:
+		actions.menu = self
+		actions.initialize_items(items)
+	
+	visibility_changed.connect(_handle_visibility_changed)
 	_init_submenus()
 	
-	pass # Replace with function body.
+	if visible:
+		play_animation("open")
 
 func _init_submenus():
 	if active_submenu != null:
@@ -142,7 +144,7 @@ func submit():
 
 func cancel():
 	if cooldown.ready("cancel_allowed"):
-		if actions:
+		if actions != null:
 			actions.handle_cancel()
 
 		if parent_menu != null:
@@ -161,11 +163,10 @@ func _handle_visibility_changed():
 		cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 		cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
 		
-		if reinitialize_items_on_show:
+		if actions != null and reinitialize_items_on_show:
 			actions.initialize_items(items)
 		
 		select(index)
-		
 		
 		if anim_player != null and anim_player.has_animation("open"):
 			play_animation("open")
