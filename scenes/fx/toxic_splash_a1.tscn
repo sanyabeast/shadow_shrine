@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://d06mb8r053fit"]
+
+[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/liquid_puddle_a3.png" id="1_72go3"]
+
+[sub_resource type="Gradient" id="Gradient_dl7ws"]
+offsets = PackedFloat32Array(0, 0.167105, 0.555263, 1)
+colors = PackedColorArray(0.558824, 1, 0, 0, 0.309412, 0.4, 0.18, 1, 0.26236, 0.28, 0.1288, 1, 0.676471, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_td3uk"]
+gradient = SubResource("Gradient_dl7ws")
+
+[sub_resource type="Curve" id="Curve_m5epl"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0jh3k"]
+curve = SubResource("Curve_m5epl")
+
+[sub_resource type="Curve" id="Curve_xdrps"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.51328, 0.504643), -1.47423, -1.47423, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q2t8f"]
+curve = SubResource("Curve_xdrps")
+
+[sub_resource type="Curve" id="Curve_knuho"]
+_data = [Vector2(0, 0.51505), 0.0, 0.0, 0, 0, Vector2(0.500927, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.504644), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qjbw2"]
+curve = SubResource("Curve_knuho")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m22ja"]
+orbit_velocity_curve = SubResource("CurveTexture_0jh3k")
+radial_velocity_max = 15.0
+radial_velocity_curve = SubResource("CurveTexture_q2t8f")
+gravity = Vector3(0, -1, 0)
+scale_min = 0.25
+scale_curve = SubResource("CurveTexture_qjbw2")
+color_ramp = SubResource("GradientTexture1D_td3uk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl448"]
+transparency = 1
+shading_mode = 2
+diffuse_mode = 1
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_72go3")
+emission_enabled = true
+emission_energy_multiplier = 0.0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_t0k3u"]
+material = SubResource("StandardMaterial3D_pl448")
+size = Vector2(0.1, 0.1)
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+amount = 16
+lifetime = 0.2
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_m22ja")
+draw_pass_1 = SubResource("QuadMesh_t0k3u")

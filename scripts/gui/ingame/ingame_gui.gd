@@ -17,6 +17,7 @@ var hud_visible: bool = false
 var pause_menu_visible: bool = false
 var game_over_screen_visible: bool = false
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tools.logd(TAG, "In-Game GUI ready, operating mode")
@@ -70,3 +71,4 @@ func _process(delta):
 			game_over_screen.show()
 		else:
 			game_over_screen.hide()
+

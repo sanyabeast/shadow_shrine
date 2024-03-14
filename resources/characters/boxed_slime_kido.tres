@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="RCharacterConfig" load_steps=9 format=3 uid="uid://dl80x4lhgegkg"]
+[gd_resource type="Resource" script_class="RCharacterConfig" load_steps=10 format=3 uid="uid://dl80x4lhgegkg"]
 
 [ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/167074__drminky__slime-death-1.ogg" id="1_gh2ke"]
 [ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/toxic_bubbles_vfx_oneshot.tscn" id="2_465xm"]
 [ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="3_obyms"]
 [ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/kunai.tres" id="4_4qnvr"]
 [ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/340794__kuchenanderung1__slime-squish.ogg" id="5_xewb6"]
+[ext_resource type="PackedScene" uid="uid://d06mb8r053fit" path="res://scenes/fx/toxic_splash_a1.tscn" id="6_gwbyv"]
 [ext_resource type="Script" path="res://scripts/resources/character_config.gd" id="6_uq0t3"]
 
 [sub_resource type="Resource" id="Resource_0104i"]
@@ -12,7 +13,9 @@ script = ExtResource("3_obyms")
 audio = ExtResource("1_gh2ke")
 audio_pitch_min = 0.97
 audio_pitch_max = 1.0
-content = Array[PackedScene]([ExtResource("2_465xm")])
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+content = Array[PackedScene]([ExtResource("2_465xm"), ExtResource("6_gwbyv")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
@@ -22,7 +25,9 @@ script = ExtResource("3_obyms")
 audio = ExtResource("5_xewb6")
 audio_pitch_min = 0.8
 audio_pitch_max = 1.2
-content = Array[PackedScene]([])
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+content = Array[PackedScene]([ExtResource("6_gwbyv")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0

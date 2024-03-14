@@ -200,7 +200,7 @@ grow_vertical = 2
 script = ExtResource("1_hxvce")
 id = "_dev_menu"
 anim_player = NodePath("AnimationPlayer")
-items = [NodePath("Content/VBoxContainer/ReloadCurrentLevel"), NodePath("Content/VBoxContainer/AlterSeed"), NodePath("Content/VBoxContainer/GameSpeed"), NodePath("Content/VBoxContainer/AiEnabled")]
+items = [NodePath("Content/VBoxContainer/ReloadCurrentLevel"), NodePath("Content/VBoxContainer/AlterSeed"), NodePath("Content/VBoxContainer/FinishCurrentLevel"), NodePath("Content/VBoxContainer/GameSpeed"), NodePath("Content/VBoxContainer/AiEnabled")]
 actions = NodePath("MenuActions")
 reinitialize_items_on_show = true
 menu_sfx = ExtResource("2_fc8hn")
@@ -425,6 +425,75 @@ render_label = NodePath(".")
 txt = "35"
 max_value = 999.0
 
+[node name="FinishCurrentLevel" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value")
+id = "finish_game"
+has_options = true
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/FinishCurrentLevel"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/FinishCurrentLevel"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/FinishCurrentLevel/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Finish Level
+"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Content/VBoxContainer/FinishCurrentLevel/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -1.0
+offset_right = -10.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+use_template = true
+template = "Win: {content}"
+txt = "35"
+mode = 1
+format = 9
+pick_initial_txt_from_render_label = false
+
 [node name="GameSpeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -488,7 +557,11 @@ theme_override_font_sizes/font_size = 18
 vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
+use_template = true
+template = "{content}x"
 txt = "YES"
+max_value = 2.0
+pick_initial_txt_from_render_label = false
 
 [node name="AiEnabled" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 32)

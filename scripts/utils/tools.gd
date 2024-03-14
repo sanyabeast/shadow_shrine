@@ -191,3 +191,6 @@ func repeat_substring(substring: String, times: int) -> String:
 
 func to_v2(v3: Vector3) -> Vector2:
 	return Vector2(v3.x, v3.z)
+
+func sin_normalized(value: float) -> float:
+	return (sin(value) + 1) / 2

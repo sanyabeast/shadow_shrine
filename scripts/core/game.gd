@@ -74,10 +74,12 @@ func disable_ai():
 	ai_enabled = false
 
 func finish(_is_won: bool):
+	dev.logd(TAG, "game finished, player: %s" % ("won" if _is_won else "lose"))
 	is_over = true
 	is_won = _is_won
 
 func start():
+	dev.logd(TAG, "starting new game, resetting win status")
 	is_over = false
 	is_won = false
 	

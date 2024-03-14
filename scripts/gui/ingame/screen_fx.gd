@@ -10,6 +10,7 @@ const TAG: String = "ScreenFX"
 @export var start_from_black: bool = true
 @export var dark_fader: CanvasItem
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

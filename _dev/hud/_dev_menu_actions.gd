@@ -22,7 +22,9 @@ func _handle_submit(id: String, item: S2MenuItem):
 	match id:
 		"reload_current_scene":
 			world.reload()
-
+		"finish_game":
+			game.finish(item.get_bool())
+		
 func _handle_option_change(id: String, item: S2MenuItem):
 	match id:
 		"alter_seed":

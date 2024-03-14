@@ -42,7 +42,7 @@ var _anim_on_close_submenu_to_show: String = ""
 var _anim_on_close_close_itself: bool = false
 var _anim_on_close_show_submenu: bool = false
 
-var _audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
+var _audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 
 # Variable to store the currently active submenu.
 
@@ -52,7 +52,7 @@ func _ready():
 	cooldown.start("submit_allowed", ON_SHOW_SUBMIT_COOLDOWN)
 	cooldown.start("cancel_allowed", CANCEL_COOLDOWN)
 	
-	_audio_player.panning_strength = 0
+	#_audio_player.panning_strength = 0
 	_audio_player.bus = "SFX"
 	add_child(_audio_player)
 	

@@ -65,7 +65,6 @@ func prepare():
 	reset()
 	
 	game.resume()
-	tasks.schedule(self, "gameover_test", 4, game.finish.bind(false))
 
 func _init_player():
 	if player == null and player_packed != null:
@@ -157,9 +156,7 @@ func spawn_room(from_direction):
 	player_manager.teleport(player_spawn.global_position)
 	
 	_check_ambient_sound_mix()
-	
 	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)
-	
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
 	
 func next_room(from_direction: world.EDirection, skip_fade: bool = false):

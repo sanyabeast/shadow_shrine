@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://d4mddqq5hmhux"]
+[gd_scene load_steps=22 format=3 uid="uid://d4mddqq5hmhux"]
 
 [ext_resource type="Script" path="res://scripts/gui/menu/menu_controller.gd" id="1_epcpp"]
 [ext_resource type="Script" path="res://scripts/gui/menu/kit/menu_advanced_item.gd" id="2_2fp76"]
 [ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/gui/menu_sfx_a1.tres" id="2_5nin2"]
+[ext_resource type="Shader" path="res://_dev/shaders/vignette.gdshader" id="3_cw2oc"]
 [ext_resource type="Script" path="res://scripts/gui/main_menu/main_menu_actions.gd" id="3_n8dro"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_vhu03"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/gui/settings_menu.tscn" id="4_260ek"]
@@ -126,7 +127,13 @@ _data = {
 "open": SubResource("Animation_60mut")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_352pt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3q5o"]
+shader = ExtResource("3_cw2oc")
+shader_parameter/player_position = Vector2(0.5, 0.5)
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/MULTIPLIER = 1.25
+shader_parameter/SCALE = 1.0
+shader_parameter/SOFTNESS = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rhsa0"]
 
@@ -251,14 +258,14 @@ libraries = {
 blend_times = [&"close", &"close", 0.3, &"close", &"open", 0.3, &"close", &"RESET", 0.3, &"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("CanvasItemMaterial_352pt")
+material = SubResource("ShaderMaterial_y3q5o")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.6, 0.619608, 0.588235, 0)
+color = Color(0.6, 0.619608, 0.588235, 0.435294)
 
 [node name="MenuTitleLabel" type="Label" parent="ColorRect"]
 modulate = Color(1, 1, 1, 0)

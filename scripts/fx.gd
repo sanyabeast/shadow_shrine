@@ -19,6 +19,7 @@ var _audio_players: Array[AudioStreamPlayer] = []
 
 var _active_content: int = 0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if autostart:
@@ -73,7 +74,8 @@ func _setup_content():
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 			audio_player.bus = "SFX"
 			audio_player.stream = config.audio
-			audio_player.pitch_scale = randf_range(config.audio_pitch_min, config.audio_pitch_max)
+			audio_player.pitch_scale = _get_variable_pitch_value(config)
+			audio_player.volume_db = linear_to_db(randf_range(config.audio_volume_min, config.audio_volume_max))
 
 			add_child(audio_player)
 			audio_player.play()
@@ -86,6 +88,15 @@ func _setup_content():
 		_dispose()
 		
 	_traverse(self)	
+
+func _get_variable_pitch_value(config: RFXConfig) -> float:
+	var current_pitch_value: float = (
+		tools.sin_normalized(game.time * 1.25) + 
+		tools.sin_normalized(game.time * 3.00) + 
+		tools.sin_normalized(game.time * 5.25)
+	) / 3
+	var result: float = lerpf(config.audio_pitch_min, config.audio_pitch_max, current_pitch_value)
+	return result
 	
 func get_time()->float:
 	if config and config.use_game_time:
