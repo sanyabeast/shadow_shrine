@@ -1,7 +1,6 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-@tool
 extends Control
 class_name S2MenuLabel
 const TAG: String = "MenuLabel"
@@ -33,6 +32,13 @@ enum EOperatingMode {
 @export var use_textual_rendering: bool = true
 @export var render_label: Label
 
+@export_subgroup("Animated")
+@export var use_animated_rendering: bool = false
+@export var total_progress_animation_player: AnimationPlayer
+@export var total_progress_animation_name: String
+@export var fraction_progress_animation_players: Array[AnimationPlayer]
+@export var fraction_progress_animation_name: String
+
 @export_category("Content")
 @export var txt: String = ""
 @export var value: float = 0
@@ -43,6 +49,7 @@ enum EOperatingMode {
 @export var options: Array[String] = []
 @export var min_value: float = 0
 @export var max_value: float = 1
+@export var cycle_float: bool = false
 
 @export var pick_initial_txt_from_render_label: bool = true
 
@@ -50,7 +57,7 @@ enum EOperatingMode {
 @export var use_bound_value: bool = false
 @export var bound_token: String = ""
 @export var bound_token_max: String = ""
-@export var bound_value_update_rate: float = 4
+@export var bound_value_update_rate: float = 15
 
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
 
@@ -90,14 +97,16 @@ func alter_content(val):
 			txt = val
 			mode = EOperatingMode.TEXT
 			update_content()
-		elif val is float:
+		elif val is float or val is int:
 			value = val
 			mode = EOperatingMode.FLOAT
+			_update_float_limits()
 			update_content()
 
 func alter_float_limits(_min_value: float, _max_value: float):
 	min_value = _min_value
 	max_value = _max_value
+	_update_float_limits()
 	update_content()
 
 func _update_progress():
@@ -147,27 +156,46 @@ func _format_value(val)->String:
 func _render_content():
 	dev.logd(TAG, "implement custom content rendering function in inherited class")
 	
+func _update_float_limits():
+	if cycle_float:
+		value = fmod(value, max_value)
+	else:
+		if max_value >= 0:
+			value = clampf(value, min_value, max_value)
+	
 func update_content():
 	_update_progress()
 	
 	if use_textual_rendering:
+		_update_textual_content()
 		render_label.text = _textual_content
 		
-func _process(delta):
-	if Engine.is_editor_hint():
-		update_content()
+	if use_animated_rendering:
+		_update_animated_rendering()
+	
+func _update_animated_rendering():
+	if total_progress_animation_player != null:
 		pass
-	else:
-		if visible:
-			if use_bound_value:
-				if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
-					refresh_bound_value()
+		
+	for anim_player in fraction_progress_animation_players:
+		pass
+		
+func _process(delta):
+	if visible:
+		if use_bound_value:
+			if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
+				refresh_bound_value()
 			
 func refresh_bound_value():
-	if gui.tokens.has(bound_token) and gui.tokens[bound_token] != _prev_bound_token_value:
-		alter_content(gui.tokens[bound_token])
-		_prev_bound_token_value = gui.tokens[bound_token]
+	var _val = gui.get_token(bound_token, value)
+	var _max_val = gui.get_token(bound_token_max, max_value)
+	
+	if _max_val != _prev_bound_token_max_value:
+		alter_float_limits(min_value, _max_val)
+		_prev_bound_token_max_value = _max_val
+	
+	if _val != _prev_bound_token_value:
+		alter_content(_val)
+		_prev_bound_token_value = _val
 
-	if gui.tokens.has(bound_token_max) and gui.tokens[bound_token_max] != _prev_bound_token_max_value:
-		alter_float_limits(min_value, gui.tokens[bound_token_max])
-		_prev_bound_token_max_value = gui.tokens[bound_token_max]
+

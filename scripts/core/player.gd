@@ -20,8 +20,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if current != null:
-		gui.tokens["player_health"] = current.health.value
-		gui.tokens["player_max_health"] = current.max_health.value
+		gui.set_token("player_health", current.health.value)
+		gui.set_token("player_max_health", current.max_health.value)
 	
 func _physics_process(delta):
 	if not game.paused:
