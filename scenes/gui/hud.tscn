@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://blyunibxrlnkg"]
+[gd_scene load_steps=4 format=3 uid="uid://blyunibxrlnkg"]
 
 [ext_resource type="Script" path="res://scripts/gui/ingame/hud.gd" id="1_kgvs1"]
 [ext_resource type="FontFile" uid="uid://cg5nyh57rpmy6" path="res://assets/fonts/SuperSalad-qZgvV.ttf" id="2_pjyfq"]
+[ext_resource type="Script" path="res://scripts/gui/menu/menu_label.gd" id="3_wov81"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -23,3 +24,29 @@ offset_bottom = 11.5
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_pjyfq")
 text = "This is HUD"
+
+[node name="PlayerHealth" type="Control" parent="." node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 50.0
+offset_right = 350.0
+offset_bottom = 100.0
+script = ExtResource("3_wov81")
+render_label = NodePath("Label")
+mode = 1
+format = 7
+pick_initial_txt_from_render_label = false
+use_bound_value = true
+bound_token = "player_health"
+
+[node name="Label" type="Label" parent="PlayerHealth"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1234"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -23,11 +23,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if game.paused and not pause_menu_visible:
+	if game.paused:
 		hud_visible = false
 		world_space_visible = true
 		pause_menu_visible = true
-	elif not game.paused and pause_menu_visible:
+	elif not game.paused:
 		hud_visible = true
 		world_space_visible = true
 		pause_menu_visible = false

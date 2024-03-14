@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="4_v7xvp"]
-[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/gui.tscn" id="5_wkau2"]
+[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/inagame-gui.tscn" id="5_wkau2"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="6_hwkyy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]

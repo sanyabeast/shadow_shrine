@@ -10,20 +10,21 @@ class S2CharacterAbility:
 	var name: String = ""
 	var value: float = 0
 	var target_value: float = 1
-	var max_value: float = 1
+	var max_value: float = -1
 	var transition_speed: float = 0
 	
 	signal on_changed(name: String, old_value: float, new_value: float, increased: bool)
 	
 	func _init(_name: String, _value: float, _max_value = null, _transition_speed = null):
 		name = _name
-		target_value = _value
-		if _max_value == null:
-			_max_value = _value
-		max_value = _max_value
 		
-		if _transition_speed is float:
+		if _max_value != null:
+			max_value = _max_value
+			
+		if _transition_speed != null:
 			transition_speed = _transition_speed
+			
+		set_value(_value)
 		
 	func update(delta: float):
 		if transition_speed <= 0:
@@ -36,10 +37,13 @@ class S2CharacterAbility:
 		
 	func set_value(new_value: float):
 		var old_value: float = target_value
-		new_value = clampf(new_value, 0, max_value)
+		if max_value >= 0:
+			new_value = clampf(new_value, 0, max_value)
+			
 		target_value = new_value
 		
 		if new_value != old_value:
+			dev.logd(TAG, "Ability %s target value set to %s" % [name, target_value])
 			on_changed.emit(name, old_value, new_value, new_value > old_value)	
 
 @export var config: RCharacterConfig
@@ -95,12 +99,14 @@ func _ready():
 		body_controller.initialize(self)
 	
  	# Abilities
-	health = S2CharacterAbility.new("health", config.health)
+	health = S2CharacterAbility.new("health", config.health, config.max_health)
+	max_health = S2CharacterAbility.new("max_health", config.max_health)
 	speed = S2CharacterAbility.new("speed", config.speed)
 	protection = S2CharacterAbility.new("protection", config.protection)
 	damage = S2CharacterAbility.new("damage", config.damage)
 	
 	health.on_changed.connect(_handle_ability_change)
+	max_health.on_changed.connect(_handle_ability_change)
 	speed.on_changed.connect(_handle_ability_change)
 	protection.on_changed.connect(_handle_ability_change)
 	damage.on_changed.connect(_handle_ability_change)
@@ -180,6 +186,7 @@ func _process(delta):
 	
 	dev.set_label(self, {
 		"health": "Health: %s" % health.value,
+		"max_health": "Max health: %s" % max_health.value,
 		"speed": "Speed: %s" % speed.value
 	})
 	pass

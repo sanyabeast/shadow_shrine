@@ -8,6 +8,7 @@ class_name RCharacterConfig
 
 # Exported variables for customizing character attributes.
 @export var health: float = 3  # Health points of the character.
+@export var max_health: float = 3  # Max Health points of the character.
 @export var speed: float = 5  # Movement speed of the character.
 @export var default_weapon: RWeaponConfig  # Default weapon configuration for the character.
 @export var protection: float = 1  # Protection factor against damage.

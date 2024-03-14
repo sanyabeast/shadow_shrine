@@ -26,8 +26,8 @@ enum EOperatingMode {
 	FLOAT
 }
 
-@export_subgroup("Rendering")
-@export var use_custom_rendering: bool = false
+@export_category("Rendering")
+@export var use_textual_rendering: bool = true
 @export var render_label: Label
 
 @export_category("Content")
@@ -44,19 +44,25 @@ enum EOperatingMode {
 @export var pick_initial_txt_from_render_label: bool = true
 
 @export_subgroup("Bound Value")
+@export var use_bound_value: bool = false
 @export var bound_token: String = ""
 @export var bound_value_update_rate: float = 4
+@export var token_for_min: String = ""
+@export var token_for_max: String = ""
 
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
 
 var _progress: float = 0
-var _render_text: String = ""
+var _textual_content: String = ""
+
 var _prev_bound_token_value = null
+var _prev_bound_token_value_min = null
+var _prev_bound_token_value_max = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not use_custom_rendering:
-		assert(render_label != null, "set Label element to render final value or set `use_custom_rendering` to True")
+	if use_textual_rendering:
+		assert(render_label != null, "set Label element to render final value or set `use_textual_rendering` to True")
 	
 	if pick_initial_txt_from_render_label:
 		if render_label != null:
@@ -75,6 +81,9 @@ func set_content(val, _options = null, _min_value = null, _max_value = null):
 	if _max_value is float:
 		max_value = _max_value
 		
+	alter_content(val)
+
+func alter_content(val):
 	if val != null:
 		if val is String:
 			txt = val
@@ -85,39 +94,41 @@ func set_content(val, _options = null, _min_value = null, _max_value = null):
 			mode = EOperatingMode.FLOAT
 			update_content()
 
-func _update_final_value():
+func _update_progress():
+	_progress = tools.reverse_lerp(value, min_value, max_value)
+
+func _update_textual_content():
 	var val
 
 	match mode:
 		EOperatingMode.FLOAT:
-			_progress = tools.reverse_lerp(value, min_value, max_value)
 			val = value
 		EOperatingMode.TEXT:
 			val = txt
 		
 	match format:
 		EValueFormatType.PERCENTS_FROM_PROGRESS:
-			_render_text = str(round(_progress * 100))
+			_textual_content = str(round(_progress * 100))
 		EValueFormatType.PERCENTS_FROM_PROGRESS_SIGNED:
-			_render_text = str(round(_progress * 100)) + "%"
+			_textual_content = str(round(_progress * 100)) + "%"
 		EValueFormatType.IX5_FROM_PROGRESS:
-			_render_text = tools.repeat_substring("I", round(_progress * 5))
+			_textual_content = tools.repeat_substring("I", round(_progress * 5))
 		EValueFormatType.IX10_FROM_PROGRESS:
-			_render_text = tools.repeat_substring("I", round(_progress * 10))
+			_textual_content = tools.repeat_substring("I", round(_progress * 10))
 		EValueFormatType.LX5_FROM_PROGRESS:
-			_render_text = tools.repeat_substring("l", round(_progress * 5))
+			_textual_content = tools.repeat_substring("l", round(_progress * 5))
 		EValueFormatType.LX10_FROM_PROGRESS:
-			_render_text = tools.repeat_substring("l", round(_progress * 10))	
+			_textual_content = tools.repeat_substring("l", round(_progress * 10))	
 		EValueFormatType.YES_NO_FROM_PROGRESS:
-			_render_text = "No" if _progress < 0.5 else "Yes"	
+			_textual_content = "No" if _progress < 0.5 else "Yes"	
 		EValueFormatType.INTEGER:
-			_render_text = str(round(value))
+			_textual_content = str(round(value))
 		EValueFormatType.FLOAT2:
-			_render_text = "%d.2" % value
+			_textual_content = "%d.2" % value
 		EValueFormatType.NONE:
-			_render_text = str(val)
+			_textual_content = str(val)
 		EValueFormatType.CUSTOM:
-			_render_text = _format_value(val)
+			_textual_content = _format_value(val)
 			
 func _format_value(val)->String:
 	dev.logd(TAG, "implement custom format function in inherited class")
@@ -127,17 +138,19 @@ func _render_content():
 	dev.logd(TAG, "implement custom content rendering function in inherited class")
 	
 func update_content():
-	_update_final_value()
-	if use_custom_rendering:
-		_render_content()
-	else:
-		render_label.text = _render_text
-
+	_update_progress()
+	
+	if use_textual_rendering:
+		_update_textual_content()
+		render_label.text = _textual_content
+		
 func _process(delta):
 	if visible:
-		if bound_token != "":
+		if use_bound_value:
 			if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
-				if gui.tokens[bound_token] != _prev_bound_token_value:
-					set_content(gui.tokens[bound_token])
-					_prev_bound_token_value = gui.tokens[bound_token]
+				refresh_bound_value()
 			
+func refresh_bound_value():
+	if gui.tokens[bound_token] != _prev_bound_token_value:
+		alter_content(gui.tokens[bound_token])
+		_prev_bound_token_value = gui.tokens[bound_token]
