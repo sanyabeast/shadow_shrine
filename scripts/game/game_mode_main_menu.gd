@@ -20,7 +20,7 @@ func _ready():
 		demo_room.doors_map[dir] = true
 	
 	demo_room.set_seed_offset(0)
-	demo_room.initialize(false)
+	demo_room.initialize(true)
 	demo_room.open_doors(true)
 	
 	bg_music_player.play_mix()
@@ -29,6 +29,7 @@ func _ready():
 	game.tasks.schedule(self, "doors", 2, demo_room.close_doors)
 	
 	game.resume()
+	game.ai_enabled = true
 
 func start_default_game():
 	screen_fx.fade_out(0.5)

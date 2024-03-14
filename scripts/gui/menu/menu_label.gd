@@ -18,6 +18,8 @@ enum EValueFormatType {
 	YES_NO_FROM_PROGRESS,
 	INTEGER,
 	FLOAT2,
+	VALUE_SLASH_MAX_INTEGER,
+	VALUE_SLASH_MAX_FLOAT,
 	CUSTOM
 }
 
@@ -46,9 +48,8 @@ enum EOperatingMode {
 @export_subgroup("Bound Value")
 @export var use_bound_value: bool = false
 @export var bound_token: String = ""
+@export var bound_token_max: String = ""
 @export var bound_value_update_rate: float = 4
-@export var token_for_min: String = ""
-@export var token_for_max: String = ""
 
 var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
 
@@ -56,8 +57,7 @@ var _progress: float = 0
 var _textual_content: String = ""
 
 var _prev_bound_token_value = null
-var _prev_bound_token_value_min = null
-var _prev_bound_token_value_max = null
+var _prev_bound_token_max_value = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -94,6 +94,11 @@ func alter_content(val):
 			mode = EOperatingMode.FLOAT
 			update_content()
 
+func alter_float_limits(_min_value: float, _max_value: float):
+	min_value = _min_value
+	max_value = _max_value
+	update_content()
+
 func _update_progress():
 	_progress = tools.reverse_lerp(value, min_value, max_value)
 
@@ -124,7 +129,11 @@ func _update_textual_content():
 		EValueFormatType.INTEGER:
 			_textual_content = str(round(value))
 		EValueFormatType.FLOAT2:
-			_textual_content = "%d.2" % value
+			_textual_content = "%2.f" % value
+		EValueFormatType.VALUE_SLASH_MAX_INTEGER:
+			_textual_content = "%d/%d" % [round(value), round(max_value)]
+		EValueFormatType.VALUE_SLASH_MAX_FLOAT:
+			_textual_content = "%2.f/%2.f" % [value, max_value]	
 		EValueFormatType.NONE:
 			_textual_content = str(val)
 		EValueFormatType.CUSTOM:
@@ -151,6 +160,10 @@ func _process(delta):
 				refresh_bound_value()
 			
 func refresh_bound_value():
-	if gui.tokens[bound_token] != _prev_bound_token_value:
+	if gui.tokens.has(bound_token) and gui.tokens[bound_token] != _prev_bound_token_value:
 		alter_content(gui.tokens[bound_token])
 		_prev_bound_token_value = gui.tokens[bound_token]
+
+	if gui.tokens.has(bound_token_max) and gui.tokens[bound_token_max] != _prev_bound_token_max_value:
+		alter_float_limits(min_value, gui.tokens[bound_token_max])
+		_prev_bound_token_max_value = gui.tokens[bound_token_max]

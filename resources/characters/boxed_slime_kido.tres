@@ -30,6 +30,7 @@ lifetime = 5.0
 [resource]
 script = ExtResource("6_uq0t3")
 health = 1.0
+max_health = 3.0
 speed = 2.0
 default_weapon = ExtResource("4_4qnvr")
 protection = 1.0

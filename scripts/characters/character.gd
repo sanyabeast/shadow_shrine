@@ -18,6 +18,7 @@ class S2CharacterAbility:
 	func _init(_name: String, _value: float, _max_value = null, _transition_speed = null):
 		name = _name
 		
+		
 		if _max_value != null:
 			max_value = _max_value
 			
@@ -37,7 +38,9 @@ class S2CharacterAbility:
 		
 	func set_value(new_value: float):
 		var old_value: float = target_value
+		
 		if max_value >= 0:
+			print("clamping abil value to %s %s" % [0, max_value])
 			new_value = clampf(new_value, 0, max_value)
 			
 		target_value = new_value
@@ -45,6 +48,8 @@ class S2CharacterAbility:
 		if new_value != old_value:
 			dev.logd(TAG, "Ability %s target value set to %s" % [name, target_value])
 			on_changed.emit(name, old_value, new_value, new_value > old_value)	
+			
+		update(0)
 
 @export var config: RCharacterConfig
 
@@ -98,6 +103,7 @@ func _ready():
 	if body_controller != null:
 		body_controller.initialize(self)
 	
+	print("maxhealth", config.max_health)
  	# Abilities
 	health = S2CharacterAbility.new("health", config.health, config.max_health)
 	max_health = S2CharacterAbility.new("max_health", config.max_health)

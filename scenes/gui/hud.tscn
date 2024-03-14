@@ -35,10 +35,11 @@ offset_bottom = 100.0
 script = ExtResource("3_wov81")
 render_label = NodePath("Label")
 mode = 1
-format = 7
+format = 13
 pick_initial_txt_from_render_label = false
 use_bound_value = true
 bound_token = "player_health"
+bound_token_max = "player_max_health"
 
 [node name="Label" type="Label" parent="PlayerHealth"]
 layout_mode = 1
