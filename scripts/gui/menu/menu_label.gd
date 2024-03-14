@@ -16,6 +16,8 @@ enum EValueFormatType {
 	LX10_FROM_PROGRESS,
 	FRACTION,
 	YES_NO_FROM_PROGRESS,
+	INTEGER,
+	FLOAT2,
 	CUSTOM
 }
 
@@ -41,8 +43,15 @@ enum EOperatingMode {
 
 @export var pick_initial_txt_from_render_label: bool = true
 
+@export_subgroup("Bound Value")
+@export var bound_token: String = ""
+@export var bound_value_update_rate: float = 4
+
+var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
+
 var _progress: float = 0
 var _render_text: String = ""
+var _prev_bound_token_value = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -101,6 +110,10 @@ func _update_final_value():
 			_render_text = tools.repeat_substring("l", round(_progress * 10))	
 		EValueFormatType.YES_NO_FROM_PROGRESS:
 			_render_text = "No" if _progress < 0.5 else "Yes"	
+		EValueFormatType.INTEGER:
+			_render_text = str(round(value))
+		EValueFormatType.FLOAT2:
+			_render_text = "%d.2" % value
 		EValueFormatType.NONE:
 			_render_text = str(val)
 		EValueFormatType.CUSTOM:
@@ -119,3 +132,12 @@ func update_content():
 		_render_content()
 	else:
 		render_label.text = _render_text
+
+func _process(delta):
+	if visible:
+		if bound_token != "":
+			if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
+				if gui.tokens[bound_token] != _prev_bound_token_value:
+					set_content(gui.tokens[bound_token])
+					_prev_bound_token_value = gui.tokens[bound_token]
+			

@@ -209,7 +209,7 @@ menu_sfx = ExtResource("2_fc8hn")
 libraries = {
 "": SubResource("AnimationLibrary_cymmk")
 }
-blend_times = [&"close", &"close", 0.1, &"close", &"open", 0.1, &"close", &"RESET", 0.1]
+blend_times = [&"close", &"open", 0.1, &"close", &"close", 0.1, &"close", &"RESET", 0.1]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
@@ -250,6 +250,70 @@ text = "debug menu"
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
+
+[node name="GameTime" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+id = "reload_current_scene"
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/GameTime"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/GameTime"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/GameTime/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Game Time
+"
+vertical_alignment = 1
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/GameTime/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "35"
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+mode = 1
+format = 11
+max_value = 999.0
+bound_token = "game_time"
 
 [node name="ReloadCurrentLevel" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
 custom_minimum_size = Vector2(0, 32)
@@ -344,7 +408,9 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -160.0
+offset_top = -1.0
 offset_right = -10.0
+offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_urh5j")
@@ -356,6 +422,7 @@ vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
 mode = 1
+max_value = 999.0
 
 [node name="GameSpeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 32)

@@ -48,8 +48,11 @@ func _process(delta):
 		tasks.update()
 		time += delta * speed
 		
-	dev.print_screen("game_seed", "game seed: %s" % [seed])	
+	dev.print_screen("game_seed", "game seed: %s" % [seed])
 	dev.print_screen("game_time", "game time: %s" % [time])
+	
+	gui.tokens["game_time"] = game.time
+	
 	pass
 
 func get_time() -> float:

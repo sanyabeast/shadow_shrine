@@ -253,7 +253,7 @@ menu_sfx = SubResource("Resource_qq3xy")
 libraries = {
 "": SubResource("AnimationLibrary_0m1lt")
 }
-blend_times = [&"close", &"close", 0.3, &"close", &"open", 0.3, &"close", &"RESET", 0.3, &"open", &"close", 0.2, &"open", &"open", 0.2, &"open", &"RESET", 0.2]
+blend_times = [&"open", &"open", 0.2, &"open", &"close", 0.2, &"open", &"RESET", 0.2, &"close", &"open", 0.3, &"close", &"close", 0.3, &"close", &"RESET", 0.3]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
