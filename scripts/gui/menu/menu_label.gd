@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@tool
 extends Control
 class_name S2MenuLabel
 const TAG: String = "MenuLabel"
@@ -150,14 +151,17 @@ func update_content():
 	_update_progress()
 	
 	if use_textual_rendering:
-		_update_textual_content()
 		render_label.text = _textual_content
 		
 func _process(delta):
-	if visible:
-		if use_bound_value:
-			if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
-				refresh_bound_value()
+	if Engine.is_editor_hint():
+		update_content()
+		pass
+	else:
+		if visible:
+			if use_bound_value:
+				if timer_gate.check("update_bound_token", 1 / bound_value_update_rate):
+					refresh_bound_value()
 			
 func refresh_bound_value():
 	if gui.tokens.has(bound_token) and gui.tokens[bound_token] != _prev_bound_token_value:

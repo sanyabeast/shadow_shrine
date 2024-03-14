@@ -306,11 +306,11 @@ theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_id5cx")
 theme_override_font_sizes/font_size = 18
-text = "35"
+text = " 0"
 vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
-mode = 1
+txt = "35"
 format = 11
 max_value = 999.0
 use_bound_value = true
@@ -422,7 +422,7 @@ text = "35"
 vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
-mode = 1
+txt = "35"
 max_value = 999.0
 
 [node name="GameSpeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
@@ -489,7 +489,7 @@ text = "YES"
 vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
-mode = 1
+txt = "YES"
 
 [node name="AiEnabled" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 32)
@@ -547,11 +547,11 @@ theme = SubResource("Theme_urh5j")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_id5cx")
 theme_override_font_sizes/font_size = 18
-text = "YES"
+text = "No"
 vertical_alignment = 1
 script = ExtResource("5_4s57h")
 render_label = NodePath(".")
-mode = 1
+txt = "YES"
 format = 9
 
 [node name="DecoSeparator2" type="ColorRect" parent="Content/VBoxContainer"]
