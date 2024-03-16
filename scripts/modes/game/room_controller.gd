@@ -2,7 +2,7 @@
 # Date: Feb. 2024
 
 extends Node3D
-class_name S2RoomController
+class_name GRoomController
 const TAG: String = "RoomController"
 
 @export var config: RRoomConfig
@@ -37,8 +37,8 @@ var _enemy_spots_list: Array[Node3D] = []
 var _pickup_spots_list: Array[Node3D] = []
 var _chest_spots_list: Array[Node3D] = []
 
-var alive_enemies: Array[S2Character]
-var all_enemies: Array[S2Character]
+var alive_enemies: Array[GCharacterController]
+var all_enemies: Array[GCharacterController]
 
 # Randomness
 var random: GRandHelper = GRandHelper.new()
@@ -90,7 +90,7 @@ func _update_alive_enemies_list():
 			dead_enemies_count += 1
 			
 	if dead_enemies_count > 0:
-		var newalive_enemies_list: Array[S2Character] = []
+		var newalive_enemies_list: Array[GCharacterController] = []
 		for e in alive_enemies:
 			if e != null and not e.is_dead:
 				newalive_enemies_list.append(e)
@@ -99,7 +99,7 @@ func _update_alive_enemies_list():
 
 func _traverse(node):
 	# Call the callback function on the current node
-	if node is S2DoorController:
+	if node is GDoorController:
 		assert(not door_controllers.has(node.direction), "there already door with direction %s exists in this room (%s)" % [node.direction, self.name])
 		door_controllers[node.direction] = node
 		node.room_controller = self
@@ -134,7 +134,7 @@ func _spawn_enemy(spot: Node3D):
 	if config != null and config.enemies.size() > 0:
 		var prefab: PackedScene = random.choice_from_array(config.enemies)
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
-		var enemy: S2Character = prefab.instantiate()
+		var enemy: GCharacterController = prefab.instantiate()
 		alive_enemies.append(enemy)
 		all_enemies.append(enemy)
 		content.add_child(enemy)
@@ -188,14 +188,14 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	
 	return Vector3i(cell_x, 0, cell_z)
 	
-func handle_player_entered_door_area(door: S2DoorController, player: S2Character):
+func handle_player_entered_door_area(door: GDoorController, player: GCharacterController):
 	if doors_opened:
 		dev.logd(TAG, "player %s entered door %s at room" % [player.name, world.get_direction_pretty_name(door.direction), self])
 		if game_mode:
 			game_mode.handle_player_entered_door_area(door.direction, player)
 		#close_doors()
 	
-func handle_player_exited_door_area(door: S2DoorController, player: S2Character):
+func handle_player_exited_door_area(door: GDoorController, player: GCharacterController):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
 	if game_mode:
 		game_mode.handle_player_exited_door_area(door.direction, player)

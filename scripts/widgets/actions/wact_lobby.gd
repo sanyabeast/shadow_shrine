@@ -1,10 +1,10 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-extends S2MenuActions
-class_name S2ActionsMainMenu
+extends GMenuActions
+class_name GLobbyMenuActions
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"start":
 			game.mode.start_default_game()

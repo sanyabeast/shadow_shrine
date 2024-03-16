@@ -1,6 +1,6 @@
-extends S2MenuActions
+extends GMenuActions
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"restart":
 			world.reload()

@@ -1,10 +1,10 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-extends S2MenuActions
-class_name S2SettingsMenuAction
+extends GMenuActions
+class_name GSettingsMenuActions
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"gameplay_settings":
 			game.resume()

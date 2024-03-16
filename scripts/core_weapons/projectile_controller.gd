@@ -4,11 +4,10 @@
 extends Area3D
 
 class_name GProjectileController
-
 const TAG: String = "ProjectileController"
 
 @export var config: RProjectileConfig
-@export var hit_procedures: Array[S2Procedure] = []
+@export var hit_procedures: Array[GProcedure] = []
 @export var ray: RayCast3D
 
 @export_subgroup("Projectile FX")
@@ -71,7 +70,7 @@ func launch():
 
 func _handle_body_entered(_hit_body):
 	if not _is_wasted:
-		if _hit_body is S2Character:
+		if _hit_body is GCharacterController:
 			if keeper and _hit_body != keeper:
 				dev.logd(TAG, 'projectile hit character %s' % _hit_body)
 				_handle_hit(_hit_body)
@@ -106,7 +105,7 @@ func _handle_block(_hit_body):
 			
 		_dispose()
 	
-func _handle_hit(_hit_body: S2Character):
+func _handle_hit(_hit_body: GCharacterController):
 	_update_ray_collision()
 	
 	for proc in hit_procedures:

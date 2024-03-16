@@ -1,10 +1,10 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-extends S2MenuActions
-class_name S2ActionsPauseMenu
+extends GMenuActions
+class_name GPauseMenuActions
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"resume":
 			game.resume()

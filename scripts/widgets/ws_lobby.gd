@@ -2,8 +2,8 @@
 # Date: Feb. 2024
 
 extends Control
-class_name S2MainMenu
-const TAG: String = "MainMenu"
+class_name GLobbyWidget
+const TAG: String = "LobbyWidget"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

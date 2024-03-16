@@ -4,7 +4,6 @@
 extends GGameMode
 
 class_name GGameModeDefaultGame
-
 const TAG = "GameModeDefaultGame"
 
 const AMBIENCE_LONG_FADE_TIME: float = 2
@@ -17,7 +16,7 @@ const ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION: float = 0.5
 const MAX_SEED_OFFSET_OF_ROOM: int = 64
 
 @export var config: RGameLevelConfig
-@export var player: S2Character
+@export var player: GCharacterController
 @export var player_packed: PackedScene
 @export var main_menu_scene: String
 
@@ -27,10 +26,10 @@ var characters_node: Node3D
 var collectibles_node: Node3D
 
 var _is_new_game_session: bool = true
-var maze_generator: S2MazeGenerator = S2MazeGenerator.new()
-var current_maze_cell: S2MazeGenerator.Cell = null
+var maze_generator: GMazeGen = GMazeGen.new()
+var current_maze_cell: GMazeGen.Cell = null
 
-var current_room: S2RoomController
+var current_room: GRoomController
 var EDirection = world.EDirection
 
 var tasks: GTasker = GTasker.new(true)
@@ -192,11 +191,11 @@ func get_oposite_direction(direcrion: world.EDirection) -> world.EDirection:
 		_:
 			return world.EDirection.East
 
-func handle_player_entered_door_area(direction: world.EDirection, player: S2Character):
+func handle_player_entered_door_area(direction: world.EDirection, player: GCharacterController):
 	dev.logd(TAG, "player %s entered door %s" % [player_manager.name, world.get_direction_pretty_name(direction)])
 	next_room(direction)
 
-func handle_player_exited_door_area(direction: world.EDirection, player: S2Character):
+func handle_player_exited_door_area(direction: world.EDirection, player: GCharacterController):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
 
 func _process(delta):

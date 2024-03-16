@@ -7,7 +7,7 @@ extends AudioStreamPlayer
 class_name GAmbientPlaylistPlayer
 
 # Constant tag for logging and identification purposes.
-const TAG: String = "AmbientSoundPlayer"
+const TAG: String = "AmbientPlaylistPlayer"
 
 # Constants for volume control.
 const min_volume_db: float = -50

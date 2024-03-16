@@ -3,7 +3,7 @@
 
 extends Node
 class_name GDevManager
-const TAG: String = "DevScript: "
+const TAG: String = "DevManager"
 
 var screen_printer: GDevScreenPrinter
 var debug_labels: GDevLabels

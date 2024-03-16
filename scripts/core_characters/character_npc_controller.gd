@@ -2,10 +2,10 @@
 # Date: Feb. 2024
 
 extends Node
-class_name S2NPCController
-const TAG: String = "NPCController"
+class_name GCharacterNpcController
+const TAG: String = "CharacterNpcController"
 
-var character: S2Character
+var character: GCharacterController
 var nav_agent: NavigationAgent3D
 
 var target_position: Vector3 = Vector3(0, 0, 0)
@@ -41,7 +41,7 @@ func update(delta):
 			
 		_update_movement(delta)
 	
-func initialize(_character: S2Character):
+func initialize(_character: GCharacterController):
 	character = _character
 	nav_agent = NavigationAgent3D.new()
 	

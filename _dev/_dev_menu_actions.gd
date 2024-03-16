@@ -1,9 +1,9 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-extends S2MenuActions
+extends GMenuActions
 
-class_name S2DevMenuActions
+class_name GDevMenuActions
 
 func _init_item(id: String):
 	var result
@@ -18,14 +18,14 @@ func _init_item(id: String):
 	dev.logd(TAG, "item %s initialized with value %s" % [id, result])
 	return result
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"reload_current_scene":
 			world.reload()
 		"finish_game":
 			game.finish(item.get_bool())
 		
-func _handle_option_change(id: String, item: S2MenuItem):
+func _handle_option_change(id: String, item: GMenuItem):
 	match id:
 		"alter_seed":
 			game.set_seed(round(item.value))

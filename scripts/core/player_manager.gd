@@ -2,13 +2,13 @@
 # Date: Feb. 2024
 
 extends Node
-class_name PlayerManager
-const TAG: String = "PlayerManager: "
+class_name GPlayerManager
+const TAG: String = "PlayerManager"
 
-var current: S2Character
+var current: GCharacterController
 var mass_scale: float = 10
 
-func set_active(character: S2Character):
+func set_active(character: GCharacterController):
 	print("player manager: active character: %s" % character)
 	current = character
 
@@ -40,7 +40,7 @@ func _physics_process(delta):
 		if current != null:
 			current.set_walk_power(0)
 		
-func is_player(character: S2Character) -> bool:
+func is_player(character: GCharacterController) -> bool:
 	return character == current
 
 func teleport(position: Vector3):

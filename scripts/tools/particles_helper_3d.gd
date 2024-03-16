@@ -1,6 +1,6 @@
 extends GPUParticles3D
-class_name S2Particles3DHelper
-const TAG: String = "Particles3DHelper"
+class_name GParticlesHelper3D
+const TAG: String = "ParticlesHelper3D"
 
 @export_subgroup("Velocity to Amount")
 @export var use_velocity_to_amount: bool = false

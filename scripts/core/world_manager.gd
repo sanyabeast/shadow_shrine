@@ -2,7 +2,9 @@
 # Date: Feb. 2024
 
 extends Node
-class_name S2WorldManager
+class_name GWorldManager
+const TAG: String = "WorldManager"
+
 enum EDirection {
 	North,
 	East,
@@ -118,7 +120,7 @@ func _spawn_fx(params: Array):
 	var bound_object = params[2]
 	var rotation = params[3]
 	
-	var fx_node: S2FX = S2FX.new()
+	var fx_node: GFXController = GFXController.new()
 	fx_node.global_position = position
 	if rotation is Vector3:
 		fx_node.rotation = rotation

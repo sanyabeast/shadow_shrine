@@ -1,10 +1,10 @@
 extends Area3D
-class_name S2AreaEffect
+class_name GAreaEffect
 const TAG: String = "AreaEffect"
 
 @export var max_affected_targets: int = -1
-@export var enter_procedures: Array[S2Procedure]
-@export var exit_procedures: Array[S2Procedure]
+@export var enter_procedures: Array[GProcedure]
+@export var exit_procedures: Array[GProcedure]
 
 @export_subgroup("Targeting")
 @export var affect_player: bool = false
@@ -27,7 +27,7 @@ func _should_affect(body) -> bool:
 		_is_wasted = true
 		return false
 	else:
-		if body is S2Character:
+		if body is GCharacterController:
 			if player_manager.is_player(body):
 				if affect_player:
 					return true
@@ -49,7 +49,7 @@ func _handle_body_entered(body):
 		_is_wasted = true
 	#if body
 	#if not _is_wasted:
-		#if body is S2Character:
+		#if body is GCharacterController:
 			#if keeper and body != keeper:
 				#dev.logd(TAG, 'projectile hit character %s' % body)
 				#_handle_hit(body)

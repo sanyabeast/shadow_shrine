@@ -3,8 +3,8 @@
 
 extends Control
 
-class_name S2WorldSpaceGUI
-const TAG: String = "WorldSpaceGUI"
+class_name GWidgetWorldSpace
+const TAG: String = "WidgetWorldSpace"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

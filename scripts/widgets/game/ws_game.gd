@@ -3,14 +3,14 @@
 
 extends Control
 
-class_name S2InGameGUI
-const TAG: String = "nGameGUI"
+class_name GDefaultGameWidget
+const TAG: String = "DefaultGameWidget"
 
-@onready var world_space: S2WorldSpaceGUI = $WorldSpace
-@onready var hud: S2HUD = $HUD
-@onready var pause_menu: S2PauseMenu = $PauseMenu
+@onready var world_space: GWidgetWorldSpace = $WorldSpace
+@onready var hud: GWidgetHUD = $HUD
+@onready var pause_menu: GPauseMenuWidget = $PauseMenu
 @onready var screen_fx: GScreenFX = $ScreenFX
-@onready var game_over_screen: S2MenuController = $GameOver
+@onready var game_over_screen: GMenuController = $GameOver
 
 var world_space_visible: bool = true
 var hud_visible: bool = false

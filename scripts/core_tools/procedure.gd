@@ -1,5 +1,5 @@
 extends Node
-class_name S2Procedure
+class_name GProcedure
 const TAG: String = "Procedure"
 
 @export_subgroup("FX")

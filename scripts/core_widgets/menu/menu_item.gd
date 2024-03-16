@@ -4,7 +4,7 @@
 # This script defines a menu item control with customizable options and animations.
 
 extends Control
-class_name S2MenuItem
+class_name GMenuItem
 const TAG: String = "MenuItem"
 
 # Exported variables for customization.
@@ -20,14 +20,14 @@ const TAG: String = "MenuItem"
 
 # Variable to track the active state of the menu item.
 var is_active: bool = false
-var menu: S2MenuController
+var menu: GMenuController
 
 # Variable to determine if the menu item is in options mode.
 var _enumerable_mode: bool = false
 
 # Signals emitted when the menu item's active state changes or when it is submitted.
-signal on_active_change(item: S2MenuItem, is_active: bool)
-signal on_submit(item: S2MainMenu)
+signal on_active_change(item: GMenuItem, is_active: bool)
+signal on_submit(item: GLobbyWidget)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

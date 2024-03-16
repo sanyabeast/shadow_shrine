@@ -2,7 +2,8 @@
 # Date: Mar. 2024
 
 extends Light3D
-class_name S2BlinkingLight
+class_name GBlinkLightHelper
+const TAG: String = "BlinkLightHelper"
 
 @export var min_energy: float = 0.5
 @export var max_energy: float = 1

@@ -1,5 +1,5 @@
 extends Control
-class_name S2HighlightsWidget
+class_name GHighlightsWidget
 const TAG: String = "HighlightsWidget"
 
 # highlight message class
@@ -18,7 +18,7 @@ class RHighlihghMessage:
 		has_subtitle = subtitle.length() > 0
 		
 		
-@onready var label: S2MenuLabel = $Label
+@onready var label: GWidgetLabel = $Label
 @export var messages: Array[String] = []
 @export var duration: float = 2
 @export var duration_with_subtitle: float = 5

@@ -4,7 +4,7 @@
 # This script defines a menu controller for managing navigation and interaction with a menu system.
 
 extends Control
-class_name S2MenuController
+class_name GMenuController
 const TAG: String = "MenuController"
 
 # Constant representing the maximum rate of menu item change.
@@ -17,16 +17,16 @@ const CANCEL_COOLDOWN: float = 0.05
 @export var anim_player: AnimationPlayer
 
 @export_subgroup("Items")
-@export var items: Array[S2MenuItem]
+@export var items: Array[GMenuItem]
 @export var index: int = 0
 
 @export_subgroup("Submenus")
-@export var submenus: Array[S2MenuController]
-@export var active_submenu: S2MenuController = null
-var parent_menu: S2MenuController = null
+@export var submenus: Array[GMenuController]
+@export var active_submenu: GMenuController = null
+var parent_menu: GMenuController = null
 
 @export_subgroup("Actions")
-@export var actions: S2MenuActions
+@export var actions: GMenuActions
 
 @export_subgroup("Behaviour")
 @export var close_submenu_on_hide: bool = true
@@ -200,7 +200,7 @@ func _open_submenu(id: String):
 	var submenu = get_submenu(id)
 	
 	assert(submenu != null, "submenu with id %s not found at %s" % [id, name])
-	assert(submenu is S2MenuController, "submenu with id %s must be a S2MenuController type, found: %s at %s" % [id, submenu, name])
+	assert(submenu is GMenuController, "submenu with id %s must be a GMenuController type, found: %s at %s" % [id, submenu, name])
 
 	dev.logd(TAG, "opening submenu with id: %s, found: %s" % [id, submenu])
 	submenu.parent_menu = self
@@ -227,7 +227,7 @@ func close_submenu():
 		enable_interaction()
 
 # Method to get a submenu with a specific ID.
-func get_submenu(id: String) -> S2MenuController:
+func get_submenu(id: String) -> GMenuController:
 	var result
 	for item in submenus:
 		if item.id == id:

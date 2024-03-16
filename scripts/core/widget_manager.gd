@@ -1,7 +1,7 @@
 extends Node
 
-class_name S2Widget
-const TAG: String = "Widget"
+class_name GWidgetManager
+const TAG: String = "WidgetManager"
 
 var controller
 var tokens: Dictionary

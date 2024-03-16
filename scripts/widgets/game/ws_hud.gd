@@ -3,8 +3,8 @@
 
 extends Control
 
-class_name S2HUD
-const TAG: String = "HUD"
+class_name GWidgetHUD
+const TAG: String = "WidgetHUD"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -2,33 +2,33 @@
 # Date: Mar. 2024
 
 extends Node
-class_name S2MenuActions
+class_name GMenuActions
 const TAG: String = "MenuActions"
 
-var menu: S2MenuController
+var menu: GMenuController
 
-func initialize_items(items: Array[S2MenuItem]):
+func initialize_items(items: Array[GMenuItem]):
 	for item in items:
 		item.parse_value(_init_item(item.id)) 
 
-func handle_submit(id: String, item: S2MenuItem):
+func handle_submit(id: String, item: GMenuItem):
 	dev.logd(TAG, "handling submit action for %s" % id)
 	_handle_submit(id, item)
 
 func handle_cancel():
 	_handle_cancel()
 
-func handle_option_change(id: String, item: S2MenuItem):
+func handle_option_change(id: String, item: GMenuItem):
 	dev.logd(TAG, "handling option change for %s" % id)
 	_handle_option_change(id, item)
 
-func _handle_submit(id: String, item: S2MenuItem):
+func _handle_submit(id: String, item: GMenuItem):
 	pass
 
 func _handle_cancel():
 	pass
 
-func _handle_option_change(id: String, item: S2MenuItem):
+func _handle_option_change(id: String, item: GMenuItem):
 	pass
 
 func _init_item(id: String):

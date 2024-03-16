@@ -2,8 +2,8 @@
 # Date: Mar. 2024
 
 extends Control
-class_name S2MenuLabel
-const TAG: String = "MenuLabel"
+class_name GWidgetLabel
+const TAG: String = "WidgetLabel"
 
 enum EValueFormatType {
 	NONE,

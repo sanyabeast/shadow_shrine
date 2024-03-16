@@ -4,6 +4,7 @@
 # This script defines a timer gate manager for handling time-based checks.
 
 class_name GTimeGateHelper
+const TAG: String = "TimeGateHelper"
 
 # Dictionary to store the last recorded time for each timer gate.
 var _timer_gate_data = {}

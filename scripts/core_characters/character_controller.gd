@@ -3,10 +3,10 @@
 
 extends CharacterBody3D
 
-class_name S2Character
-const TAG: String = "Character"
+class_name GCharacterController
+const TAG: String = "CharacterController"
 
-class S2CharacterAbility:
+class GAbility:
 	var name: String = ""
 	var value: float = 0
 	var target_value: float = 1
@@ -70,19 +70,19 @@ var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: GCooldowns = GCooldowns.new(true)
-var npc_controller: S2NPCController
+var npc_controller: GCharacterNpcController
 
-var body_controller: S2CharacterBody
+var body_controller: GCharacterBodyController
 var weapon: GWeaponController
 
 var is_dead: bool = false
 
 # abilities
-var health: S2CharacterAbility
-var max_health: S2CharacterAbility
-var speed: S2CharacterAbility
-var damage: S2CharacterAbility
-var protection: S2CharacterAbility
+var health: GAbility
+var max_health: GAbility
+var speed: GAbility
+var damage: GAbility
+var protection: GAbility
 
 var impulse_direction: Vector3
 var impulse_power: float = 0
@@ -98,18 +98,18 @@ func _ready():
 		player_manager.set_active(self)
 		
 	if npc_controller == null:
-		npc_controller = S2NPCController.new()
+		npc_controller = GCharacterNpcController.new()
 	
 	if body_controller != null:
 		body_controller.initialize(self)
 	
 	print("maxhealth", config.max_health)
  	# Abilities
-	health = S2CharacterAbility.new("health", config.health, config.max_health)
-	max_health = S2CharacterAbility.new("max_health", config.max_health)
-	speed = S2CharacterAbility.new("speed", config.speed)
-	protection = S2CharacterAbility.new("protection", config.protection)
-	damage = S2CharacterAbility.new("damage", config.damage)
+	health = GAbility.new("health", config.health, config.max_health)
+	max_health = GAbility.new("max_health", config.max_health)
+	speed = GAbility.new("speed", config.speed)
+	protection = GAbility.new("protection", config.protection)
+	damage = GAbility.new("damage", config.damage)
 	
 	health.on_changed.connect(_handle_ability_change)
 	max_health.on_changed.connect(_handle_ability_change)
@@ -123,10 +123,10 @@ func _traverse(node):
 	if node is GWeaponController:
 		weapon = node
 		
-	if node is S2NPCController:
+	if node is GCharacterNpcController:
 		npc_controller = node
 		
-	if node is S2CharacterBody:
+	if node is GCharacterBodyController:
 		body_controller = node
 		
 	# Recursively call this function on all children
@@ -161,7 +161,7 @@ func _physics_process(delta):
 					if not player_manager.is_player(self) and collider is GridMap:
 						commit_impulse(coll.get_normal(), 2)
 					
-					if collider is S2Character and player_manager.is_player(collider):
+					if collider is GCharacterController and player_manager.is_player(collider):
 						commit_impulse(
 							coll.get_normal(), 
 							config.speed * clampf(pow(collider.get_mass() / get_mass(), 2), 0, 1)

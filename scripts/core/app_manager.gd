@@ -2,17 +2,15 @@
 # Date: Feb. 2024
 
 extends Node
-class_name RApp
 
-const TAG: String = "App"
+class_name GAppManager
+const TAG: String = "AppManager"
+
 const SETTINGS_CONFIG_PATH: String = "user://settings.cfg"
-
 const SETTINGS_KEY: String = "settings"
-
 const SETTINGS_AUDIO_MASTER_VOLUME_KEY: String = "audio_settings__master_volume"
 const SETTINGS_AUDIO_MUSIC_VOLUME_KEY: String = "audio_settings__music_volume"
 const SETTINGS_AUDIO_SFX_VOLUME_KEY: String = "audio_settings__sfx_volume"
-
 const SETTINGS_VIDEO_RENDER_SCALE: String = "video_settings__render_scale"
 const SETTINGS_VIDEO_RENDER_SHARPNESS: String = "video_settings__render_sharpness"
 

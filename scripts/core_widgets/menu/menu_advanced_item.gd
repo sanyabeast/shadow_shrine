@@ -1,8 +1,8 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-extends S2MenuItem
-class_name S2MenuAdvancedItem
+extends GMenuItem
+class_name GMenuItemAdvanced
 
 enum EValueFormatType {
 	None,
@@ -15,7 +15,7 @@ enum EValueFormatType {
 @export var title_element: Label
 
 @export_subgroup("Value")
-@export var value_element: S2MenuLabel
+@export var value_element: GWidgetLabel
 
 var _prev_value: String = ""
 

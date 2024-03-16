@@ -2,7 +2,8 @@
 # Date: Feb. 2024
 
 extends Node
-class_name CameraManager
+class_name GCameraManager
+const TAG: String = "CameraManager"
 
 var current: GCameraController
 var target_node: Node3D

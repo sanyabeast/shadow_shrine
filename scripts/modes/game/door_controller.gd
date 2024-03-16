@@ -4,7 +4,7 @@
 # This script defines a door controller that manages the opening and closing of a door in a 3D game.
 
 extends Area3D
-class_name S2DoorController
+class_name GDoorController
 const TAG: String = "DoorController"
 
 # Exposed variables for the connected body, animation player, and other parameters.
@@ -14,7 +14,7 @@ const TAG: String = "DoorController"
 # Direction of the door (North, South, East, West, etc.).
 var direction: world.EDirection = world.EDirection.North
 # Reference to the room controller to interact with the room.
-var room_controller: S2RoomController
+var room_controller: GRoomController
 # Flag to check if the player has entered the door area.
 var has_entered_body: bool = false
 # Flag indicating whether the door is currently opened.
@@ -81,7 +81,7 @@ func handle_body_entered(body: Node3D):
 	if visible and cooldowns.ready("activation_cooldown"):
 		if not has_entered_body:
 			# Check if the entering body is the player character.
-			if body is S2Character and player_manager.is_player(body):
+			if body is GCharacterController and player_manager.is_player(body):
 				has_entered_body = true
 				room_controller.handle_player_entered_door_area(self, body)
 
@@ -90,7 +90,7 @@ func handle_body_exited(body: Node3D):
 	if visible:
 		if has_entered_body:
 			# Check if the exiting body is the player character.
-			if body is S2Character and player_manager.is_player(body):
+			if body is GCharacterController and player_manager.is_player(body):
 				has_entered_body = false
 				room_controller.handle_player_exited_door_area(self, body)
 

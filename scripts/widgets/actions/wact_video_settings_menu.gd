@@ -1,8 +1,8 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-extends S2MenuActions
-class_name S2VideoSettingsMenuAction
+extends GMenuActions
+class_name GVideoSettingsMenuAction
 
 func _init_item(id: String):
 	var result
@@ -15,7 +15,7 @@ func _init_item(id: String):
 	dev.logd(TAG, "item %s intialized with value %s" % [id, result])
 	return result
 
-func _handle_option_change(id: String, item: S2MenuItem):
+func _handle_option_change(id: String, item: GMenuItem):
 	match id:
 		"render_scale":
 			app.set_render_scale(item.value)

@@ -22,9 +22,9 @@ func _process(delta):
 		cell_size =  Vector2(100 / game.mode.maze_generator.grid_size, 100 / game.mode.maze_generator.grid_size)
 		queue_redraw()
 	
-func draw_cell(cell: S2MazeGenerator.Cell):
+func draw_cell(cell: GMazeGen.Cell):
 	if game.mode is GGameModeDefaultGame and game.mode.maze_generator:
-		if cell.category == S2MazeGenerator.ECellCategory.Empty:
+		if cell.category == GMazeGen.ECellCategory.Empty:
 			return
 		
 		var cell_pos = Vector2(cell.x * cell_size.x, cell.y * cell_size.y)
@@ -40,11 +40,11 @@ func draw_cell(cell: S2MazeGenerator.Cell):
 		if cell.walls[world.EDirection.West]:
 			draw_line(cell_pos + Vector2(0, cell_size.y), cell_pos, Color(1, 1, 0.9), 2)
 		
-		if cell.category == S2MazeGenerator.ECellCategory.Start:
+		if cell.category == GMazeGen.ECellCategory.Start:
 			var rect = Rect2(cell_pos + ((cell_size * 0.4) / 2), Vector2(cell_size.x, cell_size.x) * 0.6)	
 			draw_rect(rect, Color.INDIAN_RED, true)	
 			
-		if cell.category == S2MazeGenerator.ECellCategory.End:
+		if cell.category == GMazeGen.ECellCategory.End:
 			var rect = Rect2(cell_pos + ((cell_size * 0.4) / 2), Vector2(cell_size.x, cell_size.x) * 0.6)	
 			draw_rect(rect, Color.DARK_ORANGE, true)		
 			

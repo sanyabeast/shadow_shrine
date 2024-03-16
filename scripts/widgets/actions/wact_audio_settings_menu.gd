@@ -1,8 +1,8 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-extends S2MenuActions
-class_name S2AudioSettingsMenuActions
+extends GMenuActions
+class_name GAudioSettingsMenuActions
 
 func _init_item(id: String):
 	var result
@@ -17,7 +17,7 @@ func _init_item(id: String):
 	dev.logd(TAG, "item %s intialized with value %s" % [id, result])
 	return result
 
-func _handle_option_change(id: String, item: S2MenuItem):
+func _handle_option_change(id: String, item: GMenuItem):
 	match id:
 		"master_volume":
 			app.set_volume(item.value)

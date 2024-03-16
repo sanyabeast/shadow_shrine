@@ -3,10 +3,10 @@
 
 extends Node3D
 
-class_name S2CharacterBody
-const TAG: String = "CharacterBody"
+class_name GCharacterBodyController
+const TAG: String = "CharacterBodyController"
 
-var character: S2Character
+var character: GCharacterController
 var anim_tree: AnimationTree
 var is_initialized: bool = false
 
@@ -18,7 +18,7 @@ var _scalar_velocity_smoothed: float = 0
 func _ready():
 	pass # Replace with function body.
 
-func initialize(_character: S2Character):
+func initialize(_character: GCharacterController):
 	character = _character
 	character.on_fire.connect(_handle_character_fires)
 	_traverse(self)

@@ -3,7 +3,7 @@
 
 extends Node3D
 
-class_name S2FX
+class_name GFXController
 const TAG: String = "FX"
 
 @export var config: RFXConfig

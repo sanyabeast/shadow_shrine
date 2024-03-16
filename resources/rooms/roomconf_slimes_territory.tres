@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RRoomConfig" load_steps=4 format=3 uid="uid://parbjaiw46e5"]
 
 [ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="1_4jbu4"]
-[ext_resource type="Script" path="res://scripts/resources/res_oom_config.gd" id="2_0pc0g"]
+[ext_resource type="Script" path="res://scripts/resources/res_room_config.gd" id="2_0pc0g"]
 [ext_resource type="PackedScene" uid="uid://gajmsefrdp7c" path="res://scenes/characters/char_boxed_slime_kid.tscn" id="2_eu2qo"]
 
 [resource]

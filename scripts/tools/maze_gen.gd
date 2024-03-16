@@ -1,7 +1,8 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-class_name S2MazeGenerator
+class_name GMazeGen
+const TAG: String = "MazeGen"
 
 # Enums
 enum ECellCategory {
@@ -26,11 +27,9 @@ enum EGenerationOrder {
 	Shift
 }
 
-const TAG: String = "MazeGenerator: "
-
 # MazeCell class
 class Cell:
-	var maze_generator: S2MazeGenerator
+	var maze_generator: GMazeGen
 	var x: int
 	var y: int
 	var walls = {
@@ -49,7 +48,7 @@ class Cell:
 	func _to_string():
 		return "Cell(x: %s, y: %s, idx: %s, category: %s)" % [x, y, index, ECellCategory.keys()[category]]
 
-	func _init(_maze_generator: S2MazeGenerator, _x: int, _y: int, _category):
+	func _init(_maze_generator: GMazeGen, _x: int, _y: int, _category):
 		maze_generator = _maze_generator
 		x = _x
 		y = _y

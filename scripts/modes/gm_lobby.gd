@@ -2,10 +2,10 @@
 # Date: Mar. 2024
 
 extends GGameMode
-class_name GGameModeMainMenue
-const TAG: String = "GameModeMainMenu"
+class_name GGameModeLobby
+const TAG: String = "GameModeLobby"
 
-@export var demo_room: S2RoomController
+@export var demo_room: GRoomController
 @export var bg_music_player: GAmbientPlaylistPlayer
 @export var camera_anim_player: AnimationPlayer
 @export var screen_fx: GScreenFX
