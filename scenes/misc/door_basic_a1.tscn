@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="1_mxn31"]
 [ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/fx_medium_dust_spike_a.tscn" id="3_h518r"]
-[ext_resource type="Script" path="res://scripts/core_resources/rs_fx_config.gd" id="4_al2hb"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="4_al2hb"]
 [ext_resource type="Texture2D" uid="uid://c508aknb32464" path="res://assets/props/jerdelia/props/door_a1/textures/Image_10.003.png" id="5_qm88s"]
 [ext_resource type="Texture2D" uid="uid://dd0ijddoe7ud" path="res://assets/props/jerdelia/props/door_a1/textures/Image_11.002.png" id="6_dx384"]
 [ext_resource type="Texture2D" uid="uid://dlf38h0wdqew5" path="res://assets/props/jerdelia/props/door_a1/textures/Image_12.002.png" id="7_52sbi"]

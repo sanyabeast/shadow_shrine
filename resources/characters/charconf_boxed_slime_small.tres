@@ -2,10 +2,10 @@
 
 [ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/167074__drminky__slime-death-1.ogg" id="1_tulef"]
 [ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/fx_toxic_bubbles_oneshot.tscn" id="2_1pvcb"]
-[ext_resource type="Script" path="res://scripts/core_resources/rs_fx_config.gd" id="3_k8ml5"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="3_k8ml5"]
 [ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weaponary/wpconf_kunai_launcher.tres" id="4_jqrw5"]
 [ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/340794__kuchenanderung1__slime-squish.ogg" id="5_q36kd"]
-[ext_resource type="Script" path="res://scripts/resources/rs_character_config.gd" id="6_87kwp"]
+[ext_resource type="Script" path="res://scripts/resources/res_character_config.gd" id="6_87kwp"]
 
 [sub_resource type="Resource" id="Resource_0104i"]
 script = ExtResource("3_k8ml5")

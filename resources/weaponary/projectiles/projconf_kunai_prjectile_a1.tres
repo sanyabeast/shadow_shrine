@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RProjectileConfig" load_steps=4 format=3 uid="uid://bgtq4jcigwvrd"]
 
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="1_3x06y"]
-[ext_resource type="Script" path="res://scripts/resources/rs_projectile_config.gd" id="2_euqtf"]
+[ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_euqtf"]
 
 [sub_resource type="Resource" id="Resource_eujiw"]
 script = ExtResource("1_3x06y")

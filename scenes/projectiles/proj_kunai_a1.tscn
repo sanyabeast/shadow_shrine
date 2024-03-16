@@ -1,19 +1,19 @@
 [gd_scene load_steps=20 format=3 uid="uid://4qcybpvtpw3o"]
 
-[ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_rwbsr"]
-[ext_resource type="Script" path="res://scripts/resources/rs_projectile_config.gd" id="2_qx4u2"]
-[ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/gingie - knife throw.ogg" id="3_7cqh4"]
-[ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/fx_small_projectile_flight_trail.tscn" id="4_usrww"]
-[ext_resource type="Script" path="res://scripts/core_resources/rs_fx_config.gd" id="5_nco6m"]
-[ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="6_hv03a"]
-[ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/fx_metal_hit_sparks_a.tscn" id="7_c4i66"]
-[ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/fx_kunai_wasted.tscn" id="8_edlf5"]
-[ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="9_8kv53"]
-[ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="10_jpguo"]
-[ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="11_l2dfh"]
+[ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_juntc"]
+[ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_fqy2b"]
+[ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/gingie - knife throw.ogg" id="3_eabav"]
+[ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/fx_small_projectile_flight_trail.tscn" id="4_qakqh"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="5_h7ge2"]
+[ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="6_d0ect"]
+[ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/fx_metal_hit_sparks_a.tscn" id="7_mrrw5"]
+[ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/fx_kunai_wasted.tscn" id="8_50g8g"]
+[ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="9_j475n"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="10_0oiqp"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="11_d2g4n"]
 
 [sub_resource type="Resource" id="Resource_gdcre"]
-script = ExtResource("2_qx4u2")
+script = ExtResource("2_fqy2b")
 acceleration = 0.0
 start_velocity = 8.0
 min_velocity = 4.0
@@ -25,31 +25,31 @@ hit_direction_deviation = 15.0
 block_direction_deviation = 5.0
 
 [sub_resource type="Resource" id="Resource_ept1m"]
-script = ExtResource("5_nco6m")
-audio = ExtResource("3_7cqh4")
+script = ExtResource("5_h7ge2")
+audio = ExtResource("3_eabav")
 audio_pitch_min = 0.95
 audio_pitch_max = 1.05
 audio_volume_min = 1.0
 audio_volume_max = 1.0
-content = Array[PackedScene]([ExtResource("4_usrww")])
+content = Array[PackedScene]([ExtResource("4_qakqh")])
 use_game_time = true
 dispose_strategy = 1
 lifetime = 5.0
 
 [sub_resource type="Resource" id="Resource_npqly"]
-script = ExtResource("5_nco6m")
-audio = ExtResource("6_hv03a")
+script = ExtResource("5_h7ge2")
+audio = ExtResource("6_d0ect")
 audio_pitch_min = 0.9
 audio_pitch_max = 1.1
 audio_volume_min = 0.9
 audio_volume_max = 1.0
-content = Array[PackedScene]([ExtResource("7_c4i66")])
+content = Array[PackedScene]([ExtResource("7_mrrw5")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 2.0
 
 [sub_resource type="Resource" id="Resource_b33vy"]
-script = ExtResource("5_nco6m")
+script = ExtResource("5_h7ge2")
 audio_pitch_min = 1.0
 audio_pitch_max = 1.0
 audio_volume_min = 1.0
@@ -60,12 +60,12 @@ dispose_strategy = 0
 lifetime = 2.0
 
 [sub_resource type="Resource" id="Resource_egquv"]
-script = ExtResource("5_nco6m")
+script = ExtResource("5_h7ge2")
 audio_pitch_min = 1.0
 audio_pitch_max = 1.0
 audio_volume_min = 1.0
 audio_volume_max = 1.0
-content = Array[PackedScene]([ExtResource("8_edlf5")])
+content = Array[PackedScene]([ExtResource("8_50g8g")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
@@ -97,7 +97,7 @@ _surfaces = [{
 "index_count": 462,
 "index_data": PackedByteArray(3, 0, 1, 0, 0, 0, 1, 0, 3, 0, 2, 0, 4, 0, 6, 0, 5, 0, 7, 0, 9, 0, 8, 0, 7, 0, 8, 0, 10, 0, 11, 0, 4, 0, 5, 0, 0, 0, 12, 0, 3, 0, 16, 0, 14, 0, 13, 0, 14, 0, 16, 0, 15, 0, 20, 0, 18, 0, 17, 0, 18, 0, 20, 0, 19, 0, 21, 0, 23, 0, 22, 0, 22, 0, 24, 0, 21, 0, 24, 0, 22, 0, 25, 0, 25, 0, 0, 0, 24, 0, 0, 0, 25, 0, 12, 0, 2, 0, 21, 0, 1, 0, 21, 0, 2, 0, 23, 0, 29, 0, 27, 0, 26, 0, 27, 0, 29, 0, 28, 0, 31, 0, 13, 0, 30, 0, 13, 0, 31, 0, 16, 0, 33, 0, 17, 0, 32, 0, 17, 0, 33, 0, 20, 0, 15, 0, 26, 0, 14, 0, 26, 0, 15, 0, 29, 0, 37, 0, 35, 0, 34, 0, 35, 0, 37, 0, 36, 0, 39, 0, 36, 0, 37, 0, 36, 0, 39, 0, 38, 0, 41, 0, 38, 0, 39, 0, 38, 0, 41, 0, 40, 0, 43, 0, 40, 0, 41, 0, 40, 0, 43, 0, 42, 0, 47, 0, 45, 0, 44, 0, 45, 0, 47, 0, 46, 0, 49, 0, 46, 0, 47, 0, 46, 0, 49, 0, 48, 0, 51, 0, 48, 0, 49, 0, 48, 0, 51, 0, 50, 0, 34, 0, 50, 0, 51, 0, 50, 0, 34, 0, 35, 0, 36, 0, 52, 0, 35, 0, 52, 0, 36, 0, 53, 0, 38, 0, 53, 0, 36, 0, 53, 0, 38, 0, 54, 0, 40, 0, 54, 0, 38, 0, 54, 0, 40, 0, 55, 0, 42, 0, 55, 0, 40, 0, 55, 0, 42, 0, 56, 0, 46, 0, 57, 0, 45, 0, 57, 0, 46, 0, 58, 0, 48, 0, 58, 0, 46, 0, 58, 0, 48, 0, 59, 0, 50, 0, 59, 0, 48, 0, 59, 0, 50, 0, 60, 0, 35, 0, 60, 0, 50, 0, 60, 0, 35, 0, 52, 0, 53, 0, 61, 0, 52, 0, 61, 0, 53, 0, 62, 0, 54, 0, 62, 0, 53, 0, 62, 0, 54, 0, 63, 0, 55, 0, 63, 0, 54, 0, 63, 0, 55, 0, 64, 0, 56, 0, 64, 0, 55, 0, 64, 0, 56, 0, 65, 0, 58, 0, 66, 0, 57, 0, 66, 0, 58, 0, 67, 0, 59, 0, 67, 0, 58, 0, 67, 0, 59, 0, 68, 0, 60, 0, 68, 0, 59, 0, 68, 0, 60, 0, 69, 0, 52, 0, 69, 0, 60, 0, 69, 0, 52, 0, 61, 0, 62, 0, 70, 0, 61, 0, 70, 0, 62, 0, 71, 0, 63, 0, 71, 0, 62, 0, 71, 0, 63, 0, 72, 0, 64, 0, 72, 0, 63, 0, 72, 0, 64, 0, 73, 0, 65, 0, 73, 0, 64, 0, 73, 0, 65, 0, 74, 0, 67, 0, 75, 0, 66, 0, 75, 0, 67, 0, 76, 0, 68, 0, 76, 0, 67, 0, 76, 0, 68, 0, 77, 0, 69, 0, 77, 0, 68, 0, 77, 0, 69, 0, 78, 0, 61, 0, 78, 0, 69, 0, 78, 0, 61, 0, 70, 0, 82, 0, 80, 0, 79, 0, 80, 0, 82, 0, 81, 0, 84, 0, 81, 0, 82, 0, 81, 0, 84, 0, 83, 0, 86, 0, 83, 0, 84, 0, 83, 0, 86, 0, 85, 0, 88, 0, 85, 0, 86, 0, 85, 0, 88, 0, 87, 0, 92, 0, 90, 0, 89, 0, 90, 0, 92, 0, 91, 0, 94, 0, 91, 0, 92, 0, 91, 0, 94, 0, 93, 0, 96, 0, 93, 0, 94, 0, 93, 0, 96, 0, 95, 0, 79, 0, 95, 0, 96, 0, 95, 0, 79, 0, 80, 0, 81, 0, 97, 0, 80, 0, 97, 0, 81, 0, 98, 0, 83, 0, 98, 0, 81, 0, 98, 0, 83, 0, 99, 0, 85, 0, 99, 0, 83, 0, 99, 0, 85, 0, 100, 0, 87, 0, 100, 0, 85, 0, 100, 0, 87, 0, 101, 0, 91, 0, 102, 0, 90, 0, 102, 0, 91, 0, 103, 0, 93, 0, 103, 0, 91, 0, 103, 0, 93, 0, 104, 0, 95, 0, 104, 0, 93, 0, 104, 0, 95, 0, 105, 0, 80, 0, 105, 0, 95, 0, 105, 0, 80, 0, 97, 0, 98, 0, 106, 0, 97, 0, 106, 0, 98, 0, 107, 0, 99, 0, 107, 0, 98, 0, 107, 0, 99, 0, 108, 0, 100, 0, 108, 0, 99, 0, 108, 0, 100, 0, 109, 0, 101, 0, 109, 0, 100, 0, 109, 0, 101, 0, 110, 0, 103, 0, 111, 0, 102, 0, 111, 0, 103, 0, 112, 0, 104, 0, 112, 0, 103, 0, 112, 0, 104, 0, 113, 0, 105, 0, 113, 0, 104, 0, 113, 0, 105, 0, 114, 0, 97, 0, 114, 0, 105, 0, 114, 0, 97, 0, 106, 0, 107, 0, 34, 0, 106, 0, 34, 0, 107, 0, 37, 0, 108, 0, 37, 0, 107, 0, 37, 0, 108, 0, 39, 0, 109, 0, 39, 0, 108, 0, 39, 0, 109, 0, 41, 0, 110, 0, 41, 0, 109, 0, 41, 0, 110, 0, 43, 0, 112, 0, 44, 0, 111, 0, 44, 0, 112, 0, 47, 0, 113, 0, 47, 0, 112, 0, 47, 0, 113, 0, 49, 0, 114, 0, 49, 0, 113, 0, 49, 0, 114, 0, 51, 0, 106, 0, 51, 0, 114, 0, 51, 0, 106, 0, 34, 0),
 "lods": [0.0139275, PackedByteArray(140, 0, 137, 0, 134, 0, 137, 0, 140, 0, 139, 0, 139, 0, 144, 0, 138, 0, 142, 0, 6, 0, 5, 0, 11, 0, 4, 0, 5, 0, 7, 0, 9, 0, 8, 0, 7, 0, 8, 0, 10, 0, 9, 0, 2, 0, 23, 0, 135, 0, 148, 0, 141, 0, 14, 0, 16, 0, 15, 0, 14, 0, 31, 0, 16, 0, 31, 0, 14, 0, 30, 0, 14, 0, 15, 0, 29, 0, 29, 0, 27, 0, 14, 0, 27, 0, 29, 0, 28, 0, 20, 0, 18, 0, 17, 0, 18, 0, 20, 0, 19, 0, 17, 0, 33, 0, 20, 0, 33, 0, 17, 0, 32, 0, 143, 0, 145, 0, 149, 0, 149, 0, 146, 0, 143, 0, 150, 0, 136, 0, 147, 0, 39, 0, 36, 0, 51, 0, 43, 0, 36, 0, 39, 0, 43, 0, 39, 0, 107, 0, 51, 0, 107, 0, 39, 0, 36, 0, 43, 0, 56, 0, 107, 0, 101, 0, 43, 0, 72, 0, 56, 0, 74, 0, 56, 0, 72, 0, 62, 0, 56, 0, 62, 0, 36, 0, 77, 0, 62, 0, 72, 0, 151, 0, 36, 0, 62, 0, 62, 0, 77, 0, 68, 0, 75, 0, 68, 0, 77, 0, 68, 0, 75, 0, 57, 0, 36, 0, 68, 0, 59, 0, 57, 0, 59, 0, 68, 0, 36, 0, 59, 0, 48, 0, 57, 0, 48, 0, 59, 0, 48, 0, 51, 0, 36, 0, 57, 0, 44, 0, 48, 0, 51, 0, 48, 0, 44, 0, 44, 0, 113, 0, 51, 0, 107, 0, 51, 0, 113, 0, 44, 0, 104, 0, 113, 0, 113, 0, 98, 0, 107, 0, 98, 0, 113, 0, 104, 0, 101, 0, 107, 0, 98, 0, 104, 0, 44, 0, 102, 0, 101, 0, 98, 0, 81, 0, 104, 0, 81, 0, 98, 0, 81, 0, 84, 0, 101, 0, 88, 0, 101, 0, 84, 0, 81, 0, 104, 0, 93, 0, 93, 0, 84, 0, 81, 0, 102, 0, 93, 0, 104, 0, 84, 0, 93, 0, 94, 0, 102, 0, 94, 0, 93, 0, 94, 0, 102, 0, 89, 0), 0.0262264, PackedByteArray(122, 0, 118, 0, 115, 0, 118, 0, 122, 0, 120, 0, 124, 0, 6, 0, 5, 0, 11, 0, 125, 0, 5, 0, 7, 0, 9, 0, 8, 0, 7, 0, 8, 0, 10, 0, 9, 0, 2, 0, 23, 0, 116, 0, 131, 0, 123, 0, 14, 0, 16, 0, 15, 0, 14, 0, 31, 0, 16, 0, 31, 0, 14, 0, 30, 0, 14, 0, 15, 0, 29, 0, 29, 0, 27, 0, 14, 0, 27, 0, 29, 0, 28, 0, 20, 0, 18, 0, 17, 0, 18, 0, 20, 0, 19, 0, 17, 0, 33, 0, 20, 0, 33, 0, 17, 0, 32, 0, 126, 0, 128, 0, 132, 0, 132, 0, 129, 0, 126, 0, 133, 0, 117, 0, 130, 0, 121, 0, 127, 0, 119, 0, 43, 0, 77, 0, 44, 0, 77, 0, 75, 0, 44, 0, 77, 0, 43, 0, 72, 0, 72, 0, 43, 0, 74, 0, 44, 0, 84, 0, 43, 0, 88, 0, 43, 0, 84, 0, 84, 0, 44, 0, 94, 0, 94, 0, 44, 0, 89, 0)],
-"material": ExtResource("9_8kv53"),
+"material": ExtResource("9_j475n"),
 "name": "projectile.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -108,7 +108,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
 [node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("hit_procedures", "ray", "launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
-script = ExtResource("1_rwbsr")
+script = ExtResource("1_juntc")
 config = SubResource("Resource_gdcre")
 hit_procedures = [NodePath("ProcDamage"), NodePath("ProcImpulse")]
 ray = NodePath("RayCast3D")
@@ -141,8 +141,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.146514)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.203243)
 
 [node name="ProcDamage" type="Node" parent="."]
-script = ExtResource("10_jpguo")
+script = ExtResource("10_0oiqp")
 
 [node name="ProcImpulse" type="Node" parent="."]
-script = ExtResource("11_l2dfh")
+script = ExtResource("11_d2g4n")
 max_impulse = 1.5

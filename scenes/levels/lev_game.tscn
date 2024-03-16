@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/modes/gm_game.gd" id="1_b4mm0"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
-[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/chr_rock_lee.tscn" id="3_lbhup"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_lbhup"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_loud7"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]

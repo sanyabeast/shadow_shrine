@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://c1ghdi7k7yu4" path="res://resources/glossary/traits/card_health.tres" id="1_qsbpo"]
 [ext_resource type="Resource" uid="uid://c7ufwh6m3f1fe" path="res://resources/glossary/traits/card_speed.tres" id="2_s8qnk"]
 [ext_resource type="Resource" uid="uid://v0r4nolw1a0h" path="res://resources/glossary/traits/card_damage.tres" id="3_0hyl6"]
-[ext_resource type="Script" path="res://scripts/core_resources/rs_data_catalog.gd" id="4_38f08"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_data_catalog.gd" id="4_38f08"]
 [ext_resource type="Resource" uid="uid://db6y73inxr4vc" path="res://resources/glossary/traits/card_protection.tres" id="4_rqotw"]
 
 [resource]

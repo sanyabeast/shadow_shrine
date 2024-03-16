@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RWeaponConfig" load_steps=3 format=3 uid="uid://dn0wurh4mgr0u"]
 
 [ext_resource type="PackedScene" uid="uid://bhmsrndlp5x2j" path="res://_dev/scenes/_projectile.tscn" id="1_od7eu"]
-[ext_resource type="Script" path="res://scripts/resources/rs_weapon_config.gd" id="2_owoli"]
+[ext_resource type="Script" path="res://scripts/resources/res_weapon_config.gd" id="2_owoli"]
 
 [resource]
 script = ExtResource("2_owoli")

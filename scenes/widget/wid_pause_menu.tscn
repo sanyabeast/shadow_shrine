@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_pause_menu.gd" id="1_l47bv"]
 [ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a1.tres" id="2_04cvy"]
-[ext_resource type="Shader" path="res://resources/materials/shaders/vignette.gdshader" id="3_8jwrm"]
+[ext_resource type="Shader" path="res://resources/materials/shaders/shad_vignette_a.gdshader" id="3_8jwrm"]
 [ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="4_h7h8b"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="5_5fxmo"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="6_0cb3r"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://boddjwph2fog7"]
 
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="1_flmc2"]
+[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="1_nsrlj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go8sj"]
 shading_mode = 2
@@ -29,7 +29,7 @@ blend_shape_mode = 0
 
 [node name="ArrowGizmo" type="Node3D"]
 transform = Transform3D(-0.1, 0, -1.50996e-08, 0, 0.1, 0, 1.50996e-08, 0, -0.1, 0, 0.5, -0.73)
-script = ExtResource("1_flmc2")
+script = ExtResource("1_nsrlj")
 ingame_scale = 2.0
 
 [node name="Cylinder" type="MeshInstance3D" parent="."]

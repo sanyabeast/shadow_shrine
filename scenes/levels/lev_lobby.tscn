@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="4_2lte1"]
 [ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="5_2k1dm"]
 [ext_resource type="Script" path="res://scripts/tools/handcamera.gd" id="6_2vkhj"]
-[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/chr_rock_lee.tscn" id="7_0624v"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="7_0624v"]
 [ext_resource type="PackedScene" uid="uid://d4mddqq5hmhux" path="res://scenes/widget/wid_lobby.tscn" id="8_hefke"]
 [ext_resource type="PackedScene" uid="uid://dd4cusqsvp4ur" path="res://scenes/widget/wid_screen_fx.tscn" id="9_mwgfu"]
 
@@ -148,31 +148,31 @@ script = ExtResource("6_2vkhj")
 transform = Transform3D(0.771113, 0, -0.636698, 0, 1, 0, 0.636698, 0, 0.771113, -3.734, 0, 1.85)
 
 [node name="GeneralSkeleton" parent="RockLee/Body/rock_dude/Armature" index="0"]
-bones/0/position = Vector3(-0.00102803, 0.253105, 0.00461527)
-bones/0/rotation = Quaternion(0.00534205, 0.00706199, 0.0345432, 0.999364)
-bones/1/rotation = Quaternion(0.0788663, -0.0481762, -0.06877, 0.993343)
-bones/2/rotation = Quaternion(0.00517758, 0.00161006, 0.0246492, 0.999681)
-bones/3/rotation = Quaternion(-0.0179308, 0.00189895, 0.0257228, 0.999506)
-bones/4/rotation = Quaternion(-0.00133165, 0.0122215, -0.0264403, 0.999575)
-bones/5/rotation = Quaternion(-0.089596, 0.0162086, 0.0144804, 0.995741)
-bones/7/rotation = Quaternion(0.496331, 0.485176, 0.555718, -0.457643)
-bones/8/rotation = Quaternion(0.11785, 0.873347, -0.443321, 0.163835)
-bones/9/rotation = Quaternion(0.428414, -0.559397, 0.41092, 0.578517)
-bones/10/rotation = Quaternion(-0.0114946, 0.608035, 0.0682365, 0.790889)
-bones/11/rotation = Quaternion(0.0431126, 0.00174265, 0.00832492, 0.999034)
-bones/15/rotation = Quaternion(0.492475, -0.50038, -0.530734, -0.474774)
-bones/16/rotation = Quaternion(0.11916, 0.817792, -0.503394, 0.252213)
-bones/17/rotation = Quaternion(0.368653, 0.60166, -0.373169, 0.602366)
-bones/18/rotation = Quaternion(-0.0604182, -0.748038, -0.112157, 0.651313)
-bones/19/rotation = Quaternion(0.0412771, -0.00172314, -0.0082528, 0.999112)
-bones/23/rotation = Quaternion(0.0748805, 0.0592172, 0.995277, -0.0175861)
-bones/24/rotation = Quaternion(0.0610304, 0.949273, -0.308458, 0.00303411)
-bones/25/rotation = Quaternion(0.0224629, 0.581313, -0.813162, -0.0183953)
-bones/26/rotation = Quaternion(0.00543665, 0.993871, 0.110118, 0.00808359)
-bones/28/rotation = Quaternion(0.0221535, 0.409246, 0.904997, 0.114047)
-bones/29/rotation = Quaternion(-0.0235157, 0.631652, -0.7741, -0.0351055)
-bones/30/rotation = Quaternion(0.0198946, 0.724748, -0.688692, -0.00691192)
-bones/31/rotation = Quaternion(-0.00532473, 0.999878, 0.0133958, -0.0060103)
+bones/0/position = Vector3(-0.00266632, 0.264625, 0.0064523)
+bones/0/rotation = Quaternion(0.00909957, -0.0726577, -0.0135813, 0.997223)
+bones/1/rotation = Quaternion(0.0476381, 0.0949853, 0.016371, 0.994203)
+bones/2/rotation = Quaternion(0.012469, 0.0218367, -0.00160437, 0.999683)
+bones/3/rotation = Quaternion(-0.0149132, 0.0210731, -0.000977859, 0.999666)
+bones/4/rotation = Quaternion(-0.0222739, -0.00614459, -0.0123379, 0.999657)
+bones/5/rotation = Quaternion(-0.0483774, -0.0620758, 0.0061576, 0.996879)
+bones/7/rotation = Quaternion(0.466943, 0.513893, 0.544269, -0.470796)
+bones/8/rotation = Quaternion(-0.185366, 0.782245, -0.471886, -0.362016)
+bones/9/rotation = Quaternion(0.347752, -0.615561, 0.347668, 0.615857)
+bones/10/rotation = Quaternion(0.00138813, 0.617626, 0.0119196, 0.786381)
+bones/11/rotation = Quaternion(0.0730352, 0.00165826, 0.00200976, 0.997326)
+bones/15/rotation = Quaternion(0.50107, -0.492214, -0.533478, -0.471227)
+bones/16/rotation = Quaternion(-0.144231, 0.877177, -0.443034, -0.116102)
+bones/17/rotation = Quaternion(0.469079, 0.529045, -0.468813, 0.529425)
+bones/18/rotation = Quaternion(-0.139952, -0.721278, -0.0864136, 0.672833)
+bones/19/rotation = Quaternion(0.0275579, -0.00120167, -0.00778839, 0.999589)
+bones/23/rotation = Quaternion(0.0385133, 0.364173, 0.925882, -0.092934)
+bones/24/rotation = Quaternion(0.011203, 0.899947, -0.430242, 0.0697336)
+bones/25/rotation = Quaternion(-0.00544812, 0.680909, -0.731985, 0.0230506)
+bones/26/rotation = Quaternion(0.00557514, 0.999903, 0.0114695, 0.0056622)
+bones/28/rotation = Quaternion(-0.0386935, -0.0607861, 0.997346, -0.0104839)
+bones/29/rotation = Quaternion(0.0320434, 0.935242, -0.348386, 0.0540674)
+bones/30/rotation = Quaternion(0.0697218, 0.790112, -0.606732, -0.0523273)
+bones/31/rotation = Quaternion(-0.00569714, 0.999326, 0.0358354, -0.0054974)
 
 [node name="Footsteps" parent="RockLee/Body" index="2"]
 visible = false

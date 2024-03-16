@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RGameLevelConfig" load_steps=12 format=3 uid="uid://dlqq5u5jnmnob"]
 
-[ext_resource type="Script" path="res://scripts/resources/rs_game_level_config.gd" id="1_3rr6x"]
+[ext_resource type="Script" path="res://scripts/resources/res_game_level_config.gd" id="1_3rr6x"]
 [ext_resource type="AudioStream" uid="uid://d1q3pfoydgeve" path="res://assets/_dev/sound/music/Imminent Threat/Imminent Threat Beat B FULL Loop.ogg" id="1_aybe2"]
 [ext_resource type="PackedScene" uid="uid://dir4wp4krqhop" path="res://scenes/rooms/room_a1.tscn" id="1_onodg"]
 [ext_resource type="PackedScene" uid="uid://ddn26iy8vwsjc" path="res://scenes/rooms/room_a2.tscn" id="2_5mmap"]

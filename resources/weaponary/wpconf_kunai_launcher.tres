@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RWeaponConfig" load_steps=3 format=3 uid="uid://buarkmhu2m8w6"]
 
-[ext_resource type="PackedScene" uid="uid://4qcybpvtpw3o" path="res://scenes/projectiles/prj_kunai_a1.tscn" id="1_tkb0r"]
-[ext_resource type="Script" path="res://scripts/resources/rs_weapon_config.gd" id="2_8vv5x"]
+[ext_resource type="PackedScene" uid="uid://4qcybpvtpw3o" path="res://scenes/projectiles/proj_kunai_a1.tscn" id="1_tkb0r"]
+[ext_resource type="Script" path="res://scripts/resources/res_weapon_config.gd" id="2_8vv5x"]
 
 [resource]
 script = ExtResource("2_8vv5x")
