@@ -1,0 +1,381 @@
+[gd_scene load_steps=17 format=3 uid="uid://cyb5flcr61ypy"]
+
+[ext_resource type="Script" path="res://scripts/widgets/game/ws_highlights.gd" id="1_h2fdf"]
+[ext_resource type="AudioStream" uid="uid://bt0e3m8nsate7" path="res://assets/_dev/sound/sfx/105016__julien-matthey__jm-fx-fireball-01.ogg" id="2_r65jk"]
+[ext_resource type="Shader" path="res://_dev/shaders/test1.gdshader" id="3_dvc6u"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="4_bri7s"]
+[ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="5_odbvm"]
+
+[sub_resource type="Animation" id="Animation_57pjj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/VBoxContainer/SubTitle:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/VBoxContainer/Title:material:shader_parameter/alpha_curve")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/VBoxContainer/SubTitle:material:shader_parameter/alpha_curve")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_h7iq8"]
+resource_name = "hide"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["hide"],
+"method": &"_handle_animation_started"
+}, {
+"args": ["hide"],
+"method": &"_handle_animation_finished"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/VBoxContainer/SubTitle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/VBoxContainer/Title:material:shader_parameter/alpha_curve")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.25, 8.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect/VBoxContainer/SubTitle:material:shader_parameter/alpha_curve")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.25, 8.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_h7o4w"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_x2n5u"]
+resource_name = "show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["show"],
+"method": &"_handle_animation_started"
+}, {
+"args": ["show"],
+"method": &"_handle_animation_finished"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect/VBoxContainer/SubTitle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.7, 2),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/VBoxContainer/Title:material:shader_parameter/alpha_curve")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.9, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [8.0, 0.25]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect/VBoxContainer/SubTitle:material:shader_parameter/alpha_curve")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.4, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [8.0, 0.25]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ShowAudio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_htk24"]
+_data = {
+"RESET": SubResource("Animation_57pjj"),
+"hide": SubResource("Animation_h7iq8"),
+"idle": SubResource("Animation_h7o4w"),
+"show": SubResource("Animation_x2n5u")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0p26r"]
+noise_type = 2
+frequency = 0.0106
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_73o0l"]
+seamless = true
+noise = SubResource("FastNoiseLite_0p26r")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xttqk"]
+shader = ExtResource("3_dvc6u")
+shader_parameter/direction = Vector2(0, 1)
+shader_parameter/speed = 0.1
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 1.0
+shader_parameter/alpha_curve = 0.5
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_73o0l")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jvod6"]
+noise_type = 3
+frequency = 0.0036
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xjn8i"]
+seamless = true
+noise = SubResource("FastNoiseLite_jvod6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgf12"]
+shader = ExtResource("3_dvc6u")
+shader_parameter/direction = Vector2(0, -1)
+shader_parameter/speed = 0.1
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 1.0
+shader_parameter/alpha_curve = 4.0
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_xjn8i")
+
+[node name="HighlightsWidget" type="Control" node_paths=PackedStringArray("anim_player", "title_label", "subtitle_label")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h2fdf")
+anim_player = NodePath("AnimationPlayer")
+title_label = NodePath("ColorRect/VBoxContainer/Title")
+subtitle_label = NodePath("ColorRect/VBoxContainer/SubTitle")
+
+[node name="ShowAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r65jk")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_htk24")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 64.0
+offset_bottom = 244.0
+grow_horizontal = 2
+color = Color(1, 1, 1, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+custom_minimum_size = Vector2(768, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="ColorRect/VBoxContainer" node_paths=PackedStringArray("render_label")]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_xttqk")
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.937255, 0.937255, 1)
+theme_override_fonts/font = ExtResource("4_bri7s")
+theme_override_font_sizes/font_size = 60
+text = "Welcome to the Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_odbvm")
+render_label = NodePath(".")
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(1, 1, 1, 0.494118)
+
+[node name="SubTitle" type="Label" parent="ColorRect/VBoxContainer" node_paths=PackedStringArray("render_label")]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_bgf12")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.847059, 0.568627, 1)
+theme_override_fonts/font = ExtResource("4_bri7s")
+theme_override_font_sizes/font_size = 30
+text = "Welcome back to the stage of history!g"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_odbvm")
+render_label = NodePath(".")

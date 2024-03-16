@@ -1,0 +1,221 @@
+[gd_scene load_steps=19 format=3 uid="uid://duiag5itq7dxf"]
+
+[ext_resource type="Script" path="res://scripts/widgets/game/ws_game.gd" id="1_2hedx"]
+[ext_resource type="PackedScene" uid="uid://dn64pkqqlfw4k" path="res://scenes/widget/wid_world_space.tscn" id="2_ph7ov"]
+[ext_resource type="PackedScene" uid="uid://blyunibxrlnkg" path="res://scenes/widget/wid_hud.tscn" id="3_83a2m"]
+[ext_resource type="PackedScene" uid="uid://uwvm2a5c8rmj" path="res://scenes/widget/wid_pause_menu.tscn" id="4_a1y3v"]
+[ext_resource type="PackedScene" uid="uid://w5gof5ybxit" path="res://scenes/widget/wid_game_over.tscn" id="5_f7u4p"]
+[ext_resource type="PackedScene" uid="uid://dd4cusqsvp4ur" path="res://scenes/widget/wid_screen_fx.tscn" id="6_k48no"]
+[ext_resource type="Script" path="res://scripts/widgets/game/ws_highlights.gd" id="7_qe56u"]
+[ext_resource type="Script" path="res://scripts/resources/widget/res_highlights_message.gd" id="8_rdyuu"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="8_xpk8q"]
+[ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="9_vrnmk"]
+
+[sub_resource type="Resource" id="Resource_tjd6h"]
+script = ExtResource("8_rdyuu")
+title = "Message #1"
+subtitle = "subtitle for message #1"
+duration = 5.0
+
+[sub_resource type="Resource" id="Resource_yelae"]
+script = ExtResource("8_rdyuu")
+title = "Message #2"
+subtitle = "subtitle for message #2"
+duration = 5.0
+
+[sub_resource type="Resource" id="Resource_ii5jk"]
+script = ExtResource("8_rdyuu")
+title = "Message #3"
+subtitle = "subtitle for message #3"
+duration = 5.0
+
+[sub_resource type="Animation" id="Animation_57pjj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h7iq8"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["hide"],
+"method": &"_handle_animation_started"
+}, {
+"args": ["hide"],
+"method": &"_handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_x2n5u"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["show"],
+"method": &"_handle_animation_started"
+}, {
+"args": ["show"],
+"method": &"_handle_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_h7o4w"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.615686), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_htk24"]
+_data = {
+"RESET": SubResource("Animation_57pjj"),
+"hide": SubResource("Animation_h7iq8"),
+"idle": SubResource("Animation_h7o4w"),
+"show": SubResource("Animation_x2n5u")
+}
+
+[node name="InGameGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2hedx")
+
+[node name="WorldSpace" parent="." instance=ExtResource("2_ph7ov")]
+layout_mode = 1
+
+[node name="HUD" parent="." instance=ExtResource("3_83a2m")]
+layout_mode = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_a1y3v")]
+visible = false
+layout_mode = 1
+
+[node name="GameOver" parent="." instance=ExtResource("5_f7u4p")]
+layout_mode = 1
+
+[node name="ScreenFX" parent="." instance=ExtResource("6_k48no")]
+layout_mode = 1
+
+[node name="HighlightsWidget" type="Control" parent="." node_paths=PackedStringArray("anim_player", "title_label", "subtitle_label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_qe56u")
+messages = Array[Resource]([SubResource("Resource_tjd6h"), SubResource("Resource_yelae"), SubResource("Resource_ii5jk")])
+anim_player = NodePath("AnimationPlayer")
+title_label = NodePath("ColorRect/Title")
+subtitle_label = NodePath("ColorRect/SubTitle")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HighlightsWidget"]
+libraries = {
+"": SubResource("AnimationLibrary_htk24")
+}
+
+[node name="ColorRect" type="ColorRect" parent="HighlightsWidget"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 64.0
+offset_bottom = 320.0
+grow_horizontal = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Title" type="Label" parent="HighlightsWidget/ColorRect" node_paths=PackedStringArray("render_label")]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_xpk8q")
+theme_override_font_sizes/font_size = 70
+text = "Welcome to the Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_vrnmk")
+render_label = NodePath(".")
+
+[node name="SubTitle" type="Label" parent="HighlightsWidget/ColorRect" node_paths=PackedStringArray("render_label")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 128.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_xpk8q")
+theme_override_font_sizes/font_size = 30
+text = "Welcome back to the stage of history!g"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_vrnmk")
+render_label = NodePath(".")

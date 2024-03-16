@@ -61,8 +61,9 @@ func prepare():
 	_init_player()
 	_setup_ambient_sound()
 	
-	reset()
+	widgets.controller.highlights.show_message("Game started", "Good Luck")
 	
+	reset()
 	game.resume()
 
 func _init_player():
@@ -103,6 +104,8 @@ func reset_maze():
 func spawn_room(from_direction):
 	game.disable_ai()
 	
+	var is_player_first_time_in_the_room: bool = true
+	
 	print("spawining new room from maze cell %s " % current_maze_cell)
 	
 	from_direction = from_direction if from_direction != null else world.EDirection.North
@@ -113,6 +116,7 @@ func spawn_room(from_direction):
 	
 	if rooms_data.has(current_maze_cell.index):
 		room_template_index = rooms_data[current_maze_cell.index].room_template_index
+		is_player_first_time_in_the_room = false
 	else:
 		room_template_index = random.range(0, config.rooms.size())
 		rooms_data[current_maze_cell.index] = {
@@ -157,6 +161,9 @@ func spawn_room(from_direction):
 	_check_ambient_sound_mix()
 	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
+	
+	if is_player_first_time_in_the_room:
+		widgets.controller.highlights.show_message("Room #%s '%s'" % [current_maze_cell.index, maze_generator.get_cell_category_pretty_name(current_maze_cell.category)], "kill all enemies")
 	
 func next_room(from_direction: world.EDirection, skip_fade: bool = false):
 	if skip_fade:

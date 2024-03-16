@@ -1,32 +1,63 @@
 extends Control
 class_name GHighlightsWidget
 const TAG: String = "HighlightsWidget"
-
-# highlight message class
-class RHighlihghMessage:
-	@export var title: String = "?"
-	@export var subtitle: String = "?"
-	@export var duration: float = 3.
 	
-	var has_subtitle: bool = false
-	
-	func _init(_title: String = "?", _subtitle: String = "?", _duration: float = 3):
-		title = _title
-		subtitle = _subtitle
-		duration = _duration
-		
-		has_subtitle = subtitle.length() > 0
-		
-		
 @onready var label: GWidgetLabel = $Label
-@export var messages: Array[String] = []
-@export var duration: float = 2
-@export var duration_with_subtitle: float = 5
+@export var messages: Array[RHighlightsMessage] = []
+
+@export_subgroup("Referencies")
+@export var anim_player: AnimationPlayer
+@export var title_label: GWidgetLabel
+@export var subtitle_label: GWidgetLabel
+
+var is_showing: bool = false
+var current_message: RHighlightsMessage
+var cooldowns: GCooldowns = GCooldowns.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anim_player.play("hide")
+	anim_player.seek(anim_player.current_animation_length)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_showing:
+		if cooldowns.ready("message-show-timeout"):
+			_hide_message()
+	else:
+		if messages.size() > 0:
+			_show_message(messages.pop_front())
+
+func _show_message(data: RHighlightsMessage):
+	is_showing = true
+	current_message = data
+	
+	cooldowns.start("message-show-timeout", data.duration)
+	
+	title_label.set_content(data.title)
+	subtitle_label.set_content(data.subtitle)
+	anim_player.play("show")
+	
+func show_message(title: String = "", subtitle: String = "", duration: float = 5):
+	messages.append(RHighlightsMessage.new(title, subtitle, duration))
+
+func _hide_message():
+	anim_player.play("hide")
+
+func _handle_animation_started(name: String):
+	var data = current_message
+	match name:
+		"hide":
+			if data != null:
+				cooldowns.start("message-show-timeout", data.duration)
+
+func _handle_animation_finished(name: String):
+	var data = current_message
+	match name:
+		"show":
+			cooldowns.start("message-show-timeout", data.duration)
+			anim_player.play("idle")
+		"hide":
+			is_showing = false
 	pass

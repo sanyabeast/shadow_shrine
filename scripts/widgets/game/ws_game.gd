@@ -11,12 +11,13 @@ const TAG: String = "DefaultGameWidget"
 @onready var pause_menu: GPauseMenuWidget = $PauseMenu
 @onready var screen_fx: GScreenFX = $ScreenFX
 @onready var game_over_screen: GMenuController = $GameOver
+@onready var highlights: GHighlightsWidget = $HighlightsWidget
 
 var world_space_visible: bool = true
 var hud_visible: bool = false
 var pause_menu_visible: bool = false
 var game_over_screen_visible: bool = false
-
+var highlights_visible: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,11 +32,13 @@ func _process(delta):
 		world_space_visible = true
 		pause_menu_visible = true
 		game_over_screen_visible = false
+		highlights_visible = false
 	elif not game.paused:
 		hud_visible = true
 		world_space_visible = true
 		pause_menu_visible = false
 		game_over_screen_visible = false
+		highlights_visible = highlights.messages.size() > 0 or highlights.is_showing
 	
 	if game.is_over:
 		if game.is_won:
@@ -45,8 +48,8 @@ func _process(delta):
 			world_space_visible = false
 			pause_menu_visible = false
 			game_over_screen_visible= true
+			highlights_visible = false
 		
-
 	# applying visibility
 	if world_space != null and world_space.visible != world_space_visible:
 		if world_space_visible:
@@ -72,3 +75,8 @@ func _process(delta):
 		else:
 			game_over_screen.hide()
 
+	if highlights != null and highlights.visible != highlights_visible:
+		if highlights_visible:
+			highlights.show()
+		else:
+			highlights.hide()
