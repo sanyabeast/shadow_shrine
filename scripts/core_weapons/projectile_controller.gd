@@ -3,7 +3,7 @@
 
 extends Area3D
 
-class_name S2ProjectileController
+class_name GProjectileController
 
 const TAG: String = "ProjectileController"
 
@@ -32,7 +32,7 @@ const TAG: String = "ProjectileController"
 @export var block_fx_anchor: Node3D
 @export var hit_fx_anchor: Node3D
 
-var cooldown: S2CooldownManager = S2CooldownManager.new(true)
+var cooldown: GCooldowns = GCooldowns.new(true)
 var current_velocity: float = 0
 
 var _is_launched: bool = false

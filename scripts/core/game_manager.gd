@@ -2,16 +2,16 @@
 # Date: Feb. 2024
 
 extends Node
-class_name S2GameManager
+class_name GGameManager
 const TAG: String = "GameManager"
 
-var mode: S2GameMode
+var mode: GGameMode
 var time: float = 0
 var speed: float = 1
 var paused: bool = true
 var ai_enabled: bool = false
-var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
-var timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
+var tasks: GTasker = GTasker.new(true)
+var timer_gate: GTimeGateHelper = GTimeGateHelper.new(true)
 var seed: int = 0
 
 var is_over: bool = false
@@ -32,13 +32,13 @@ func set_seed(_seed: int):
 		app.set_setting("game_seed", seed)
 		on_seed_changed.emit(seed)
 	
-func set_mode(_mode: S2GameMode):
+func set_mode(_mode: GGameMode):
 	if mode != null:
 		unset_mode(mode)
 		
 	mode = _mode
 	
-func unset_mode(_mode: S2GameMode):
+func unset_mode(_mode: GGameMode):
 	if mode == _mode:
 		mode.finish_game()
 		mode = null

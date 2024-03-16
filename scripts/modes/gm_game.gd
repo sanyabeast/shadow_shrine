@@ -1,9 +1,9 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-extends S2GameMode
+extends GGameMode
 
-class_name S2GameModeDefaultGame
+class_name GGameModeDefaultGame
 
 const TAG = "GameModeDefaultGame"
 
@@ -33,15 +33,15 @@ var current_maze_cell: S2MazeGenerator.Cell = null
 var current_room: S2RoomController
 var EDirection = world.EDirection
 
-var tasks: S2TaskPlanner = S2TaskPlanner.new(true)
+var tasks: GTasker = GTasker.new(true)
 var rooms_data: Dictionary = {}
 
 # ambient sound
-var _expore_ambience_mixer: S2AmbientSoundPlayer
-var _battle_ambience_mixer: S2AmbientSoundPlayer
+var _expore_ambience_mixer: GAmbientPlaylistPlayer
+var _battle_ambience_mixer: GAmbientPlaylistPlayer
 
-var screen_fx: S2ScreenFX
-var random: S2RandomnessManager = S2RandomnessManager.new()
+var screen_fx: GScreenFX
+var random: GRandHelper = GRandHelper.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,8 +75,8 @@ func _init_player():
 	player_manager.set_active(player)
 
 func _setup_ambient_sound():
-	_expore_ambience_mixer = S2AmbientSoundPlayer.new(config.explore_playlist, 0)
-	_battle_ambience_mixer = S2AmbientSoundPlayer.new(config.battle_playlist, 0)
+	_expore_ambience_mixer = GAmbientPlaylistPlayer.new(config.explore_playlist, 0)
+	_battle_ambience_mixer = GAmbientPlaylistPlayer.new(config.battle_playlist, 0)
 	
 	_expore_ambience_mixer.name = "ExploreAmbienceMixer"
 	_battle_ambience_mixer.name = "BattleAmbienceMixer"

@@ -62,7 +62,7 @@ enum EOperatingMode {
 @export var bound_token_max: String = ""
 @export var bound_value_update_rate: float = 15
 
-var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
+var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
 var _progress: float = 0
 var _textual_content: String = ""

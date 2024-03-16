@@ -19,9 +19,9 @@ const SETTINGS_VIDEO_RENDER_SHARPNESS: String = "video_settings__render_sharpnes
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
 
 var data: RDataIndex
-var tasks: S2TaskPlanner = S2TaskPlanner.new(false)
-var cooldowns: S2CooldownManager = S2CooldownManager.new(false)
-var timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
+var tasks: GTasker = GTasker.new(false)
+var cooldowns: GCooldowns = GCooldowns.new(false)
+var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
 # Create new ConfigFile object.
 var settings_config = ConfigFile.new()

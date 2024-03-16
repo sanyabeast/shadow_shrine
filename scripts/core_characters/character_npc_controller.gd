@@ -12,7 +12,7 @@ var target_position: Vector3 = Vector3(0, 0, 0)
 var is_wanna_move_to_target_position: bool = false
 var target_desired_distance: float = 2
 
-var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
+var cooldowns: GCooldowns = GCooldowns.new(true)
 
 var _current_walk_power: float = 0
 var _target_walk_power: float = 0

@@ -15,7 +15,7 @@ var _velocity_scalar: float = 0
 var _velocity_progress: float = 0
 
 var _prev_global_position: Vector3 = Vector3.ZERO
-var _timer_gate: S2TimerGateManager = S2TimerGateManager.new(false)
+var _timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

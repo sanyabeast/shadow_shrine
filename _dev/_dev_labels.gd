@@ -3,7 +3,7 @@
 
 extends Control
 
-class_name S2DebugLabels
+class_name GDevLabels
 
 var _containers: Dictionary = {}
 var _targets: Dictionary = {}

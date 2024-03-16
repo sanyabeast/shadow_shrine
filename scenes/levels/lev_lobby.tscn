@@ -104,7 +104,7 @@ material = SubResource("StandardMaterial3D_ftd5f")
 [node name="LevelLobby" type="Node3D" node_paths=PackedStringArray("demo_room", "bg_music_player", "screen_fx")]
 script = ExtResource("1_kkbjp")
 demo_room = NodePath("Architecture/RoomA3")
-bg_music_player = NodePath("Environment/S2AmbientSoundPlayer")
+bg_music_player = NodePath("Environment/GAmbientPlaylistPlayer")
 screen_fx = NodePath("ScreenFX")
 default_game_scene = "res://scenes/levels/lev_game.tscn"
 
@@ -118,7 +118,7 @@ transform = Transform3D(0.149829, -0.263983, 0.952819, -0.392252, 0.868741, 0.30
 light_color = Color(0.905882, 0.862745, 0.854902, 1)
 shadow_enabled = true
 
-[node name="S2AmbientSoundPlayer" type="AudioStreamPlayer" parent="Environment"]
+[node name="GAmbientPlaylistPlayer" type="AudioStreamPlayer" parent="Environment"]
 script = ExtResource("2_wsyxj")
 playlist = Array[AudioStream]([ExtResource("3_1tseb")])
 

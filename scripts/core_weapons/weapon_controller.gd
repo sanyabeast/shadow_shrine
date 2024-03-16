@@ -5,7 +5,7 @@
 
 extends Node3D
 
-class_name S2WeaponController
+class_name GWeaponController
 
 # Exported variable for weapon configuration.
 @export var config: RWeaponConfig
@@ -13,7 +13,7 @@ class_name S2WeaponController
 @export var keeper: Node3D
 
 # Cooldown manager to regulate firing rate.
-var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
+var cooldowns: GCooldowns = GCooldowns.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +31,7 @@ func fire(direction: Vector3):
 		cooldowns.start("fire", 1 / config.fire_rate)
 		
 		# Instantiate a random projectile from the configured options.
-		var projectile: S2ProjectileController = tools.get_random_element_from_array(config.projectiles).instantiate()
+		var projectile: GProjectileController = tools.get_random_element_from_array(config.projectiles).instantiate()
 		
 		# Set the keeper and initial position of the projectile.
 		projectile.keeper = keeper

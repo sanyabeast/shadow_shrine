@@ -51,6 +51,7 @@ script = ExtResource("1_b4mm0")
 config = ExtResource("2_xe5b6")
 player_packed = ExtResource("3_lbhup")
 main_menu_scene = "res://scenes/levels/lev_lobby.tscn"
+seed_key = null
 
 [node name="_DevGUI" parent="." instance=ExtResource("4_loud7")]
 

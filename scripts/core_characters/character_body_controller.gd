@@ -10,7 +10,7 @@ var character: S2Character
 var anim_tree: AnimationTree
 var is_initialized: bool = false
 
-var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
+var cooldowns: GCooldowns = GCooldowns.new(true)
 var _prev_look_direction: Vector3 = Vector3.UP
 var _scalar_velocity_smoothed: float = 0
 
@@ -70,5 +70,5 @@ func _update_anim_tree(delta):
 		anim_tree["parameters/Move/blend_position"] = 0
 	anim_tree["parameters/conditions/is_dead"] = character.is_dead
 	
-func _handle_character_fires(weapon: S2WeaponController, direction: Vector3):
+func _handle_character_fires(weapon: GWeaponController, direction: Vector3):
 	cooldowns.start("body_to_look", 0.25)

@@ -2,12 +2,12 @@
 # Date: Jan. 2024
 
 extends Node
-class_name S2DevGlobal
+class_name GDevManager
 const TAG: String = "DevScript: "
 
-var screen_printer: S2DevScreenPrinter
-var debug_labels: S2DebugLabels
-var maze_painter: S2MazeDebugPainter
+var screen_printer: GDevScreenPrinter
+var debug_labels: GDevLabels
+var maze_painter: GDevMazePainter
 var show_debug_graphics: bool = false
 
 var _queued_screen_printer_messages = {}
@@ -24,7 +24,7 @@ func logr(tag: String, data):
 	print("[ %s ]: [ ERROR! ] %s" % [tag, data])
 
 # MAZE
-func set_maze_painter(node: S2MazeDebugPainter):
+func set_maze_painter(node: GDevMazePainter):
 	maze_painter = node
 
 # SCREEN PRINT
@@ -34,7 +34,7 @@ func print_screen(topic: String, message: String):
 	else:
 		_queued_screen_printer_messages[topic] = message
 
-func set_screen_printer(node: S2DevScreenPrinter):
+func set_screen_printer(node: GDevScreenPrinter):
 	screen_printer = node
 	for key in _queued_screen_printer_messages.keys():
 		print_screen(key, _queued_screen_printer_messages[key])
@@ -48,7 +48,7 @@ func set_label(target: Node3D, lines: Dictionary):
 func remove_label(target: Node3D):
 	debug_labels.remove_label(target)
 
-func set_debug_labels(node: S2DebugLabels):
+func set_debug_labels(node: GDevLabels):
 	debug_labels = node
 
 func _process(delta):

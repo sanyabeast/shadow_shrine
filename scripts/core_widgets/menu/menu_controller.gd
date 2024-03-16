@@ -37,7 +37,7 @@ var parent_menu: S2MenuController = null
 @export_subgroup("Sound")
 @export var menu_sfx: RMenuSFX
 
-var cooldown: S2CooldownManager = S2CooldownManager.new(false)
+var cooldown: GCooldowns = GCooldowns.new(false)
 var _anim_on_close_submenu_to_show: String = ""
 var _anim_on_close_close_itself: bool = false
 var _anim_on_close_show_submenu: bool = false

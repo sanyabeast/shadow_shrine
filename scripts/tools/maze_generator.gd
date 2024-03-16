@@ -177,7 +177,7 @@ var generation_order = EGenerationOrder.Shift
 var current_cell_index: int = 0
 var routes = []
 
-var random: S2RandomnessManager = S2RandomnessManager.new()
+var random: GRandHelper = GRandHelper.new()
 
 func _init():
 	pass

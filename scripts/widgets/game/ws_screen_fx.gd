@@ -3,13 +3,12 @@
 
 extends Control
 
-class_name S2ScreenFX
+class_name GScreenFX
 const TAG: String = "ScreenFX"
 
 @onready var anim_player = $AnimationPlayer
 @export var start_from_black: bool = true
 @export var dark_fader: CanvasItem
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

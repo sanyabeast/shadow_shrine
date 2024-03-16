@@ -31,7 +31,7 @@ var opened: bool = false
 @export var close_fx: RFXConfig
 
 # Cooldown manager for handling activation cooldown.
-var cooldowns: S2CooldownManager = S2CooldownManager.new(true)
+var cooldowns: GCooldowns = GCooldowns.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

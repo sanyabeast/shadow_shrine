@@ -3,7 +3,7 @@
 
 extends Control  # Or any other GUI node
 
-class_name S2MazeDebugPainter
+class_name GDevMazePainter
 
 var cell_size: Vector2 = Vector2(10, 10)  # Size of each cell in pixels
 
@@ -12,18 +12,18 @@ func _ready():
 	pass
 
 func _draw():
-	if game.mode is S2GameModeDefaultGame and game.mode.maze_generator:
+	if game.mode is GGameModeDefaultGame and game.mode.maze_generator:
 		for row in game.mode.maze_generator.cells:
 			for cell in row:
 				draw_cell(cell)
 		
 func _process(delta):
-	if game.mode is S2GameModeDefaultGame and game.mode.maze_generator:
+	if game.mode is GGameModeDefaultGame and game.mode.maze_generator:
 		cell_size =  Vector2(100 / game.mode.maze_generator.grid_size, 100 / game.mode.maze_generator.grid_size)
 		queue_redraw()
 	
 func draw_cell(cell: S2MazeGenerator.Cell):
-	if game.mode is S2GameModeDefaultGame and game.mode.maze_generator:
+	if game.mode is GGameModeDefaultGame and game.mode.maze_generator:
 		if cell.category == S2MazeGenerator.ECellCategory.Empty:
 			return
 		

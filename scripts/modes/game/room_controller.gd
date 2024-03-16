@@ -31,7 +31,7 @@ const TAG: String = "RoomController"
 @export var chest_spots: Node3D
 
 var door_controllers: Dictionary = {}
-var game_mode: S2GameModeDefaultGame
+var game_mode: GGameModeDefaultGame
 
 var _enemy_spots_list: Array[Node3D] = []
 var _pickup_spots_list: Array[Node3D] = []
@@ -41,7 +41,7 @@ var alive_enemies: Array[S2Character]
 var all_enemies: Array[S2Character]
 
 # Randomness
-var random: S2RandomnessManager = S2RandomnessManager.new()
+var random: GRandHelper = GRandHelper.new()
 var seed_offset: int = 0
 		
 # Called when the node enters the scene tree for the first time.

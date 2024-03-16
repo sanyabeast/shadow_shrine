@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-class_name S2RandomnessManager
+class_name GRandHelper
 const TAG: String = "RandomnessManager"
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()

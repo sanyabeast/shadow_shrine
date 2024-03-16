@@ -14,7 +14,7 @@ class_name S2BlinkingLight
 var _sinus_a_offset: float = randf_range(0, PI)
 var _sinus_b_offset: float = randf_range(0, PI)
 
-var _timer_gate: S2TimerGateManager = S2TimerGateManager.new(true)
+var _timer_gate: GTimeGateHelper = GTimeGateHelper.new(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -4,7 +4,7 @@
 # This script defines an ambient sound player using AudioStreamPlayer.
 
 extends AudioStreamPlayer
-class_name S2AmbientSoundPlayer
+class_name GAmbientPlaylistPlayer
 
 # Constant tag for logging and identification purposes.
 const TAG: String = "AmbientSoundPlayer"

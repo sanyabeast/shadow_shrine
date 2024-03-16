@@ -3,7 +3,7 @@
 # This class serves as a cooldown manager for handling various cooldowns in a game.
 # It can manage both real-time and game-time based cooldowns.
 
-class_name S2CooldownManager
+class_name GCooldowns
 
 # Determines whether the cooldown manager uses game time or real time.
 var use_game_time: bool = false

@@ -3,9 +3,9 @@
 
 extends Node3D
 
-class_name S2CameraRig
+class_name GCameraController
 
-static var instance: S2CameraRig
+static var instance: GCameraController
 
 var zoom: float = 1
 var target_zoom: float = 0.5

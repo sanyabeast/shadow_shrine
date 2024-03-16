@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # This script defines a task planner that manages various tasks with scheduling, queuing, and stacking.
 
-class_name S2TaskPlanner
+class_name GTasker
 const TAG: String = "TaskPlanner"
 
 # Counter for generating unique indices for scheduled tasks.
@@ -94,7 +94,7 @@ func update():
 
 # Method to queue a new task to the list with the specified properties.
 func queue(owner: Variant, id: String, duration: float, start_callback, finish_callback):
-	list.push_front(S2TaskPlanner.Task.new(
+	list.push_front(GTasker.Task.new(
 		owner,
 		id,
 		duration,
@@ -107,7 +107,7 @@ func queue(owner: Variant, id: String, duration: float, start_callback, finish_c
 
 # Method to stack a new task onto the list with the specified properties.
 func stack(owner: Variant, id: String, duration: float, start_callback, finish_callback):
-	list.push_back(S2TaskPlanner.Task.new(
+	list.push_back(GTasker.Task.new(
 		owner,
 		id,
 		duration,
@@ -121,8 +121,8 @@ func stack(owner: Variant, id: String, duration: float, start_callback, finish_c
 # Method to schedule a new task with a timeout and finish callback.
 func schedule(owner: Variant, id: String, timeout: float, finish_callback):
 	var task: Task = Task.new(owner, id, timeout, null, finish_callback, use_game_time)
-	S2TaskPlanner._schedule_task_index_counter += 1	
-	schedule_list[S2TaskPlanner._schedule_task_index_counter] = task
+	GTasker._schedule_task_index_counter += 1	
+	schedule_list[GTasker._schedule_task_index_counter] = task
 	task.start()
 	
 # Method to replace a stacked task with the specified properties.

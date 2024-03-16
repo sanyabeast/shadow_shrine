@@ -4,7 +4,7 @@
 extends Node
 class_name CameraManager
 
-var current: S2CameraRig
+var current: GCameraController
 var target_node: Node3D
 var speed_dependent_behaviour: bool = true
 
@@ -13,14 +13,14 @@ func _ready():
 	print("camera manager: ready...")
 	pass # Replace with function body.
 
-func add_camera(camera: S2CameraRig):
+func add_camera(camera: GCameraController):
 	set_active_camera(camera)
 
-func remove_camera(camera: S2CameraRig):
+func remove_camera(camera: GCameraController):
 	if current == camera:
 		unset_active_camera()
 	
-func set_active_camera(camera: S2CameraRig):
+func set_active_camera(camera: GCameraController):
 	current = camera
 
 func unset_active_camera():

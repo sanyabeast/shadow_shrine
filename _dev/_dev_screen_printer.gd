@@ -3,7 +3,7 @@
 
 extends Control
 
-class_name S2DevScreenPrinter
+class_name GDevScreenPrinter
 
 @onready var menu_container: VBoxContainer = $VBoxContainer
 
