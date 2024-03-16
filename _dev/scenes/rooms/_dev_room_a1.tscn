@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://emmfkb3x7813"]
 
 [ext_resource type="MeshLibrary" uid="uid://cemcke2h1ei0n" path="res://assets/_dev/meshlibs/dev_kenney_mini_dungeon_meshlib.tres" id="1_uwvce"]
-[ext_resource type="Script" path="res://scripts/modes/default_game/room_controller.gd" id="1_y2j1m"]
-[ext_resource type="Script" path="res://scripts/modes/default_game/door_helper.gd" id="2_6gfx0"]
+[ext_resource type="Script" path="res://scripts/modes/game/room_controller.gd" id="1_y2j1m"]
+[ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="2_6gfx0"]
 [ext_resource type="Texture2D" uid="uid://ddky757geqxab" path="res://assets/_dev/props/kenney_mini_dungeon/textures/colormap.png" id="4_pv30s"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8hb7f"]

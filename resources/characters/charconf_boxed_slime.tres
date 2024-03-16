@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="RCharacterConfig" load_steps=11 format=3 uid="uid://d4lriv2nvp46m"]
+
+[ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/167074__drminky__slime-death-1.ogg" id="1_4wdhd"]
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weaponary/wpconf_kunai_launcher.tres" id="1_7bok5"]
+[ext_resource type="Script" path="res://scripts/resources/rs_character_config.gd" id="1_r4lff"]
+[ext_resource type="PackedScene" uid="uid://dou1p6vpt8xv0" path="res://scenes/fx/fx_toxic_splash_a2_big.tscn" id="2_8j5o2"]
+[ext_resource type="Script" path="res://scripts/core_resources/rs_fx_config.gd" id="2_hadbq"]
+[ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/fx_toxic_bubbles_oneshot.tscn" id="3_vjl7w"]
+[ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/340794__kuchenanderung1__slime-squish.ogg" id="4_og7dc"]
+[ext_resource type="PackedScene" uid="uid://d06mb8r053fit" path="res://scenes/fx/fx_toxic_splash_a1.tscn" id="6_rqxqj"]
+
+[sub_resource type="Resource" id="Resource_0104i"]
+script = ExtResource("2_hadbq")
+audio = ExtResource("1_4wdhd")
+audio_pitch_min = 0.8
+audio_pitch_max = 1.0
+audio_volume_min = 0.9
+audio_volume_max = 1.0
+content = Array[PackedScene]([ExtResource("2_8j5o2"), ExtResource("3_vjl7w")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_avqrj"]
+script = ExtResource("2_hadbq")
+audio = ExtResource("4_og7dc")
+audio_pitch_min = 0.75
+audio_pitch_max = 1.25
+audio_volume_min = 0.9
+audio_volume_max = 1.0
+content = Array[PackedScene]([ExtResource("6_rqxqj")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[resource]
+script = ExtResource("1_r4lff")
+health = 3.0
+max_health = 3.0
+speed = 1.0
+default_weapon = ExtResource("1_7bok5")
+protection = 1.0
+damage = 1.0
+mass = 1.0
+patrolling_distance = 5.0
+target_position_refresh_timeout = 2.05
+walk_direction_degrees_change_speed = 45.0
+walk_power_change_speed = 1.0
+walk_direction_sinus_rate = 1.0
+walk_direction_sinus_power = 0.5
+walk_power_sinus_min_power = 0.25
+walk_power_sinus_rate = 2.0
+walk_power_sinus_power = 0.0
+hurt_fx = SubResource("Resource_avqrj")
+death_fx = SubResource("Resource_0104i")

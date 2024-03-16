@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcjqm0cnd4b14"]
+
+[ext_resource type="Script" path="res://scripts/modes/gm_game.gd" id="1_b4mm0"]
+[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/chr_rock_lee.tscn" id="3_lbhup"]
+[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_loud7"]
+[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
+[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]
+[ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_nsc11"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
+sky_top_color = Color(0.478431, 0.580392, 0.74902, 1)
+sky_horizon_color = Color(1, 0, 0.0156863, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+sun_curve = 0.261165
+
+[sub_resource type="Sky" id="Sky_wfb0r"]
+sky_material = SubResource("ProceduralSkyMaterial_ob6na")
+
+[sub_resource type="Environment" id="Environment_ev1c6"]
+background_mode = 2
+sky = SubResource("Sky_wfb0r")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssao_intensity = 8.22
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_y_scale = 0
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.6
+glow_bloom = 0.5
+fog_light_color = Color(0, 0, 0, 1)
+fog_height = -77.49
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.015
+volumetric_fog_gi_inject = 0.35
+volumetric_fog_anisotropy = 0.9
+volumetric_fog_ambient_inject = 0.05
+adjustment_enabled = true
+adjustment_brightness = 1.15
+adjustment_saturation = 1.5
+
+[node name="LevelGame" type="Node3D"]
+script = ExtResource("1_b4mm0")
+config = ExtResource("2_xe5b6")
+player_packed = ExtResource("3_lbhup")
+main_menu_scene = "res://scenes/levels/lev_lobby.tscn"
+
+[node name="_DevGUI" parent="." instance=ExtResource("4_loud7")]
+
+[node name="GUI" parent="." instance=ExtResource("5_h0u01")]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_ev1c6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, 0.433013, -0.75, 0, 2, 0)
+light_color = Color(0.905882, 0.862745, 0.854902, 1)
+light_energy = 0.0
+shadow_enabled = true
+
+[node name="LocationMistSoft" parent="Environment" instance=ExtResource("6_rd3vp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="CameraRig" parent="." instance=ExtResource("7_nsc11")]

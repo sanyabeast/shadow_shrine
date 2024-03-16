@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shadow Shrine"
-run/main_scene="res://scenes/levels/main_menu_level.tscn"
+run/main_scene="res://scenes/levels/lev_lobby.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
 boot_splash/show_image=false
@@ -25,13 +25,13 @@ buses/default_bus_layout="res://resources/audio_bus_layout.tres"
 [autoload]
 
 tools="*res://scripts/core_tools/tools.gd"
-app="*res://scripts/core/app.gd"
-world="*res://scripts/core/world.gd"
-player_manager="*res://scripts/core/player.gd"
-camera_manager="*res://scripts/core/camera.gd"
-game="*res://scripts/core/game.gd"
+app="*res://scripts/core/app_manager.gd"
+world="*res://scripts/core/world_manager.gd"
+player_manager="*res://scripts/core/player_manager.gd"
+camera_manager="*res://scripts/core/camera_manager.gd"
+game="*res://scripts/core/game_manager.gd"
 widgets="*res://scripts/core/widget_manager.gd"
-dev="*res://_dev/dev_global.gd"
+dev="*res://_dev/_dev_global.gd"
 
 [display]
 
@@ -56,12 +56,14 @@ folder_colors={
 "res://resources/levels/": "purple",
 "res://resources/materials/": "teal",
 "res://resources/materials/particles/": "gray",
-"res://resources/materials/shaders/": "teal",
+"res://resources/materials/shaders/": "green",
 "res://scenes/": "orange",
 "res://scenes/_dev/": "purple",
+"res://scenes/fx/": "red",
 "res://scripts/": "green",
 "res://scripts/_dev/": "purple",
 "res://scripts/core/": "teal",
+"res://scripts/core_characters/": "teal",
 "res://scripts/core_resources/": "teal",
 "res://scripts/core_tools/": "teal",
 "res://scripts/core_weapons/": "teal",

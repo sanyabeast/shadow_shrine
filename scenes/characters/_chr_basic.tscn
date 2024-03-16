@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpdsedncbfo4e"]
+
+[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_8c6vy"]
+[ext_resource type="PackedScene" uid="uid://baxaf56wke17m" path="res://assets/_dev/characters/dev_character_body_blue.blend" id="2_ax6dy"]
+[ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/arrow_red.blend" id="3_nekau"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fo6s2"]
+radius = 0.45
+
+[node name="BasicCharacter" type="CharacterBody3D"]
+script = ExtResource("1_8c6vy")
+use_as_player = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.454, 0)
+shape = SubResource("SphereShape3D_fo6s2")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="dev_character_body_blue" parent="Body" instance=ExtResource("2_ax6dy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Aim" type="Node3D" parent="."]
+
+[node name="arrow_red" parent="Aim" instance=ExtResource("3_nekau")]
+transform = Transform3D(-0.335, 0, -2.92866e-08, 0, 0.335, 0, 2.92866e-08, 0, -0.335, 0, 0.5, -1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38838, 0.201083)
+light_color = Color(0.709804, 0.572549, 0.47451, 1)
+light_energy = 3.0
