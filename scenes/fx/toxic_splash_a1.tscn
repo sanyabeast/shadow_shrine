@@ -1,6 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://d06mb8r053fit"]
+[gd_scene load_steps=15 format=3 uid="uid://d06mb8r053fit"]
 
 [ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/liquid_puddle_a3.png" id="1_72go3"]
+
+[sub_resource type="Curve" id="Curve_oi47x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.499384, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7n55f"]
+curve = SubResource("Curve_oi47x")
 
 [sub_resource type="Gradient" id="Gradient_dl7ws"]
 offsets = PackedFloat32Array(0, 0.167105, 0.555263, 1)
@@ -19,15 +26,16 @@ point_count = 2
 curve = SubResource("Curve_m5epl")
 
 [sub_resource type="Curve" id="Curve_xdrps"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.51328, 0.504643), -1.47423, -1.47423, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0311761, 0, 0, Vector2(0.194581, 0.620574), -2.56544, -2.56544, 0, 0, Vector2(1, 0), 0.117589, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_q2t8f"]
 curve = SubResource("Curve_xdrps")
 
 [sub_resource type="Curve" id="Curve_knuho"]
-_data = [Vector2(0, 0.51505), 0.0, 0.0, 0, 0, Vector2(0.500927, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.504644), 0.0, 0.0, 0, 0]
-point_count = 3
+max_value = 2.0
+_data = [Vector2(0, 1.09601), 0.0, -2.82737, 0, 0, Vector2(1, 0), -0.109065, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_qjbw2"]
 curve = SubResource("Curve_knuho")
@@ -37,9 +45,10 @@ orbit_velocity_curve = SubResource("CurveTexture_0jh3k")
 radial_velocity_max = 15.0
 radial_velocity_curve = SubResource("CurveTexture_q2t8f")
 gravity = Vector3(0, -1, 0)
-scale_min = 0.25
+scale_min = 0.5
 scale_curve = SubResource("CurveTexture_qjbw2")
 color_ramp = SubResource("GradientTexture1D_td3uk")
+alpha_curve = SubResource("CurveTexture_7n55f")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl448"]
 transparency = 1
@@ -62,7 +71,7 @@ size = Vector2(0.1, 0.1)
 
 [node name="GPUParticles3D" type="GPUParticles3D"]
 emitting = false
-amount = 16
+amount = 64
 lifetime = 0.2
 one_shot = true
 fixed_fps = 60

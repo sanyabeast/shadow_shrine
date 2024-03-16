@@ -7,5 +7,5 @@
 script = ExtResource("2_8vv5x")
 damage_type = 0
 projectiles = Array[PackedScene]([ExtResource("1_tkb0r")])
-fire_rate = 3.0
+fire_rate = 2.25
 spread = 5.0

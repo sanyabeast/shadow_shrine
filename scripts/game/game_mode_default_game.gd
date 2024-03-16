@@ -153,7 +153,7 @@ func spawn_room(from_direction):
 	else:
 		player_spawn = current_room.door_controllers[oposite_direction].player_spawn
 		
-	player_manager.teleport(player_spawn.global_position)
+	player_manager.teleport(player_spawn.global_position + Vector3(0, 2,0))
 	
 	_check_ambient_sound_mix()
 	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)

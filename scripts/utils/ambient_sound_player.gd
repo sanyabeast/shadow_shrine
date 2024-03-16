@@ -1,9 +1,9 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-# This script defines an ambient sound player using AudioStreamPlayer3D.
+# This script defines an ambient sound player using AudioStreamPlayer.
 
-extends AudioStreamPlayer3D
+extends AudioStreamPlayer
 class_name S2AmbientSoundPlayer
 
 # Constant tag for logging and identification purposes.
@@ -31,7 +31,6 @@ func _init(_playlist: Array[AudioStream] = [], _track_index: int = 0, _is_playin
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	panning_strength = 0
 	finished.connect(_handle_stream_player_finished)
 	set_track(track_index)
 	if is_playing:

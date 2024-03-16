@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/characters/character.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -12,10 +12,6 @@
 [ext_resource type="Script" path="res://scripts/characters/npc_controller.gd" id="9_25a3r"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://_dev/gizmos/arrow_gizmo.tscn" id="10_pdf4v"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/toxic_bubbles_vfx.tscn" id="12_ykgel"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_drguf"]
-height = 1.0
-radius = 0.4
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.35
@@ -215,15 +211,14 @@ _data = {
 }
 
 [node name="BoxedSlime" type="CharacterBody3D" node_paths=PackedStringArray("hide_on_death")]
+disable_mode = 1
+safe_margin = 0.01
 script = ExtResource("1_axkfw")
 config = ExtResource("2_vw4ig")
+use_as_player = null
+ai_enabled = null
+is_friendly = null
 hide_on_death = [NodePath("ToxicBubbles")]
-
-[node name="Aura" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Aura"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("CylinderShape3D_drguf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)

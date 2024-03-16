@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://ds2t80o60i6o4"]
 
-[ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="2_6oh5q"]
-[ext_resource type="Texture2D" uid="uid://go6cgo1nf51g" path="res://assets/props/jerdelia/textures/Image_1.007.png" id="3_4jdse"]
-[ext_resource type="ArrayMesh" uid="uid://cbkiup7x7f1mo" path="res://assets/misc/array_mesh/kunai.tres" id="5_u0wav"]
+[ext_resource type="Texture2D" uid="uid://bdv5yabotyeth" path="res://assets/props/jerdelia/textures/Image_0.007.png" id="1_02jwv"]
+[ext_resource type="Texture2D" uid="uid://go6cgo1nf51g" path="res://assets/props/jerdelia/textures/Image_1.007.png" id="2_bxgom"]
+[ext_resource type="ArrayMesh" uid="uid://cbkiup7x7f1mo" path="res://assets/misc/array_mesh/kunai.tres" id="3_wglxp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3ku8"]
 resource_name = "projectile.001"
@@ -11,14 +11,14 @@ alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
 shading_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_6oh5q")
+albedo_texture = ExtResource("1_02jwv")
 metallic = 1.0
-metallic_texture = ExtResource("3_4jdse")
+metallic_texture = ExtResource("2_bxgom")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("3_4jdse")
+roughness_texture = ExtResource("2_bxgom")
 roughness_texture_channel = 1
 ao_enabled = true
-ao_texture = ExtResource("3_4jdse")
+ao_texture = ExtResource("2_bxgom")
 disable_receive_shadows = true
 
 [sub_resource type="Curve" id="Curve_fi5cw"]
@@ -94,4 +94,4 @@ one_shot = true
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_l4314")
-draw_pass_1 = ExtResource("5_u0wav")
+draw_pass_1 = ExtResource("3_wglxp")

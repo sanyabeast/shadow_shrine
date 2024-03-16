@@ -9,7 +9,7 @@ static var _schedule_task_index_counter: int = 0
 
 # Class representing a task with an owner, ID, duration, start and finish callbacks, and time tracking.
 class Task:
-	var owner: Node3D
+	var owner: Variant
 	var id: String
 	var duration: float
 	var start_callback
@@ -18,7 +18,7 @@ class Task:
 	var use_game_time: bool = false
 	
 	# Constructor to initialize the task with its properties.
-	func _init(_owner: Node3D, _id: String, _duration: float, _start_callback, _finish_callback, _use_game_time):
+	func _init(_owner: Variant, _id: String, _duration: float, _start_callback, _finish_callback, _use_game_time):
 		owner = _owner
 		id = _id
 		duration = _duration
@@ -93,7 +93,7 @@ func update():
 			schedule_list.erase(key)
 
 # Method to queue a new task to the list with the specified properties.
-func queue(owner: Node3D, id: String, duration: float, start_callback, finish_callback):
+func queue(owner: Variant, id: String, duration: float, start_callback, finish_callback):
 	list.push_front(S2TaskPlanner.Task.new(
 		owner,
 		id,
@@ -106,7 +106,7 @@ func queue(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 	pass
 
 # Method to stack a new task onto the list with the specified properties.
-func stack(owner: Node3D, id: String, duration: float, start_callback, finish_callback):
+func stack(owner: Variant, id: String, duration: float, start_callback, finish_callback):
 	list.push_back(S2TaskPlanner.Task.new(
 		owner,
 		id,
@@ -119,29 +119,29 @@ func stack(owner: Node3D, id: String, duration: float, start_callback, finish_ca
 	pass
 	
 # Method to schedule a new task with a timeout and finish callback.
-func schedule(owner: Node3D, id: String, timeout: float, finish_callback):
+func schedule(owner: Variant, id: String, timeout: float, finish_callback):
 	var task: Task = Task.new(owner, id, timeout, null, finish_callback, use_game_time)
 	S2TaskPlanner._schedule_task_index_counter += 1	
 	schedule_list[S2TaskPlanner._schedule_task_index_counter] = task
 	task.start()
 	
 # Method to replace a stacked task with the specified properties.
-func stack_replace(owner: Node3D, id: String, duration: float, start_callback, finish_callback):
+func stack_replace(owner: Variant, id: String, duration: float, start_callback, finish_callback):
 	cancel(owner, id)
 	stack(owner, id, duration, start_callback, finish_callback)
 
 # Method to replace a queued task with the specified properties.
-func queue_replace(owner: Node3D, id: String, duration: float, start_callback, finish_callback):
+func queue_replace(owner: Variant, id: String, duration: float, start_callback, finish_callback):
 	cancel(owner, id)
 	queue(owner, id, duration, start_callback, finish_callback)
 
 # Method to replace a scheduled task with the specified properties.
-func schedule_replace(owner: Node3D, id: String, timeout: float, finish_callback):
+func schedule_replace(owner: Variant, id: String, timeout: float, finish_callback):
 	cancel(owner, id)
 	schedule(owner, id, timeout, finish_callback)
 
 # Method to cancel a task with the specified owner and ID.
-func cancel(owner: Node3D, id):
+func cancel(owner: Variant, id):
 	if current != null and current.owner == owner:
 		if id == null or id == current.id:
 			current = null

@@ -1,14 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://4qcybpvtpw3o"]
+[gd_scene load_steps=20 format=3 uid="uid://4qcybpvtpw3o"]
 
 [ext_resource type="Script" path="res://scripts/weapons/projectile.gd" id="1_1flo4"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_config.gd" id="2_6awg3"]
 [ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/gingie - knife throw.ogg" id="3_4gykh"]
 [ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="4_5osib"]
 [ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="4_q2w2w"]
-[ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/kunai_blocked_fx.tscn" id="7_se67i"]
 [ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/metal_hit_sparks_a.tscn" id="8_51f8w"]
+[ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/kunai_wasted_fx.tscn" id="8_tr15e"]
 [ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="8_ujsx6"]
 [ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/small_projectile_flight_trail.tscn" id="9_vhvuo"]
+[ext_resource type="Script" path="res://scripts/actions/procedures/proc_damage.gd" id="11_victe"]
+[ext_resource type="Script" path="res://scripts/actions/procedures/proc_impulse.gd" id="12_8krbt"]
 
 [sub_resource type="Resource" id="Resource_gdcre"]
 script = ExtResource("2_6awg3")
@@ -18,6 +20,9 @@ min_velocity = 4.0
 max_velocity = 8.0
 max_collisions = 1
 max_lifetime = 10.0
+max_hits_and_blocks = 2.0
+hit_direction_deviation = 15.0
+block_direction_deviation = 5.0
 
 [sub_resource type="Resource" id="Resource_ept1m"]
 script = ExtResource("4_q2w2w")
@@ -38,7 +43,7 @@ audio_pitch_min = 0.9
 audio_pitch_max = 1.1
 audio_volume_min = 0.9
 audio_volume_max = 1.0
-content = Array[PackedScene]([ExtResource("8_51f8w"), ExtResource("7_se67i")])
+content = Array[PackedScene]([ExtResource("8_51f8w")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 2.0
@@ -54,8 +59,19 @@ use_game_time = true
 dispose_strategy = 0
 lifetime = 2.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_oudw2"]
-size = Vector3(0.232534, 0.41824, 0.477383)
+[sub_resource type="Resource" id="Resource_egquv"]
+script = ExtResource("4_q2w2w")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+content = Array[PackedScene]([ExtResource("8_tr15e")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_87qq8"]
+radius = 0.25
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2ysj3"]
 _surfaces = [{
@@ -91,20 +107,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
-[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
+[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("hit_procedures", "ray", "launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
 script = ExtResource("1_1flo4")
 config = SubResource("Resource_gdcre")
-impulse = 2.0
+hit_procedures = [NodePath("ProcDamage"), NodePath("ProcImpulse")]
+ray = NodePath("RayCast3D")
 launch_fx = SubResource("Resource_ept1m")
 block_fx = SubResource("Resource_npqly")
 hit_fx = SubResource("Resource_b33vy")
+waste_fx = SubResource("Resource_egquv")
 launch_fx_anchor = NodePath("FXAnchor")
 block_fx_anchor = NodePath("FXAnchorBlockHit")
 hit_fx_anchor = NodePath("FXAnchorBlockHit")
 
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.182283)
+target_position = Vector3(0, 0, -1)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0009204, 0.00462525, 0.050642)
-shape = SubResource("BoxShape3D_oudw2")
+shape = SubResource("SphereShape3D_87qq8")
 
 [node name="Body" type="Node3D" parent="."]
 
@@ -118,3 +139,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.146514)
 
 [node name="FXAnchorBlockHit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.203243)
+
+[node name="ProcDamage" type="Node" parent="."]
+script = ExtResource("11_victe")
+
+[node name="ProcImpulse" type="Node" parent="."]
+script = ExtResource("12_8krbt")
+max_impulse = 1.5

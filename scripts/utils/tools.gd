@@ -194,3 +194,22 @@ func to_v2(v3: Vector3) -> Vector2:
 
 func sin_normalized(value: float) -> float:
 	return (sin(value) + 1) / 2
+
+func calculate_reflected_direction(direction: Vector3, normal: Vector3) -> Vector3:
+	# Ensure both vectors are normalized
+	direction = direction.normalized()
+	normal = normal.normalized()
+	
+	# Calculate dot product of incident vector and surface normal
+	var dot_product = direction.dot(normal)
+	
+	# Calculate reflected vector using the formula
+	var reflected_direction = direction - 2 * dot_product * normal
+	
+	# Normalize the reflected vector
+	reflected_direction = reflected_direction.normalized()
+	
+	# In a top-down game, the y-component should be zero
+	reflected_direction.y = 0
+	
+	return reflected_direction

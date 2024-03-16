@@ -8,15 +8,14 @@ class_name S2ProjectileController
 const TAG: String = "ProjectileController"
 
 @export var config: RProjectileConfig
-
-@export_subgroup("Character Effects")
-@export var damage: float = 1
-@export var impulse: float = 1
+@export var hit_procedures: Array[S2Procedure] = []
+@export var ray: RayCast3D
 
 @export_subgroup("Projectile FX")
 @export var launch_fx: RFXConfig
 @export var block_fx: RFXConfig
 @export var hit_fx: RFXConfig
+@export var waste_fx: RFXConfig
 
 @export_subgroup("Body")
 @export var body: Node3D
@@ -37,12 +36,20 @@ var cooldown: S2CooldownManager = S2CooldownManager.new(true)
 var current_velocity: float = 0
 
 var _is_launched: bool = false
+var _hits_and_blocks_count: int = 0
 var _is_wasted: bool = false
+
+var _collision_normal: Vector3 = Vector3.ZERO
+var _collision_point: Vector3 = Vector3.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body_entered.connect(_handle_body_entered)
 	body_exited.connect(_handle_body_exited)
+	
+	if ray != null:
+		ray.add_exception(self)
+		ray.add_exception(keeper)
 	
 	if auto_launch:
 		launch()
@@ -61,54 +68,69 @@ func launch():
 	
 	if launch_fx:
 		world.spawn_fx(launch_fx, global_position, launch_fx_anchor if launch_fx_anchor else self)
-	
-	pass
 
-func _handle_body_entered(body):
+func _handle_body_entered(_hit_body):
 	if not _is_wasted:
-		if body is S2Character:
-			if keeper and body != keeper:
-				dev.logd(TAG, 'projectile hit character %s' % body)
-				_handle_hit(body)
+		if _hit_body is S2Character:
+			if keeper and _hit_body != keeper:
+				dev.logd(TAG, 'projectile hit character %s' % _hit_body)
+				_handle_hit(_hit_body)
 		else:
-			dev.logd(TAG, 'projectile hit something %s' % body)
-			_handle_block()
+			dev.logd(TAG, 'projectile hit something %s' % _hit_body)
+			_handle_block(_hit_body)
 	
-func _handle_body_exited(body):
+func _handle_body_exited(_hit_body):
 	pass
 
-func _handle_block():
-	_is_wasted = true
+func _handle_block(_hit_body):
+	_update_ray_collision()
 	
 	if hide_body_on_block and body:
 		body.hide()
 		
 	if block_fx:
-		world.spawn_fx(block_fx, global_position, block_fx_anchor if block_fx_anchor else self, global_rotation)	
+		world.spawn_fx(block_fx, global_position)	
 		
-	_dispose()	
-		
-	pass
+	_hits_and_blocks_count += 1	
 	
-func _handle_hit(hit_character: S2Character):
-	_is_wasted = true
-	
-	if damage > 0:
-		hit_character.commit_damage(damage)
-
-	if impulse > 0:
-		hit_character.commit_impulse(-basis.z, impulse)
+	_reflect()
+	_deviate(config.block_direction_deviation)
 		
-	if hide_body_on_hit and body:
-		body.hide()
+	if config.max_hits_and_blocks > 0 and _hits_and_blocks_count >= config.max_hits_and_blocks:
+		_is_wasted = true
+	
+	if _is_wasted:
+		
+		if waste_fx:
+			world.spawn_fx(waste_fx, _collision_point, hit_fx_anchor if hit_fx_anchor else self)
+			
+		_dispose()
+	
+func _handle_hit(_hit_body: S2Character):
+	_update_ray_collision()
+	
+	for proc in hit_procedures:
+		proc.source = keeper
+		proc.target = _hit_body
+		proc.position = _collision_point
+		proc.direction = direction
+		proc.normal = _collision_normal
+		
+		proc.start()
 	
 	if hit_fx:
 		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)
 	
-	_dispose()
+	_deviate(config.hit_direction_deviation)
 	
-	pass
-
+	_hits_and_blocks_count += 1
+	
+	if config.max_hits_and_blocks > 0 and _hits_and_blocks_count >= config.max_hits_and_blocks:
+		_is_wasted = true
+	
+	if _is_wasted:
+		_dispose()	
+			
 func _process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
@@ -117,10 +139,31 @@ func _process(delta):
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		
 		if cooldown.ready("max_lifetime"):
-				_dispose()
+			_dispose()
 		
-	pass
-
-
 func _dispose():
+	if body != null:
+		body.hide()
+		
 	queue_free()
+
+func _deviate(max_deviation: float):
+	var deviation: float = randf_range(-max_deviation, max_deviation)
+	var current_angle = tools.rotation_degrees_y_from_direction(direction)
+	var new_angle = current_angle + deviation
+	direction = tools.angle_to_direction(new_angle)
+	look_at(global_position + direction)
+
+func _reflect():
+	direction = tools.calculate_reflected_direction(direction, _collision_normal)
+	look_at(global_position + direction)
+
+func _update_ray_collision():
+	if ray != null and ray.is_colliding():
+		_collision_point = ray.get_collision_point()
+		_collision_normal = ray.get_collision_normal()
+		pass
+	else:
+		_collision_normal = -direction
+		_collision_point = global_position
+	pass

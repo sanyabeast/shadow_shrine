@@ -24,8 +24,7 @@ emission_box_extents = Vector3(0.4, 0.4, 0.4)
 angle_min = -30.0
 angle_max = 30.0
 gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 3.0
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_bipch")
 alpha_curve = SubResource("CurveTexture_qyv7d")
 hue_variation_max = 0.5
@@ -53,16 +52,16 @@ size = Vector2(0.1, 0.1)
 
 [sub_resource type="Gradient" id="Gradient_1rkra"]
 offsets = PackedFloat32Array(0, 0.258779, 1)
-colors = PackedColorArray(0, 1, 0, 0, 0.47451, 1, 0, 0.117647, 1, 1, 0, 0)
+colors = PackedColorArray(0.329167, 0.5, 0.25, 0, 0.4029, 0.51, 0.2499, 0.117647, 1, 1, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_tw3b6"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_71h33"]
 gradient = SubResource("Gradient_1rkra")
 
 [sub_resource type="Curve" id="Curve_pnhoc"]
-_data = [Vector2(0, 0.458954), 0.0, 0.0, 0, 0, Vector2(0.611072, 0.583048), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.205951), 0.0, 0.0, 0, 0, Vector2(0.611808, 0.307753), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_jn45y"]
+[sub_resource type="CurveTexture" id="CurveTexture_twjbq"]
 curve = SubResource("Curve_pnhoc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wp6gq"]
@@ -70,14 +69,15 @@ particle_flag_rotate_y = true
 angle_min = -720.0
 angle_max = 720.0
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_jn45y")
-color_ramp = SubResource("GradientTexture1D_tw3b6")
+scale_min = 0.75
+scale_max = 1.6
+scale_curve = SubResource("CurveTexture_twjbq")
+color_ramp = SubResource("GradientTexture1D_71h33")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bmd5d"]
 material = ExtResource("3_1sd7d")
 
 [node name="ToxicBubbles" type="GPUParticles3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.411516, 0.0325854)
 emitting = false
 lifetime = 2.0
 one_shot = true
@@ -85,7 +85,7 @@ process_material = SubResource("ParticleProcessMaterial_6wuxt")
 draw_pass_1 = SubResource("QuadMesh_f6n61")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0207732, -0.236968, -0.0178604)
+transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0.02, 0)
 emitting = false
 amount = 4
 lifetime = 2.0

@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcjqm0cnd4b14"]
 
-[ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_1lro1"]
-[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/_game_level_a1.tres" id="2_gmi04"]
-[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_mdfvv"]
-[ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="4_250jr"]
-[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="4_v7xvp"]
-[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/inagame_gui.tscn" id="5_wkau2"]
-[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="6_hwkyy"]
+[ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_6p6ra"]
+[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/_game_level_a1.tres" id="2_2ue1f"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_7wmsv"]
+[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="4_sykm0"]
+[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/inagame_gui.tscn" id="5_rhos5"]
+[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="6_2j31m"]
+[ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_rp17j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ob6na"]
 sky_top_color = Color(0.478431, 0.580392, 0.74902, 1)
@@ -47,14 +47,14 @@ adjustment_brightness = 1.15
 adjustment_saturation = 1.5
 
 [node name="Game" type="Node3D"]
-script = ExtResource("1_1lro1")
-config = ExtResource("2_gmi04")
-player_packed = ExtResource("3_mdfvv")
+script = ExtResource("1_6p6ra")
+config = ExtResource("2_2ue1f")
+player_packed = ExtResource("3_7wmsv")
 main_menu_scene = "res://scenes/levels/main_menu_level.tscn"
 
-[node name="_DevGUI" parent="." instance=ExtResource("6_hwkyy")]
+[node name="_DevGUI" parent="." instance=ExtResource("4_sykm0")]
 
-[node name="GUI" parent="." instance=ExtResource("5_wkau2")]
+[node name="GUI" parent="." instance=ExtResource("5_rhos5")]
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -67,9 +67,9 @@ light_color = Color(0.905882, 0.862745, 0.854902, 1)
 light_energy = 0.0
 shadow_enabled = true
 
-[node name="LocationMistSoft" parent="Environment" instance=ExtResource("4_v7xvp")]
+[node name="LocationMistSoft" parent="Environment" instance=ExtResource("6_2j31m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
 
 [node name="Architecture" type="Node3D" parent="."]
 
-[node name="CameraRig" parent="." instance=ExtResource("4_250jr")]
+[node name="CameraRig" parent="." instance=ExtResource("7_rp17j")]

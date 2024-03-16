@@ -86,13 +86,13 @@ func _process(delta):
 func _update_alive_enemies_list():
 	var dead_enemies_count: int = 0
 	for e in alive_enemies:
-		if e.is_dead:
+		if e == null or e.is_dead:
 			dead_enemies_count += 1
 			
 	if dead_enemies_count > 0:
 		var newalive_enemies_list: Array[S2Character] = []
 		for e in alive_enemies:
-			if not e.is_dead:
+			if e != null and not e.is_dead:
 				newalive_enemies_list.append(e)
 	
 		alive_enemies = newalive_enemies_list
