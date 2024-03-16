@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_controller.gd" id="1_epcpp"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="2_2fp76"]
 [ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a.tres" id="2_5nin2"]
-[ext_resource type="Shader" path="res://resources/materials/shaders/shad_vignette_a.gdshader" id="3_cw2oc"]
+[ext_resource type="Shader" path="res://resources/shaders/shad_wid_vignette_a.gdshader" id="3_cw2oc"]
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_lobby.gd" id="3_n8dro"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="3_vhu03"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/widget/wid_settings_menu.tscn" id="4_260ek"]

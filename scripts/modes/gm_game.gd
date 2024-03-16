@@ -52,6 +52,8 @@ func prepare():
 	game.start()
 	random.set_seed(game.seed)
 	
+	
+	
 	screen_fx = widgets.controller.screen_fx
 	environment_node = $Environment
 	architecture_node = $Architecture
@@ -61,7 +63,7 @@ func prepare():
 	_init_player()
 	_setup_ambient_sound()
 	
-	widgets.controller.highlights.show_message("Game started", "Good Luck")
+	widgets.controller.highlights.delay(1)
 	
 	reset()
 	game.resume()

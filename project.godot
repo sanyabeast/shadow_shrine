@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shadow Shrine"
-run/main_scene="res://scenes/levels/lev_game.tscn"
+run/main_scene="res://scenes/levels/lev_lobby.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
 boot_splash/show_image=false
@@ -57,7 +57,7 @@ folder_colors={
 "res://resources/levels/": "purple",
 "res://resources/materials/": "teal",
 "res://resources/materials/particles/": "gray",
-"res://resources/materials/shaders/": "green",
+"res://resources/shaders/": "green",
 "res://scenes/": "orange",
 "res://scenes/_dev/": "purple",
 "res://scenes/fx/": "red",

@@ -16,24 +16,25 @@ var cooldowns: GCooldowns = GCooldowns.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	anim_player.play("hide")
-	anim_player.seek(anim_player.current_animation_length)
+	anim_player.play("RESET")
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if is_showing:
-		if cooldowns.ready("message-show-timeout"):
+		if cooldowns.ready("show-timeout"):
 			_hide_message()
 	else:
-		if messages.size() > 0:
-			_show_message(messages.pop_front())
+		if cooldowns.ready("next-message", true):
+			if messages.size() > 0:
+				_show_message(messages.pop_front())
 
 func _show_message(data: RHighlightsMessage):
 	is_showing = true
 	current_message = data
 	
-	cooldowns.start("message-show-timeout", data.duration)
+	cooldowns.start("show-timeout", data.duration)
+	delay(data.duration)
 	
 	title_label.set_content(data.title)
 	subtitle_label.set_content(data.subtitle)
@@ -50,14 +51,16 @@ func _handle_animation_started(name: String):
 	match name:
 		"hide":
 			if data != null:
-				cooldowns.start("message-show-timeout", data.duration)
+				pass
+
+func delay(timeout: float):
+	cooldowns.start("next-message", timeout)
 
 func _handle_animation_finished(name: String):
 	var data = current_message
 	match name:
 		"show":
-			cooldowns.start("message-show-timeout", data.duration)
-			anim_player.play("idle")
+			cooldowns.start("show-timeout", data.duration)
 		"hide":
 			is_showing = false
 	pass

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dd4cusqsvp4ur"]
 
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_screen_fx.gd" id="1_8bad7"]
-[ext_resource type="Shader" path="res://resources/materials/shaders/shad_vignette_a.gdshader" id="2_aqr01"]
+[ext_resource type="Shader" path="res://resources/shaders/shad_wid_vignette_a.gdshader" id="2_aqr01"]
 
 [sub_resource type="Animation" id="Animation_dtxgh"]
 length = 0.001

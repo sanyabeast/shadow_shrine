@@ -24,6 +24,10 @@ func _handle_submit(id: String, item: GMenuItem):
 			world.reload()
 		"finish_game":
 			game.finish(item.get_bool())
+		"test_highlight_message":
+			if widgets.controller != null and widgets.controller is GDefaultGameWidget:
+				widgets.controller.highlights.delay(1)
+				widgets.controller.highlights.show_message("Hello, World!", "this message will show up for 5 seconds", 5)
 		
 func _handle_option_change(id: String, item: GMenuItem):
 	match id:

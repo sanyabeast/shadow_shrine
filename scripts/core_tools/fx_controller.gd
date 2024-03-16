@@ -74,8 +74,9 @@ func _setup_content():
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 			audio_player.bus = "SFX"
 			audio_player.stream = config.audio
+			audio_player.panning_strength = config.audio_panning
 			audio_player.pitch_scale = _get_variable_pitch_value(config)
-			audio_player.volume_db = linear_to_db(randf_range(config.audio_volume_min, config.audio_volume_max))
+			audio_player.max_db = linear_to_db(randf_range(config.audio_volume_min, config.audio_volume_max))
 
 			add_child(audio_player)
 			audio_player.play()
