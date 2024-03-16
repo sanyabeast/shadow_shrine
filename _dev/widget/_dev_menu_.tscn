@@ -1,0 +1,634 @@
+[gd_scene load_steps=20 format=3 uid="uid://dugi2yr5i4hv3"]
+
+[ext_resource type="Script" path="res://scripts/core_widgets/menu_controller.gd" id="1_hxvce"]
+[ext_resource type="Resource" uid="uid://dl0nikf305rwm" path="res://_dev/resources/_dev_menu_sfx.tres" id="2_fc8hn"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="3_rpa2w"]
+[ext_resource type="Script" path="res://scripts/core_widgets/lib/menu_advanced_item.gd" id="4_aqf3h"]
+[ext_resource type="Script" path="res://scripts/core_widgets/menu_label.gd" id="5_4s57h"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="5_id5cx"]
+[ext_resource type="Script" path="res://_dev/widget/_dev_menu_actions.gd" id="7_1lpwv"]
+
+[sub_resource type="Animation" id="Animation_m761b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lcpij"]
+resource_name = "submenu"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["close"],
+"method": &"handle_animation_finished"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/VBoxContainer:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.392293, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vjsq4"]
+resource_name = "default"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["open"],
+"method": &"handle_animation_finished"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/VBoxContainer:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(2.46229, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cymmk"]
+_data = {
+"RESET": SubResource("Animation_m761b"),
+"close": SubResource("Animation_lcpij"),
+"open": SubResource("Animation_vjsq4")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4lfd"]
+blend_mode = 3
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_llybx"]
+
+[sub_resource type="Animation" id="Animation_68ae3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.305882)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.027451, 0.027451, 0.027451, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0lmg2"]
+resource_name = "default"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.901961, 0.901961, 0.901961, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3gyr4"]
+resource_name = "select"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.815686, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Label:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rqw5d"]
+_data = {
+"RESET": SubResource("Animation_68ae3"),
+"default": SubResource("Animation_0lmg2"),
+"select": SubResource("Animation_3gyr4")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vcnjb"]
+
+[sub_resource type="Theme" id="Theme_urh5j"]
+
+[node name="_DevMenu" type="Control" node_paths=PackedStringArray("anim_player", "items", "actions")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxvce")
+id = "_dev_menu"
+anim_player = NodePath("AnimationPlayer")
+items = [NodePath("Content/VBoxContainer/ReloadCurrentLevel"), NodePath("Content/VBoxContainer/AlterSeed"), NodePath("Content/VBoxContainer/FinishCurrentLevel"), NodePath("Content/VBoxContainer/GameSpeed"), NodePath("Content/VBoxContainer/AiEnabled")]
+actions = NodePath("MenuActions")
+reinitialize_items_on_show = true
+menu_sfx = ExtResource("2_fc8hn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cymmk")
+}
+blend_times = [&"close", &"close", 0.1, &"close", &"open", 0.1, &"close", &"RESET", 0.1]
+
+[node name="Content" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_r4lfd")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuTitleLabel" type="Label" parent="Content/VBoxContainer"]
+material = SubResource("CanvasItemMaterial_llybx")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.478431, 0.478431, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_rpa2w")
+theme_override_font_sizes/font_size = 56
+text = "debug menu"
+
+[node name="DecoSeparator" type="ColorRect" parent="Content/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GameTime" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+id = "reload_current_scene"
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/GameTime"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/GameTime"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/GameTime/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Game Time
+"
+vertical_alignment = 1
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/GameTime/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+use_template = true
+template = "{content}s"
+txt = " 0"
+format = 11
+max_value = -1.0
+use_bound_value = true
+bound_token = "game_time"
+
+[node name="ReloadCurrentLevel" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+id = "reload_current_scene"
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/ReloadCurrentLevel"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/ReloadCurrentLevel"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/ReloadCurrentLevel/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Reload current level
+"
+vertical_alignment = 1
+
+[node name="AlterSeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value")
+id = "alter_seed"
+has_options = true
+max_value = 999.0
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/AlterSeed"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/AlterSeed"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/AlterSeed/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Alter Seed
+"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Content/VBoxContainer/AlterSeed/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -1.0
+offset_right = -10.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+txt = "35"
+max_value = 999.0
+
+[node name="FinishCurrentLevel" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value")
+id = "finish_game"
+has_options = true
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/FinishCurrentLevel"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/FinishCurrentLevel"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/FinishCurrentLevel/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Finish Level
+"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Content/VBoxContainer/FinishCurrentLevel/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -1.0
+offset_right = -10.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+use_template = true
+template = "Win: {content}"
+txt = "35"
+mode = 1
+format = 9
+pick_initial_txt_from_render_label = false
+
+[node name="GameSpeed" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value2")
+id = "game_speed"
+has_options = true
+min_value = 0.5
+max_value = 2.0
+step = 0.25
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/GameSpeed"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/GameSpeed"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/GameSpeed/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "Game Speed
+"
+vertical_alignment = 1
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/GameSpeed/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+use_template = true
+template = "{content}x"
+txt = "YES"
+max_value = 2.0
+pick_initial_txt_from_render_label = false
+
+[node name="AiEnabled" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+script = ExtResource("4_aqf3h")
+value_element = NodePath("Background/Value2")
+id = "ai_enabled"
+has_options = true
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/AiEnabled"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/AiEnabled"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/AiEnabled/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 245.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+text = "AI Enabled"
+vertical_alignment = 1
+
+[node name="Value2" type="Label" parent="Content/VBoxContainer/AiEnabled/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_id5cx")
+theme_override_font_sizes/font_size = 18
+vertical_alignment = 1
+script = ExtResource("5_4s57h")
+render_label = NodePath(".")
+txt = "No"
+format = 9
+
+[node name="DecoSeparator2" type="ColorRect" parent="Content/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MenuActions" type="Node" parent="."]
+script = ExtResource("7_1lpwv")

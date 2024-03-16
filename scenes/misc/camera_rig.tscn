@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5b6dg5k1g4mk"]
 
-[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="1_ytbkx"]
-[ext_resource type="Script" path="res://scripts/misc/blinking_light.gd" id="2_xig3c"]
+[ext_resource type="Script" path="res://scripts/tools/camera_rig.gd" id="1_ytbkx"]
+[ext_resource type="Script" path="res://scripts/tools/blinking_light.gd" id="2_xig3c"]
 
 [node name="CameraRig" type="Node3D" node_paths=PackedStringArray("spotlight")]
 script = ExtResource("1_ytbkx")

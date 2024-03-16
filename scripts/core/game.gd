@@ -52,7 +52,7 @@ func _process(delta):
 	dev.print_screen("game_seed", "game seed: %s" % [seed])
 	dev.print_screen("game_time", "game time: %s" % [time])
 	
-	gui.tokens["game_time"] = game.time
+	widgets.tokens["game_time"] = game.time
 	
 	pass
 

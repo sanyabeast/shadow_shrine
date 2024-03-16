@@ -20,17 +20,17 @@ config/data_index="res://resources/data/index.tres"
 
 [audio]
 
-buses/default_bus_layout="res://resources/app/audio_bus_layout.tres"
+buses/default_bus_layout="res://resources/audio_bus_layout.tres"
 
 [autoload]
 
-tools="*res://scripts/utils/tools.gd"
+tools="*res://scripts/core_tools/tools.gd"
 app="*res://scripts/core/app.gd"
 world="*res://scripts/core/world.gd"
 player_manager="*res://scripts/core/player.gd"
 camera_manager="*res://scripts/core/camera.gd"
 game="*res://scripts/core/game.gd"
-gui="*res://scripts/core/gui.gd"
+widgets="*res://scripts/core/widget_manager.gd"
 dev="*res://_dev/dev_global.gd"
 
 [display]
@@ -46,13 +46,29 @@ enabled=PackedStringArray("res://addons/gpu_trail/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://_dev/": "red",
-"res://assets/": "purple",
-"res://assets/_dev/": "red",
+"res://_dev/": "purple",
+"res://addons/": "gray",
+"res://assets/": "blue",
+"res://assets/_dev/": "purple",
 "res://misc/": "gray",
-"res://resources/": "blue",
-"res://scenes/": "teal",
-"res://scripts/": "yellow"
+"res://resources/": "gray",
+"res://resources/glossary/": "purple",
+"res://resources/levels/": "purple",
+"res://resources/materials/": "teal",
+"res://resources/materials/particles/": "gray",
+"res://resources/materials/shaders/": "teal",
+"res://scenes/": "orange",
+"res://scenes/_dev/": "purple",
+"res://scripts/": "green",
+"res://scripts/_dev/": "purple",
+"res://scripts/core/": "teal",
+"res://scripts/core_resources/": "teal",
+"res://scripts/core_tools/": "teal",
+"res://scripts/core_weapons/": "teal",
+"res://scripts/core_widgets/": "teal",
+"res://scripts/tools/": "green",
+"res://scripts/widgets/": "green",
+"res://scripts/widgets/actions/": "green"
 }
 
 [input]

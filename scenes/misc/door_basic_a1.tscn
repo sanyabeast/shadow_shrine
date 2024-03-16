@@ -1,8 +1,8 @@
 [gd_scene load_steps=36 format=3 uid="uid://b2dpxeii4p11d"]
 
-[ext_resource type="Script" path="res://scripts/misc/door_helper.gd" id="1_mxn31"]
+[ext_resource type="Script" path="res://scripts/modes/default_game/door_helper.gd" id="1_mxn31"]
 [ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/medium_dust_spike_a.tscn" id="3_h518r"]
-[ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="4_al2hb"]
+[ext_resource type="Script" path="res://scripts/core_resources/fx_config.gd" id="4_al2hb"]
 [ext_resource type="Texture2D" uid="uid://c508aknb32464" path="res://assets/props/jerdelia/props/door_a1/textures/Image_10.003.png" id="5_qm88s"]
 [ext_resource type="Texture2D" uid="uid://dd0ijddoe7ud" path="res://assets/props/jerdelia/props/door_a1/textures/Image_11.002.png" id="6_dx384"]
 [ext_resource type="Texture2D" uid="uid://dlf38h0wdqew5" path="res://assets/props/jerdelia/props/door_a1/textures/Image_12.002.png" id="7_52sbi"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dwduaw75sq2us" path="res://assets/props/jerdelia/props/door_a1/textures/Image_0.006.png" id="12_mv65s"]
 [ext_resource type="Texture2D" uid="uid://c3nhrhnwqwitp" path="res://assets/props/jerdelia/props/door_a1/textures/Image_1.006.png" id="13_v0yws"]
 [ext_resource type="Texture2D" uid="uid://bbstndtjyinaj" path="res://assets/props/jerdelia/props/door_a1/textures/Image_2.006.png" id="14_y8fv7"]
-[ext_resource type="Script" path="res://scripts/misc/blinking_light.gd" id="15_3u160"]
+[ext_resource type="Script" path="res://scripts/tools/blinking_light.gd" id="15_3u160"]
 
 [sub_resource type="Resource" id="Resource_euv2s"]
 script = ExtResource("4_al2hb")

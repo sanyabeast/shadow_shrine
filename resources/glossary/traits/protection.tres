@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RDataCard" load_steps=2 format=3 uid="uid://db6y73inxr4vc"]
+
+[ext_resource type="Script" path="res://scripts/core_resources/data_card.gd" id="1_vliyu"]
+
+[resource]
+script = ExtResource("1_vliyu")
+name = "protection"
+title = "Protection"
+summary = "Protection acts as a shield, mitigating incoming damage and fortifying your character against harm in the game"
+extras = {}

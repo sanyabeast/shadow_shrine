@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhmsrndlp5x2j"]
 
-[ext_resource type="Script" path="res://scripts/weapons/projectile.gd" id="1_acecx"]
+[ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_acecx"]
 [ext_resource type="Script" path="res://scripts/resources/projectile_config.gd" id="2_otkri"]
 
 [sub_resource type="Resource" id="Resource_wdgtl"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjg72s56h1dpc"]
 
-[ext_resource type="Script" path="res://_dev/gizmo.gd" id="1_js4ar"]
+[ext_resource type="Script" path="res://scripts/_dev/gizmo.gd" id="1_js4ar"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpvg1"]
 transparency = 1

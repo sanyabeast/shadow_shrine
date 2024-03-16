@@ -2,8 +2,8 @@
 
 [ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/167074__drminky__slime-death-1.ogg" id="1_gh2ke"]
 [ext_resource type="PackedScene" uid="uid://2yp2i57kf7cx" path="res://scenes/fx/toxic_bubbles_vfx_oneshot.tscn" id="2_465xm"]
-[ext_resource type="Script" path="res://scripts/resources/fx_config.gd" id="3_obyms"]
-[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/kunai.tres" id="4_4qnvr"]
+[ext_resource type="Script" path="res://scripts/core_resources/fx_config.gd" id="3_obyms"]
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weaponary/kunai_launcher.tres" id="4_4qnvr"]
 [ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/340794__kuchenanderung1__slime-squish.ogg" id="5_xewb6"]
 [ext_resource type="PackedScene" uid="uid://d06mb8r053fit" path="res://scenes/fx/toxic_splash_a1.tscn" id="6_gwbyv"]
 [ext_resource type="Script" path="res://scripts/resources/character_config.gd" id="6_uq0t3"]

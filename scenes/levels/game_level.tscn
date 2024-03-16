@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcjqm0cnd4b14"]
 
-[ext_resource type="Script" path="res://scripts/game/game_mode_default_game.gd" id="1_6p6ra"]
-[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/_game_level_a1.tres" id="2_2ue1f"]
+[ext_resource type="Script" path="res://scripts/modes/game_mode_default_game.gd" id="1_6p6ra"]
+[ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/_game_level_a1.tres" id="2_2ue1f"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/rock_lee.tscn" id="3_7wmsv"]
-[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/hud/_dev_gui.tscn" id="4_sykm0"]
-[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/gui/inagame_gui.tscn" id="5_rhos5"]
+[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_sykm0"]
+[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/default_game_main_widget.tscn" id="5_rhos5"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/location_mist_soft.tscn" id="6_2j31m"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_rp17j"]
 

@@ -15,9 +15,9 @@ func set_active(character: S2Character):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if current != null:
-		#gui.set_token("player_health", current.health.value)
-		gui.set_token("player_health", fmod(game.time, 3))
-		gui.set_token("player_max_health", current.max_health.value)
+		#widgets.set_token("player_health", current.health.value)
+		widgets.set_token("player_health", fmod(game.time, 3))
+		widgets.set_token("player_max_health", current.max_health.value)
 	
 func _physics_process(delta):
 	if not game.paused and not game.is_over:
