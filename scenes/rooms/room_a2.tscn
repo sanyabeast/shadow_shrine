@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/modes/game/room_controller.gd" id="1_0tyov"]
 [ext_resource type="Resource" uid="uid://parbjaiw46e5" path="res://resources/rooms/roomconf_slimes_territory.tres" id="2_aib50"]
-[ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/jerdelia_a1.tres" id="2_hlrrb"]
+[ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/mlib_jerdelia_a.tres" id="2_hlrrb"]
 [ext_resource type="PackedScene" uid="uid://b2dpxeii4p11d" path="res://scenes/misc/door_basic_a1.tscn" id="3_4l5w3"]
 [ext_resource type="PackedScene" uid="uid://bjg72s56h1dpc" path="res://scenes/_dev/giz_player_spawn.tscn" id="5_88b17"]
 [ext_resource type="PackedScene" uid="uid://bx4qukdpvbfsh" path="res://scenes/_dev/giz_enemy_spawn.tscn" id="6_gxkyp"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://blyunibxrlnkg"]
 
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_hud.gd" id="1_kgvs1"]
-[ext_resource type="FontFile" uid="uid://cg5nyh57rpmy6" path="res://assets/fonts/SuperSalad-qZgvV.ttf" id="2_pjyfq"]
+[ext_resource type="FontFile" uid="uid://cg5nyh57rpmy6" path="res://assets/fonts/fon_super_salad.ttf" id="2_pjyfq"]
 [ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="3_wov81"]
 [ext_resource type="PackedScene" uid="uid://c6106voq6o8m3" path="res://_dev/widget/_heart_progress_bar_a1.tscn" id="4_32e7h"]
 [ext_resource type="PackedScene" uid="uid://bi8tu2dcpdbar" path="res://_dev/widget/_very_basic_progress_bar.tscn" id="4_ajy3b"]

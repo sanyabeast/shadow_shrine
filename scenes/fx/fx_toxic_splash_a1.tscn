@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://d06mb8r053fit"]
 
-[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/liquid_puddle_a3.png" id="1_72go3"]
+[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/sprites/liquid_puddle_a3.png" id="1_72go3"]
 
 [sub_resource type="Curve" id="Curve_oi47x"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.499384, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

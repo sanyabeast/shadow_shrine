@@ -4,9 +4,9 @@
 [ext_resource type="AudioStream" uid="uid://dbylnohkulc4s" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click5.ogg" id="2_jn4nb"]
 [ext_resource type="Script" path="res://scripts/resources/res_menu_sfx_config.gd" id="3_yp6u7"]
 [ext_resource type="FontFile" uid="uid://xhwt6d1tx5j" path="res://assets/_dev/fonts/rebuffed-font/Rebuffed-apMK.ttf" id="4_ikwy5"]
-[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/liquid_puddle_a3.png" id="5_n5luw"]
+[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/sprites/liquid_puddle_a3.png" id="5_n5luw"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="6_d6ctl"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="7_fkc4f"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="7_fkc4f"]
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_game_over_menu.gd" id="8_pxy07"]
 
 [sub_resource type="Resource" id="Resource_juffp"]

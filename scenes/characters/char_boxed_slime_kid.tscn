@@ -9,7 +9,7 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_6kxlq"]
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="9_8k31u"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_0cs4p"]
-[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weaponary/_wpconf_baloon_launcher.tres" id="10_xwxi6"]
+[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="10_xwxi6"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_npc_controller.gd" id="11_0bwyr"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/fx_toxic_bubbles.tscn" id="12_s6jrf"]
 

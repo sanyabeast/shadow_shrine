@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RMenuSFX" load_steps=6 format=3 uid="uid://ctwvgtpy2j0fv"]
 
-[ext_resource type="AudioStream" uid="uid://ch4c5i67terv" path="res://assets/_dev/sound/widget/click.ogg" id="1_hvvdq"]
-[ext_resource type="AudioStream" uid="uid://dyi4p3f63t5el" path="res://assets/_dev/sound/widget/Menu Selection Click.ogg" id="2_fuqy7"]
+[ext_resource type="AudioStream" uid="uid://ch4c5i67terv" path="res://assets/_dev/sound/widget/sfx_click.ogg" id="1_hvvdq"]
+[ext_resource type="AudioStream" uid="uid://dyi4p3f63t5el" path="res://assets/_dev/sound/widget/sfx_Menu Selection Click.ogg" id="2_fuqy7"]
 [ext_resource type="AudioStream" uid="uid://2vrpjvd0h4y6" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/switch38.ogg" id="2_gr0y3"]
-[ext_resource type="AudioStream" uid="uid://nvh3ipifhyla" path="res://assets/_dev/sound/widget/zipclick.ogg" id="3_u3ix2"]
+[ext_resource type="AudioStream" uid="uid://nvh3ipifhyla" path="res://assets/_dev/sound/widget/sfx_zipclick.ogg" id="3_u3ix2"]
 [ext_resource type="Script" path="res://scripts/resources/res_menu_sfx_config.gd" id="4_qf2q1"]
 
 [resource]

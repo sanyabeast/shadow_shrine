@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dou1p6vpt8xv0"]
 
-[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/liquid_puddle_a3.png" id="1_d7n83"]
+[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/sprites/liquid_puddle_a3.png" id="1_d7n83"]
 
 [sub_resource type="Gradient" id="Gradient_m2056"]
 offsets = PackedFloat32Array(0, 0.167105, 0.555263, 1)

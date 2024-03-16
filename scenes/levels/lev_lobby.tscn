@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/modes/gm_lobby.gd" id="1_kkbjp"]
 [ext_resource type="Script" path="res://scripts/tools/ambient_sound_player.gd" id="2_wsyxj"]
-[ext_resource type="AudioStream" uid="uid://e1sshe8mxlrk" path="res://assets/_dev/sound/Jagged Stone - Dark Theme.ogg" id="3_1tseb"]
-[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="4_2lte1"]
+[ext_resource type="AudioStream" uid="uid://e1sshe8mxlrk" path="res://assets/_dev/sound/mus_Jagged Stone - Dark Theme.ogg" id="3_1tseb"]
+[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="4_2lte1"]
 [ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="5_2k1dm"]
 [ext_resource type="Script" path="res://scripts/tools/handcamera.gd" id="6_2vkhj"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="7_0624v"]

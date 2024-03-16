@@ -1,10 +1,10 @@
 [gd_scene load_steps=20 format=3 uid="uid://by66kvhnhkn2b"]
 
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_controller.gd" id="1_58r2h"]
-[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a1.tres" id="2_d0ivd"]
-[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_qnium"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a.tres" id="2_d0ivd"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/fon_sparky_stones_regular.ttf" id="2_qnium"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="2_y3e2j"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_5ft24"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="3_5ft24"]
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_audio_settings_menu.gd" id="4_ivomp"]
 [ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="4_owspp"]
 

@@ -1,14 +1,14 @@
 [gd_scene load_steps=26 format=3 uid="uid://bdyfbnq4358i5"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_ctmm4"]
-[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weaponary/wpconf_kunai_launcher.tres" id="2_oktyj"]
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/gunconf_kunai_launcher.tres" id="2_oktyj"]
 [ext_resource type="Script" path="res://scripts/resources/res_character_config.gd" id="3_1f4tj"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="4_jdb74"]
 [ext_resource type="Texture2D" uid="uid://ewh41f7cu16q" path="res://assets/props/jerdelia/textures/Basecolor_0.001.png" id="5_dq6ql"]
 [ext_resource type="Texture2D" uid="uid://dj3u40lm6ye5w" path="res://assets/props/jerdelia/textures/Normals_0.001.png" id="6_tlev0"]
-[ext_resource type="AnimationLibrary" uid="uid://clkln4le7ihoi" path="res://assets/animations/humanoid_basic_a1.blend" id="7_mf4ef"]
+[ext_resource type="AnimationLibrary" uid="uid://clkln4le7ihoi" path="res://assets/animations/alib_humanoid_basic_a.blend" id="7_mf4ef"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="8_n8tpr"]
-[ext_resource type="Texture2D" uid="uid://cpkmu1v4kianp" path="res://assets/_dev/human_footsteps_shoes_a2.png" id="9_mcqkw"]
+[ext_resource type="Texture2D" uid="uid://cpkmu1v4kianp" path="res://assets/_dev/sprites/human_footsteps_shoes_a2.png" id="9_mcqkw"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_tb8l0"]
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="11_lwdre"]
 

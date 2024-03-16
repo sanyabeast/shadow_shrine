@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_controller.gd" id="1_hxvce"]
 [ext_resource type="Resource" uid="uid://dl0nikf305rwm" path="res://_dev/resources/_res_dev_menu_sfx.tres" id="2_fc8hn"]
-[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="3_rpa2w"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/fon_sparky_stones_regular.ttf" id="3_rpa2w"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="4_aqf3h"]
 [ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="5_4s57h"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="5_id5cx"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="5_id5cx"]
 [ext_resource type="Script" path="res://_dev/_dev_menu_actions.gd" id="7_1lpwv"]
 
 [sub_resource type="Animation" id="Animation_m761b"]

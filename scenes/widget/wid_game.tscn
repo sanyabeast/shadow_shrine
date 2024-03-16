@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://w5gof5ybxit" path="res://scenes/widget/wid_game_over.tscn" id="5_f7u4p"]
 [ext_resource type="PackedScene" uid="uid://dd4cusqsvp4ur" path="res://scenes/widget/wid_screen_fx.tscn" id="6_k48no"]
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_highlights.gd" id="7_qe56u"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="8_xpk8q"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="8_xpk8q"]
 [ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="9_vrnmk"]
 
 [sub_resource type="Animation" id="Animation_57pjj"]

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_juntc"]
 [ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_fqy2b"]
-[ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/gingie - knife throw.ogg" id="3_eabav"]
+[ext_resource type="AudioStream" uid="uid://cvq0phjp0ksp7" path="res://assets/_dev/sound/sfx/sfx_gingie - knife throw.ogg" id="3_eabav"]
 [ext_resource type="PackedScene" uid="uid://b2vlourw215rg" path="res://scenes/fx/fx_small_projectile_flight_trail.tscn" id="4_qakqh"]
 [ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="5_h7ge2"]
-[ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/lukesharples__sword-block-2.ogg" id="6_d0ect"]
+[ext_resource type="AudioStream" uid="uid://cx7841ss3b02u" path="res://assets/_dev/sound/sfx/sfx_lukesharples__sword-block-2.ogg" id="6_d0ect"]
 [ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/fx_metal_hit_sparks_a.tscn" id="7_mrrw5"]
 [ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/fx_kunai_wasted.tscn" id="8_50g8g"]
 [ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="9_j475n"]

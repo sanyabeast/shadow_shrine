@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d3onpx6i7rexb"]
 
-[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/dust_spike_a1.png" id="1_6nljv"]
+[ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="1_6nljv"]
 
 [sub_resource type="Gradient" id="Gradient_nsu77"]
 offsets = PackedFloat32Array(0, 0.265426, 1)

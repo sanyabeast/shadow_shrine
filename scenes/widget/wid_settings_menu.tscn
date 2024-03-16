@@ -1,10 +1,10 @@
 [gd_scene load_steps=21 format=3 uid="uid://df57o0ekejdac"]
 
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_controller.gd" id="1_v3g5x"]
-[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a1.tres" id="2_0q56f"]
+[ext_resource type="Resource" uid="uid://ctwvgtpy2j0fv" path="res://resources/widgets/menu_sfx_a.tres" id="2_0q56f"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="2_2vqlp"]
-[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/SparkyStonesRegular-BW6ld.ttf" id="2_xiw2j"]
-[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/infini-gras.otf" id="3_p77a6"]
+[ext_resource type="FontFile" uid="uid://de647bl5dl7pe" path="res://assets/fonts/fon_sparky_stones_regular.ttf" id="2_xiw2j"]
+[ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="3_p77a6"]
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_settings_menu.gd" id="3_spvvw"]
 [ext_resource type="PackedScene" uid="uid://by66kvhnhkn2b" path="res://scenes/widget/wid_audio_settings_menu.tscn" id="5_mdb5d"]
 [ext_resource type="PackedScene" uid="uid://l3lmp6jclmu0" path="res://scenes/widget/wid_video_settings_menu.tscn" id="6_thmy2"]
