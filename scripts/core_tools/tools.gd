@@ -208,3 +208,10 @@ func calculate_reflected_direction(direction: Vector3, normal: Vector3) -> Vecto
 	reflected_direction.y = 0
 	
 	return reflected_direction
+
+func cycle_within_range(value, from_val, to):
+	if value > to:
+		value = from_val + (value - from_val) % (to - from_val + 1)
+	if value < from_val:
+		value = to - (from_val - value) % (to - from_val + 1) + 1
+	return value

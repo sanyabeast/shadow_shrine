@@ -6,13 +6,25 @@ extends Node
 class_name GAppManager
 const TAG: String = "AppManager"
 
+enum EGraphicsQualityPreset {
+	VeryLow,
+	Low,
+	Medium,
+	High,
+	VeryHigh
+}
+
 const SETTINGS_CONFIG_PATH: String = "user://settings.cfg"
 const SETTINGS_KEY: String = "settings"
 const SETTINGS_AUDIO_MASTER_VOLUME_KEY: String = "audio_settings__master_volume"
 const SETTINGS_AUDIO_MUSIC_VOLUME_KEY: String = "audio_settings__music_volume"
 const SETTINGS_AUDIO_SFX_VOLUME_KEY: String = "audio_settings__sfx_volume"
+
+const SETTINGS_VIDEO_PRESET: String = "video_settings__preset"
 const SETTINGS_VIDEO_RENDER_SCALE: String = "video_settings__render_scale"
 const SETTINGS_VIDEO_RENDER_SHARPNESS: String = "video_settings__render_sharpness"
+
+signal on_graphics_quality_preset_changed
 
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
 
@@ -21,10 +33,12 @@ var tasks: GTasker = GTasker.new(false)
 var cooldowns: GCooldowns = GCooldowns.new(false)
 var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
+var graphics_quality: EGraphicsQualityPreset = EGraphicsQualityPreset.High
+
 # Create new ConfigFile object.
 var settings_config = ConfigFile.new()
 
-# Called when the node enters the scene tree for the first time.
+#region: Lifecycle
 func _ready():
 	var settings_config_err_code = settings_config.load(SETTINGS_CONFIG_PATH)
 	if settings_config_err_code != 0:
@@ -35,19 +49,17 @@ func _ready():
 	dev.logd(TAG, "is debug: %s" % tools.IS_DEBUG)
 	_load_settings()
 	
-	#AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(0))
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	tasks.update()
-	pass
 
 func quit():
 	dev.logd(TAG, "quitting...")
 	get_tree().quit()
+#endregion
 
-# SETTINGS
+#region: Settings management
 func set_setting(key: String, value: Variant):
 	tools.logd(TAG, "saving setting at %s, value: %s" % [key, value])
 	settings_config.set_value(SETTINGS_KEY, key, value)
@@ -61,7 +73,19 @@ func get_setting(key: String, default: Variant = null):
 	var result = settings_config.get_value(SETTINGS_KEY, key, default)
 	tools.logd(TAG, "loaded setting at %s is %s" % [key, result])
 	return result
-# SOUND
+
+func _load_settings():
+	set_volume(get_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, 1))
+	set_music_volume(get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 1))
+	set_sfx_volume(get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1))
+	
+	set_render_scale(get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1))
+	set_render_sharpness(get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1))
+	
+	set_graphics_quality(get_setting(SETTINGS_VIDEO_PRESET, EGraphicsQualityPreset.High))
+#endregion
+
+#region: Sound management
 func set_volume(value: float):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(clampf(value, 0, 1)))
 	set_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, value)
@@ -82,16 +106,9 @@ func get_music_volume()->float:
 	
 func get_sfx_volume()->float:
 	return get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1)
+#endregion
 
-func _load_settings():
-	set_volume(get_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, 1))
-	set_music_volume(get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 1))
-	set_sfx_volume(get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1))
-	
-	set_render_scale(get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1))
-	set_render_sharpness(get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1))
-
-# RENDERING
+#region: Remndering and Graphics settings
 func set_render_scale(value: float):
 	value = clampf(value, 0, 1)
 	var viewport = get_viewport()
@@ -101,7 +118,6 @@ func set_render_scale(value: float):
 func get_render_scale()->float:
 	return get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1)
 
-# fsr sharpness
 func set_render_sharpness(value: float):
 	value = clampf(value, 0, 2)
 	var viewport = get_viewport()
@@ -110,3 +126,16 @@ func set_render_sharpness(value: float):
 
 func get_render_sharpness()->float:
 	return get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1)
+
+func set_graphics_quality(preset: EGraphicsQualityPreset):
+	graphics_quality = preset
+	set_setting(SETTINGS_VIDEO_PRESET, preset)
+	on_graphics_quality_preset_changed.emit()
+	_update_quality_preset_settings()
+
+func get_graphics_quality() -> EGraphicsQualityPreset:
+	return graphics_quality
+
+func _update_quality_preset_settings():
+	pass
+#endregion

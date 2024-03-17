@@ -23,7 +23,7 @@ var is_active: bool = false
 var menu: GMenuController
 
 # Variable to determine if the menu item is in options mode.
-var _enumerable_mode: bool = false
+var is_enumerable: bool = false
 
 # Signals emitted when the menu item's active state changes or when it is submitted.
 signal on_active_change(item: GMenuItem, is_active: bool)
@@ -32,7 +32,7 @@ signal on_submit(item: GLobbyWidget)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Determine if the menu item is in options mode.
-	_enumerable_mode = options.size() > 0
+	is_enumerable = options.size() > 0
 	pass # Replace with function body.
 
 # Method to represent the menu item as a string.
@@ -51,11 +51,20 @@ func get_float() -> float:
 func get_bool() -> bool:
 	return value > 0.5
 
+func get_option():
+	return options[option_index]
+
+func get_value():
+	if is_enumerable:
+		return get_option()
+	else:
+		return value
+
 # Method to navigate to the next option or increment the value.
 func next_option():
 	if has_options:
-		if _enumerable_mode:
-			option_index = (option_index + 1) % options.size()
+		if is_enumerable:
+			option_index = tools.cycle_within_range(option_index + 1, 0, options.size() - 1)
 		else:
 			value = clampf(value + step, min_value, max_value)
 	
@@ -66,8 +75,8 @@ func next_option():
 # Method to navigate to the previous option or decrement the value.
 func prev_option():
 	if has_options:
-		if _enumerable_mode:
-			option_index = (option_index - 1) % options.size()
+		if is_enumerable:
+			option_index = tools.cycle_within_range(option_index - 1, 0, options.size() - 1)
 		else:
 			value = clampf(value - step, min_value, max_value)
 	
@@ -115,6 +124,12 @@ func parse_value(_value):
 				var _index = options.find(_value)
 				option_index =_index
 		pass
+	
+	_after_option_updated()
+
+func set_option_index(index: int):
+	index = tools.cycle_within_range(index, 0, options.size())
+	option_index = index
 	
 	_after_option_updated()
 

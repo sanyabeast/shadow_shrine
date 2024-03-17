@@ -26,17 +26,6 @@ func _ready():
 		title_element.text = title
 	pass
 
-func _generate_console_type(value: float) -> String:
-	var r = ""
-	var max_count: int = 5
-	var count: int = round(value * max_count)
-	for i in max_count:
-		if i > count:
-			r += ""
-		else:
-			r += "#"
-	return r
-
 func _after_option_updated():
 	if value_element != null:
-		value_element.set_content(value)
+		value_element.set_content(get_value(), options, min_value, max_value)

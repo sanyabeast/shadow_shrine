@@ -9,7 +9,13 @@ var menu: GMenuController
 
 func initialize_items(items: Array[GMenuItem]):
 	for item in items:
-		item.parse_value(_init_item(item.id)) 
+		if item.is_enumerable:
+			var index = _init_item(item.id);
+			if index == null:
+				index = 1
+			item.set_option_index(index)
+		else:
+			item.parse_value(_init_item(item.id)) 
 
 func handle_submit(id: String, item: GMenuItem):
 	dev.logd(TAG, "handling submit action for %s" % id)

@@ -220,6 +220,7 @@ common/physics_ticks_per_second=120
 
 [rendering]
 
+shading/overrides/force_vertex_shading=true
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 scaling_3d/mode=2
 scaling_3d/fsr_sharpness=1.0
