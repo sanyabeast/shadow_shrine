@@ -43,10 +43,10 @@ func start():
 		world.spawn_fx(start_fx, position)
 	
 	if schedule_to_app_tasks:
-		app.tasks.schedule(self, self.name + "task-start", schedule_task_duration, start)
+		app.tasks.queue(self, self.name + "task-start", schedule_task_duration, null, start)
 	else:
 		if schedule_to_game_tasks:
-			game.tasks.schedule(self, self.name + "task-start", schedule_task_duration, start)
+			game.tasks.queue(self, self.name + "task-start", schedule_task_duration, null, start)
 			
 	_start()
 	pass

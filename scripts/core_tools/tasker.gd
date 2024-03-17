@@ -47,7 +47,7 @@ class Task:
 	
 	# Check if the task is valid (has a valid owner).
 	func is_valid()->bool:
-		return owner != null
+		return owner != null and owner.is_inside_tree()
 		
 	# Get the current time based on the chosen time mode.
 	func get_time() -> float:

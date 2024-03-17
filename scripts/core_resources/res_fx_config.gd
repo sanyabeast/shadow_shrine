@@ -30,4 +30,4 @@ enum EFXDisposeStrategy {
 
 # Method to represent the FX configuration as a string.
 func _to_string():
-	return "FXConfig(audio: %s, content: %)" % [audio, content.size()]
+	return "FXConfig(audio: %s, content: %s)" % [audio, content.size()]

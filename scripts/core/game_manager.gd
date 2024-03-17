@@ -9,7 +9,6 @@ var mode: GGameMode
 var time: float = 0
 var speed: float = 1
 var paused: bool = true
-var ai_enabled: bool = false
 var tasks: GTasker = GTasker.new(true)
 var timer_gate: GTimeGateHelper = GTimeGateHelper.new(true)
 var seed: int = 0
@@ -38,10 +37,17 @@ func set_mode(_mode: GGameMode):
 		
 	mode = _mode
 	
+	if mode.player_driver != null:
+		characters.set_player_driver(mode.player_driver)
+	
+	if mode.npc_driver != null:
+		characters.set_npc_driver(mode.npc_driver)
+		
 func unset_mode(_mode: GGameMode):
 	if mode == _mode:
 		mode.finish_game()
 		mode = null
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -64,14 +70,6 @@ func resume():
 	
 func pause():
 	paused = true
-
-func enable_ai():
-	dev.logd(TAG, "ai enabled")
-	ai_enabled = true
-
-func disable_ai():
-	dev.logd(TAG, "ai disabled")
-	ai_enabled = false
 
 func finish(_is_won: bool):
 	dev.logd(TAG, "game finished, player: %s" % ("won" if _is_won else "lose"))

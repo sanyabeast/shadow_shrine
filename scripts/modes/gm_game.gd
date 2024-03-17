@@ -49,10 +49,9 @@ func _ready():
 
 func prepare():
 	super.prepare()
+	
 	game.start()
 	random.set_seed(game.seed)
-	
-	
 	
 	screen_fx = widgets.controller.screen_fx
 	environment_node = $Environment
@@ -65,6 +64,9 @@ func prepare():
 	
 	widgets.controller.highlights.delay(1)
 	
+	characters.on_enemies_alive.connect(_handle_enemies_appear)
+	characters.on_enemies_dead.connect(_handle_all_enemies_dead)
+	
 	reset()
 	game.resume()
 
@@ -74,7 +76,7 @@ func _init_player():
 		
 	player.use_as_player = true
 	add_child(player)
-	player_manager.set_active(player)
+	characters.set_player(player)
 
 func _setup_ambient_sound():
 	_expore_ambience_mixer = GAmbientPlaylistPlayer.new(config.explore_playlist, 0)
@@ -104,7 +106,7 @@ func reset_maze():
 	print(current_maze_cell)
 	
 func spawn_room(from_direction):
-	game.disable_ai()
+	characters.disable_ai()
 	
 	var is_player_first_time_in_the_room: bool = true
 	
@@ -158,10 +160,10 @@ func spawn_room(from_direction):
 	else:
 		player_spawn = current_room.door_controllers[oposite_direction].player_spawn
 		
-	player_manager.teleport(player_spawn.global_position + Vector3(0, 2,0))
+	characters.teleport_player(player_spawn.global_position + Vector3(0, 2,0))
+	characters.enable_player()
 	
-	_check_ambient_sound_mix()
-	tasks.schedule(self, "enable_ai", 0.5, game.enable_ai)
+	tasks.queue(self, "enable_ai", 0.5, null, characters.enable_ai)
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
 	
 	if is_player_first_time_in_the_room:
@@ -172,7 +174,7 @@ func next_room(from_direction: world.EDirection, skip_fade: bool = false):
 		_next_room(from_direction)
 	else:
 		screen_fx.fade_out(ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION)
-		tasks.schedule(self, "next_room", ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION * 1.1, _next_room.bind(from_direction))
+		tasks.queue(self, "next_room", ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION * 1.1, null, _next_room.bind(from_direction))
 
 func _next_room(from_direction: world.EDirection):
 	if current_room != null:
@@ -200,60 +202,48 @@ func get_oposite_direction(direcrion: world.EDirection) -> world.EDirection:
 		_:
 			return world.EDirection.East
 
+#region: EVENT HANDLERS
 func handle_player_entered_door_area(direction: world.EDirection, player: GCharacterController):
-	dev.logd(TAG, "player %s entered door %s" % [player_manager.name, world.get_direction_pretty_name(direction)])
+	dev.logd(TAG, "player %s entered door %s" % [player.name, world.get_direction_pretty_name(direction)])
 	next_room(direction)
 
 func handle_player_exited_door_area(direction: world.EDirection, player: GCharacterController):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
 
+func _handle_enemies_appear():
+	dev.logd(TAG, "enemies appear")
+	
+	_battle_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)
+	_battle_ambience_mixer.next_track()
+	_expore_ambience_mixer.pause_mix(AMBIENCE_SHORT_FADE_TIME)
+	
+	if current_room.doors_opened:
+		current_room.close_doors()
+
+func _handle_all_enemies_dead():
+	dev.logd(TAG, "all enemies died")
+	
+	_battle_ambience_mixer.pause_mix(AMBIENCE_LONG_FADE_TIME)
+	_expore_ambience_mixer.play_mix(AMBIENCE_LONG_FADE_TIME)
+	_expore_ambience_mixer.next_track()
+	
+	if not current_room.doors_opened:
+		game.tasks.queue(self, "open-doors", 1, null, current_room.open_doors)
+
+#endregion
 func _process(delta):
 	super._process(delta)
 	
+	if not game.is_over and not game.paused and Input.is_action_just_pressed("pause"):
+		game.pause()
+		
 	tasks.update()
 	
 	dev.print_screen("maze_cell_xy", "maze cell x/y: %s/%s" % [current_maze_cell.x, current_maze_cell.y])
 	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
-	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))
-	dev.print_screen("room_alive_enemies", "alive enemies: %s" % [current_room.alive_enemies.size()])
+	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))	
 	
-	if not game.is_over and not game.paused and Input.is_action_just_pressed("pause"):
-		game.pause()
-			
-	if game.timer_gate.check("check_door_state", 1):
-		if not current_room.doors_opened and current_room.alive_enemies.size() == 0:
-			current_room.open_doors()
-		elif current_room.doors_opened and current_room.alive_enemies.size() > 0:
-			current_room.close_doors()
-	
-	if game.timer_gate.check("check_camera_state", 1):
-		if current_room.alive_enemies.size() == 0:
-			camera_manager.current.target_zoom = 0
-		else:
-			camera_manager.current.target_zoom = 1
-			
-	if app.timer_gate.check("switch_ambient_music", 1):
-		_check_ambient_sound_mix()
-
-func _check_ambient_sound_mix():
-	# has enemies
-	if current_room.alive_enemies.size() > 0 and not _battle_ambience_mixer.is_playing:
-		if AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP:
-			_battle_ambience_mixer.next_track()
-		_battle_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)
-		
-	if current_room.alive_enemies.size() > 0 and _expore_ambience_mixer.is_playing:
-		_expore_ambience_mixer.pause_mix(AMBIENCE_SHORT_FADE_TIME)
-		
-	# no enemies
-	if current_room.alive_enemies.size() == 0 and _battle_ambience_mixer.is_playing:
-		_battle_ambience_mixer.pause_mix(AMBIENCE_LONG_FADE_TIME)
-		
-	if current_room.alive_enemies.size() == 0 and not _expore_ambience_mixer.is_playing:
-		if AMBIENCE_SWAP_TRACK_ON_PLAYLIST_SWAP:
-			_expore_ambience_mixer.next_track()
-		_expore_ambience_mixer.play_mix(AMBIENCE_SHORT_FADE_TIME)
 
 func quit_to_main_menu():
 	screen_fx.fade_out(0.2)
-	app.tasks.schedule(world.get_scene(), "load_main_menu_level", 0.4, tools.load_scene.bind(main_menu_scene))
+	app.tasks.queue(world.get_scene(), "load_main_menu_level", 0.4, null, tools.load_scene.bind(main_menu_scene))

@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=13 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/modes/gm_game.gd" id="1_b4mm0"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_lbhup"]
+[ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="4_hapcl"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_loud7"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
+[ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="5_ufud1"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_nsc11"]
 
@@ -46,12 +48,19 @@ adjustment_enabled = true
 adjustment_brightness = 1.15
 adjustment_saturation = 1.5
 
-[node name="LevelGame" type="Node3D"]
+[node name="LevelGame" type="Node3D" node_paths=PackedStringArray("player_driver", "npc_driver")]
 script = ExtResource("1_b4mm0")
 config = ExtResource("2_xe5b6")
 player_packed = ExtResource("3_lbhup")
 main_menu_scene = "res://scenes/levels/lev_lobby.tscn"
-seed_key = null
+player_driver = NodePath("GPlayerDriver")
+npc_driver = NodePath("GNpcDriver")
+
+[node name="GPlayerDriver" type="Node" parent="."]
+script = ExtResource("4_hapcl")
+
+[node name="GNpcDriver" type="Node" parent="."]
+script = ExtResource("5_ufud1")
 
 [node name="_DevGUI" parent="." instance=ExtResource("4_loud7")]
 

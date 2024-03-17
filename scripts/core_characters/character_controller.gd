@@ -56,10 +56,10 @@ var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: GCooldowns = GCooldowns.new(true)
-var npc_controller: GCharacterNpcController
 
 var body_controller: GCharacterBodyController
 var weapon: GWeaponController
+var nav_agent: NavigationAgent3D = NavigationAgent3D.new()
 
 var is_dead: bool = false
 
@@ -97,11 +97,7 @@ signal on_fire(weapon: GWeaponController, direction: Vector3)
 func _ready():
 	_traverse(self)
 
-	if use_as_player and player_manager.current == null:
-		player_manager.set_active(self)
-
-	if npc_controller == null:
-		npc_controller = GCharacterNpcController.new()
+	add_child(nav_agent)
 
 	if body_controller != null:
 		body_controller.initialize(self)
@@ -119,21 +115,20 @@ func _ready():
 	speed.on_changed.connect(_handle_ability_change)
 	protection.on_changed.connect(_handle_ability_change)
 	damage.on_changed.connect(_handle_ability_change)
+	
+	if use_as_player and characters.player == null:
+		characters.set_player(self)
 
-	npc_controller.initialize(self)
 
 func _enter_tree():
-	world.link_character(self)
+	characters.link(self)
 
 func _exit_tree():
-	world.unlink_character(self)
+	characters.unlink(self)
 
 func _traverse(node):
 	if node is GWeaponController:
 		weapon = node
-
-	if node is GCharacterNpcController:
-		npc_controller = node
 
 	if node is GCharacterBodyController:
 		body_controller = node
@@ -142,7 +137,6 @@ func _traverse(node):
 	for child in node.get_children():
 		_traverse(child)
 
-
 func _physics_process(delta):
 	if not game.paused:
 		var _walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
@@ -150,7 +144,7 @@ func _physics_process(delta):
 		velocity.x = walk_direction.x * _walk_power * speed.value * game.speed
 		velocity.z = walk_direction.z * _walk_power * speed.value * game.speed
 
-		velocity += impulse_direction * (impulse_power) * game.speed
+		velocity += impulse_direction * (pow(impulse_power, 0.5)) * game.speed
 
 		#move_and_collide(global_transform.basis.z)
 		global_position.y = 0
@@ -166,80 +160,62 @@ func _physics_process(delta):
 				var collider = coll.get_collider() if coll != null else null
 
 				if collider != null:
-					if not player_manager.is_player(self) and collider is GridMap:
+					if not characters.is_player(self) and collider is GridMap:
 						commit_impulse(coll.get_normal(), 2)
 
-					if collider is GCharacterController and player_manager.is_player(collider):
+					if collider is GCharacterController and characters.is_player(collider):
 						commit_impulse(
 							coll.get_normal(),
-							config.speed * clampf(pow(collider.get_mass() / get_mass(), 2), 0, 1)
+							2 * clampf(pow(collider.get_mass() / get_mass(), 2), 0, 1)
 						)
-
-
+						
 func set_walk_power(value: float):
 	walk_power = value
-
 
 func set_walk_direction(value: Vector2):
 	walk_direction = Vector3(value.x, 0, value.y)
 
-
 func set_look_direction(value: Vector2):
 	if value.length() > 0.05:
 		look_direction = Vector3(value.x, 0, value.y)
-
 
 func fire():
 	if weapon:
 		weapon.fire(look_direction)
 		on_fire.emit(weapon, look_direction)
 
-
 func _process(delta):
-	#print("move direction: %s" % walk_direction)
-	#print("aim direction: %s" % look_direction)
+	if not game.paused:
+		_update_abilities(delta)
 
-	#rotate_body(delta)
+		# Always rotate the aim node toward the aim direction
+		if look_direction.length_squared() > 0:
+			aim_rig.look_at(aim_rig.global_position + look_direction, Vector3.UP)
 
-	if not player_manager.is_player(self):
-		npc_controller.update(delta)
+		if weapon:
+			weapon.keeper = self
 
-	_update_abilities(delta)
-
-	# Always rotate the aim node toward the aim direction
-	if look_direction.length_squared() > 0:
-		aim_rig.look_at(aim_rig.global_position + look_direction, Vector3.UP)
-
-	if weapon:
-		weapon.keeper = self
-
-	dev.set_label(
-		self,
-		{
-			"health": "Health: %s" % health.value,
-			"max_health": "Max health: %s" % max_health.value,
-			"speed": "Speed: %s" % speed.value
-		}
-	)
-	pass
-	#aim_rig.rotation_degrees.y = _target_aim_rotation
-
-
+		dev.set_label(
+			self,
+			{
+				"health": "Health: %s" % health.value,
+				"max_health": "Max health: %s" % max_health.value,
+				"speed": "Speed: %s" % speed.value
+			}
+		)
+	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO):
 	_last_damage_point = to_local(point)
 	health.alter_value(-value)
 
-
 func commit_heal(value: float):
 	health.alter_value(value)
-
 
 func commit_impulse(direction: Vector3, power: float):
 	impulse_direction = (impulse_direction + direction).normalized()
 	impulse_direction.y = 0
 	impulse_power = max(impulse_power, power)
 	pass
-
 
 func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
 	dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
@@ -253,37 +229,32 @@ func _handle_ability_change(name: String, old_value: float, new_value: float, in
 			if new_value == 0:
 				die()
 
-	pass
-
-
 func get_mass() -> float:
-	if player_manager.is_player(self):
-		return config.mass * player_manager.mass_scale
+	if characters.is_player(self):
+		return config.mass * characters.player_mass_scale
 	else:
 		return config.mass
-
 
 func get_scalar_velocity():
 	return tools.to_v2(velocity).length()
 
-
 func die():
+	call_deferred("_die")
+func _die():
 	dev.logd(TAG, "character dies %s" % name)
 	is_dead = true
-
+	
 	collision_layer = 0
+
 	set_walk_power(0)
 
 	for node in hide_on_death:
 		node.visible = false
-
-	collider.disabled = true
+		
+	collider.disabled = true	
 
 	if config.death_fx != null:
 		world.spawn_fx(config.death_fx, global_position)
-
-	#game.tasks.schedule(self, "destroy", 2, queue_free)
-
 
 func _update_abilities(delta):
 	health.update(delta)
@@ -292,4 +263,4 @@ func _update_abilities(delta):
 	damage.update(delta)
 
 func is_player():
-	return player_manager.is_player(self)
+	return characters.is_player(self)

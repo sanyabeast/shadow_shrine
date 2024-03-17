@@ -113,11 +113,6 @@ func restrict_to_4_axis(raw_direction: Vector2) -> Vector2:
 func get_time()->float:
 	return Time.get_ticks_msec() / 1000.0
 
-func get_seeded_rng(seed_key: int) -> RandomNumberGenerator:
-	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.seed = seed_key
-	return rng
-
 func reload_scene():
 	var current_scene = get_tree().current_scene
 	get_tree().reload_current_scene()

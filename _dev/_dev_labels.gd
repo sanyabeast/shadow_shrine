@@ -16,7 +16,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	_update_labels()
+	if visible:
+		_update_labels()
 	pass
 
 func set_label(target: Node3D, lines: Dictionary):
@@ -58,7 +59,7 @@ func _update_labels():
 	
 	if camera3d != null:
 		for label_id in _containers.keys():
-			if _targets[label_id] == null:
+			if _targets[label_id] == null or not _targets[label_id].is_inside_tree():
 				_erase_label(label_id)
 				return
 				

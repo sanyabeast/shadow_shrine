@@ -37,9 +37,6 @@ var _enemy_spots_list: Array[Node3D] = []
 var _pickup_spots_list: Array[Node3D] = []
 var _chest_spots_list: Array[Node3D] = []
 
-var alive_enemies: Array[GCharacterController]
-var all_enemies: Array[GCharacterController]
-
 # Randomness
 var random: GRandHelper = GRandHelper.new()
 var seed_offset: int = 0
@@ -79,23 +76,7 @@ func set_seed_offset(_seed_offset: int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if game.timer_gate.check("_update_alive_enemies_list", 1):
-		_update_alive_enemies_list()
 	pass
-	
-func _update_alive_enemies_list():
-	var dead_enemies_count: int = 0
-	for e in alive_enemies:
-		if e == null or e.is_dead:
-			dead_enemies_count += 1
-			
-	if dead_enemies_count > 0:
-		var newalive_enemies_list: Array[GCharacterController] = []
-		for e in alive_enemies:
-			if e != null and not e.is_dead:
-				newalive_enemies_list.append(e)
-	
-		alive_enemies = newalive_enemies_list
 
 func _traverse(node):
 	# Call the callback function on the current node
@@ -135,8 +116,6 @@ func _spawn_enemy(spot: Node3D):
 		var prefab: PackedScene = random.choice_from_array(config.enemies)
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: GCharacterController = prefab.instantiate()
-		alive_enemies.append(enemy)
-		all_enemies.append(enemy)
 		content.add_child(enemy)
 		enemy.global_position = spot.global_position
 	else:
@@ -166,11 +145,6 @@ func upload_saved_content(_content: Node3D):
 	add_child(content)
 
 func download_saved_content() -> Node3D:
-	# trimming content to save mem?
-	#for enemy in all_enemies:
-		#if enemy != null:
-			#enemy.queue_free()
-		
 	remove_child(content)
 	return content
 	
@@ -190,7 +164,7 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	
 func handle_player_entered_door_area(door: GDoorController, player: GCharacterController):
 	if doors_opened:
-		dev.logd(TAG, "player %s entered door %s at room" % [player.name, world.get_direction_pretty_name(door.direction), self])
+		dev.logd(TAG, "player %s entered door %s at room" % [player.name, self])
 		if game_mode:
 			game_mode.handle_player_entered_door_area(door.direction, player)
 		#close_doors()

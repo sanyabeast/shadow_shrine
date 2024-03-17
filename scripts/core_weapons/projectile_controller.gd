@@ -48,7 +48,6 @@ func _ready():
 	
 	if ray != null:
 		ray.add_exception(self)
-		ray.add_exception(keeper)
 	
 	if auto_launch:
 		launch()

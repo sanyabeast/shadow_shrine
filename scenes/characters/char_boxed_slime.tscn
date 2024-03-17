@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=22 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="6_tnji0"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_lc31e"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="8_6nl4f"]
-[ext_resource type="Script" path="res://scripts/core_characters/character_npc_controller.gd" id="9_25a3r"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_pdf4v"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/fx_toxic_bubbles.tscn" id="12_ykgel"]
 
@@ -210,15 +209,11 @@ _data = {
 "Run": SubResource("Animation_wkmhb")
 }
 
-[node name="BoxedSlime" type="CharacterBody3D" node_paths=PackedStringArray("hide_on_death")]
+[node name="BoxedSlime" type="CharacterBody3D"]
 disable_mode = 1
 safe_margin = 0.01
 script = ExtResource("1_axkfw")
 config = ExtResource("2_vw4ig")
-use_as_player = null
-ai_enabled = null
-is_friendly = null
-hide_on_death = [NodePath("ToxicBubbles")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
@@ -260,9 +255,6 @@ config = ExtResource("8_6nl4f")
 
 [node name="ArrowGizmo" parent="Aim" instance=ExtResource("10_pdf4v")]
 transform = Transform3D(-0.1, 0, -2.14569e-08, 0, 0.1, 0, 2.14569e-08, 0, -0.1, 1.65341e-08, 0.575, -0.8905)
-
-[node name="NPCController" type="Node" parent="."]
-script = ExtResource("9_25a3r")
 
 [node name="ToxicBubbles" parent="." instance=ExtResource("12_ykgel")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)

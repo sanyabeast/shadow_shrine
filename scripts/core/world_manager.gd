@@ -15,9 +15,6 @@ enum EDirection {
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
 var dynamic_contant_container: Node3D
 var fx_queue: Array[Array] = []
-var characters: Array[GCharacterController] = []
-var alive_characters_count: int = 0
-var alive_enemies_count: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,10 +24,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	_update_fx_queue()
-	_update_characters()
-	dev.print_screen("world_chars_count", "Charactes in world: %s" % [characters.size()])
-	dev.print_screen("world_alive_chars_count", "Alive characters in world: %s" % [alive_characters_count])
-	pass
 
 func _update_fx_queue():
 	if fx_queue.size() > 0:
@@ -105,8 +98,11 @@ func add_object(object: Node3D):
 	if dynamic_contant_container != null:
 		dynamic_contant_container.add_child(object)
 	else:
-		get_scene().add_child(object)
-
+		var scene = get_scene()
+		if scene != null:
+			scene.add_child(object)
+		else:
+			dev.logr(TAG, "get_scene returned null")
 func set_dynamic_contant_container(node: Node3D):
 	dynamic_contant_container = node
 
@@ -126,39 +122,18 @@ func _spawn_fx(params: Array):
 	var rotation = params[3]
 	
 	var fx_node: GFXController = GFXController.new()
+	
+	add_object(fx_node)
 	fx_node.global_position = position
 	if rotation is Vector3:
 		fx_node.rotation = rotation
 		
 	fx_node.bound_object = bound_object
 	fx_node.config = fx_config
-	add_object(fx_node)
+	
 	fx_node.start()
 
 func reload():
 	tools.load_scene(get_tree().current_scene.scene_file_path)
 	#tools.reload_scene()e
-
-# Charcters
-func link_character(character: GCharacterController):
-	dev.logd(TAG, "linking character: %s" % character.name)
-	characters.append(character)
-	
-func unlink_character(character: GCharacterController):
-	dev.logd(TAG, "UNlinking character: %s" % character.name)
-	var index = characters.find(character)
-	if index > -1:
-		characters.remove_at(index)
-
-func _update_characters():
-	alive_characters_count = 0
-	alive_enemies_count = 0
-	
-	for c in characters:
-		if not c.is_dead:
-			alive_characters_count += 1
-			if not c.is_friendly and not c.is_player():
-				alive_enemies_count += 1
-		if not c.is_player():
-			pass
-	pass			
+		

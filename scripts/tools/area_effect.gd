@@ -28,7 +28,7 @@ func _should_affect(body) -> bool:
 		return false
 	else:
 		if body is GCharacterController:
-			if player_manager.is_player(body):
+			if characters.is_player(body):
 				if affect_player:
 					return true
 			else:
