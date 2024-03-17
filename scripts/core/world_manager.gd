@@ -13,7 +13,7 @@ enum EDirection {
 }
 
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
-var dynamic_contant_container: Node3D
+var sandbox: Node3D
 var fx_queue: Array[Array] = []
 
 # Called when the node enters the scene tree for the first time.
@@ -94,17 +94,21 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 func get_scene() -> Node3D:
 	return tools.get_scene()
 
-func add_object(object: Node3D):
-	if dynamic_contant_container != null:
-		dynamic_contant_container.add_child(object)
+func add_to_sandbox(object: Node3D):
+	if sandbox != null:
+		sandbox.add_child(object)
 	else:
-		var scene = get_scene()
-		if scene != null:
-			scene.add_child(object)
-		else:
-			dev.logr(TAG, "get_scene returned null")
-func set_dynamic_contant_container(node: Node3D):
-	dynamic_contant_container = node
+		add_to_level(object)
+		
+func add_to_level(object: Node3D):
+	var scene = get_scene()
+	if scene != null:
+		scene.add_child(object)
+	else:
+		dev.logr(TAG, "get_scene returned null")
+			
+func set_sandbox(node: Node3D):
+	sandbox = node
 
 func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
 	fx_queue.append([
@@ -123,7 +127,7 @@ func _spawn_fx(params: Array):
 	
 	var fx_node: GFXController = GFXController.new()
 	
-	add_object(fx_node)
+	add_to_sandbox(fx_node)
 	fx_node.global_position = position
 	if rotation is Vector3:
 		fx_node.rotation = rotation

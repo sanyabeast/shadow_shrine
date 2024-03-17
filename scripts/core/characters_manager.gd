@@ -36,6 +36,17 @@ func _process(delta):
 		dev.print_screen("world_chars_count", "Charactes in world: %s" % [list.size()])
 		dev.print_screen("world_alive_enemies_count", "Alive enemies in world: %s" % [alive_enemies_count])	
 	
+	
+	#for character in list:
+		#for another_character in list:
+			#if not is_player(character):
+				#var distance = character.global_position.distance_to(another_character.global_position)
+				#if distance < 0.25:
+					#character.commit_impulse(
+						#another_character.global_position.direction_to(character.global_position), 
+						#distance
+					#)
+	
 func _physics_process(delta):
 	if not game.paused:
 		if  player_enabled and (player_driver != null) and (player != null) and (not player.is_dead):
@@ -117,7 +128,7 @@ func spawn_player(scene: PackedScene, position: Vector3):
 	_player.global_position = position
 	_player.use_as_player = true
 	set_player(_player)
-	world.add_object(_player)
+	world.add_object_to_root(_player)
 	pass
 	
 func enable_player():

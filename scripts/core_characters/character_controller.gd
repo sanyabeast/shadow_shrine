@@ -147,11 +147,15 @@ func _physics_process(delta):
 		velocity += impulse_direction * (pow(impulse_power, 0.5)) * game.speed
 
 		#move_and_collide(global_transform.basis.z)
+		velocity.y = 0
 		global_position.y = 0
 
 		move_and_slide()
 
 		impulse_power = move_toward(impulse_power, 0, 2 * delta)
+
+		#if not is_on_floor():
+			#velocity.y += -9.8 * delta
 
 		if not is_dead:
 			if is_on_wall() and get_slide_collision_count() > 0:

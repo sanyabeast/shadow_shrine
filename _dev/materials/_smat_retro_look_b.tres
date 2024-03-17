@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c7bcp21qcb3db"]
+
+[ext_resource type="Shader" path="res://_dev/shaders/_shad_retro_look_b.gdshader" id="1_x6hwn"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x6hwn")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = null
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/emission = null
+shader_parameter/emission_energy = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/jitter = 0.5
+shader_parameter/jitter_z_coordinate = true
+shader_parameter/jitter_depth_independent = true
+shader_parameter/affine_texture_mapping = true
+shader_parameter/alpha_scissor = 1.0

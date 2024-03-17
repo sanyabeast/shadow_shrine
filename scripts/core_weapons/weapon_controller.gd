@@ -34,7 +34,7 @@ func fire(direction: Vector3):
 		# Instantiate a random projectile from the configured options.
 		var projectile: GProjectileController = tools.get_random_element_from_array(config.projectiles).instantiate()
 		
-		world.add_object(projectile)
+		world.add_to_sandbox(projectile)
 		# Set the keeper and initial position of the projectile.
 		projectile.keeper = keeper
 		# Apply a randomized spread to the firing direction.
