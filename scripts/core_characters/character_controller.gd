@@ -122,6 +122,11 @@ func _ready():
 
 	npc_controller.initialize(self)
 
+func _enter_tree():
+	world.link_character(self)
+
+func _exit_tree():
+	world.unlink_character(self)
 
 func _traverse(node):
 	if node is GWeaponController:
@@ -277,7 +282,7 @@ func die():
 	if config.death_fx != null:
 		world.spawn_fx(config.death_fx, global_position)
 
-	game.tasks.schedule(self, "destroy", 2, queue_free)
+	#game.tasks.schedule(self, "destroy", 2, queue_free)
 
 
 func _update_abilities(delta):
@@ -285,3 +290,6 @@ func _update_abilities(delta):
 	speed.update(delta)
 	protection.update(delta)
 	damage.update(delta)
+
+func is_player():
+	return player_manager.is_player(self)

@@ -167,9 +167,9 @@ func upload_saved_content(_content: Node3D):
 
 func download_saved_content() -> Node3D:
 	# trimming content to save mem?
-	for enemy in all_enemies:
-		if enemy != null:
-			enemy.queue_free()
+	#for enemy in all_enemies:
+		#if enemy != null:
+			#enemy.queue_free()
 		
 	remove_child(content)
 	return content

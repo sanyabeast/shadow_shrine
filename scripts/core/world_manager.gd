@@ -15,21 +15,28 @@ enum EDirection {
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
 var dynamic_contant_container: Node3D
 var fx_queue: Array[Array] = []
+var characters: Array[GCharacterController] = []
+var alive_characters_count: int = 0
+var alive_enemies_count: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("world manager ready...")
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	_update_fx_queue()
+	_update_characters()
+	dev.print_screen("world_chars_count", "Charactes in world: %s" % [characters.size()])
+	dev.print_screen("world_alive_chars_count", "Alive characters in world: %s" % [alive_characters_count])
+	pass
+
+func _update_fx_queue():
 	if fx_queue.size() > 0:
 		var fx_params = fx_queue.pop_front()
 		_spawn_fx(fx_params)
-	pass
-
-	
+		
 func get_oposite_direction(direcrion: EDirection) -> EDirection:
 	match direcrion:
 		EDirection.North:
@@ -74,8 +81,7 @@ func get_direction_pretty_name(dir: EDirection) -> String:
 		EDirection.West:
 			return "West"
 	return "?"
-	
-	
+		
 func get_random_reachable_point_in_square(origin: Vector3, square_size: float):
 	var random_point: Vector3 = Vector3(
 		origin.x + randf_range(-square_size / 2, square_size / 2),
@@ -112,7 +118,6 @@ func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_obje
 		rotation
 	])
 	pass
-	
 
 func _spawn_fx(params: Array):
 	var fx_config = params[0]
@@ -133,3 +138,27 @@ func _spawn_fx(params: Array):
 func reload():
 	tools.load_scene(get_tree().current_scene.scene_file_path)
 	#tools.reload_scene()e
+
+# Charcters
+func link_character(character: GCharacterController):
+	dev.logd(TAG, "linking character: %s" % character.name)
+	characters.append(character)
+	
+func unlink_character(character: GCharacterController):
+	dev.logd(TAG, "UNlinking character: %s" % character.name)
+	var index = characters.find(character)
+	if index > -1:
+		characters.remove_at(index)
+
+func _update_characters():
+	alive_characters_count = 0
+	alive_enemies_count = 0
+	
+	for c in characters:
+		if not c.is_dead:
+			alive_characters_count += 1
+			if not c.is_friendly and not c.is_player():
+				alive_enemies_count += 1
+		if not c.is_player():
+			pass
+	pass			
