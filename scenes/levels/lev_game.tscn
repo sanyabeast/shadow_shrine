@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=14 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/modes/gm_game.gd" id="1_b4mm0"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_lbhup"]
+[ext_resource type="Script" path="res://scripts/resources/res_maze_config.gd" id="4_cq4p8"]
 [ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="4_hapcl"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_loud7"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
@@ -12,11 +13,19 @@
 [ext_resource type="Script" path="res://scripts/core_tools/env_helper.gd" id="8_2paxw"]
 [ext_resource type="Environment" uid="uid://cuc8x6fxi66m0" path="res://resources/misc/wenv_default_a.tres" id="8_884il"]
 
+[sub_resource type="Resource" id="Resource_ipqy4"]
+script = ExtResource("4_cq4p8")
+size = 3
+sparseness = 0.5
+dead_ends = 0.5
+shortcuts = 0.5
+
 [node name="LevelGame" type="Node3D" node_paths=PackedStringArray("player_driver", "npc_driver")]
 script = ExtResource("1_b4mm0")
 config = ExtResource("2_xe5b6")
 player_packed = ExtResource("3_lbhup")
 main_menu_scene = "res://scenes/levels/lev_lobby.tscn"
+maze_config = SubResource("Resource_ipqy4")
 player_driver = NodePath("GPlayerDriver")
 npc_driver = NodePath("GNpcDriver")
 

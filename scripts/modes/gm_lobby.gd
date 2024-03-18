@@ -14,8 +14,8 @@ const TAG: String = "GameModeLobby"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super._ready()
-	pass # Replace with function body.
-
+	game.start()
+	
 	for dir in world.directions_list:
 		demo_room.doors_map[dir] = dir == world.EDirection.East
 	

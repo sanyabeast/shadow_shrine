@@ -19,7 +19,7 @@ func _draw():
 		
 func _process(delta):
 	if game.mode is GGameModeDefaultGame and game.mode.maze_generator:
-		cell_size =  Vector2(100 / game.mode.maze_generator.grid_size, 100 / game.mode.maze_generator.grid_size)
+		cell_size =  Vector2(100 / game.mode.maze_generator.config.size, 100 / game.mode.maze_generator.config.size)
 		queue_redraw()
 	
 func draw_cell(cell: GMazeGen.Cell):
@@ -28,7 +28,7 @@ func draw_cell(cell: GMazeGen.Cell):
 			return
 		
 		var cell_pos = Vector2(cell.x * cell_size.x, cell.y * cell_size.y)
-		cell_size = Vector2(100 / game.mode.maze_generator.grid_size, 100 / game.mode.maze_generator.grid_size)  # Size of each cell in pixels
+		cell_size = Vector2(100 / game.mode.maze_generator.config.size, 100 / game.mode.maze_generator.config.size)  # Size of each cell in pixels
 
 		# Draw walls as lines
 		if cell.walls[world.EDirection.North]:

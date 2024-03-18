@@ -215,3 +215,28 @@ func cycle_within_range(value, from_val, to):
 	if value < from_val:
 		value = to - (from_val - value) % (to - from_val + 1) + 1
 	return value
+
+
+static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target_mat: ShaderMaterial):
+	target_mat.set_shader_parameter("albedo", source_mat.albedo_color)
+	target_mat.set_shader_parameter("point_size", source_mat.point_size)
+	target_mat.set_shader_parameter("roughness", source_mat.roughness)
+	
+	target_mat.set_shader_parameter("metallic_texture_channel", source_mat.metallic_texture_channel)
+	target_mat.set_shader_parameter("specular", source_mat.metallic_specular)
+	target_mat.set_shader_parameter("metallic", source_mat.metallic)
+	target_mat.set_shader_parameter("emission", source_mat.emission)
+	target_mat.set_shader_parameter("emission_energy", source_mat.emission_energy_multiplier)
+	target_mat.set_shader_parameter("normal_scale", source_mat.normal_scale)
+	
+	target_mat.set_shader_parameter("uv1_scale", source_mat.uv1_scale)
+	target_mat.set_shader_parameter("uv1_offset", source_mat.uv1_offset)
+	target_mat.set_shader_parameter("uv2_scale", source_mat.uv2_scale)
+	target_mat.set_shader_parameter("uv2_offset", source_mat.uv2_offset)
+	
+	target_mat.set_shader_parameter("texture_albedo", source_mat.albedo_texture)
+	target_mat.set_shader_parameter("texture_metallic", source_mat.metallic_texture)
+	target_mat.set_shader_parameter("texture_roughness", source_mat.roughness_texture)
+	target_mat.set_shader_parameter("texture_normal", source_mat.normal_texture)
+	target_mat.set_shader_parameter("texture_emission", source_mat.emission_texture)
+	

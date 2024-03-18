@@ -31,7 +31,6 @@ const TAG: String = "RoomController"
 @export var chest_spots: Node3D
 
 var door_controllers: Dictionary = {}
-var game_mode: GGameModeDefaultGame
 
 var _enemy_spots_list: Array[Node3D] = []
 var _pickup_spots_list: Array[Node3D] = []
@@ -165,16 +164,13 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 func handle_player_entered_door_area(door: GDoorController, player: GCharacterController):
 	if doors_opened:
 		dev.logd(TAG, "player %s entered door %s at room" % [player.name, self])
-		if game_mode:
-			game_mode.handle_player_entered_door_area(door.direction, player)
+		game.mode.handle_player_entered_door_area(door.direction, player)
 		#close_doors()
 	
 func handle_player_exited_door_area(door: GDoorController, player: GCharacterController):
 	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
-	if game_mode:
-		game_mode.handle_player_exited_door_area(door.direction, player)
+	game.mode.handle_player_exited_door_area(door.direction, player)
 	
-
 func open_doors(silent = false):
 	dev.logd(TAG, "opening all doors...")
 	for key in door_controllers:

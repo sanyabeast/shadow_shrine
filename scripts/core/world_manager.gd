@@ -94,13 +94,13 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 func get_scene() -> Node3D:
 	return tools.get_scene()
 
-func add_to_sandbox(object: Node3D):
+func add_to_sandbox(object: Node):
 	if sandbox != null:
 		sandbox.add_child(object)
 	else:
 		add_to_level(object)
 		
-func add_to_level(object: Node3D):
+func add_to_level(object: Node):
 	var scene = get_scene()
 	if scene != null:
 		scene.add_child(object)

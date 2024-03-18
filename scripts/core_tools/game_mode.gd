@@ -9,12 +9,12 @@ class_name GGameMode
 
 #region: Lifecycle
 func _ready():
-	prepare()
+	_prepare()
 	print("game mode %s: prepared" % name)
 	game.set_mode(self)
 	pass # Replace with function body.
 
-func prepare():
+func _prepare():
 	pass
 
 func _process(delta):

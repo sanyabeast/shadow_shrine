@@ -4,7 +4,7 @@
 class_name GMazeGen
 const TAG: String = "MazeGen"
 
-# Enums
+#region: Enums
 enum ECellCategory {
 	Empty,
 	Default,
@@ -26,8 +26,9 @@ enum EGenerationOrder {
 	Pop,
 	Shift
 }
+#endregion
 
-# MazeCell class
+#region: Cell
 class Cell:
 	var maze_generator: GMazeGen
 	var x: int
@@ -38,6 +39,7 @@ class Cell:
 		world.EDirection.South: true, 
 		world.EDirection.West: true
 	}
+	
 	var category: ECellCategory
 	var visited: bool = false
 	var index: int
@@ -126,13 +128,12 @@ class Cell:
 			world.EDirection.West:
 				dx = -1
 		
-		if (x + dx) < 0 or (x + dx) >= maze_generator.grid_size or (y + dy) < 0 or (y + dy) >= maze_generator.grid_size:
+		if (x + dx) < 0 or (x + dx) >= maze_generator.config.size or (y + dy) < 0 or (y + dy) >= maze_generator.config.size:
 			return null
 			
 				
 		return maze_generator.cells[x + dx][y + dy]
 		
-
 	func get_wall_between(cell2):
 		var x_diff = x - cell2.x
 		var y_diff = y - cell2.y
@@ -155,22 +156,20 @@ class Cell:
 		var neighbour_x = x + neighbours_offsets[offset].x
 		var neighbour_y = y + neighbours_offsets[offset].y
 
-		if neighbour_x < 0 or neighbour_x >= maze_generator.grid_size or neighbour_y < 0 or neighbour_y >= maze_generator.grid_size:
+		if neighbour_x < 0 or neighbour_x >= maze_generator.config.size or neighbour_y < 0 or neighbour_y >= maze_generator.config.size:
 			return null
 
 		return maze_generator.cells[neighbour_x][neighbour_y]
+#endregion
 		
-	
 # MazeGenerator class
 var cells = []
+var cells_indexed = []
 var start_cell: Cell
 var end_cell: Cell
 
 var seed: int = 0
-var grid_size: int = 4
-var sparseness: float = 0
-var dead_ends_ratio: float = 0.75
-var shortcuts_ratio: float = 0.2
+var config: RMazeConfig = RMazeConfig.new()
 var generation_order = EGenerationOrder.Shift
 
 var current_cell_index: int = 0
@@ -181,30 +180,45 @@ var random: GRandHelper = GRandHelper.new()
 func _init():
 	pass
 
+func set_config(_config: RMazeConfig):
+	print(TAG + "config set to %s" % config)
+	config = _config
+
 func set_seed(_seed):
 	random.set_seed(_seed)
 
 func get_max_cells_count():
-	return grid_size * grid_size
+	return config.size * config.size
 
-func get_random_cell():
-	var x = random.randi() % grid_size
-	var y = random.randi() % grid_size
+func get_cell(x: int, y: int):
 	return cells[x][y]
 
-func initialize():
-	print(TAG + "initialize()")
+func get_cell_with_index(index: int):
+	return cells_indexed[index]
+
+func get_random_cell():
+	var x = random.randi() % config.size
+	var y = random.randi() % config.size
+	return cells[x][y]
+
+func _prepare():
+	print(TAG + "preparing...")
 	current_cell_index = 0
 	cells.clear()
+	cells_indexed.clear()
 	routes.clear()
 
-	for x in range(grid_size):
+	for x in range(config.size):
 		cells.append([])
-		for y in range(grid_size):
+		for y in range(config.size):
 			cells[x].append(Cell.new(self, x, y, ECellCategory.Default))
+			cells_indexed.append(null)
 
-func generate():
-	initialize()
+func generate(_config):
+	if _config is RMazeConfig:
+		set_config(_config)
+		
+	_prepare()
 
 	var stack = []
 	var current_cell = get_random_cell()
@@ -221,7 +235,7 @@ func generate():
 	while stack.size() > 0:
 		route.append(current_cell)
 
-		if current_cell.index >= max(1, (1 - sparseness) * get_max_cells_count()):
+		if current_cell.index >= max(1, (1 - config.sparseness) * get_max_cells_count()):
 			if route.size() > 1:
 				routes.append(route)
 			route = []
@@ -261,11 +275,14 @@ func generate():
 	for row in cells:
 		for cell in row:
 			cell.index = -1 if cell.index == null else cell.index
+			
+			if cell.index > -1:
+				cells_indexed[cell.index] = cell
 
 	# DEAD ENDS
 	var dead_ends = find_cells_with_accessibility(ECellAccessibilityLevel.DeadEnd)
 	for cell in dead_ends:
-		if random.randf() > dead_ends_ratio:
+		if random.randf() > config.dead_ends:
 			if cell.category in [ECellCategory.Start, ECellCategory.End]:
 				continue
 
@@ -285,7 +302,7 @@ func generate():
 		if closed_neighbours.size() > 1:
 			var random_index = random.randi() % closed_neighbours.size()
 			var random_neighbour = closed_neighbours[random_index]
-			if random.randf() < shortcuts_ratio:
+			if random.randf() < config.shortcuts:
 				cell.remove_wall_between(random_neighbour)
 				cell.category = ECellCategory.Shortcut
 				routes.append([cell, random_neighbour])
@@ -293,6 +310,7 @@ func generate():
 	for row in cells:
 		for cell in row:
 			cell.category = ECellCategory.Empty if cell.get_walls_count() == ECellAccessibilityLevel.Isolated else cell.category
+
 
 	reset_visited()
 
@@ -304,7 +322,6 @@ func find_cells_with_accessibility(level):
 			if cell.get_walls_count() == level:
 				result.append(cell)
 	return result	
-	
 	
 func reset_visited():
 	for row in cells:

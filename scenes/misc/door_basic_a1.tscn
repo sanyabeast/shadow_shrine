@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b2dpxeii4p11d"]
+[gd_scene load_steps=38 format=3 uid="uid://b2dpxeii4p11d"]
 
 [ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="1_mxn31"]
 [ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/fx_medium_dust_spike_a.tscn" id="3_h518r"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://c3nhrhnwqwitp" path="res://assets/props/jerdelia/props/door_a1/textures/Image_1.006.png" id="13_v0yws"]
 [ext_resource type="Texture2D" uid="uid://bbstndtjyinaj" path="res://assets/props/jerdelia/props/door_a1/textures/Image_2.006.png" id="14_y8fv7"]
 [ext_resource type="Script" path="res://scripts/tools/blinking_light.gd" id="15_3u160"]
+[ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="16_b53aa"]
+[ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="18_wkm2t"]
 
 [sub_resource type="Resource" id="Resource_euv2s"]
 script = ExtResource("4_al2hb")
@@ -23,6 +25,7 @@ audio_pitch_min = 1.0
 audio_pitch_max = 1.0
 audio_volume_min = 1.0
 audio_volume_max = 1.0
+audio_panning = 0.5
 content = Array[PackedScene]([ExtResource("3_h518r")])
 use_game_time = true
 dispose_strategy = 0
@@ -35,6 +38,7 @@ audio_pitch_min = 1.0
 audio_pitch_max = 1.0
 audio_volume_min = 1.0
 audio_volume_max = 1.0
+audio_panning = 0.5
 content = Array[PackedScene]([ExtResource("3_h518r")])
 use_game_time = true
 dispose_strategy = 0
@@ -422,3 +426,10 @@ shape = SubResource("BoxShape3D_bespo")
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+
+[node name="GSurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
+script = ExtResource("16_b53aa")
+override_copy_props = true
+overlay_enabled = true
+overlay_meshes = [NodePath("../BodyRoot/door_a1/door"), NodePath("../BodyRoot/door_a1/door_001"), NodePath("../BodyRoot/door_a1/door_002")]
+overlay_material = ExtResource("18_wkm2t")
