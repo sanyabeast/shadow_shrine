@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=24 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/charconf_boxed_slime_kido.tres" id="2_vy3e7"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_op30v"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="4_if374"]
+[ext_resource type="Shader" path="res://_dev/shaders/_shad_rim_light_a.gdshader" id="4_nlxj3"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="5_2pxgc"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="6_hf3yk"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_6kxlq"]
@@ -15,6 +16,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.26
 height = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rt7d0"]
+render_priority = 0
+shader = ExtResource("4_nlxj3")
+shader_parameter/albedo = Color(1, 0, 0, 1)
+shader_parameter/rimThickness = 0.5
+shader_parameter/rimBrightness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt0oj"]
 resource_name = "slime.001"
@@ -202,6 +210,7 @@ transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0)
 
 [node name="enemy" type="MeshInstance3D" parent="Body/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00034612, 0.000649148, -0.00128691)
+material_overlay = SubResource("ShaderMaterial_rt7d0")
 mesh = SubResource("ArrayMesh_m0goi")
 skeleton = NodePath("")
 

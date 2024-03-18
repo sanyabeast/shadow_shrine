@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=24 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_i0uoy"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
+[ext_resource type="Shader" path="res://_dev/shaders/_shad_rim_light_a.gdshader" id="4_20gac"]
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="6_tnji0"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_lc31e"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="8_6nl4f"]
@@ -15,6 +16,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.35
 height = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gud7p"]
+render_priority = 0
+shader = ExtResource("4_20gac")
+shader_parameter/albedo = Color(1, 0.647059, 0, 1)
+shader_parameter/rimThickness = 0.157
+shader_parameter/rimBrightness = 3.975
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5qrd"]
 resource_name = "slime.001"
@@ -227,6 +235,7 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="enemy" type="MeshInstance3D" parent="Body/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00034612, 0.000649148, -0.00128691)
+material_overlay = SubResource("ShaderMaterial_gud7p")
 mesh = SubResource("ArrayMesh_cl1sr")
 skeleton = NodePath("")
 

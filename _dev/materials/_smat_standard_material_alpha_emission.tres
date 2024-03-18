@@ -11,6 +11,7 @@ shader_parameter/roughness = null
 shader_parameter/metallic_texture_channel = null
 shader_parameter/specular = null
 shader_parameter/metallic = null
+shader_parameter/normal_scale = null
 shader_parameter/emission = null
 shader_parameter/emission_energy = null
 shader_parameter/uv1_scale = Vector3(1, 1, 0)
