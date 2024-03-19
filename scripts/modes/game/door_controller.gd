@@ -10,6 +10,7 @@ const TAG: String = "DoorController"
 # Exposed variables for the connected body, animation player, and other parameters.
 @export var body: Node3D
 @export var anim_player: AnimationPlayer
+@export var surface_material_helper: GSurfaceMaterialHelper
 
 # Direction of the door (North, South, East, West, etc.).
 var direction: world.EDirection = world.EDirection.North
@@ -74,6 +75,13 @@ func _to_string():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if visible:
+		if surface_material_helper != null:
+			if opened and surface_material_helper.current_state_id == "default":
+				surface_material_helper.enter_state("focus")
+			
+			if not opened and surface_material_helper.current_state_id == "focus":
+				surface_material_helper.enter_state("default")
 	pass
 
 # Function to handle the body entering the door area.

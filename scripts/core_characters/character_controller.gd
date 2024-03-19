@@ -6,6 +6,7 @@ extends CharacterBody3D
 class_name GCharacterController
 const TAG: String = "CharacterController"
 
+signal on_hurt(health_loss: float)
 
 class GAbility:
 	signal on_changed(name: String, old_value: float, new_value: float, increased: bool)
@@ -229,6 +230,7 @@ func _handle_ability_change(name: String, old_value: float, new_value: float, in
 			if not increased:
 				if config.hurt_fx != null:
 					world.spawn_fx(config.hurt_fx, to_global(_last_damage_point))
+				on_hurt.emit(old_value - new_value)
 
 			if new_value == 0:
 				die()

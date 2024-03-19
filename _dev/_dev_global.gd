@@ -55,6 +55,8 @@ func _process(delta):
 	if tools.IS_DEBUG:
 		if Input.is_action_just_pressed("_dev_toggle_gizmo"):
 			show_debug_graphics = not show_debug_graphics
+	else:
+		show_debug_graphics = false
 			
 	if debug_labels != null:
 		debug_labels.visible = show_debug_graphics

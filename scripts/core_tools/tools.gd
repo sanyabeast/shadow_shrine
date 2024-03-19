@@ -216,6 +216,12 @@ func cycle_within_range(value, from_val, to):
 		value = to - (from_val - value) % (to - from_val + 1) + 1
 	return value
 
+func move_toward_color(from: Color, to: Color, speed: float) -> Color:
+	return Color(
+		move_toward(from.r, to.r, speed),
+		move_toward(from.g, to.g, speed),
+		move_toward(from.b, to.b, speed)
+	)
 
 static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target_mat: ShaderMaterial):
 	target_mat.set_shader_parameter("albedo", source_mat.albedo_color)

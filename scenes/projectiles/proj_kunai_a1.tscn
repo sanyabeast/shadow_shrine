@@ -155,6 +155,5 @@ max_impulse = 1.5
 
 [node name="SurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
 script = ExtResource("13_cwfpv")
-overlay_enabled = true
 overlay_meshes = [NodePath("../Body/projectile")]
 overlay_material = ExtResource("13_ymi2c")

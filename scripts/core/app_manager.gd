@@ -7,11 +7,10 @@ class_name GAppManager
 const TAG: String = "AppManager"
 
 enum EGraphicsQualityPreset {
-	VeryLow,
-	Low,
 	Medium,
+	Standard,
 	High,
-	VeryHigh
+	Ultra
 }
 
 const SETTINGS_CONFIG_PATH: String = "user://settings.cfg"
@@ -33,7 +32,7 @@ var tasks: GTasker = GTasker.new(false)
 var cooldowns: GCooldowns = GCooldowns.new(false)
 var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
-var graphics_quality: EGraphicsQualityPreset = EGraphicsQualityPreset.High
+var graphics_quality: EGraphicsQualityPreset = EGraphicsQualityPreset.Ultra
 
 # Create new ConfigFile object.
 var settings_config = ConfigFile.new()

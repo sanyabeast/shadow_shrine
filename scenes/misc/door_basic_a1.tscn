@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b2dpxeii4p11d"]
+[gd_scene load_steps=43 format=3 uid="uid://b2dpxeii4p11d"]
 
 [ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="1_mxn31"]
 [ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/fx_medium_dust_spike_a.tscn" id="3_h518r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c508aknb32464" path="res://assets/props/jerdelia/props/door_a1/textures/Image_10.003.png" id="5_qm88s"]
 [ext_resource type="Texture2D" uid="uid://dd0ijddoe7ud" path="res://assets/props/jerdelia/props/door_a1/textures/Image_11.002.png" id="6_dx384"]
 [ext_resource type="Texture2D" uid="uid://dlf38h0wdqew5" path="res://assets/props/jerdelia/props/door_a1/textures/Image_12.002.png" id="7_52sbi"]
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="7_mhe75"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="8_3epfs"]
 [ext_resource type="Texture2D" uid="uid://coanjlqkbifqo" path="res://assets/props/jerdelia/props/door_a1/textures/Image_6.003.png" id="8_cniel"]
 [ext_resource type="Texture2D" uid="uid://cpurr6fd7egba" path="res://assets/props/jerdelia/props/door_a1/textures/Image_7.003.png" id="9_2e8yq"]
 [ext_resource type="Texture2D" uid="uid://dbmxrpcrlgb65" path="res://assets/props/jerdelia/props/door_a1/textures/Image_9.003.png" id="10_1h5oh"]
@@ -43,6 +45,26 @@ content = Array[PackedScene]([ExtResource("3_h518r")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_6r7sw"]
+script = ExtResource("7_mhe75")
+id = "default"
+process_overlay_material = true
+overlay_albedo = Color(1, 1, 1, 0.596078)
+overlay_thickness = 0.25
+overlay_brightness = 0.0
+
+[sub_resource type="Resource" id="Resource_wtsww"]
+script = ExtResource("7_mhe75")
+id = "focus"
+process_overlay_material = true
+overlay_albedo = Color(1, 0.537255, 0.121569, 1)
+overlay_thickness = 0.25
+overlay_brightness = 1.0
+
+[sub_resource type="Resource" id="Resource_7w671"]
+script = ExtResource("8_3epfs")
+list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_6r7sw"), SubResource("Resource_wtsww")])
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6wugq"]
 resource_name = "rock.003"
@@ -365,13 +387,22 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bespo"]
 
-[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("body", "anim_player")]
+[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("body", "anim_player", "surface_material_helper")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_mxn31")
 body = NodePath("BodyRoot")
 anim_player = NodePath("BodyRoot/AnimationPlayer")
+surface_material_helper = NodePath("GSurfaceMaterialHelper")
 open_fx = SubResource("Resource_euv2s")
 close_fx = SubResource("Resource_ctjbi")
+
+[node name="GSurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
+script = ExtResource("16_b53aa")
+overlay_meshes = [NodePath("../BodyRoot/door_a1/door"), NodePath("../BodyRoot/door_a1/door_001"), NodePath("../BodyRoot/door_a1/door_002")]
+overlay_material = ExtResource("18_wkm2t")
+use_states = true
+states = SubResource("Resource_7w671")
+state_update_rate = 1.0
 
 [node name="BodyRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
@@ -426,10 +457,3 @@ shape = SubResource("BoxShape3D_bespo")
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-
-[node name="GSurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
-script = ExtResource("16_b53aa")
-override_copy_props = true
-overlay_enabled = true
-overlay_meshes = [NodePath("../BodyRoot/door_a1/door"), NodePath("../BodyRoot/door_a1/door_001"), NodePath("../BodyRoot/door_a1/door_002")]
-overlay_material = ExtResource("18_wkm2t")

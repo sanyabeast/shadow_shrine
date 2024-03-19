@@ -302,7 +302,7 @@ value_element = NodePath("Background/ValueLabel")
 id = "quality_preset"
 has_options = true
 value = 1.0
-options = Array[String](["Very Low", "Low", "Default", "High"])
+options = Array[String](["Medium", "Standard", "High", "Ultra"])
 anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/QualityPreset"]

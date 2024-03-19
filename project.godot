@@ -12,9 +12,10 @@ config_version=5
 
 config/name="shadow_shrine"
 config/version="0.0.1"
-run/main_scene="res://scenes/levels/lev_game.tscn"
+run/main_scene="res://scenes/levels/lev_lobby.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
+boot_splash/show_image=false
 boot_splash/image="res://assets/meta/boot_splash_a.png"
 config/icon="res://assets/meta/game_icon_a.png"
 config/windows_native_icon="res://assets/meta/windows/game_icon_a_128.ico"

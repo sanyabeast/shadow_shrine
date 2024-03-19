@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="RSurfaceStates" load_steps=5 format=3 uid="uid://d37628cumsm0o"]
+
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="1_8k5ua"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="2_t1y5w"]
+
+[sub_resource type="Resource" id="Resource_pd2wt"]
+script = ExtResource("1_8k5ua")
+id = "default"
+process_overlay_material = true
+overlay_albedo = Color(0.176471, 1, 0, 0)
+overlay_thickness = 0.15
+overlay_brightness = 0.0
+
+[sub_resource type="Resource" id="Resource_gtb4g"]
+script = ExtResource("1_8k5ua")
+id = "hurt"
+process_overlay_material = true
+overlay_albedo = Color(1, 0, 0, 1)
+overlay_thickness = 0.5
+overlay_brightness = 0.5
+
+[resource]
+script = ExtResource("2_t1y5w")
+list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_pd2wt"), SubResource("Resource_gtb4g")])
