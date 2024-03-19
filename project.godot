@@ -10,12 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Shadow Shrine"
+config/name="shadow_shrine"
+config/version="0.0.1"
 run/main_scene="res://scenes/levels/lev_game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
-boot_splash/show_image=false
-config/icon="res://icon.svg"
+boot_splash/image="res://assets/meta/boot_splash_a.png"
+config/icon="res://assets/meta/game_icon_a.png"
+config/windows_native_icon="res://assets/meta/windows/game_icon_a_128.ico"
 config/data_index="res://resources/data/index.tres"
 
 [audio]
@@ -51,6 +53,7 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "blue",
 "res://assets/_dev/": "purple",
+"res://assets/meta/": "gray",
 "res://misc/": "gray",
 "res://resources/": "gray",
 "res://resources/glossary/": "purple",
