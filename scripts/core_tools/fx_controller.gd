@@ -12,16 +12,17 @@ const TAG: String = "FX"
 
 var _is_started: bool = false
 var _started_at: float
-var _is_disposed: bool = false
+var is_disposed: bool = false
 
 var _particle_systems: Array[GPUParticles3D] = []
-var _audio_players: Array[AudioStreamPlayer] = []
-
+var _audio_players: Array[AudioStreamPlayer3D] = []
 var _active_content: int = 0
 
-
-# Called when the node enters the scene tree for the first time.
+func _init(_config: RFXConfig):
+	config = _config
+	
 func _ready():
+	_setup_content()
 	if autostart:
 		start()
 	pass # Replace with function body.
@@ -31,16 +32,15 @@ func _to_string():
 
 func start():
 	dev.logd(TAG, "starting new FX: %s" % config)
-	_setup_content()
 	_launch_content()
 	_started_at = get_time()
 	_is_started = true
-	
+
 func _traverse(node):
 	if node is GPUParticles3D:
 		_particle_systems.append(node)
 		
-	if node is AudioStreamPlayer:
+	if node is AudioStreamPlayer3D:
 		node.bus = "SFX"
 		_audio_players.append(node)
 		
@@ -54,7 +54,7 @@ func _launch_content():
 			
 	for ap in _audio_players:
 		ap.play()
-	
+		
 func _check_active_content():
 	var count: int = 0
 	
@@ -72,21 +72,23 @@ func _setup_content():
 	if config:
 		if config.audio != null:
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
+			add_child(audio_player)
+			
 			audio_player.bus = "SFX"
 			audio_player.stream = config.audio
 			audio_player.panning_strength = config.audio_panning
 			audio_player.pitch_scale = _get_variable_pitch_value(config)
 			audio_player.max_db = linear_to_db(randf_range(config.audio_volume_min, config.audio_volume_max))
-
-			add_child(audio_player)
-			audio_player.play()
+			_audio_players.append(audio_player)
+			
+			#audio_player.play()
 		
 		for item in config.content:
 			var scene = item.instantiate()
 			add_child(scene)
 	else:
 		dev.logr(TAG, "fail to start FX at %s: no config" % name)
-		_dispose()
+		dispose()
 		
 	_traverse(self)	
 
@@ -105,27 +107,47 @@ func get_time()->float:
 	else:
 		return tools.get_time()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Called erw frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if _is_started:
+	if not is_disposed and _is_started:
 		if bound_object != null:
 			global_position = bound_object.global_position
 			rotation = bound_object.global_rotation
-		
-		if not _is_disposed:
+		if not is_disposed:
 			match config.dispose_strategy:
 				RFXConfig.EFXDisposeStrategy.Lifetime:
 					if get_time() - _started_at >= config.lifetime:
-						_dispose()
+						dispose()
 						
 				RFXConfig.EFXDisposeStrategy.BoundObject:
 					if bound_object == null:
-						_dispose()
+						dispose()
 						
 				RFXConfig.EFXDisposeStrategy.Content:
 					dev.logr(TAG, "Content based FX disposing is not implemented yet")
+
+func stop_fx():
+	for ps in _particle_systems:
+		ps.emitting = false
+	for ap in _audio_players:
+		ap.playing = false
 			
-func _dispose():
-	dev.logd(TAG, "disposing FX at %s" % name)
-	_is_disposed = true
-	queue_free()
+func dispose():
+	is_disposed = true
+	dev.logd(TAG, "disposing FX at %s, pool: %s" % [name,  world.use_fx_pool])
+	stop_fx()
+	if world.use_fx_pool:
+		world.fx_pool.push(config.resource_path, self)
+	else:
+		queue_free()
+
+func restruct():
+	#for ps in _particle_systems:
+		#ps.emitting = false
+		#if ps is GPUTrail3D:
+			##ps._old_pos = ps.global_position
+			##ps.restart()
+	#for ap in _audio_players:
+		#ap.stop()
+	is_disposed = false
+	print("restoring fx: %s" % self)
