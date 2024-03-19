@@ -54,13 +54,11 @@ func _process(delta):
 	if not paused: 
 		tasks.update()
 		time += delta * speed
-		
-	dev.print_screen("game_seed", "game seed: %s" % [seed])
-	dev.print_screen("game_time", "game time: %s" % [time])
 	
 	widgets.tokens["game_time"] = game.time
 	
-	pass
+	if tools.IS_DEBUG:
+		dev.print_screen("game_stats", "game (mode / seed / time): %s / %s / %2.2f" % [mode.name if mode != null else "null", seed, time])
 
 func get_time() -> float:
 	return time

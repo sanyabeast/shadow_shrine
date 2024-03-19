@@ -33,19 +33,9 @@ func _process(delta):
 		_update_npc(delta)
 		_update_player(delta)
 	
-		dev.print_screen("world_chars_count", "Charactes in world: %s" % [list.size()])
-		dev.print_screen("world_alive_enemies_count", "Alive enemies in world: %s" % [alive_enemies_count])	
+	if tools.IS_DEBUG:
+		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
 	
-	
-	#for character in list:
-		#for another_character in list:
-			#if not is_player(character):
-				#var distance = character.global_position.distance_to(another_character.global_position)
-				#if distance < 0.25:
-					#character.commit_impulse(
-						#another_character.global_position.direction_to(character.global_position), 
-						#distance
-					#)
 	
 func _physics_process(delta):
 	if not game.paused:

@@ -32,7 +32,19 @@ func fire(direction: Vector3):
 		cooldowns.start("fire", 1 / config.fire_rate)
 		
 		# Instantiate a random projectile from the configured options.
-		var projectile: GProjectileController = tools.get_random_element_from_array(config.projectiles).instantiate()
+		var projectile_prefab: PackedScene = tools.get_random_element_from_array(config.projectiles)
+		#var projectile: GProjectileController = projectile_prefab.instantiate()
+		var projectile: GProjectileController
+		
+		if world.use_projectile_pool:
+			projectile = world.projectile_pool.pull(projectile_prefab.resource_path)
+		
+		if projectile == null:
+			projectile = projectile_prefab.instantiate()
+		else:
+			projectile.reborn()
+		
+		projectile.pool_key = projectile_prefab.resource_path
 		
 		world.add_to_sandbox(projectile)
 		# Set the keeper and initial position of the projectile.

@@ -50,6 +50,10 @@ func _traverse(node):
 	
 func _launch_content():
 	for ps in _particle_systems:
+		if ps is GPUTrail3D:
+			ps._old_pos = ps.global_position
+			ps.restart()
+			
 		ps.emitting = true
 			
 	for ap in _audio_players:
@@ -90,7 +94,8 @@ func _setup_content():
 		dev.logr(TAG, "fail to start FX at %s: no config" % name)
 		dispose()
 		
-	_traverse(self)	
+	_traverse(self)
+	stop_fx()
 
 func _get_variable_pitch_value(config: RFXConfig) -> float:
 	var current_pitch_value: float = (
@@ -113,22 +118,24 @@ func _process(delta):
 		if bound_object != null:
 			global_position = bound_object.global_position
 			rotation = bound_object.global_rotation
-		if not is_disposed:
-			match config.dispose_strategy:
-				RFXConfig.EFXDisposeStrategy.Lifetime:
-					if get_time() - _started_at >= config.lifetime:
-						dispose()
-						
-				RFXConfig.EFXDisposeStrategy.BoundObject:
-					if bound_object == null:
-						dispose()
-						
-				RFXConfig.EFXDisposeStrategy.Content:
-					dev.logr(TAG, "Content based FX disposing is not implemented yet")
+			
+		match config.dispose_strategy:
+			RFXConfig.EFXDisposeStrategy.Lifetime:
+				if get_time() - _started_at >= config.lifetime:
+					dispose()
+					
+			RFXConfig.EFXDisposeStrategy.BoundObject:
+				if bound_object == null or not bound_object.visible or not bound_object.is_inside_tree():
+					dispose()
+					
+			RFXConfig.EFXDisposeStrategy.Content:
+				dev.logr(TAG, "Content based FX disposing is not implemented yet")
 
 func stop_fx():
 	for ps in _particle_systems:
 		ps.emitting = false
+		if ps is GPUTrail3D:
+			ps._old_pos = ps.global_position
 	for ap in _audio_players:
 		ap.playing = false
 			
@@ -150,4 +157,5 @@ func restruct():
 	#for ap in _audio_players:
 		#ap.stop()
 	is_disposed = false
+	stop_fx()
 	print("restoring fx: %s" % self)

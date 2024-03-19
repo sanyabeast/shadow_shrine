@@ -80,10 +80,13 @@ func _process(delta):
 		
 	tasks.update()
 	
-	dev.print_screen("maze_cell_xy", "maze cell x/y: %s/%s" % [current_maze_cell.x, current_maze_cell.y])
-	dev.print_screen("maze_cell_index", "maze cell index: %s" % current_maze_cell.index)
-	dev.print_screen("maze_cell_cat", "maze cell category: %s" % maze_generator.get_cell_category_pretty_name(current_maze_cell.category))	
-
+	if tools.IS_DEBUG:
+		dev.print_screen("maze_stats", "maze (index / type / x:y ) %s / %s / %s:%s" % [
+			current_maze_cell.index,
+			maze_generator.get_cell_category_pretty_name(current_maze_cell.category),
+			current_maze_cell.x, current_maze_cell.y
+		])
+		
 func _prepare():
 	super._prepare()
 	game.start()

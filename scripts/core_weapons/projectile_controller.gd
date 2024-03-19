@@ -25,13 +25,14 @@ const TAG: String = "ProjectileController"
 @export var auto_launch: bool = false
 @export var direction: Vector3 = Vector3.FORWARD
 @export var keeper: Node3D
+@export var pool_key: String = ""
 
 @export_subgroup("FX Anchors")
 @export var launch_fx_anchor: Node3D
 @export var block_fx_anchor: Node3D
 @export var hit_fx_anchor: Node3D
 
-var cooldown: GCooldowns = GCooldowns.new(true)
+var cooldowns: GCooldowns = GCooldowns.new(true)
 var current_velocity: float = 0
 
 var _is_launched: bool = false
@@ -56,7 +57,7 @@ func _ready():
 
 func launch():
 	look_at(global_position + direction)
-	cooldown.start("max_lifetime", config.max_lifetime)
+	cooldowns.start("max_lifetime", config.max_lifetime)
 	current_velocity = config.start_velocity
 	_is_launched = true
 	
@@ -100,9 +101,9 @@ func _handle_block(_hit_body):
 	if _is_wasted:
 		
 		if waste_fx:
-			world.spawn_fx(waste_fx, _collision_point, hit_fx_anchor if hit_fx_anchor else self)
+			world.spawn_fx(waste_fx, _collision_point)
 			
-		_dispose()
+		dispose()
 	
 func _handle_hit(_hit_body: GCharacterController):
 	_update_ray_collision()
@@ -117,7 +118,7 @@ func _handle_hit(_hit_body: GCharacterController):
 		proc.start()
 	
 	if hit_fx:
-		world.spawn_fx(hit_fx, global_position, hit_fx_anchor if hit_fx_anchor else self)
+		world.spawn_fx(hit_fx, global_position)
 	
 	_deviate(config.hit_direction_deviation)
 	
@@ -127,7 +128,7 @@ func _handle_hit(_hit_body: GCharacterController):
 		_is_wasted = true
 	
 	if _is_wasted:
-		_dispose()	
+		dispose()	
 			
 func _process(delta):
 	if not game.paused:
@@ -136,14 +137,30 @@ func _process(delta):
 			current_velocity += config.acceleration * delta	
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		
-		if cooldown.ready("max_lifetime"):
-			_dispose()
+			if cooldowns.ready("max_lifetime"):
+				dispose()
 		
-func _dispose():
+func dispose():
 	if body != null:
 		body.hide()
 		
-	queue_free()
+	if world.use_projectile_pool and pool_key != "":
+		world.projectile_pool.push(pool_key, self)
+	else:
+		queue_free()
+	
+func reborn():
+	_is_launched = false
+	_is_wasted = false
+	_hits_and_blocks_count = 0
+	current_velocity = 0
+	cooldowns.reset()
+	
+	if body != null:
+		body.show()
+		
+	
+	pass
 
 func _deviate(max_deviation: float):
 	var deviation: float = randf_range(-max_deviation, max_deviation)

@@ -25,6 +25,9 @@ func push(key: String, object: Node) -> bool:
 		_content[key] = []
 		
 	if _content[key].size() < max_size:
+		var parent = object.get_parent()
+		if parent != null:
+			parent.remove_child(object)
 		_content[key].append(object)
 		_total_size += 1
 		return true
@@ -55,6 +58,7 @@ func pull(key: String) -> Node:
 		return _content[key].pop_back()
 	else:
 		return null
+
 
 # Returns the total size of all nodes in the pool.
 func size() -> int:

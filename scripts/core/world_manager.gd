@@ -22,15 +22,28 @@ var fx_queue: Array[Array] = []
 var use_fx_pool: bool = true
 var fx_pool: GPoolHelper = GPoolHelper.new(10)
 
+var use_projectile_pool: bool = true
+var projectile_pool: GPoolHelper = GPoolHelper.new(5)
+
 var level_scene: Node3D = null
 
 func _process(delta):
 	_update_level_scene(delta)
 	_update_fx_queue()
-	dev.print_screen("World_fx_pool_size", "fx pool size: %s" % fx_pool.size())
-	dev.print_screen("World_fx_pool_dict_size", "fx pool dictionary size: %s" % fx_pool.dictionary_size)
-	dev.print_screen("World_fx_pool_overflow_stat", "fx pool overflow stat: %s" % fx_pool.overflow_stat)
-
+	
+	if tools.IS_DEBUG:
+		dev.print_screen("world_fx_pool_stats", "fx pool (size / dict / overflow): %s / %s / %s" % [
+			fx_pool.size(),
+			fx_pool.dictionary_size,
+			fx_pool.overflow_stat
+		])
+		
+		dev.print_screen("world_projectile_pool_stats", "projectile pool (size / dict / overflow):  %s / %s / %s" % [
+			projectile_pool.size(),
+			projectile_pool.dictionary_size,
+			projectile_pool.overflow_stat
+		])
+	
 func _update_level_scene(delta):
 	var current_scene = get_tree().current_scene
 	if current_scene != level_scene:
@@ -42,22 +55,9 @@ func _update_level_scene(delta):
 
 #region FX
 func spawn_fx(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
-	fx_queue.append([
-		fx_config,
-		position,
-		bound_object,
-		rotation
-	])
-	pass
+	_spawn_fx_main(fx_config, position, bound_object, rotation)
 
-func _spawn_fx_main(params: Array):
-	var fx_config: RFXConfig = params[0]
-	var position = params[1]
-	var bound_object = params[2]
-	var rotation = params[3]
-	
-	print("spawn fx: %s" % fx_config.resource_path)
-	
+func _spawn_fx_main(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, bound_object: Node3D = null, rotation = null):
 	var fx_node: GFXController = fx_pool.pull(fx_config.resource_path)
 	
 	if fx_node == null:
@@ -169,4 +169,5 @@ func set_sandbox(node: Node3D):
 func _clear_pools():
 	dev.logd(TAG, "clearing pools")
 	fx_pool.clear()
+	projectile_pool.clear()
 #endregion
