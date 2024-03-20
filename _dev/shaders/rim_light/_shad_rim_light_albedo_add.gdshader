@@ -15,6 +15,7 @@ void fragment() {
  	rimFactor = pow(rimFactor, (1./rimThickness));
 	rimFactor = clamp(rimFactor * rimBrightness, 0., 1.);
 	
-	EMISSION.rgb = albedo.rgb * rimFactor;
+	ALBEDO.rgb = albedo.rgb;
 	ALPHA = rimFactor * albedo.a;
+	
 }

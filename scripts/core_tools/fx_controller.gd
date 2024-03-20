@@ -114,22 +114,25 @@ func get_time()->float:
 
 # Called erw frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if not is_disposed and _is_started:
-		if bound_object != null:
-			global_position = bound_object.global_position
-			rotation = bound_object.global_rotation
-			
+	if  _is_started and not is_disposed:
 		match config.dispose_strategy:
 			RFXConfig.EFXDisposeStrategy.Lifetime:
 				if get_time() - _started_at >= config.lifetime:
 					dispose()
+					return
 					
 			RFXConfig.EFXDisposeStrategy.BoundObject:
-				if bound_object == null or not bound_object.visible or not bound_object.is_inside_tree():
+				if bound_object == null or not bound_object.is_inside_tree():
 					dispose()
+					return
 					
 			RFXConfig.EFXDisposeStrategy.Content:
 				dev.logr(TAG, "Content based FX disposing is not implemented yet")
+		
+		if bound_object != null:
+			global_position = bound_object.global_position
+			rotation = bound_object.global_rotation
+
 
 func stop_fx():
 	for ps in _particle_systems:
@@ -149,13 +152,5 @@ func dispose():
 		queue_free()
 
 func restruct():
-	#for ps in _particle_systems:
-		#ps.emitting = false
-		#if ps is GPUTrail3D:
-			##ps._old_pos = ps.global_position
-			##ps.restart()
-	#for ap in _audio_players:
-		#ap.stop()
 	is_disposed = false
-	stop_fx()
 	print("restoring fx: %s" % self)

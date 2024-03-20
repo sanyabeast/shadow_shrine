@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4qcybpvtpw3o"]
+[gd_scene load_steps=27 format=3 uid="uid://4qcybpvtpw3o"]
 
 [ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_juntc"]
 [ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_fqy2b"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://ds2t80o60i6o4" path="res://scenes/fx/fx_kunai_wasted.tscn" id="8_50g8g"]
 [ext_resource type="Material" uid="uid://dlnwcl8b8o0oa" path="res://assets/misc/extracted_material/kunai_a1_mat.tres" id="9_j475n"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="10_0oiqp"]
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="11_140b3"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="11_d2g4n"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="12_odvi1"]
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="13_cwfpv"]
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="13_ymi2c"]
 
@@ -76,6 +78,28 @@ use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
 
+[sub_resource type="Resource" id="Resource_aw0fg"]
+script = ExtResource("11_140b3")
+id = "default"
+process_overlay_material = true
+overlay_albedo = Color(1, 1, 1, 1)
+overlay_thickness = 0.25
+overlay_brightness = 0.25
+overlay_emission_strength = 0.5
+
+[sub_resource type="Resource" id="Resource_ja5r6"]
+script = ExtResource("11_140b3")
+id = "hit"
+process_overlay_material = true
+overlay_albedo = Color(1, 0.384314, 0, 1)
+overlay_thickness = 1.0
+overlay_brightness = 1.0
+overlay_emission_strength = 4.0
+
+[sub_resource type="Resource" id="Resource_5vvc5"]
+script = ExtResource("12_odvi1")
+list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_aw0fg"), SubResource("Resource_ja5r6")])
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_87qq8"]
 radius = 0.25
 
@@ -113,11 +137,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ysj3")
 
-[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("hit_procedures", "ray", "launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
+[node name="KunaiProjectileA1" type="Area3D" node_paths=PackedStringArray("hit_procedures", "ray", "surface_helper", "launch_fx_anchor", "block_fx_anchor", "hit_fx_anchor")]
 script = ExtResource("1_juntc")
 config = SubResource("Resource_gdcre")
 hit_procedures = [NodePath("ProcDamage"), NodePath("ProcImpulse")]
 ray = NodePath("RayCast3D")
+surface_helper = NodePath("SurfaceMaterialHelper")
 launch_fx = SubResource("Resource_ept1m")
 block_fx = SubResource("Resource_npqly")
 hit_fx = SubResource("Resource_b33vy")
@@ -125,6 +150,14 @@ waste_fx = SubResource("Resource_egquv")
 launch_fx_anchor = NodePath("FXAnchor")
 block_fx_anchor = NodePath("FXAnchorBlockHit")
 hit_fx_anchor = NodePath("FXAnchorBlockHit")
+
+[node name="SurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
+script = ExtResource("13_cwfpv")
+overlay_meshes = [NodePath("../Body/projectile")]
+overlay_material = ExtResource("13_ymi2c")
+use_states = true
+states = SubResource("Resource_5vvc5")
+state_update_rate = 15.0
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.182283)
@@ -152,8 +185,3 @@ script = ExtResource("10_0oiqp")
 [node name="ProcImpulse" type="Node" parent="."]
 script = ExtResource("11_d2g4n")
 max_impulse = 1.5
-
-[node name="SurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
-script = ExtResource("13_cwfpv")
-overlay_meshes = [NodePath("../Body/projectile")]
-overlay_material = ExtResource("13_ymi2c")

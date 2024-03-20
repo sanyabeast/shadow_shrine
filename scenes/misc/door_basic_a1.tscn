@@ -53,14 +53,16 @@ process_overlay_material = true
 overlay_albedo = Color(1, 1, 1, 0.596078)
 overlay_thickness = 0.25
 overlay_brightness = 0.0
+overlay_emission_strength = 0.0
 
 [sub_resource type="Resource" id="Resource_wtsww"]
 script = ExtResource("7_mhe75")
 id = "focus"
 process_overlay_material = true
 overlay_albedo = Color(1, 0.537255, 0.121569, 1)
-overlay_thickness = 0.25
+overlay_thickness = 0.2
 overlay_brightness = 1.0
+overlay_emission_strength = 1.0
 
 [sub_resource type="Resource" id="Resource_7w671"]
 script = ExtResource("8_3epfs")

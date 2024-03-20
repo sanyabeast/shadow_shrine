@@ -95,6 +95,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -9)
 [node name="EnemySpawnGizmo2" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -8)
 
+[node name="EnemySpawnGizmo9" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.041, 0, -8)
+
+[node name="EnemySpawnGizmo10" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156265, 0, 0.721462)
+
+[node name="EnemySpawnGizmo11" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04804, 0, -8.7148)
+
+[node name="EnemySpawnGizmo12" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.59229, 0, -5.99732)
+
+[node name="EnemySpawnGizmo13" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59182, 0, -9.90226)
+
 [node name="EnemySpawnGizmo3" parent="Spots/Enemies" instance=ExtResource("6_2ch86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 

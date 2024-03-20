@@ -1,12 +1,14 @@
-[gd_scene load_steps=25 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=30 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/charconf_boxed_slime_kido.tres" id="2_vy3e7"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_op30v"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="4_if374"]
-[ext_resource type="Shader" path="res://_dev/shaders/_shad_rim_light_a.gdshader" id="4_nlxj3"]
+[ext_resource type="Shader" path="res://_dev/shaders/rim_light/_shad_rim_light_emiss_add.gdshader" id="4_nlxj3"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="5_2pxgc"]
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_8m3ld"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="6_hf3yk"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_i7bxf"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_6kxlq"]
 [ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="9_8f766"]
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="9_8k31u"]
@@ -18,6 +20,28 @@
 radius = 0.26
 height = 0.8
 
+[sub_resource type="Resource" id="Resource_kyo1u"]
+script = ExtResource("5_8m3ld")
+id = "default"
+process_overlay_material = true
+overlay_albedo = Color(0.266667, 1, 0, 0)
+overlay_thickness = 0.15
+overlay_brightness = 0.15
+overlay_emission_strength = 0.25
+
+[sub_resource type="Resource" id="Resource_aaw1u"]
+script = ExtResource("5_8m3ld")
+id = "hurt"
+process_overlay_material = true
+overlay_albedo = Color(0.960784, 0.12549, 0.12549, 1)
+overlay_thickness = 0.2
+overlay_brightness = 0.5
+overlay_emission_strength = 2.0
+
+[sub_resource type="Resource" id="Resource_b4vxq"]
+script = ExtResource("6_i7bxf")
+list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_kyo1u"), SubResource("Resource_aaw1u")])
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rt7d0"]
 render_priority = 0
 shader = ExtResource("4_nlxj3")
@@ -27,7 +51,6 @@ shader_parameter/rimBrightness = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt0oj"]
 resource_name = "slime.001"
-transparency = 4
 albedo_texture = ExtResource("4_if374")
 roughness = 0.163636
 normal_enabled = true
@@ -209,6 +232,7 @@ surface_material_helper = NodePath("StandardGameSurfaceMaterialHelper")
 
 [node name="StandardGameSurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("9_8f766")]
 overlay_meshes = [NodePath("../Node3D/enemy")]
+states = SubResource("Resource_b4vxq")
 
 [node name="Node3D" type="Node3D" parent="Body"]
 transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0)

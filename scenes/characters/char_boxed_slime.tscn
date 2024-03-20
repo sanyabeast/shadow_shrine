@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=29 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_i0uoy"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_ajw58"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_hxo2j"]
 [ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="6_tnji0"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_lc31e"]
 [ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="8_6nl4f"]
@@ -17,17 +19,100 @@
 radius = 0.35
 height = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5qrd"]
+[sub_resource type="Resource" id="Resource_pxeve"]
+script = ExtResource("5_ajw58")
+id = "default"
+process_overlay_material = true
+overlay_albedo = Color(0.560784, 1, 0, 1)
+overlay_thickness = 0.125
+overlay_brightness = 0.125
+overlay_emission_strength = 0.35
+
+[sub_resource type="Resource" id="Resource_aaw1u"]
+script = ExtResource("5_ajw58")
+id = "hurt"
+process_overlay_material = true
+overlay_albedo = Color(0.960784, 0.12549, 0.12549, 1)
+overlay_thickness = 0.2
+overlay_brightness = 0.5
+overlay_emission_strength = 2.0
+
+[sub_resource type="Resource" id="Resource_363de"]
+script = ExtResource("6_hxo2j")
+list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_pxeve"), SubResource("Resource_aaw1u")])
+
+[sub_resource type="Shader" id="Shader_kkwsg"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,depth_prepass_alpha;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_normal : hint_roughness_normal,filter_linear_mipmap,repeat_enable;
+uniform float normal_scale : hint_range(-16,16);
+uniform sampler2D texture_ambient_occlusion : hint_default_white, filter_linear_mipmap,repeat_enable;
+uniform vec4 ao_texture_channel;
+uniform float ao_light_affect;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	NORMAL_MAP = texture(texture_normal,base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	AO = dot(texture(texture_ambient_occlusion,base_uv),ao_texture_channel);
+	AO_LIGHT_AFFECT = ao_light_affect;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5weg"]
 resource_name = "slime.001"
-transparency = 4
-albedo_texture = ExtResource("2_dx2ui")
-roughness = 0.163636
-emission = Color(0.729412, 1, 0, 1)
-emission_energy_multiplier = 0.08
-normal_enabled = true
-normal_texture = ExtResource("4_1km65")
-ao_enabled = true
-ao_texture = ExtResource("3_1kjhj")
+render_priority = 0
+shader = SubResource("Shader_kkwsg")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.163636
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_texture_channel = null
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_dx2ui")
+shader_parameter/texture_normal = ExtResource("4_1km65")
+shader_parameter/texture_ambient_occlusion = ExtResource("3_1kjhj")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pr830"]
 _surfaces = [{
@@ -53,7 +138,7 @@ _surfaces = [{
 "index_count": 372,
 "index_data": PackedByteArray(3, 0, 1, 0, 0, 0, 1, 0, 3, 0, 2, 0, 7, 0, 5, 0, 4, 0, 5, 0, 7, 0, 6, 0, 11, 0, 9, 0, 8, 0, 9, 0, 11, 0, 10, 0, 15, 0, 13, 0, 12, 0, 13, 0, 15, 0, 14, 0, 19, 0, 17, 0, 16, 0, 17, 0, 19, 0, 18, 0, 23, 0, 21, 0, 20, 0, 21, 0, 23, 0, 22, 0, 24, 0, 26, 0, 25, 0, 27, 0, 28, 0, 14, 0, 8, 0, 30, 0, 29, 0, 31, 0, 33, 0, 32, 0, 34, 0, 36, 0, 35, 0, 15, 0, 38, 0, 37, 0, 9, 0, 40, 0, 39, 0, 41, 0, 43, 0, 42, 0, 45, 0, 24, 0, 44, 0, 24, 0, 45, 0, 26, 0, 47, 0, 2, 0, 3, 0, 2, 0, 47, 0, 46, 0, 49, 0, 31, 0, 48, 0, 31, 0, 49, 0, 33, 0, 53, 0, 51, 0, 50, 0, 51, 0, 53, 0, 52, 0, 39, 0, 8, 0, 9, 0, 8, 0, 39, 0, 30, 0, 32, 0, 41, 0, 31, 0, 41, 0, 32, 0, 43, 0, 57, 0, 55, 0, 54, 0, 55, 0, 57, 0, 56, 0, 58, 0, 9, 0, 10, 0, 9, 0, 58, 0, 40, 0, 59, 0, 15, 0, 12, 0, 15, 0, 59, 0, 38, 0, 63, 0, 61, 0, 60, 0, 61, 0, 63, 0, 62, 0, 25, 0, 34, 0, 24, 0, 34, 0, 25, 0, 36, 0, 37, 0, 14, 0, 15, 0, 14, 0, 37, 0, 27, 0, 24, 0, 64, 0, 44, 0, 64, 0, 24, 0, 34, 0, 44, 0, 10, 0, 11, 0, 10, 0, 44, 0, 64, 0, 42, 0, 65, 0, 41, 0, 65, 0, 42, 0, 66, 0, 66, 0, 12, 0, 65, 0, 12, 0, 66, 0, 59, 0, 35, 0, 64, 0, 34, 0, 64, 0, 35, 0, 67, 0, 67, 0, 10, 0, 64, 0, 10, 0, 67, 0, 58, 0, 28, 0, 13, 0, 14, 0, 13, 0, 28, 0, 68, 0, 68, 0, 48, 0, 13, 0, 48, 0, 68, 0, 49, 0, 29, 0, 11, 0, 8, 0, 11, 0, 29, 0, 69, 0, 69, 0, 44, 0, 11, 0, 44, 0, 69, 0, 45, 0, 73, 0, 71, 0, 70, 0, 71, 0, 73, 0, 72, 0, 16, 0, 72, 0, 73, 0, 72, 0, 16, 0, 17, 0, 65, 0, 31, 0, 41, 0, 31, 0, 65, 0, 48, 0, 12, 0, 48, 0, 65, 0, 48, 0, 12, 0, 13, 0, 77, 0, 75, 0, 74, 0, 75, 0, 77, 0, 76, 0, 4, 0, 76, 0, 77, 0, 76, 0, 4, 0, 5, 0, 81, 0, 79, 0, 78, 0, 79, 0, 81, 0, 80, 0, 80, 0, 77, 0, 79, 0, 77, 0, 80, 0, 4, 0, 78, 0, 54, 0, 55, 0, 54, 0, 78, 0, 79, 0, 79, 0, 74, 0, 54, 0, 74, 0, 79, 0, 77, 0, 85, 0, 83, 0, 82, 0, 83, 0, 85, 0, 84, 0, 84, 0, 73, 0, 83, 0, 73, 0, 84, 0, 16, 0, 82, 0, 87, 0, 86, 0, 87, 0, 82, 0, 83, 0, 83, 0, 70, 0, 87, 0, 70, 0, 83, 0, 73, 0, 6, 0, 0, 0, 1, 0, 0, 0, 6, 0, 7, 0, 7, 0, 60, 0, 0, 0, 60, 0, 7, 0, 63, 0, 22, 0, 74, 0, 75, 0, 74, 0, 22, 0, 23, 0, 23, 0, 54, 0, 74, 0, 54, 0, 23, 0, 57, 0, 18, 0, 20, 0, 21, 0, 20, 0, 18, 0, 19, 0, 19, 0, 50, 0, 20, 0, 50, 0, 19, 0, 53, 0, 91, 0, 89, 0, 88, 0, 89, 0, 91, 0, 90, 0, 90, 0, 3, 0, 89, 0, 3, 0, 90, 0, 47, 0, 56, 0, 50, 0, 51, 0, 50, 0, 56, 0, 57, 0, 57, 0, 20, 0, 50, 0, 20, 0, 57, 0, 23, 0, 52, 0, 84, 0, 85, 0, 84, 0, 52, 0, 53, 0, 53, 0, 16, 0, 84, 0, 16, 0, 53, 0, 19, 0, 62, 0, 80, 0, 81, 0, 80, 0, 62, 0, 63, 0, 63, 0, 4, 0, 80, 0, 4, 0, 63, 0, 7, 0, 88, 0, 60, 0, 61, 0, 60, 0, 88, 0, 89, 0, 89, 0, 0, 0, 60, 0, 0, 0, 89, 0, 3, 0),
 "lods": [0.026996, PackedByteArray(179, 0, 155, 0, 172, 0, 181, 0, 179, 0, 172, 0, 172, 0, 174, 0, 181, 0, 164, 0, 172, 0, 155, 0, 173, 0, 175, 0, 174, 0, 162, 0, 173, 0, 164, 0, 173, 0, 162, 0, 175, 0, 155, 0, 180, 0, 168, 0, 155, 0, 168, 0, 167, 0, 155, 0, 167, 0, 45, 0, 45, 0, 163, 0, 156, 0, 177, 0, 157, 0, 182, 0, 59, 0, 177, 0, 183, 0, 183, 0, 184, 0, 59, 0, 182, 0, 185, 0, 184, 0, 182, 0, 170, 0, 185, 0, 170, 0, 182, 0, 169, 0, 169, 0, 182, 0, 157, 0, 169, 0, 171, 0, 170, 0, 171, 0, 169, 0, 158, 0, 158, 0, 193, 0, 171, 0, 158, 0, 166, 0, 193, 0, 165, 0, 166, 0, 158, 0, 157, 0, 176, 0, 165, 0, 176, 0, 157, 0, 178, 0, 151, 0, 186, 0, 46, 0, 151, 0, 90, 0, 186, 0, 151, 0, 198, 0, 90, 0, 198, 0, 151, 0, 197, 0, 191, 0, 197, 0, 151, 0, 152, 0, 150, 0, 191, 0, 154, 0, 191, 0, 150, 0, 191, 0, 154, 0, 192, 0, 153, 0, 192, 0, 154, 0, 192, 0, 153, 0, 189, 0, 153, 0, 195, 0, 189, 0, 161, 0, 189, 0, 195, 0, 189, 0, 161, 0, 190, 0, 187, 0, 190, 0, 161, 0, 161, 0, 160, 0, 187, 0, 159, 0, 187, 0, 160, 0, 187, 0, 159, 0, 188, 0, 194, 0, 188, 0, 159, 0, 72, 0, 194, 0, 159, 0, 71, 0, 194, 0, 72, 0, 188, 0, 194, 0, 196, 0, 87, 0, 196, 0, 194, 0, 196, 0, 87, 0, 86, 0), 0.0361498, PackedByteArray(131, 0, 123, 0, 126, 0, 119, 0, 126, 0, 123, 0, 123, 0, 132, 0, 124, 0, 129, 0, 121, 0, 133, 0, 125, 0, 133, 0, 121, 0, 113, 0, 90, 0, 134, 0, 113, 0, 149, 0, 90, 0, 149, 0, 113, 0, 148, 0, 140, 0, 148, 0, 113, 0, 113, 0, 111, 0, 140, 0, 140, 0, 111, 0, 141, 0, 33, 0, 32, 0, 28, 0, 135, 0, 114, 0, 136, 0, 147, 0, 136, 0, 114, 0, 114, 0, 135, 0, 116, 0, 145, 0, 116, 0, 135, 0, 135, 0, 139, 0, 145, 0, 143, 0, 147, 0, 115, 0, 137, 0, 147, 0, 146, 0, 117, 0, 127, 0, 118, 0, 127, 0, 117, 0, 128, 0, 122, 0, 130, 0, 120, 0, 142, 0, 144, 0, 138, 0, 144, 0, 142, 0, 112, 0), 0.513626, PackedByteArray(45, 0, 26, 0, 99, 0, 97, 0, 100, 0, 99, 0, 92, 0, 109, 0, 101, 0, 92, 0, 110, 0, 109, 0, 110, 0, 92, 0, 105, 0, 28, 0, 33, 0, 98, 0, 108, 0, 107, 0, 87, 0, 108, 0, 87, 0, 86, 0, 107, 0, 108, 0, 94, 0, 108, 0, 103, 0, 94, 0, 104, 0, 95, 0, 102, 0, 93, 0, 96, 0, 106, 0)],
-"material": SubResource("StandardMaterial3D_k5qrd"),
+"material": SubResource("ShaderMaterial_y5weg"),
 "name": "slime.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -224,6 +309,10 @@ shape = SubResource("CapsuleShape3D_174we")
 script = ExtResource("3_i0uoy")
 surface_material_helper = NodePath("CharacterBodySurfaceMaterialHelper")
 
+[node name="CharacterBodySurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("8_wyiil")]
+overlay_meshes = [NodePath("../Node3D/enemy")]
+states = SubResource("Resource_363de")
+
 [node name="Node3D" type="Node3D" parent="Body"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
@@ -247,9 +336,6 @@ tree_root = ExtResource("7_lc31e")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_dead = false
 parameters/Move/blend_position = 1.0641
-
-[node name="CharacterBodySurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("8_wyiil")]
-overlay_meshes = [NodePath("../Node3D/enemy")]
 
 [node name="Aim" type="Node3D" parent="."]
 

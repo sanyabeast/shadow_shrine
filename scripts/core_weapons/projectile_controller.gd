@@ -9,6 +9,7 @@ const TAG: String = "ProjectileController"
 @export var config: RProjectileConfig
 @export var hit_procedures: Array[GProcedure] = []
 @export var ray: RayCast3D
+@export var surface_helper: GSurfaceMaterialHelper
 
 @export_subgroup("Projectile FX")
 @export var launch_fx: RFXConfig
@@ -41,6 +42,8 @@ var _is_wasted: bool = false
 
 var _collision_normal: Vector3 = Vector3.ZERO
 var _collision_point: Vector3 = Vector3.ZERO
+
+var _is_disposed: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -90,6 +93,11 @@ func _handle_block(_hit_body):
 	if block_fx:
 		world.spawn_fx(block_fx, global_position)	
 		
+	if surface_helper != null:
+		print("block")
+		surface_helper.enter_state("hit", 0)
+		surface_helper.enter_state("default", 0.25)
+		
 	_hits_and_blocks_count += 1	
 	
 	_reflect()
@@ -103,7 +111,6 @@ func _handle_block(_hit_body):
 		if waste_fx:
 			world.spawn_fx(waste_fx, _collision_point)
 			
-		dispose()
 	
 func _handle_hit(_hit_body: GCharacterController):
 	_update_ray_collision()
@@ -120,6 +127,11 @@ func _handle_hit(_hit_body: GCharacterController):
 	if hit_fx:
 		world.spawn_fx(hit_fx, global_position)
 	
+	if surface_helper != null:
+		print("hit")
+		surface_helper.enter_state("hit", 0)
+		surface_helper.enter_state("default", 0.25)
+	
 	_deviate(config.hit_direction_deviation)
 	
 	_hits_and_blocks_count += 1
@@ -127,20 +139,31 @@ func _handle_hit(_hit_body: GCharacterController):
 	if config.max_hits_and_blocks > 0 and _hits_and_blocks_count >= config.max_hits_and_blocks:
 		_is_wasted = true
 	
-	if _is_wasted:
-		dispose()	
 			
 func _process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
-			global_position += direction * current_velocity * delta * game.speed
 			current_velocity += config.acceleration * delta	
 			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
 		
+			#if surface_helper != null and surface_helper.current_state_id == "hit":
+				#print("def")
+				#surface_helper.enter_state("default", 0.5)
+		
 			if cooldowns.ready("max_lifetime"):
 				dispose()
-		
+				
+		if _is_wasted and not _is_disposed:
+			dispose()
+
+func _physics_process(delta):
+	if not game.paused:
+		if _is_launched and not _is_wasted:
+			global_position += direction * current_velocity * delta * game.speed
+			
 func dispose():
+	_is_disposed = true
+	
 	if body != null:
 		body.hide()
 		
@@ -155,6 +178,7 @@ func reborn():
 	_hits_and_blocks_count = 0
 	current_velocity = 0
 	cooldowns.reset()
+	_is_disposed = false
 	
 	if body != null:
 		body.show()

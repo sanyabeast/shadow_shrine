@@ -251,6 +251,7 @@ func _die():
 	is_dead = true
 	
 	collision_layer = 0
+	velocity.y = 0
 
 	set_walk_power(0)
 

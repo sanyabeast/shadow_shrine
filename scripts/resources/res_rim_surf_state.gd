@@ -9,11 +9,13 @@ class_name RRimSurfaceState
 @export var overlay_albedo: Color = Color.WHITE
 @export var overlay_thickness: float = 0.25
 @export var overlay_brightness: float = 1
+@export var overlay_emission_strength: float = 0
 
 
 func update_shader_parameters():
 	shader_parameters = {
 		"albedo": overlay_albedo,
 	 	"rimThickness": overlay_thickness,
- 		"rimBrightness": overlay_brightness
+ 		"rimBrightness": overlay_brightness,
+		"emissionStrength": overlay_emission_strength
 	}

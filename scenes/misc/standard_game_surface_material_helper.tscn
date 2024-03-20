@@ -1,37 +1,17 @@
 [gd_scene load_steps=9 format=3 uid="uid://dopsy730bw21l"]
 
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="1_1yqlc"]
+[ext_resource type="Shader" path="res://_dev/shaders/rim_light/_shad_rim_light_b.gdshader" id="2_b7f4p"]
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="2_vp3pl"]
 [ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="3_r68tx"]
 
-[sub_resource type="Shader" id="Shader_xfikh"]
-code = "shader_type spatial;
-render_mode blend_add, depth_prepass_alpha;
-uniform vec4 albedo: source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float rimThickness:  hint_range(0.1, 2)  = 0.25;
-uniform float rimBrightness:  hint_range(0, 8)  = 1.5;
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
-void fragment() {
-	vec3 viewDir = normalize(-CAMERA_DIRECTION_WORLD.xyz); // Camera view direction
-    float rimFactor = 1.0 - max(0.0, dot(normalize(NORMAL), VIEW)); // Calculate rim factor
-	
- 	rimFactor = pow(rimFactor, (1./rimThickness));
-	rimFactor = clamp(rimFactor * rimBrightness, 0., 1.);
-	
-	EMISSION.rgb = albedo.rgb * rimFactor;
-	ALPHA = rimFactor * albedo.a;
-}"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wwke0"]
 render_priority = 0
-shader = SubResource("Shader_xfikh")
+shader = ExtResource("2_b7f4p")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/rimThickness = 0.5
 shader_parameter/rimBrightness = 0.5
+shader_parameter/emissionStrength = 1.0
 
 [sub_resource type="Resource" id="Resource_nk7fc"]
 script = ExtResource("2_vp3pl")
@@ -40,14 +20,16 @@ process_overlay_material = true
 overlay_albedo = Color(1, 1, 1, 0)
 overlay_thickness = 0.15
 overlay_brightness = 0.0
+overlay_emission_strength = 0.0
 
 [sub_resource type="Resource" id="Resource_aaw1u"]
 script = ExtResource("2_vp3pl")
 id = "hurt"
 process_overlay_material = true
-overlay_albedo = Color(1, 0, 0, 1)
-overlay_thickness = 1.0
-overlay_brightness = 1.0
+overlay_albedo = Color(0.960784, 0.12549, 0.12549, 1)
+overlay_thickness = 0.2
+overlay_brightness = 0.5
+overlay_emission_strength = 2.0
 
 [sub_resource type="Resource" id="Resource_fklri"]
 script = ExtResource("3_r68tx")
