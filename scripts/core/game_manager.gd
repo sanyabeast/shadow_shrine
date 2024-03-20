@@ -81,3 +81,4 @@ func start():
 	
 	if mode != null:
 		mode.start_game()
+

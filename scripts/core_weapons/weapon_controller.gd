@@ -18,6 +18,7 @@ var cooldowns: GCooldowns = GCooldowns.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	cooldowns.start("fire", randf_range(0., 1 / config.fire_rate))
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

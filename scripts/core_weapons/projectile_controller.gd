@@ -44,6 +44,8 @@ var _collision_normal: Vector3 = Vector3.ZERO
 var _collision_point: Vector3 = Vector3.ZERO
 
 var _is_disposed: bool = false
+var _prev_position: Vector3
+var _distance_travelled: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,7 +76,7 @@ func launch():
 func _handle_body_entered(_hit_body):
 	if not _is_wasted:
 		if _hit_body is GCharacterController:
-			if keeper and _hit_body != keeper:
+			if keeper and _hit_body != keeper and characters.should_hit(keeper, _hit_body):
 				dev.logd(TAG, 'projectile hit character %s' % _hit_body)
 				_handle_hit(_hit_body)
 		else:
@@ -142,24 +144,27 @@ func _handle_hit(_hit_body: GCharacterController):
 			
 func _process(delta):
 	if not game.paused:
-		if _is_launched and not _is_wasted:
-			current_velocity += config.acceleration * delta	
-			current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
-		
-			#if surface_helper != null and surface_helper.current_state_id == "hit":
-				#print("def")
-				#surface_helper.enter_state("default", 0.5)
-		
-			if cooldowns.ready("max_lifetime"):
-				dispose()
+		if _is_launched:
+			if _is_wasted:
+				if not _is_disposed:
+					dispose()
+			else:
+				current_velocity += config.acceleration * delta	
+				current_velocity = clampf(current_velocity, config.min_velocity, config.max_velocity)
+			
+				if cooldowns.ready("max_lifetime"):
+					_is_wasted = true
 				
-		if _is_wasted and not _is_disposed:
-			dispose()
+				if config.max_distance_travelled > 0 and _distance_travelled >=  config.max_distance_travelled:
+					_is_wasted = true
+			
+			
 
 func _physics_process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
 			global_position += direction * current_velocity * delta * game.speed
+			_distance_travelled += (direction * current_velocity * delta * game.speed).length()
 			
 func dispose():
 	_is_disposed = true
@@ -177,6 +182,7 @@ func reborn():
 	_is_wasted = false
 	_hits_and_blocks_count = 0
 	current_velocity = 0
+	_distance_travelled = 0
 	cooldowns.reset()
 	_is_disposed = false
 	

@@ -6,14 +6,14 @@ class_name GCharactersManager
 const TAG: String = "CharactersManager"
 
 signal on_player_dead
-signal on_player_alive()
+signal on_player_alive
 signal on_enemies_dead
 signal on_enemies_alive
 signal on_enemy_dead
 signal on_enemy_alive
 
 var player: GCharacterController
-var player_invulnerable: bool = false
+var player_invulnerable: bool = true
 var player_mass_scale: float = 10
 
 var player_enabled: bool = false
@@ -27,6 +27,13 @@ var alive_npc_count: int = 0
 var alive_enemies_count: int = 0
 var _player_prev_dead: bool = true
 
+var is_enemy_friendly_fire_enabled: bool = true
+var is_player_friendly_fire_enabled: bool = false
+
+var force_player_invulnerable: bool = false
+var force_player_immortal: bool = false
+var force_player_unshakable: bool = true
+
 #region: Process
 func _process(delta):
 	if not game.paused:
@@ -35,6 +42,7 @@ func _process(delta):
 	
 	if tools.IS_DEBUG:
 		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
+		dev.print_screen("player_state", "player (innvul. / immortal / unshak.): %s / %s / %s" % [force_player_invulnerable, force_player_immortal, force_player_unshakable])
 	
 	
 func _physics_process(delta):
@@ -86,10 +94,12 @@ func _update_player(delta):
 		else:
 			if _player_prev_dead:
 				on_player_alive.emit()
+				
+		_player_prev_dead = player.is_dead
 		
 		#widgets.set_token("player_health", player.health.value)
-		widgets.set_token("player_health", fmod(game.time, 3))
-		widgets.set_token("player_max_health", player.max_health.value)
+		widgets.set_token("player_health", player.health.value)
+		widgets.set_token("player_max_health", player.health.max_value)
 	
 func set_player(character: GCharacterController):
 	dev.logd(TAG, "active player set to: %s" % character)
@@ -98,9 +108,11 @@ func set_player(character: GCharacterController):
 func is_player(character: GCharacterController) -> bool:
 	return character == player
 
-func teleport_player(position: Vector3):
+func teleport_player(position: Vector3, rotation = null):
 	if player != null:
 		player.global_position = position
+		if rotation != null:
+			player.global_rotation_degrees.y = rotation
 	else:
 		tools.logd(TAG, "no players to teleport")
 
@@ -140,6 +152,12 @@ func disable_ai():
 		for character in list: 
 			if not is_player(character):
 				npc_driver.on_ai_disabled(character)
+
+func is_enemy(character: GCharacterController) -> bool:
+	return not is_player(character) and not character.is_friendly
+	
+func is_friend(character: GCharacterController) -> bool:
+	return not is_player(character) and character.is_friendly
 	
 func kill_enemies(interval: float = 0):
 	dev.logd(TAG, "killing all enemies...")
@@ -202,3 +220,31 @@ func _update_npc(delta):
 
 #endregion
 
+func should_hit(shooter: Node3D, target: Node3D) -> bool:
+	if shooter is GCharacterController and target is GCharacterController:
+		if characters.is_player(shooter) and characters.is_enemy(target) and not is_invulnerable(target):
+			return true
+		elif characters.is_enemy(shooter) and characters.is_player(target) and not is_invulnerable(player):
+			return true
+		if is_enemy_friendly_fire_enabled and characters.is_enemy(shooter) and characters.is_enemy(target) and not is_invulnerable(target):
+			return true
+			
+	return false
+
+func is_invulnerable(chr: GCharacterController):
+	if is_player(chr):
+		return chr.is_invulnerable or force_player_invulnerable
+	else:
+		return chr.is_invulnerable
+
+func is_immortal(chr: GCharacterController):
+	if is_player(chr):
+		return chr.is_immortal or force_player_immortal
+	else:
+		return chr.is_immortal
+
+func is_unshakable(chr: GCharacterController):
+	if is_player(chr):
+		return chr.is_unshakable or force_player_unshakable
+	else:
+		return chr.is_unshakable

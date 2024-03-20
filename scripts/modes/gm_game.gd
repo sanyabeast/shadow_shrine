@@ -95,6 +95,7 @@ func _prepare():
 	widgets.controller.highlights.delay(1)
 	characters.on_enemies_alive.connect(_handle_enemies_appear)
 	characters.on_enemies_dead.connect(_handle_all_enemies_dead)
+	characters.on_player_dead.connect(_handle_player_dead)
 	
 	_setup_player()
 	_setup_ambient_sound()
@@ -146,45 +147,38 @@ func _spawn_room(from_direction):
 	
 	from_direction = from_direction if from_direction != null else world.EDirection.North
 	var oposite_direction = world.get_oposite_direction(from_direction)
-	
 	var room_index: int = current_maze_cell.index	
 	var room_state = _get_current_room_state()
-	var room_template_index: int = room_state.template_index
-	var room_saved_content = room_state.saved_content
-	var room_seed_offset = room_state.seed_offset
-	var room_visited: bool = room_state.visited
-	var room_passed: bool = room_state.passed
 	
 	#region: Room setup
-	active_room = config.rooms[room_template_index].instantiate()
-	active_room.set_seed_offset(room_seed_offset)
+	active_room = config.rooms[room_state.template_index].instantiate()
+	active_room.set_seed_offset(room_state.seed_offset)
 	
 	for dir in world.directions_list:
 		active_room.doors_map[dir] = not current_maze_cell.walls[dir]
 		
-	if room_saved_content != null:
-		active_room.upload_saved_content(room_saved_content)
+	if room_state.saved_content != null:
+		active_room.upload_saved_content(room_state.saved_content)
 		
 	world.add_to_level(active_room)
 	world.set_sandbox(active_room.content)
-	active_room.initialize(room_saved_content == null)
+	active_room.initialize(room_state.saved_content == null)
 	
-	if room_passed != null:
+	if room_state.passed == true:
 		active_room.open_doors(true)
 	else:
 		active_room.close_doors()
 	#endregion
 	
 	#region: Player setup
-	var player_spawn = active_room
-	
 	if is_first_room_in_game:
 		is_first_room_in_game = false
-		player_spawn = active_room.player_spawn
+		var player_spawn = active_room.player_spawn
+		characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0), player_spawn.global_rotation_degrees.y)
 	else:
-		player_spawn = active_room.door_controllers[oposite_direction].player_spawn
+		var player_spawn = active_room.door_controllers[oposite_direction].player_spawn
+		characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0))
 		
-	characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0))
 	#endregion
 	
 	#region: Post load
@@ -192,7 +186,7 @@ func _spawn_room(from_direction):
 	tasks.queue(self, "enable_ai", 0.5, null, characters.enable_ai)
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
 	
-	if not room_visited:
+	if not room_state.visited:
 		widgets.controller.highlights.show_message("Room #%s '%s'" % [current_maze_cell.index, maze_generator.get_cell_category_pretty_name(current_maze_cell.category)], "kill all enemies")
 		room_state.visited = true
 	#endregion
@@ -249,5 +243,7 @@ func _handle_all_enemies_dead():
 	if not active_room.doors_opened:
 		game.tasks.queue(self, "open-doors", 1, null, active_room.open_doors)
 
+func _handle_player_dead():
+	game.finish(false)
 #endregion
 

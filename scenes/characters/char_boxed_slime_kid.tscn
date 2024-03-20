@@ -278,12 +278,12 @@ parameters/Move/blend_position = 1.0641
 [node name="Aim" type="Node3D" parent="."]
 
 [node name="Weapon" type="Node3D" parent="Aim"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.284298, -0.34011)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185277, -0.316725)
 script = ExtResource("9_8k31u")
 config = ExtResource("10_xwxi6")
 
 [node name="ArrowGizmo" parent="Aim" instance=ExtResource("10_0cs4p")]
-transform = Transform3D(-0.1, 0, -3.89415e-08, 0, 0.1, 0, 3.89415e-08, 0, -0.1, 1.10227e-08, 0.233646, -0.647668)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10227e-08, 0.14736, -0.406588)
 
 [node name="ToxicBubbles" parent="." instance=ExtResource("12_s6jrf")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

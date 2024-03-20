@@ -1,34 +1,74 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhmsrndlp5x2j"]
+[gd_scene load_steps=15 format=3 uid="uid://bhmsrndlp5x2j"]
 
 [ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_acecx"]
 [ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_otkri"]
+[ext_resource type="AudioStream" uid="uid://utyhkkdnxqcn" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click1.ogg" id="3_p0kn4"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="3_penpy"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="4_jg1h7"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="4_qmq2r"]
+[ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/fx_metal_hit_sparks_a.tscn" id="5_p1js2"]
+[ext_resource type="AudioStream" uid="uid://i6iglfdjhg10" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click2.ogg" id="5_pat3e"]
 
 [sub_resource type="Resource" id="Resource_wdgtl"]
 script = ExtResource("2_otkri")
 acceleration = 2.0
 start_velocity = 1.0
 min_velocity = 2.0
-max_velocity = 8.0
+max_velocity = 6.0
 max_collisions = 1
 max_lifetime = 10.0
+max_distance_travelled = 3.0
+max_hits_and_blocks = 3.0
+hit_direction_deviation = 30.0
+block_direction_deviation = 10.0
+
+[sub_resource type="Resource" id="Resource_xaaxq"]
+script = ExtResource("4_jg1h7")
+audio = ExtResource("3_p0kn4")
+audio_pitch_min = 0.9
+audio_pitch_max = 1.1
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([])
+use_game_time = true
+dispose_strategy = 1
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_n8ojx"]
+script = ExtResource("4_jg1h7")
+audio = ExtResource("5_pat3e")
+audio_pitch_min = 1.0
+audio_pitch_max = 0.9
+audio_volume_min = 1.1
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("5_p1js2")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c4877"]
-radius = 0.2
+radius = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lttq"]
-albedo_color = Color(0.0627451, 0, 0.117647, 1)
+transparency = 1
+albedo_color = Color(0.0627451, 0, 0.117647, 0.623529)
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 0.4
 
 [sub_resource type="SphereMesh" id="SphereMesh_nx7kb"]
 material = SubResource("StandardMaterial3D_2lttq")
-radius = 0.1
-height = 0.2
+radius = 0.05
+height = 0.1
 
-[node name="ProjectileBasicA1" type="Area3D"]
+[node name="ProjectileBasicA1" type="Area3D" node_paths=PackedStringArray("hit_procedures")]
 script = ExtResource("1_acecx")
 config = SubResource("Resource_wdgtl")
+hit_procedures = [NodePath("ProcImpulse"), NodePath("ProcDamage")]
+launch_fx = SubResource("Resource_xaaxq")
+block_fx = SubResource("Resource_n8ojx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_c4877")
@@ -37,3 +77,13 @@ shape = SubResource("SphereShape3D_c4877")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
 mesh = SubResource("SphereMesh_nx7kb")
+
+[node name="ProcImpulse" type="Node" parent="."]
+script = ExtResource("4_qmq2r")
+min_impulse = 1.5
+max_impulse = 2.0
+
+[node name="ProcDamage" type="Node" parent="."]
+script = ExtResource("3_penpy")
+min_damage = 0.25
+max_damage = 0.5

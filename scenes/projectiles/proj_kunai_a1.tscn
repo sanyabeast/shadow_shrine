@@ -24,6 +24,7 @@ min_velocity = 4.0
 max_velocity = 8.0
 max_collisions = 1
 max_lifetime = 10.0
+max_distance_travelled = -1.0
 max_hits_and_blocks = 2.0
 hit_direction_deviation = 15.0
 block_direction_deviation = 5.0

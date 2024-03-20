@@ -13,3 +13,5 @@ enum EDamageType {
 @export var projectiles: Array[PackedScene]
 @export var fire_rate: float = 5
 @export var spread: float = 0
+@export var ideal_distance_min: float =1
+@export var ideal_distance_max: float = 4

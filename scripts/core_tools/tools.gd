@@ -178,6 +178,12 @@ func reverse_lerp(value: float, min_value: float, max_value: float) -> float:
 	alpha = clampf(alpha, 0.0, 1.0)
 	return alpha
 
+func is_in_range(value: float, from: float, to: float, include: bool = true) -> bool:
+	if include:
+		return value >= from and value <= to 
+	else:
+		return value > from and value < to 
+
 func repeat_substring(substring: String, times: int) -> String:
 	var result: String = ""
 	for i in range(times):

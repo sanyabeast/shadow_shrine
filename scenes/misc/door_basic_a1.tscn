@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b2dpxeii4p11d"]
+[gd_scene load_steps=44 format=3 uid="uid://b2dpxeii4p11d"]
 
 [ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="1_mxn31"]
 [ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/fx_medium_dust_spike_a.tscn" id="3_h518r"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scripts/tools/blinking_light.gd" id="15_3u160"]
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="16_b53aa"]
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="18_wkm2t"]
+[ext_resource type="PackedScene" uid="uid://c2bxbry2ckno2" path="res://scenes/_dev/_giz_blue_arrow.tscn" id="20_divov"]
 
 [sub_resource type="Resource" id="Resource_euv2s"]
 script = ExtResource("4_al2hb")
@@ -458,4 +459,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.398924)
 shape = SubResource("BoxShape3D_bespo")
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.5)
+
+[node name="ArrowBlueGizmo" parent="PlayerSpawn" instance=ExtResource("20_divov")]

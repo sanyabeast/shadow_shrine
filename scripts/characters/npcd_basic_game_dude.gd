@@ -6,21 +6,33 @@ class GDudeState extends GNpcDriver.GNpcState:
 	
 	var target_position: Vector3 = Vector3(0, 0, 0)
 	var is_wanna_move_to_target_position: bool = false
-	var target_desired_distance: float = 2
+	var target_desired_distance_min: float = 0
+	var target_desired_distance_max: float = 1
+	var target_desired_distance_avg: float = 0.5
 	var cooldowns: GCooldowns = GCooldowns.new(true)
 	var target_walk_power: float = 0
 	var target_walk_angle: float = 0
 	var target_look_angle: float = 0
 	var sin_offset: float = randf_range(0, PI)
 	
+	var current_distance_to_target_position: float = 0
+	
 	func update(character: GCharacterController, delta: float):
-		_update_transitions(character, delta)
+		_update_values(character, delta)
+		
 		if character.is_friendly:
 			pass
 		else:
 			_update_enemy_state(character, delta)
 		
-	func _update_transitions(character: GCharacterController, delta: float):
+	func _update_values(character: GCharacterController, delta: float):
+		if character.has_weapon:
+			target_desired_distance_min = character.weapon.config.ideal_distance_min
+			target_desired_distance_max = character.weapon.config.ideal_distance_max
+			target_desired_distance_avg = lerpf(target_desired_distance_min, target_desired_distance_max, 0.5)
+		
+		current_distance_to_target_position = character.global_position.distance_to(target_position)
+		
 		look_angle = tools.move_toward_deg(
 			look_angle,
 			target_look_angle,
@@ -41,6 +53,8 @@ class GDudeState extends GNpcDriver.GNpcState:
 		var nav_agent: NavigationAgent3D = character.nav_agent
 		var walk_power: float = 0
 		var walk_direction: Vector3 = Vector3.ZERO
+		
+		is_firing = false
 
 		if (
 			cooldowns.ready("update_target_position", true)
@@ -59,25 +73,28 @@ class GDudeState extends GNpcDriver.GNpcState:
 				)
 
 		nav_agent.target_position = target_position
-		nav_agent.target_desired_distance = target_desired_distance
 
-		if not nav_agent.is_target_reached():
+		if current_distance_to_target_position > target_desired_distance_avg:
 			walk_power = 1
 			var next_path_position: Vector3 = nav_agent.get_next_path_position()
 			walk_direction = character.global_position.direction_to(next_path_position)
-		else:
-			#character.look_direction = character.global_position.direction_to(target_position)
+			
+		if  current_distance_to_target_position < target_desired_distance_max:
 			target_look_angle = tools.rotation_degrees_y_from_direction_v2(
 				tools.restrict_to_8_axis(
 					tools.to_v2(character.global_position.direction_to(target_position))
 				)
 			)
-
+			
+			is_firing = true
+			#character.look_direction = character.global_position.direction_to(target_position)
+				
 		target_walk_power = lerpf(
 			character.config.walk_power_sinus_min_power,
 			walk_power,
 			(sin((game.time + sin_offset) * character.config.walk_power_sinus_rate) + 1) / 2
 		)
+		
 		target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
 			tools.restrict_to_8_axis(tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z)))
 		)
@@ -88,6 +105,13 @@ class GDudeState extends GNpcDriver.GNpcState:
 		)
 
 		pass
+	
+	func is_desired_distance_to_target_reached(character: GCharacterController) -> bool:
+		return tools.is_in_range(
+			current_distance_to_target_position,
+			target_desired_distance_min,
+			target_desired_distance_max
+		)
 	
 	func handle_ai_disabled(character: GCharacterController):
 		stop(character)
@@ -123,5 +147,8 @@ func update_physics(character: GCharacterController, delta: float):
 		character.set_walk_power(state.walk_power)
 		character.set_look_direction(tools.angle_to_direction_v2(state.look_angle))
 		character.set_walk_direction(tools.angle_to_direction_v2(state.walk_angle))
+		
+		if state.is_firing:
+			character.fire()
 		
 #endregion

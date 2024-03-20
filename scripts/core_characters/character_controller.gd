@@ -52,7 +52,6 @@ class GAbility:
 
 		update(0)
 
-
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
@@ -90,10 +89,16 @@ var _last_damage_point: Vector3 = Vector3.ZERO
 @export var is_friendly: bool = false
 
 @export_subgroup("Misc")
+@export var is_invulnerable: bool = false
+@export var is_immortal: bool = false
+@export var is_unshakable: bool = false
 @export var hide_on_death: Array[Node3D] = []
 
 signal on_fire(weapon: GWeaponController, direction: Vector3)
 
+var has_weapon: bool:
+	get:
+		return weapon != null
 
 func _ready():
 	_traverse(self)
@@ -119,7 +124,6 @@ func _ready():
 	
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
-
 
 func _enter_tree():
 	characters.link(self)
@@ -175,17 +179,19 @@ func _physics_process(delta):
 						)
 						
 func set_walk_power(value: float):
-	walk_power = value
+	if not is_dead:
+		walk_power = value
 
 func set_walk_direction(value: Vector2):
-	walk_direction = Vector3(value.x, 0, value.y)
+	if not is_dead:
+		walk_direction = Vector3(value.x, 0, value.y)
 
 func set_look_direction(value: Vector2):
-	if value.length() > 0.05:
+	if not is_dead and value.length() > 0.05:
 		look_direction = Vector3(value.x, 0, value.y)
 
 func fire():
-	if weapon:
+	if not is_dead and has_weapon:
 		weapon.fire(look_direction)
 		on_fire.emit(weapon, look_direction)
 
@@ -210,17 +216,19 @@ func _process(delta):
 		)
 	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO):
-	_last_damage_point = to_local(point)
-	health.alter_value(-value)
+	if not characters.is_invulnerable(self):
+		_last_damage_point = to_local(point)
+		health.alter_value(-value)
 
 func commit_heal(value: float):
 	health.alter_value(value)
 
 func commit_impulse(direction: Vector3, power: float):
-	impulse_direction = (impulse_direction + direction).normalized()
-	impulse_direction.y = 0
-	impulse_power = max(impulse_power, power)
-	pass
+	if not characters.is_unshakable(self):
+		impulse_direction = (impulse_direction + direction).normalized()
+		impulse_direction.y = 0
+		impulse_power = max(impulse_power, power)
+		pass
 
 func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
 	dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
@@ -232,7 +240,7 @@ func _handle_ability_change(name: String, old_value: float, new_value: float, in
 					world.spawn_fx(config.hurt_fx, to_global(_last_damage_point))
 				on_hurt.emit(old_value - new_value)
 
-			if new_value == 0:
+			if new_value == 0 and not characters.is_immortal(self):
 				die()
 
 func get_mass() -> float:

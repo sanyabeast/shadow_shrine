@@ -7,4 +7,7 @@
 script = ExtResource("2_owoli")
 damage_type = 0
 projectiles = Array[PackedScene]([ExtResource("1_od7eu")])
-fire_rate = 5.0
+fire_rate = 1.0
+spread = 0.0
+ideal_distance_min = 1.0
+ideal_distance_max = 2.0

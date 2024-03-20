@@ -117,6 +117,8 @@ func _spawn_enemy(spot: Node3D):
 		var enemy: GCharacterController = prefab.instantiate()
 		content.add_child(enemy)
 		enemy.global_position = spot.global_position
+		enemy.global_rotation_degrees.y = spot.global_rotation_degrees.y
+		#enemy.global_rotation_degrees.y = random.range(0, 360)
 	else:
 		dev.logr(TAG, "unable to spawn enemys at specifiet spot: room config not congigured proprly")
 	pass

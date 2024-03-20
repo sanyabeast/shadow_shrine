@@ -31,7 +31,7 @@ func _ready():
 	game.resume()
 	characters.enable_ai()
 	
-	game.tasks.queue(self, "doors", 10, null, characters.kill_enemies)
+	#game.tasks.queue(self, "doors", 10, null, characters.kill_enemies)
 
 func start_default_game():
 	screen_fx.fade_out(0.5)
