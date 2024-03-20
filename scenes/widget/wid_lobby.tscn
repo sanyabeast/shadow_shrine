@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_lobby.gd" id="3_n8dro"]
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="3_vhu03"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/widget/wid_settings_menu.tscn" id="4_260ek"]
-[ext_resource type="PackedScene" uid="uid://dugi2yr5i4hv3" path="res://_dev/widget/_dev_menu_.tscn" id="7_7tvm0"]
+[ext_resource type="PackedScene" uid="uid://dugi2yr5i4hv3" path="res://_dev/widget/_wid_dev_menu_.tscn" id="7_7tvm0"]
 
 [sub_resource type="Animation" id="Animation_bn2kt"]
 length = 0.001
@@ -243,6 +243,7 @@ offset_top = -1.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_epcpp")
 id = "main_menu"
 anim_player = NodePath("AnimationPlayer")
@@ -265,6 +266,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0.6, 0.619608, 0.588235, 0.435294)
 
 [node name="MenuTitleLabel" type="Label" parent="ColorRect"]
@@ -329,6 +331,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer/Start/Background"]
@@ -376,6 +379,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer/_DebugMenu/Background"]
@@ -422,6 +426,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer/Settings/Background"]
@@ -469,6 +474,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer/Quit/Background"]

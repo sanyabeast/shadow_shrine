@@ -25,7 +25,7 @@ var fx_pool: GPoolHelper = GPoolHelper.new(10)
 var use_projectile_pool: bool = true
 var projectile_pool: GPoolHelper = GPoolHelper.new(5)
 
-var level_scene: Node3D = null
+var level_scene: Node = null
 
 func _process(delta):
 	_update_level_scene(delta)

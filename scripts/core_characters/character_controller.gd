@@ -94,8 +94,6 @@ var _last_damage_point: Vector3 = Vector3.ZERO
 @export var is_unshakable: bool = false
 @export var hide_on_death: Array[Node3D] = []
 
-@export_subgroup("Meele")
-@export var melee_procedures: Array[GProcedure]
 
 signal on_fire(weapon: GWeaponController, direction: Vector3)
 

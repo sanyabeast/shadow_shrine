@@ -8,7 +8,7 @@
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="6_0cb3r"]
 [ext_resource type="Script" path="res://scripts/widgets/actions/wact_pause_menu.gd" id="7_sbqqq"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/widget/wid_settings_menu.tscn" id="8_kfpyi"]
-[ext_resource type="PackedScene" uid="uid://dugi2yr5i4hv3" path="res://_dev/widget/_dev_menu_.tscn" id="9_xours"]
+[ext_resource type="PackedScene" uid="uid://dugi2yr5i4hv3" path="res://_dev/widget/_wid_dev_menu_.tscn" id="9_xours"]
 
 [sub_resource type="Animation" id="Animation_euc3b"]
 length = 0.001
@@ -255,6 +255,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_l47bv")
 id = "pause_menu"
 anim_player = NodePath("AnimationPlayer")
@@ -267,7 +268,7 @@ menu_sfx = ExtResource("2_04cvy")
 libraries = {
 "": SubResource("AnimationLibrary_1n2ot")
 }
-blend_times = [&"open", &"open", 0.3, &"open", &"close", 0.3, &"open", &"RESET", 0.3]
+blend_times = [&"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_352pt")
@@ -277,6 +278,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0.607843, 0.513726, 0.611765, 1)
 
 [node name="Vignette" type="ColorRect" parent="Content"]
@@ -345,6 +347,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="Content/VBoxContainer/Resume/Background"]
@@ -392,6 +395,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="Content/VBoxContainer/_DebugMenu/Background"]
@@ -439,6 +443,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="Content/VBoxContainer/Settings/Background"]
@@ -486,6 +491,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="Content/VBoxContainer/Quit/Background"]

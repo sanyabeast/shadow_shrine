@@ -11,6 +11,7 @@ const TAG: String = "MenuController"
 const MAX_MENU_ITEM_CHANGE_RATE: float = 8
 const ON_SHOW_SUBMIT_COOLDOWN: float = 0.05
 const CANCEL_COOLDOWN: float = 0.05
+const MAX_OPTION_CHANGE_RATE: float = 10
 
 # Exported variables for customization.
 @export var id: String = ""
@@ -44,6 +45,8 @@ var _anim_on_close_show_submenu: bool = false
 
 var _audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 
+var _timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
+
 # Variable to store the currently active submenu.
 
 # Called when the node enters the scene tree for the first time.
@@ -56,15 +59,16 @@ func _ready():
 	_audio_player.bus = "SFX"
 	add_child(_audio_player)
 	
-	select(index)
+	select(index, true)
 	
 	for item in items:
 		item.menu = self
-	# Connect the visibility changed signal to the corresponding handler.
 	
 	if actions != null:
 		actions.menu = self
 		actions.initialize_items(items)
+		
+	# Connect the visibility changed signal to the corresponding handler.	
 	
 	visibility_changed.connect(_handle_visibility_changed)
 	_init_submenus()
@@ -95,45 +99,56 @@ func _process(delta):
 			cancel()
 
 # Method to select a specific menu item by index.
-func select(_index: int):
-	# Ensure the index is within valid bounds.
-	if _index < 0:
-		_index = items.size() - 1
-	elif _index >= items.size():
-		_index = 0
+func select(_index: int, force: bool = false):
+	if interactive or force:
+		# Ensure the index is within valid bounds.
+		if _index < 0:
+			_index = items.size() - 1
+		elif _index >= items.size():
+			_index = 0
+			
+		index = _index
 		
-	index = _index
-	
-	# Log the selected item index.
-	dev.logd(TAG, "selected item index set to %s" % index )
-	
-	# Set the active state for each menu item.
-	for i in items.size():
-		assert(items[i] != null, "failed to parse item at index %s in menu %s" % [index, name])
-		if i != index:
-			items[i].set_active(false)
-		else:
-			items[i].set_active(true)
+		# Log the selected item index.
+		dev.logd(TAG, "selected item index set to %s" % index )
+		
+		# Set the active state for each menu item.
+		for i in items.size():
+			assert(items[i] != null, "failed to parse item at index %s in menu %s" % [index, name])
+			if i != index:
+				items[i].set_active(false)
+			else:
+				items[i].set_active(true)
+				
+		if not force:
+			play_sound()	
 
 # Method to select the next menu item.
 func select_next():
-	select(index + 1)
-	play_sound()
+	if interactive:
+		select(index + 1)
 	
 # Method to select the previous menu item.
 func select_prev():
-	select(index - 1)
-	play_sound()
+	if interactive:
+		select(index - 1)
+
+func select_item(item: GMenuItem):
+	var index = items.find(item)
+	if index >= 0:
+		select(index)
 
 # Method to navigate to the next option within the currently selected menu item.
 func next_option():
-	items[index].next_option()
-	play_sound(false, false, true)
+	if _timer_gate.check("option-change", 1. / MAX_OPTION_CHANGE_RATE):
+		items[index].next_option()
+		play_sound(false, false, true)
 
 # Method to navigate to the previous option within the currently selected menu item.
 func prev_option():
-	items[index].prev_option()
-	play_sound(false, false, true)
+	if _timer_gate.check("option-change", 1. / MAX_OPTION_CHANGE_RATE):
+		items[index].prev_option()
+		play_sound(false, false, true)
 
 # Method to submit the currently selected menu item.
 func submit():
@@ -264,13 +279,19 @@ func handle_animation_finished(name: String):
 func play_sound(is_submit: bool = false, is_cancel: bool = false, is_alter: bool = false):
 	if menu_sfx != null:
 		var stream = menu_sfx.interaction_sound
+		var pitch_scale: float = randf_range(menu_sfx.interaction_sound_pitch_min, menu_sfx.interaction_sound_pitch_max)
+		
 		if is_submit:
 			stream = stream if menu_sfx.submit_sound == null else menu_sfx.submit_sound
+			pitch_scale = randf_range(menu_sfx.submit_sound_pitch_min, menu_sfx.submit_sound_pitch_max)
 		if is_cancel:
 			stream = stream if menu_sfx.cancel_sound == null else menu_sfx.cancel_sound
+			pitch_scale = randf_range(menu_sfx.cancel_sound_pitch_min, menu_sfx.cancel_sound_pitch_max)
 		if is_alter:
 			stream = stream if menu_sfx.alter_sound == null else menu_sfx.alter_sound
+			pitch_scale = randf_range(menu_sfx.alter_sound_pitch_min, menu_sfx.alter_sound_pitch_max)
 		
 		if stream != null:
 			_audio_player.stream = stream
+			_audio_player.pitch_scale = pitch_scale
 			_audio_player.play()

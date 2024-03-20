@@ -18,6 +18,8 @@ const TAG: String = "MenuItem"
 @export var option_index: int = 0  # Index of the selected option.
 @export var anim_player: AnimationPlayer  # Animation player for menu item animations.
 
+var _mouse_entered: bool = false
+
 # Variable to track the active state of the menu item.
 var is_active: bool = false
 var menu: GMenuController
@@ -33,6 +35,8 @@ signal on_submit(item: GLobbyWidget)
 func _ready():
 	# Determine if the menu item is in options mode.
 	is_enumerable = options.size() > 0
+	mouse_entered.connect(_handle_mouse_entered)
+	mouse_exited.connect(_handle_mouse_exited)
 	pass # Replace with function body.
 
 # Method to represent the menu item as a string.
@@ -135,3 +139,25 @@ func set_option_index(index: int):
 
 func _after_option_updated():
 	pass
+
+func _gui_input(event):
+	print("gui input", event)
+	if event is InputEventMouseButton:
+		match event.button_index:
+			1:
+				if menu != null:
+					menu.submit()
+			4:
+				if menu != null:
+					menu.next_option()
+			5:
+				if menu != null:
+					menu.prev_option()
+
+func _handle_mouse_entered():
+	_mouse_entered = true
+	if menu != null:
+		menu.select_item(self)
+
+func _handle_mouse_exited():
+	_mouse_entered = false

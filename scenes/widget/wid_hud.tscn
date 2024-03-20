@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_kgvs1")
 
 [node name="Label" type="Label" parent="."]
@@ -33,6 +34,7 @@ offset_left = 100.0
 offset_top = 50.0
 offset_right = 300.0
 offset_bottom = 100.0
+mouse_filter = 2
 script = ExtResource("3_wov81")
 render_label = NodePath("Label")
 use_template = true
@@ -55,6 +57,7 @@ offset_left = 2.0
 offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerHealth/HeartsProgress"]
 custom_minimum_size = Vector2(120, 40)
@@ -64,10 +67,12 @@ anchor_bottom = 1.0
 offset_top = 7.0
 offset_right = 128.0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HeartProgressBar" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="AnimatedSprite" parent="PlayerHealth/HeartsProgress/HBoxContainer/HeartProgressBar" index="1"]
 frame = 0
@@ -75,10 +80,12 @@ frame = 0
 [node name="HeartProgressBar2" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HeartProgressBar3" parent="PlayerHealth/HeartsProgress/HBoxContainer" instance=ExtResource("4_32e7h")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="PlayerHealth"]
 layout_mode = 1

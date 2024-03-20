@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_lbhup"]
 [ext_resource type="Script" path="res://scripts/resources/res_maze_config.gd" id="4_cq4p8"]
 [ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="4_hapcl"]
-[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_dev_widget.tscn" id="4_loud7"]
+[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_wid_dev_hud.tscn" id="4_loud7"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="5_ufud1"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]

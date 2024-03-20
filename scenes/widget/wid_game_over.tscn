@@ -12,6 +12,14 @@
 [sub_resource type="Resource" id="Resource_juffp"]
 script = ExtResource("3_yp6u7")
 interaction_sound = ExtResource("2_jn4nb")
+interaction_sound_pitch_min = 0.95
+interaction_sound_pitch_max = 1.05
+submit_sound_pitch_min = 0.95
+submit_sound_pitch_max = 1.05
+cancel_sound_pitch_min = 0.95
+cancel_sound_pitch_max = 1.05
+alter_sound_pitch_min = 0.95
+alter_sound_pitch_max = 1.05
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tao78"]
 blend_mode = 3
@@ -389,6 +397,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_4w2t2")
 id = "game_over"
 anim_player = NodePath("AnimationPlayer")
@@ -404,6 +413,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Vignette" type="ColorRect" parent="."]
@@ -414,6 +424,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.156863)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -437,6 +448,7 @@ layout_mode = 2
 modulate = Color(0, 0, 0, 0)
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="You" type="Label" parent="CenterContainer/VBoxContainer/Control"]
 material = SubResource("CanvasItemMaterial_qsdm3")
@@ -533,6 +545,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer/Restart/Background"]
@@ -579,6 +592,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer/Quit/Background"]

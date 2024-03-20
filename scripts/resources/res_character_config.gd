@@ -15,9 +15,6 @@ class_name RCharacterConfig
 @export var damage: float = 1  # Base damage dealt by the character.
 @export var mass: float = 1  # Mass of the character.
 
-@export_subgroup("Melee")
-@export var melee_rate: float = 2
-
 # Exported variables for NPC-specific settings.
 @export_subgroup("NPC")
 @export var patrolling_distance: float = 5  # Distance for patrolling behavior.
