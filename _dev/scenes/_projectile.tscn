@@ -15,12 +15,12 @@ acceleration = 2.0
 start_velocity = 1.0
 min_velocity = 2.0
 max_velocity = 6.0
-max_collisions = 1
 max_lifetime = 10.0
 max_distance_travelled = 3.0
 max_hits_and_blocks = 3.0
 hit_direction_deviation = 30.0
 block_direction_deviation = 10.0
+bound_to_weapon = false
 
 [sub_resource type="Resource" id="Resource_xaaxq"]
 script = ExtResource("4_jg1h7")

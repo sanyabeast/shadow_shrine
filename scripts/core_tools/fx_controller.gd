@@ -54,7 +54,7 @@ func _launch_content():
 			ps._old_pos = ps.global_position
 			ps.restart()
 			
-		ps.emitting = true
+		ps.restart()
 			
 	for ap in _audio_players:
 		ap.play()

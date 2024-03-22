@@ -1,0 +1,111 @@
+[gd_scene load_steps=17 format=3 uid="uid://3yh37tryqf6p"]
+
+[ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_xyh3r"]
+[ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_61q2t"]
+[ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/sfx_167074__drminky__slime-death-1.ogg" id="3_3ifnq"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="4_5krdg"]
+[ext_resource type="PackedScene" uid="uid://dilqskmcw7lt8" path="res://scenes/fx/toxic_gob/fx_toxic_gob_idle.tscn" id="4_yskga"]
+[ext_resource type="AudioStream" uid="uid://i6iglfdjhg10" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click2.ogg" id="5_uks3f"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="7_npsni"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="8_3t6og"]
+[ext_resource type="PackedScene" uid="uid://5d1bm3pkxif6" path="res://scenes/fx/toxic_gob/fx_toxic_gob_splash.tscn" id="8_bjo8a"]
+[ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/sfx_340794__kuchenanderung1__slime-squish.ogg" id="8_spk2w"]
+
+[sub_resource type="Resource" id="Resource_wdgtl"]
+script = ExtResource("2_61q2t")
+acceleration = 3.0
+start_velocity = 1.0
+min_velocity = 2.0
+max_velocity = 4.0
+max_lifetime = 5.0
+max_distance_travelled = 5.0
+max_hits_and_blocks = 1.0
+hit_direction_deviation = 1.0
+block_direction_deviation = 1.0
+bound_to_weapon = false
+
+[sub_resource type="Resource" id="Resource_xaaxq"]
+script = ExtResource("4_5krdg")
+audio = ExtResource("3_3ifnq")
+audio_pitch_min = 0.9
+audio_pitch_max = 1.25
+audio_volume_min = 1.4
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("4_yskga")])
+use_game_time = true
+dispose_strategy = 1
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_n8ojx"]
+script = ExtResource("4_5krdg")
+audio = ExtResource("5_uks3f")
+audio_pitch_min = 1.0
+audio_pitch_max = 0.9
+audio_volume_min = 1.1
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("8_bjo8a")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_qgbi8"]
+script = ExtResource("4_5krdg")
+audio = ExtResource("8_spk2w")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.25
+audio_volume_min = 1.5
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("8_bjo8a")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0
+
+[sub_resource type="Resource" id="Resource_5724u"]
+script = ExtResource("4_5krdg")
+audio = ExtResource("5_uks3f")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("8_bjo8a")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c4877"]
+radius = 0.15
+
+[node name="ProjToxicGob" type="Area3D" node_paths=PackedStringArray("hit_procedures", "ray")]
+script = ExtResource("1_xyh3r")
+config = SubResource("Resource_wdgtl")
+hit_procedures = [NodePath("ProcImpulse"), NodePath("ProcDamage")]
+ray = NodePath("RayCast3D")
+launch_fx = SubResource("Resource_xaaxq")
+block_fx = SubResource("Resource_n8ojx")
+hit_fx = SubResource("Resource_qgbi8")
+waste_fx = SubResource("Resource_5724u")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.182283)
+target_position = Vector3(0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_c4877")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="GPUParticles3D" parent="Body" instance=ExtResource("4_yskga")]
+visible = false
+
+[node name="ProcImpulse" type="Node" parent="."]
+script = ExtResource("7_npsni")
+min_impulse = 2.0
+max_impulse = 2.5
+
+[node name="ProcDamage" type="Node" parent="."]
+script = ExtResource("8_3t6og")
+min_damage = 0.5

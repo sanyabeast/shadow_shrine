@@ -57,10 +57,7 @@ var walk_direction: Vector3 = Vector3.FORWARD
 var look_direction: Vector3 = Vector3.FORWARD
 var cooldowns: GCooldowns = GCooldowns.new(true)
 
-var body_controller: GCharacterBodyController
-var weapon: GWeaponController
 var nav_agent: NavigationAgent3D = NavigationAgent3D.new()
-
 var is_dead: bool = false
 
 # abilities
@@ -93,6 +90,10 @@ var _last_damage_point: Vector3 = Vector3.ZERO
 @export var is_immortal: bool = false
 @export var is_unshakable: bool = false
 @export var hide_on_death: Array[Node3D] = []
+
+@export_subgroup("Referencies")
+@export var body_controller: GCharacterBodyController
+@export var weapon: GWeaponController
 
 
 signal on_fire(weapon: GWeaponController, direction: Vector3)
@@ -133,10 +134,10 @@ func _exit_tree():
 	characters.unlink(self)
 
 func _traverse(node):
-	if node is GWeaponController:
+	if weapon == null and node is GWeaponController:
 		weapon = node
 
-	if node is GCharacterBodyController:
+	if body_controller == null and node is GCharacterBodyController:
 		body_controller = node
 
 	# Recursively call this function on all children

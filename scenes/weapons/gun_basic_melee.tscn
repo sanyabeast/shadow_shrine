@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://tced3bcmeara"]
+
+[ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="1_uqkn0"]
+[ext_resource type="Resource" uid="uid://bdp0ioeqy8422" path="res://resources/weapons/gunconf_basic_melee.tres" id="2_afdld"]
+[ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="4_tjub4"]
+
+[node name="BasicMeleeWeapon" type="Node3D"]
+script = ExtResource("1_uqkn0")
+config = ExtResource("2_afdld")
+
+[node name="ArrowGizmo" parent="." instance=ExtResource("4_tjub4")]

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RWeaponConfig" load_steps=3 format=3 uid="uid://bdp0ioeqy8422"]
+
+[ext_resource type="PackedScene" uid="uid://drcx3q757veeo" path="res://scenes/projectiles/proj_basic_melee_a1.tscn" id="1_73bgw"]
+[ext_resource type="Script" path="res://scripts/resources/res_weapon_config.gd" id="2_kdmsx"]
+
+[resource]
+script = ExtResource("2_kdmsx")
+damage_type = 0
+projectiles = Array[PackedScene]([ExtResource("1_73bgw")])
+fire_rate = 1.5
+spread = 45.0
+ideal_distance_min = 0.25
+ideal_distance_max = 1.0

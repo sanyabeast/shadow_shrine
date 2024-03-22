@@ -35,6 +35,7 @@ const TAG: String = "ProjectileController"
 
 var cooldowns: GCooldowns = GCooldowns.new(true)
 var current_velocity: float = 0
+var weapon: GWeaponController = null
 
 var _is_launched: bool = false
 var _hits_and_blocks_count: int = 0
@@ -46,6 +47,7 @@ var _collision_point: Vector3 = Vector3.ZERO
 var _is_disposed: bool = false
 var _prev_position: Vector3
 var _distance_travelled: float = 0
+var _prev_weapon_global_pos: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -61,6 +63,9 @@ func _ready():
 	pass # Replace with function body.
 
 func launch():
+	if config.bound_to_weapon and weapon != null:
+		_prev_weapon_global_pos = weapon.global_position
+	
 	look_at(global_position + direction)
 	cooldowns.start("max_lifetime", config.max_lifetime)
 	current_velocity = config.start_velocity
@@ -107,13 +112,7 @@ func _handle_block(_hit_body):
 		
 	if config.max_hits_and_blocks > 0 and _hits_and_blocks_count >= config.max_hits_and_blocks:
 		_is_wasted = true
-	
-	if _is_wasted:
-		
-		if waste_fx:
-			world.spawn_fx(waste_fx, _collision_point)
 			
-	
 func _handle_hit(_hit_body: GCharacterController):
 	_update_ray_collision()
 	
@@ -163,11 +162,24 @@ func _process(delta):
 func _physics_process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
-			global_position += direction * current_velocity * delta * game.speed
-			_distance_travelled += (direction * current_velocity * delta * game.speed).length()
+			if config.bound_to_weapon:
+				var weapon_pos_delta: Vector3 = weapon.global_position - _prev_weapon_global_pos
+				_prev_weapon_global_pos = weapon.global_position
+				
+				global_position += weapon_pos_delta + (direction * current_velocity * delta * game.speed)
+				_distance_travelled += (weapon_pos_delta + (direction * current_velocity * delta * game.speed)).length()
+			else:
+				global_position += direction * current_velocity * delta * game.speed
+				_distance_travelled += (direction * current_velocity * delta * game.speed).length()
+			
+			
+				
 			
 func dispose():
 	_is_disposed = true
+	
+	if waste_fx:
+		world.spawn_fx(waste_fx, global_position)
 	
 	if body != null:
 		body.hide()

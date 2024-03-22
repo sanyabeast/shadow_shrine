@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=30 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/charconf_boxed_slime_kido.tres" id="2_vy3e7"]
@@ -11,10 +11,8 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_6kxlq"]
 [ext_resource type="Shader" path="res://resources/materials/extracted/char_boxed_slime_a.gdshader" id="7_ybwb1"]
 [ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="9_8f766"]
-[ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="9_8k31u"]
-[ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_0cs4p"]
-[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="10_xwxi6"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/fx_toxic_bubbles.tscn" id="12_s6jrf"]
+[ext_resource type="PackedScene" uid="uid://tced3bcmeara" path="res://scenes/weapons/gun_basic_melee.tscn" id="12_xcm4m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
 radius = 0.26
@@ -231,12 +229,13 @@ _data = {
 "Run": SubResource("Animation_wkmhb")
 }
 
-[node name="BoxedSlimeKiddo" type="CharacterBody3D" node_paths=PackedStringArray("hide_on_death")]
+[node name="BoxedSlimeKiddo" type="CharacterBody3D" node_paths=PackedStringArray("hide_on_death", "weapon")]
 disable_mode = 1
 safe_margin = 0.01
 script = ExtResource("1_yjlnt")
 config = ExtResource("2_vy3e7")
 hide_on_death = [NodePath("ToxicBubbles")]
+weapon = NodePath("Aim/BasicMeleeWeapon")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
@@ -277,13 +276,8 @@ parameters/Move/blend_position = 1.0641
 
 [node name="Aim" type="Node3D" parent="."]
 
-[node name="Weapon" type="Node3D" parent="Aim"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185277, -0.316725)
-script = ExtResource("9_8k31u")
-config = ExtResource("10_xwxi6")
-
-[node name="ArrowGizmo" parent="Aim" instance=ExtResource("10_0cs4p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10227e-08, 0.14736, -0.406588)
+[node name="BasicMeleeWeapon" parent="Aim" instance=ExtResource("12_xcm4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1711, -0.329259)
 
 [node name="ToxicBubbles" parent="." instance=ExtResource("12_s6jrf")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

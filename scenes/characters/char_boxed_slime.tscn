@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=28 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -8,12 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_ajw58"]
 [ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_hxo2j"]
-[ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="6_tnji0"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_lc31e"]
 [ext_resource type="Shader" path="res://resources/materials/extracted/char_boxed_slime_a.gdshader" id="7_qb3ey"]
-[ext_resource type="Resource" uid="uid://dn0wurh4mgr0u" path="res://resources/weapons/_gunconf_baloon_launcher.tres" id="8_6nl4f"]
 [ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="8_wyiil"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_pdf4v"]
+[ext_resource type="PackedScene" uid="uid://b8vcya2mgfvq0" path="res://scenes/weapons/gun_toxic_gob_launcher.tscn" id="12_7dxem"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/fx_toxic_bubbles.tscn" id="12_ykgel"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_174we"]
@@ -288,10 +287,7 @@ parameters/Move/blend_position = 1.0641
 
 [node name="Aim" type="Node3D" parent="."]
 
-[node name="Weapon" type="Node3D" parent="Aim"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.235565, -0.408088)
-script = ExtResource("6_tnji0")
-config = ExtResource("8_6nl4f")
+[node name="GunToxicGobLauncher" parent="Aim" instance=ExtResource("12_7dxem")]
 
 [node name="ArrowGizmo" parent="Aim" instance=ExtResource("10_pdf4v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65341e-08, 0.213314, -0.444291)

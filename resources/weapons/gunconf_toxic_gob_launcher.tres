@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RWeaponConfig" load_steps=3 format=3 uid="uid://lgnxavie4nld"]
+
+[ext_resource type="PackedScene" uid="uid://3yh37tryqf6p" path="res://scenes/projectiles/proj_toxic_gob.tscn" id="1_2dqtr"]
+[ext_resource type="Script" path="res://scripts/resources/res_weapon_config.gd" id="2_7pdj5"]
+
+[resource]
+script = ExtResource("2_7pdj5")
+damage_type = 0
+projectiles = Array[PackedScene]([ExtResource("1_2dqtr")])
+fire_rate = 0.75
+spread = 15.0
+ideal_distance_min = 2.0
+ideal_distance_max = 5.0

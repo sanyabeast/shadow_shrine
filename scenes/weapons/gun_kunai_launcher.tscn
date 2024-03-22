@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://df4spb30etq8v"]
+
+[ext_resource type="Script" path="res://scripts/core_weapons/weapon_controller.gd" id="1_nhu8u"]
+[ext_resource type="Resource" uid="uid://buarkmhu2m8w6" path="res://resources/weapons/gunconf_kunai_launcher.tres" id="2_2kx07"]
+[ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="3_jcrlr"]
+
+[node name="GunKunaiLauncher" type="Node3D"]
+script = ExtResource("1_nhu8u")
+config = ExtResource("2_2kx07")
+
+[node name="ArrowGizmo" parent="." instance=ExtResource("3_jcrlr")]
