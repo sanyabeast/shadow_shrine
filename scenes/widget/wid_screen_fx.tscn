@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dd4cusqsvp4ur"]
+[gd_scene load_steps=16 format=3 uid="uid://dd4cusqsvp4ur"]
 
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_screen_fx.gd" id="1_8bad7"]
 [ext_resource type="Shader" path="res://resources/shaders/shad_wid_vignette_a.gdshader" id="2_aqr01"]
-[ext_resource type="Script" path="res://scripts/widgets/game/ws_damage_direction_hud.gd" id="3_m7ypw"]
+[ext_resource type="Shader" path="res://_dev/shaders/test2.gdshader" id="4_4kutw"]
+[ext_resource type="Script" path="res://scripts/widgets/ws_damage_dir.gd" id="4_q5sig"]
 
 [sub_resource type="Animation" id="Animation_dtxgh"]
 length = 0.001
@@ -553,7 +554,21 @@ shader_parameter/MULTIPLIER = 0.56
 shader_parameter/SCALE = 0.0
 shader_parameter/SOFTNESS = 0.2
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wfbdm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oa50e"]
+shader = ExtResource("4_4kutw")
+shader_parameter/center_offset = Vector2(0.5, 0.5)
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/direction_n = 0.5
+shader_parameter/direction_ne = 1.0
+shader_parameter/direction_e = 1.0
+shader_parameter/direction_se = 1.0
+shader_parameter/direction_s = 0.5
+shader_parameter/direction_sw = 1.0
+shader_parameter/direction_w = 0.5
+shader_parameter/direction_nw = 1.0
+shader_parameter/MULTIPLIER = 1.0
+shader_parameter/SCALE = 1.0
+shader_parameter/SOFTNESS = 2.0
 
 [node name="ScreenFX" type="Control" node_paths=PackedStringArray("dark_fader")]
 layout_mode = 3
@@ -564,6 +579,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_8bad7")
+start_from_black = null
 dark_fader = NodePath("FaderDark")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -601,8 +617,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="DamageDirection" type="Control" parent="."]
-material = SubResource("CanvasItemMaterial_wfbdm")
+[node name="DamageDirectionIndicator" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_oa50e")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -610,4 +626,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("3_m7ypw")
+script = ExtResource("4_q5sig")

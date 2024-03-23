@@ -110,7 +110,7 @@ func select(_index: int, force: bool = false):
 		index = _index
 		
 		# Log the selected item index.
-		dev.logd(TAG, "selected item index set to %s" % index )
+		#dev.logd(TAG, "selected item index set to %s" % index )
 		
 		# Set the active state for each menu item.
 		for i in items.size():

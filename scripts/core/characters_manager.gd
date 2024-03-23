@@ -6,6 +6,7 @@ class_name GCharactersManager
 const TAG: String = "CharactersManager"
 
 signal on_player_dead
+signal on_player_hurt(health_loss: float, point: Vector3, direction: Vector3)
 signal on_player_alive
 signal on_enemies_dead
 signal on_enemies_alive
@@ -104,6 +105,7 @@ func _update_player(delta):
 func set_player(character: GCharacterController):
 	dev.logd(TAG, "active player set to: %s" % character)
 	player = character
+	player.on_hurt.connect(_handle_player_hurt)
 
 func is_player(character: GCharacterController) -> bool:
 	return character == player
@@ -138,6 +140,9 @@ func enable_player():
 	
 func disable_player():
 	player_enabled = false
+	
+func _handle_player_hurt(health_loss: float, point:= Vector3.ZERO, direction:= Vector3.ZERO):
+	on_player_hurt.emit(health_loss, point, direction)
 #endregion
 
 #region: NPC management

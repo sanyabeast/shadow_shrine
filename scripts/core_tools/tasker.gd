@@ -72,14 +72,14 @@ func update():
 		if list.size() > 0:
 			current = list.pop_back()
 			if current.is_valid():
-				tools.logd(TAG, "task STARTED %s %s" % [current.owner.name, current.id])
+				#tools.logd(TAG, "task STARTED %s %s" % [current.owner.name, current.id])
 				current.start()
 			else:
 				current = null
 	else:
 		if current.is_expired():
 			if current.is_valid():
-				tools.logd(TAG, "task FINISHED %s %s" % [current.owner.name, current.id])
+				#tools.logd(TAG, "task FINISHED %s %s" % [current.owner.name, current.id])
 				current.finish()
 				
 			current = null	
@@ -88,7 +88,7 @@ func update():
 		var task: Task = schedule_list[key]
 		if task.is_expired():
 			if task.is_valid():
-				tools.logd(TAG, "scheduled task FINISHED %s %s" % [task.owner.name, task.id])
+				#tools.logd(TAG, "scheduled task FINISHED %s %s" % [task.owner.name, task.id])
 				task.finish()
 			schedule_list.erase(key)
 
@@ -102,7 +102,7 @@ func queue(owner: Variant, id: String, duration: float, start_callback, finish_c
 		finish_callback,
 		use_game_time
 	))
-	tools.logd(TAG, "task ADDED to queue %s %s" % [owner.name, id])
+	#tools.logd(TAG, "task ADDED to queue %s %s" % [owner.name, id])
 	pass
 
 # Method to stack a new task onto the list with the specified properties.
@@ -115,7 +115,7 @@ func stack(owner: Variant, id: String, duration: float, start_callback, finish_c
 		finish_callback,
 		use_game_time
 	))
-	tools.logd(TAG, "task ADDED to stack %s %s" % [owner.name, id])
+	#tools.logd(TAG, "task ADDED to stack %s %s" % [owner.name, id])
 	pass
 	
 # Method to schedule a new task with a timeout and finish callback.

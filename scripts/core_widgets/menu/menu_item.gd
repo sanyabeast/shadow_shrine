@@ -96,7 +96,7 @@ func toggle():
 # Method to set the active state of the menu item.
 func set_active(_is_active: bool):
 	# Log the active state change.
-	dev.logd(TAG, "active change for %s, active: %s" % [self, _is_active])
+	#dev.logd(TAG, "active change for %s, active: %s" % [self, _is_active])
 	is_active = _is_active
 	
 	# Trigger animations based on the active state.
@@ -112,7 +112,7 @@ func set_active(_is_active: bool):
 # Method to submit the menu item.
 func submit():
 	# Log the submission.
-	dev.logd(TAG, "submitted %s" % self)
+	#dev.logd(TAG, "submitted %s" % self)
 	# Emit the on_submit signal.
 	on_submit.emit(self)
 	
@@ -141,7 +141,6 @@ func _after_option_updated():
 	pass
 
 func _gui_input(event):
-	print("gui input", event)
 	if event is InputEventMouseButton:
 		match event.button_index:
 			1:

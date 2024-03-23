@@ -11,7 +11,6 @@ var speed_dependent_behaviour: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("camera manager: ready...")
 	pass # Replace with function body.
 
 func add_camera(camera: GCameraController):

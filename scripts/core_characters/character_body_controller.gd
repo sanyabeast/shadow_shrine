@@ -79,14 +79,14 @@ func _update_anim_tree(delta):
 	#anim_tree["parameters/Move/blend_position"] = clamp(walk_direction.length(),0,1)
 	anim_tree["parameters/Move/blend_position"] = _scalar_velocity_smoothed
 	if game.paused:
-		anim_tree["parameters/Move/blend_position"] = 0
+		anim_tree["parameters/MАove/blend_position"] = 0
 	anim_tree["parameters/conditions/is_dead"] = character.is_dead
 	
 func _handle_character_fires(weapon: GWeaponController, direction: Vector3):
 	cooldowns.start("body_to_look", 0.25)
 
-func _handle_character_hurt(health_loss):
-	dev.logd(TAG, "_handle_character_hurt %s" % health_loss)
+func _handle_character_hurt(health_loss: float, point:= Vector3.ZERO, direction:= Vector3.ZERO):
+	#dev.logd(TAG, "_handle_character_hurt %s" % health_loss)
 	if surface_material_helper != null:
 		surface_material_helper.enter_state("hurt", 0)
 

@@ -41,8 +41,6 @@ func _ready():
 	if use_states:
 		_states = states.to_dict()
 		_prev_transition_update_time = game.get_time()
-		print("states ", _states)
-		
 	_apply_overlay()
 		
 	if use_states and states.list.size() > 0:
@@ -110,14 +108,11 @@ func enter_state(state_id: String, transition_duration: float = DEFAULT_TRANSITI
 		if _states.has(state_id):
 			transition_duration = transition_duration
 			_transition_speed = (1. / transition_duration) if transition_duration > 0 else -1
-			print(_transition_speed)
 			var _new_state_data: RSurfaceState = _states[state_id]
 			current_state = _new_state_data
 			_init_shader_parameter_states()
 			_update_state(0, true)
-			dev.logd(TAG, "state %s entered at %s" % [state_id, owner.name])
-		else:
-			print("surf state %s not found on %s" % [state_id, owner.name])
+			#dev.logd(TAG, "state %s entered at %s" % [state_id, owner.name])
 	
 func _init_shader_parameter_states():
 	current_state.update_shader_parameters()

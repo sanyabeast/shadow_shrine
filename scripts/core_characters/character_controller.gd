@@ -6,7 +6,7 @@ extends CharacterBody3D
 class_name GCharacterController
 const TAG: String = "CharacterController"
 
-signal on_hurt(health_loss: float)
+signal on_hurt(health_loss: float, point: Vector3, direction: Vector3)
 
 class GAbility:
 	signal on_changed(name: String, old_value: float, new_value: float, increased: bool)
@@ -41,13 +41,12 @@ class GAbility:
 		var old_value: float = target_value
 
 		if max_value >= 0:
-			print("clamping abil value to %s %s" % [0, max_value])
 			new_value = clampf(new_value, 0, max_value)
 
 		target_value = new_value
 
 		if new_value != old_value:
-			dev.logd(TAG, "Ability %s target value set to %s" % [name, target_value])
+			#dev.logd(TAG, "Ability %s target value set to %s" % [name, target_value])
 			on_changed.emit(name, old_value, new_value, new_value > old_value)
 
 		update(0)
@@ -71,6 +70,7 @@ var impulse_direction: Vector3
 var impulse_power: float = 0
 
 var _last_damage_point: Vector3 = Vector3.ZERO
+var _last_damage_direction: Vector3 = Vector3.ZERO
 
 @export var config: RCharacterConfig
 
@@ -110,7 +110,6 @@ func _ready():
 	if body_controller != null:
 		body_controller.initialize(self)
 
-	print("maxhealth", config.max_health)
 	# Abilities
 	health = GAbility.new("health", config.health, config.max_health)
 	max_health = GAbility.new("max_health", config.max_health)
@@ -217,9 +216,10 @@ func _process(delta):
 			}
 		)
 	
-func commit_damage(value: float, point: Vector3 = Vector3.ZERO):
+func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
 	if not characters.is_invulnerable(self):
 		_last_damage_point = to_local(point)
+		_last_damage_direction = direction
 		health.alter_value(-value)
 
 func commit_heal(value: float):
@@ -233,15 +233,16 @@ func commit_impulse(direction: Vector3, power: float):
 		pass
 
 func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
-	dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
+	#dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
 
 	match name:
 		"health":
 			if not increased:
+				on_hurt.emit(old_value - new_value, _last_damage_point, _last_damage_direction)
+				
 				if config.hurt_fx != null:
 					world.spawn_fx(config.hurt_fx, to_global(_last_damage_point))
-				on_hurt.emit(old_value - new_value)
-
+				
 			if new_value == 0 and not characters.is_immortal(self):
 				die()
 

@@ -15,7 +15,7 @@ func _init_item(id: String):
 		"game_speed":
 			result = game.speed
 			
-	dev.logd(TAG, "item %s initialized with value %s" % [id, result])
+	#dev.logd(TAG, "item %s initialized with value %s" % [id, result])
 	return result
 
 func _handle_submit(id: String, item: GMenuItem):

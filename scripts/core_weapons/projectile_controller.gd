@@ -87,10 +87,10 @@ func _handle_body_entered(_hit_body):
 	if not _is_wasted:
 		if _hit_body is GCharacterController:
 			if keeper and _hit_body != keeper and characters.should_hit(keeper, _hit_body):
-				dev.logd(TAG, 'projectile hit character %s' % _hit_body)
+				#dev.logd(TAG, 'projectile hit character %s' % _hit_body)
 				_handle_hit(_hit_body)
 		else:
-			dev.logd(TAG, 'projectile hit something %s' % _hit_body)
+			#dev.logd(TAG, 'projectile hit something %s' % _hit_body)
 			_handle_block(_hit_body)
 	
 func _handle_body_exited(_hit_body):
@@ -106,7 +106,6 @@ func _handle_block(_hit_body):
 		world.spawn_fx(block_fx, global_position)	
 		
 	if surface_helper != null:
-		print("block")
 		surface_helper.enter_state("hit", 0)
 		surface_helper.enter_state("default", 0.25)
 		
@@ -134,7 +133,6 @@ func _handle_hit(_hit_body: GCharacterController):
 		world.spawn_fx(hit_fx, global_position)
 	
 	if surface_helper != null:
-		print("hit")
 		surface_helper.enter_state("hit", 0)
 		surface_helper.enter_state("default", 0.25)
 	

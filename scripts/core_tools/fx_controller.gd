@@ -31,7 +31,7 @@ func _to_string():
 	return "FX(config: %s)" % config
 
 func start():
-	dev.logd(TAG, "starting new FX: %s" % config)
+	#dev.logd(TAG, "starting new FX: %s" % config)
 	_launch_content()
 	_started_at = get_time()
 	_is_started = true
@@ -144,13 +144,12 @@ func stop_fx():
 			
 func dispose():
 	is_disposed = true
-	dev.logd(TAG, "disposing FX at %s, pool: %s" % [name,  world.use_fx_pool])
+	#dev.logd(TAG, "disposing FX at %s, pool: %s" % [name,  world.use_fx_pool])
 	stop_fx()
 	if world.use_fx_pool:
 		world.fx_pool.push(config.resource_path, self)
 	else:
 		queue_free()
 
-func restruct():
+func reborn():
 	is_disposed = false
-	print("restoring fx: %s" % self)

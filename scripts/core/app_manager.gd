@@ -60,7 +60,7 @@ func quit():
 
 #region: Settings management
 func set_setting(key: String, value: Variant):
-	tools.logd(TAG, "saving setting at %s, value: %s" % [key, value])
+	#tools.logd(TAG, "saving setting at %s, value: %s" % [key, value])
 	settings_config.set_value(SETTINGS_KEY, key, value)
 	settings_config.save(SETTINGS_CONFIG_PATH)
 
@@ -70,7 +70,7 @@ func get_setting(key: String, default: Variant = null):
 		settings_config.set_value(SETTINGS_KEY, key, default)
 		
 	var result = settings_config.get_value(SETTINGS_KEY, key, default)
-	tools.logd(TAG, "loaded setting at %s is %s" % [key, result])
+	#tools.logd(TAG, "loaded setting at %s is %s" % [key, result])
 	return result
 
 func _load_settings():

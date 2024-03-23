@@ -14,7 +14,7 @@ func _init_item(id: String):
 		"quality_preset":
 			result = app.get_graphics_quality()
 			
-	dev.logd(TAG, "item %s intialized with value %s" % [id, result])
+	#dev.logd(TAG, "item %s intialized with value %s" % [id, result])
 	return result
 
 func _handle_option_change(id: String, item: GMenuItem):

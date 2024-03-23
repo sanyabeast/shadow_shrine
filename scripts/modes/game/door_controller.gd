@@ -56,7 +56,7 @@ func _ready():
 		close(true)
 	
 	# Log the initialization of the door.
-	dev.logd(TAG, "door inited: %s" % self)
+	#dev.logd(TAG, "door inited: %s" % self)
 		
 	pass # Replace with function body.
 

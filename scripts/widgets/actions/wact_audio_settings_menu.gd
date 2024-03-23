@@ -14,7 +14,7 @@ func _init_item(id: String):
 		"sfx_volume":
 			result = app.get_sfx_volume()
 			
-	dev.logd(TAG, "item %s intialized with value %s" % [id, result])
+	#dev.logd(TAG, "item %s intialized with value %s" % [id, result])
 	return result
 
 func _handle_option_change(id: String, item: GMenuItem):

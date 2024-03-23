@@ -38,5 +38,5 @@ func _handle_option_change(id: String, item: GMenuItem):
 	pass
 
 func _init_item(id: String):
-	dev.logd(TAG, "implement item initializer for %s" % id)
+	#dev.logd(TAG, "implement item initializer for %s" % id)
 	return null

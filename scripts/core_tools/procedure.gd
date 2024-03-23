@@ -41,7 +41,7 @@ func _process(delta):
 	pass
 
 func start():
-	dev.logd(TAG, "starting task %s" % name)
+	#dev.logd(TAG, "starting procedure %s" % name)
 	if start_fx != null:
 		world.spawn_fx(start_fx, position)
 	

@@ -113,7 +113,7 @@ func _apply_spots():
 func _spawn_enemy(spot: Node3D):
 	if config != null and config.enemies.size() > 0:
 		var prefab: PackedScene = random.choice_from_array(config.enemies)
-		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
+		#dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: GCharacterController = prefab.instantiate()
 		content.add_child(enemy)
 		enemy.global_position = spot.global_position

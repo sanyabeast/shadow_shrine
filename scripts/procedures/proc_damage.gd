@@ -5,4 +5,4 @@ extends GProcedure
 
 func _start():
 	if target is GCharacterController:
-		target.commit_damage(randf_range(min_damage, max_damage), position)
+		target.commit_damage(randf_range(min_damage, max_damage), position, direction)

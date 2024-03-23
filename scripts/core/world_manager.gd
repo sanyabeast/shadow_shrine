@@ -47,7 +47,7 @@ func _process(delta):
 func _update_level_scene(delta):
 	var current_scene = get_tree().current_scene
 	if current_scene != level_scene:
-		dev.logd(TAG, "scene changed from %s to %s" % [current_scene, level_scene])
+		dev.logd(TAG, "scene changed from %s to %s" % [level_scene, current_scene])
 		on_level_changed.emit(current_scene, level_scene)
 		_clear_pools()
 		level_scene = current_scene
@@ -63,7 +63,7 @@ func _spawn_fx_main(fx_config: RFXConfig, position: Vector3 = Vector3.ZERO, boun
 	if fx_node == null:
 		fx_node = GFXController.new(fx_config)
 	else:
-		fx_node.restruct()
+		fx_node.reborn()
 	
 	fx_node.bound_object = bound_object
 	add_to_sandbox(fx_node)

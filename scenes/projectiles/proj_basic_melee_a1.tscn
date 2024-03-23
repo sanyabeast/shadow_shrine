@@ -22,6 +22,9 @@ max_hits_and_blocks = -1.0
 hit_direction_deviation = 0.0
 block_direction_deviation = 0.0
 bound_to_weapon = true
+use_ballistic = false
+ballistic_distance = 3.0
+ballistic_elevation = 3.0
 
 [sub_resource type="Resource" id="Resource_xaaxq"]
 script = ExtResource("4_v383m")
@@ -96,4 +99,5 @@ max_impulse = 3.25
 
 [node name="ProcDamage" type="Node" parent="."]
 script = ExtResource("8_iww3x")
-max_damage = 1.5
+min_damage = 0.25
+max_damage = 0.5
