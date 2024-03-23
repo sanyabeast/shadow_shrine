@@ -28,6 +28,9 @@ max_hits_and_blocks = 2.0
 hit_direction_deviation = 15.0
 block_direction_deviation = 5.0
 bound_to_weapon = false
+use_ballistic = false
+ballistic_distance = 3.0
+ballistic_elevation = 3.0
 
 [sub_resource type="Resource" id="Resource_ept1m"]
 script = ExtResource("5_h7ge2")

@@ -17,3 +17,7 @@ class_name RProjectileConfig
 @export var hit_direction_deviation: float = 15
 @export var block_direction_deviation: float = 5
 @export var bound_to_weapon: bool = false
+@export var use_ballistic: bool = false
+@export var ballistic_distance: float = 3
+@export var ballistic_elevation: float = 3
+@export var ballistic_curve: Curve

@@ -46,3 +46,5 @@ func _handle_option_change(id: String, item: GMenuItem):
 			characters.ai_enabled = item.get_bool()	
 		"game_speed":
 			game.speed = item.get_float()
+		"set_player_immortal":
+			characters.force_player_immortal = item.get_bool()

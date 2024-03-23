@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://3yh37tryqf6p"]
+[gd_scene load_steps=18 format=3 uid="uid://3yh37tryqf6p"]
 
 [ext_resource type="Script" path="res://scripts/core_weapons/projectile_controller.gd" id="1_xyh3r"]
 [ext_resource type="Script" path="res://scripts/resources/res_projectile_config.gd" id="2_61q2t"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://5d1bm3pkxif6" path="res://scenes/fx/toxic_gob/fx_toxic_gob_splash.tscn" id="8_bjo8a"]
 [ext_resource type="AudioStream" uid="uid://btmjgmn2p8v4j" path="res://assets/_dev/sound/sfx/slime/sfx_340794__kuchenanderung1__slime-squish.ogg" id="8_spk2w"]
 
+[sub_resource type="Curve" id="Curve_4te7g"]
+min_value = -1.0
+bake_resolution = 32
+_data = [Vector2(0, 0.0166522), 0.0, 3.76863, 0, 0, Vector2(1, -0.0383859), -3.66954, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Resource" id="Resource_wdgtl"]
 script = ExtResource("2_61q2t")
 acceleration = 3.0
@@ -18,11 +24,15 @@ start_velocity = 1.0
 min_velocity = 2.0
 max_velocity = 4.0
 max_lifetime = 5.0
-max_distance_travelled = 5.0
+max_distance_travelled = 3.0
 max_hits_and_blocks = 1.0
 hit_direction_deviation = 1.0
 block_direction_deviation = 1.0
 bound_to_weapon = false
+use_ballistic = true
+ballistic_distance = 3.0
+ballistic_elevation = 1.0
+ballistic_curve = SubResource("Curve_4te7g")
 
 [sub_resource type="Resource" id="Resource_xaaxq"]
 script = ExtResource("4_5krdg")

@@ -48,6 +48,8 @@ var _is_disposed: bool = false
 var _prev_position: Vector3
 var _distance_travelled: float = 0
 var _prev_weapon_global_pos: Vector3
+var _launch_elevation: float = 0
+var _use_ballistic: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,6 +67,9 @@ func _ready():
 func launch():
 	if config.bound_to_weapon and weapon != null:
 		_prev_weapon_global_pos = weapon.global_position
+	
+	_use_ballistic = config.use_ballistic and config.ballistic_curve != null
+	_launch_elevation = global_position.y
 	
 	look_at(global_position + direction)
 	cooldowns.start("max_lifetime", config.max_lifetime)
@@ -156,9 +161,8 @@ func _process(delta):
 				
 				if config.max_distance_travelled > 0 and _distance_travelled >=  config.max_distance_travelled:
 					_is_wasted = true
+					
 			
-			
-
 func _physics_process(delta):
 	if not game.paused:
 		if _is_launched and not _is_wasted:
@@ -171,8 +175,12 @@ func _physics_process(delta):
 			else:
 				global_position += direction * current_velocity * delta * game.speed
 				_distance_travelled += (direction * current_velocity * delta * game.speed).length()
-			
-			
+				
+				if _use_ballistic:
+					global_position.y = _launch_elevation + config.ballistic_curve.sample_baked(
+						tools.reverse_lerp(_distance_travelled, 0, config.ballistic_distance)
+					) * config.ballistic_elevation
+					
 				
 			
 func dispose():
@@ -200,9 +208,6 @@ func reborn():
 	
 	if body != null:
 		body.show()
-		
-	
-	pass
 
 func _deviate(max_deviation: float):
 	var deviation: float = randf_range(-max_deviation, max_deviation)

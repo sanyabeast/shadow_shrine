@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dd4cusqsvp4ur"]
+[gd_scene load_steps=14 format=3 uid="uid://dd4cusqsvp4ur"]
 
 [ext_resource type="Script" path="res://scripts/widgets/game/ws_screen_fx.gd" id="1_8bad7"]
 [ext_resource type="Shader" path="res://resources/shaders/shad_wid_vignette_a.gdshader" id="2_aqr01"]
@@ -553,8 +553,6 @@ shader_parameter/MULTIPLIER = 0.56
 shader_parameter/SCALE = 0.0
 shader_parameter/SOFTNESS = 0.2
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wfbdm"]
-
 [node name="ScreenFX" type="Control" node_paths=PackedStringArray("dark_fader")]
 layout_mode = 3
 anchors_preset = 15
@@ -601,13 +599,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="DamageDirection" type="Control" parent="."]
-material = SubResource("CanvasItemMaterial_wfbdm")
+[node name="DamageDirection" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 script = ExtResource("3_m7ypw")
