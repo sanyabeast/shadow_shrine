@@ -61,6 +61,17 @@ func _physics_process(delta):
 #region: Linking
 func link(character: GCharacterController):
 	dev.logd(TAG, "linking character: %s" % character.name)
+	
+	character.set_collision_layer_value(world.ECollisionBodyType.Character, true)
+	character.set_collision_layer_value(world.ECollisionBodyType.Static, false)
+	character.set_collision_layer_value(world.ECollisionBodyType.Projectile, false)
+	character.set_collision_layer_value(world.ECollisionBodyType.Area, false)
+	
+	character.set_collision_mask_value(world.ECollisionBodyType.Character, true)
+	character.set_collision_mask_value(world.ECollisionBodyType.Static, true)
+	character.set_collision_mask_value(world.ECollisionBodyType.Projectile, true)
+	character.set_collision_mask_value(world.ECollisionBodyType.Area, true)
+	
 	list.append(character)
 	
 func unlink(character: GCharacterController):

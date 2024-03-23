@@ -53,8 +53,12 @@ class GDudeState extends GNpcDriver.GNpcState:
 		var nav_agent: NavigationAgent3D = character.nav_agent
 		var walk_power: float = 0
 		var walk_direction: Vector3 = Vector3.ZERO
+		var has_los_with_player:= false
 		
 		is_firing = false
+
+		if characters.player != null:
+			has_los_with_player = world.los_server.has_los(character, characters.player)
 
 		if (
 			cooldowns.ready("update_target_position", true)
@@ -74,16 +78,19 @@ class GDudeState extends GNpcDriver.GNpcState:
 
 		nav_agent.target_position = target_position
 
-		if current_distance_to_target_position > target_desired_distance_avg:
+		if current_distance_to_target_position > target_desired_distance_avg or not has_los_with_player:
 			walk_power = 1
 			var next_path_position: Vector3 = nav_agent.get_next_path_position()
 			walk_direction = character.global_position.direction_to(next_path_position)
 			
-		if  current_distance_to_target_position < target_desired_distance_max:
+		if  current_distance_to_target_position < target_desired_distance_max and has_los_with_player:
+			#target_look_angle = tools.rotation_degrees_y_from_direction_v2(
+				#tools.restrict_to_8_axis(
+					#tools.to_v2(character.global_position.direction_to(target_position))
+				#)
+			#)
 			target_look_angle = tools.rotation_degrees_y_from_direction_v2(
-				tools.restrict_to_8_axis(
-					tools.to_v2(character.global_position.direction_to(target_position))
-				)
+				tools.to_v2(character.global_position.direction_to(target_position))
 			)
 			
 			is_firing = true

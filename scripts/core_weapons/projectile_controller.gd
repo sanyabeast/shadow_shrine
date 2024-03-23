@@ -61,6 +61,17 @@ func _ready():
 	
 	if auto_launch:
 		launch()
+		
+	# collsiion
+	set_collision_layer_value(world.ECollisionBodyType.Character, false)
+	set_collision_layer_value(world.ECollisionBodyType.Static, false)
+	set_collision_layer_value(world.ECollisionBodyType.Projectile, true)
+	set_collision_layer_value(world.ECollisionBodyType.Area, false)
+	
+	set_collision_mask_value(world.ECollisionBodyType.Character, true)
+	set_collision_mask_value(world.ECollisionBodyType.Static, true)
+	set_collision_mask_value(world.ECollisionBodyType.Projectile, false)
+	set_collision_mask_value(world.ECollisionBodyType.Area, false)
 	
 	pass # Replace with function body.
 
@@ -171,8 +182,9 @@ func _physics_process(delta):
 				global_position += weapon_pos_delta + (direction * current_velocity * delta * game.speed)
 				_distance_travelled += (weapon_pos_delta + (direction * current_velocity * delta * game.speed)).length()
 			else:
-				global_position += direction * current_velocity * delta * game.speed
-				_distance_travelled += (direction * current_velocity * delta * game.speed).length()
+				var pos_delta: Vector3 = direction * current_velocity * delta * game.speed
+				global_position += pos_delta
+				_distance_travelled += (Vector3(pos_delta.x, 0., pos_delta.z)).length()
 				
 				if _use_ballistic:
 					global_position.y = _launch_elevation + config.ballistic_curve.sample_baked(

@@ -49,6 +49,17 @@ func _ready():
 	# Traverse the scene to find the AnimationPlayer node if it's not set.
 	_traverse(self)
 	
+	set_collision_layer_value(world.ECollisionBodyType.Character, false)
+	set_collision_layer_value(world.ECollisionBodyType.Static, false)
+	set_collision_layer_value(world.ECollisionBodyType.Projectile, false)
+	set_collision_layer_value(world.ECollisionBodyType.Area, true)
+	
+	set_collision_mask_value(world.ECollisionBodyType.Character, true)
+	set_collision_mask_value(world.ECollisionBodyType.Static, false)
+	set_collision_mask_value(world.ECollisionBodyType.Projectile, false)
+	set_collision_mask_value(world.ECollisionBodyType.Projectile, false)
+	
+	
 	# Initialize the door state based on the 'opened' flag.
 	if opened:
 		open(true)

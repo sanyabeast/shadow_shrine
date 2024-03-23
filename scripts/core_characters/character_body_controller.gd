@@ -79,7 +79,7 @@ func _update_anim_tree(delta):
 	#anim_tree["parameters/Move/blend_position"] = clamp(walk_direction.length(),0,1)
 	anim_tree["parameters/Move/blend_position"] = _scalar_velocity_smoothed
 	if game.paused:
-		anim_tree["parameters/MАove/blend_position"] = 0
+		anim_tree["parameters/Move/blend_position"] = 0
 	anim_tree["parameters/conditions/is_dead"] = character.is_dead
 	
 func _handle_character_fires(weapon: GWeaponController, direction: Vector3):

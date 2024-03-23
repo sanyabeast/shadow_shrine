@@ -9,5 +9,5 @@ damage_type = 0
 projectiles = Array[PackedScene]([ExtResource("1_tkb0r")])
 fire_rate = 2.25
 spread = 5.0
-ideal_distance_min = 1.0
-ideal_distance_max = 4.0
+ideal_distance_min = 4.0
+ideal_distance_max = 6.0

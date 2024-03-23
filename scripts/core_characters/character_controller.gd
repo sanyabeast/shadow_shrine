@@ -257,6 +257,7 @@ func get_scalar_velocity():
 
 func die():
 	call_deferred("_die")
+	
 func _die():
 	dev.logd(TAG, "character dies %s" % name)
 	is_dead = true
@@ -273,6 +274,8 @@ func _die():
 
 	if config.death_fx != null:
 		world.spawn_fx(config.death_fx, global_position)
+	
+	visible = false
 
 func _update_abilities(delta):
 	health.update(delta)

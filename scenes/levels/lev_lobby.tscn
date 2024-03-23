@@ -155,7 +155,6 @@ script = ExtResource("6_2vkhj")
 
 [node name="RockLee" parent="." instance=ExtResource("7_0624v")]
 transform = Transform3D(-0.564723, 0, -0.82528, 0, 1, 0, 0.82528, 0, -0.564723, -3.734, 0, 1.85)
-use_as_player = false
 
 [node name="GeneralSkeleton" parent="RockLee/Body/rock_dude/Armature" index="0"]
 bones/0/position = Vector3(-0.000282175, 0.26866, 0.00293255)

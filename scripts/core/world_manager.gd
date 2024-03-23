@@ -14,6 +14,13 @@ enum EDirection {
 	West
 }
 
+enum ECollisionBodyType {
+	Static = 1,
+	Character = 2,
+	Projectile = 3,
+	Area = 4
+}
+
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
 var sandbox: Node3D
 
@@ -27,10 +34,12 @@ var projectile_pool: GPoolHelper = GPoolHelper.new(5)
 
 var level_scene: Node = null
 
+var los_server:= GLosServer.new()
+
 func _process(delta):
 	_update_level_scene(delta)
 	_update_fx_queue()
-	
+		
 	if tools.IS_DEBUG:
 		dev.print_screen("world_fx_pool_stats", "fx pool (size / dict / overflow): %s / %s / %s" % [
 			fx_pool.size(),
@@ -43,6 +52,9 @@ func _process(delta):
 			projectile_pool.dictionary_size,
 			projectile_pool.overflow_stat
 		])
+	
+func _physics_process(delta):
+	los_server.update(delta)
 	
 func _update_level_scene(delta):
 	var current_scene = get_tree().current_scene
