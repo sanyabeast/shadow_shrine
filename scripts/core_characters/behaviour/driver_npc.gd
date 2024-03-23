@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
 extends Node
 
 class_name GNpcDriver

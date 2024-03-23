@@ -4,8 +4,6 @@
 # This script defines a LosServer class for managing Line of Sight (LOS) tasks in a 3D environment.
 
 class_name GLosServer
-
-# Tag for logging.
 const TAG: String = "LosServer"
 
 # Represents a LOS task between two 3D nodes.
@@ -28,7 +26,7 @@ class GLosTask:
 		return "GLosTask(source: %s, target: %s, has_los: %s)" % [source, target, has_los]
 
 # Update rate for LOS checks.
-var update_rate:= 15.0
+var update_rate:= 5.0
 # Elevation of the LOS test ray.
 var ray_elevation: float = 0.5
 
@@ -58,11 +56,10 @@ func update(delta):
 	if _time_gate.check("check_los", 1. / update_rate):
 		if _los_tasks.keys().size() > 0:
 			_update_los(_current_los_test_index)
-		else:
-			dev.logd(TAG, "no los tasks")
 	pass
 	
-	dev.print_screen("los_tasks_count", "los tasks count: %s" % _los_tasks.keys().size())
+	if tools.IS_DEBUG:
+		dev.print_screen("los_tasks_count", "los tasks count: %s" % _los_tasks.keys().size())
 
 # Generates a unique ID for an LOS task based on source and target nodes.
 func _get_los_id(source: Node3D, target: Node3D) -> String:
@@ -70,7 +67,6 @@ func _get_los_id(source: Node3D, target: Node3D) -> String:
 
 # Updates the LOS test for a given key index.
 func _update_los(key_index: int):
-	
 	key_index = key_index % _los_tasks.keys().size()
 	dev.logd(TAG, "updating los %s/%s" % [key_index, _los_tasks.keys()])
 	var key: String = _los_tasks.keys()[key_index]
@@ -90,8 +86,6 @@ func _update_los(key_index: int):
 	
 	_los_test_ray.force_raycast_update()
 	task.has_los = not _los_test_ray.is_colliding()
-	
-	print("updated los: %s" % task)
 	
 	_current_los_test_index = (_current_los_test_index + 1) % _los_tasks.keys().size()
 	pass

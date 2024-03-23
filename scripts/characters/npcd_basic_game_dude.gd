@@ -1,3 +1,7 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
+
 extends GNpcDriver
 class_name GNpcDriverBasicGameDude
 

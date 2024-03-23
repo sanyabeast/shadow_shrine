@@ -567,8 +567,8 @@ shader_parameter/direction_sw = 1.0
 shader_parameter/direction_w = 0.5
 shader_parameter/direction_nw = 1.0
 shader_parameter/MULTIPLIER = 1.0
-shader_parameter/SCALE = 1.0
-shader_parameter/SOFTNESS = 2.0
+shader_parameter/SCALE = 2.0
+shader_parameter/SOFTNESS = 0.5
 
 [node name="ScreenFX" type="Control" node_paths=PackedStringArray("dark_fader")]
 layout_mode = 3
