@@ -68,7 +68,7 @@ func _get_los_id(source: Node3D, target: Node3D) -> String:
 # Updates the LOS test for a given key index.
 func _update_los(key_index: int):
 	key_index = key_index % _los_tasks.keys().size()
-	dev.logd(TAG, "updating los %s/%s" % [key_index, _los_tasks.keys()])
+	#dev.logd(TAG, "updating los %s/%s" % [key_index, _los_tasks.keys()])
 	var key: String = _los_tasks.keys()[key_index]
 	var task: GLosTask = _los_tasks[key]
 	

@@ -13,9 +13,17 @@ func _init_item(id: String):
 			result = app.get_render_sharpness()
 		"quality_preset":
 			result = app.get_graphics_quality()
-			
+		"vblank_mode":
+			result = app.get_vblank_mode()
 	#dev.logd(TAG, "item %s intialized with value %s" % [id, result])
 	return result
+
+func _handle_submit(id: String, item: GMenuItem):
+	match id:
+		"quality_preset":
+			app.set_graphics_quality(item.option_index)
+		"vblank_mode":
+			app.set_vnlank_mode(item.option_index)	
 
 func _handle_option_change(id: String, item: GMenuItem):
 	match id:
@@ -23,5 +31,5 @@ func _handle_option_change(id: String, item: GMenuItem):
 			app.set_render_scale(item.value)
 		"render_sharpness":
 			app.set_render_sharpness(item.value)
-		"quality_preset":
-			app.set_graphics_quality(item.option_index)
+		
+		

@@ -13,15 +13,17 @@ enum EGraphicsQualityPreset {
 	Ultra
 }
 
-const SETTINGS_CONFIG_PATH: String = "user://settings.cfg"
-const SETTINGS_KEY: String = "settings"
-const SETTINGS_AUDIO_MASTER_VOLUME_KEY: String = "audio_settings__master_volume"
-const SETTINGS_AUDIO_MUSIC_VOLUME_KEY: String = "audio_settings__music_volume"
-const SETTINGS_AUDIO_SFX_VOLUME_KEY: String = "audio_settings__sfx_volume"
+const SETTINGS_CONFIG_PATH:= "user://settings.cfg"
 
-const SETTINGS_VIDEO_PRESET: String = "video_settings__preset"
-const SETTINGS_VIDEO_RENDER_SCALE: String = "video_settings__render_scale"
-const SETTINGS_VIDEO_RENDER_SHARPNESS: String = "video_settings__render_sharpness"
+const SETTINGS_KEY:= "settings"
+const SETTINGS_AUDIO_MASTER_VOLUME_KEY:= "audio_settings__master_volume"
+const SETTINGS_AUDIO_MUSIC_VOLUME_KEY:= "audio_settings__music_volume"
+const SETTINGS_AUDIO_SFX_VOLUME_KEY:= "audio_settings__sfx_volume"
+
+const SETTINGS_VIDEO_PRESET:= "video_settings__preset"
+const SETTINGS_VIDEO_RENDER_SCALE:= "video_settings__render_scale"
+const SETTINGS_VIDEO_RENDER_SHARPNESS:= "video_settings__render_sharpness"
+const SETTINGS_VIDEO_VBLANK_MODE:= "video_settings__vblank_mode"
 
 signal on_graphics_quality_preset_changed
 
@@ -52,6 +54,10 @@ func _ready():
 
 func _process(delta):
 	tasks.update()
+	
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		set_fullscreen(not get_fullscreen())
+			
 
 func quit():
 	dev.logd(TAG, "quitting...")
@@ -80,6 +86,7 @@ func _load_settings():
 	
 	set_render_scale(get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1))
 	set_render_sharpness(get_setting(SETTINGS_VIDEO_RENDER_SHARPNESS, 1))
+	set_vnlank_mode(get_setting(SETTINGS_VIDEO_VBLANK_MODE, DisplayServer.VSYNC_ENABLED))
 	
 	set_graphics_quality(get_setting(SETTINGS_VIDEO_PRESET, EGraphicsQualityPreset.High))
 #endregion
@@ -132,8 +139,25 @@ func set_graphics_quality(preset: EGraphicsQualityPreset):
 	on_graphics_quality_preset_changed.emit()
 	_update_quality_preset_settings()
 
+func set_vnlank_mode(mode: DisplayServer.VSyncMode):
+	DisplayServer.window_set_vsync_mode(mode)
+	set_setting(SETTINGS_VIDEO_VBLANK_MODE, mode)
+	pass
+	
+func get_vblank_mode() -> DisplayServer.VSyncMode:
+	return DisplayServer.window_get_vsync_mode()
+
 func get_graphics_quality() -> EGraphicsQualityPreset:
 	return graphics_quality
+
+func set_fullscreen(enabled: bool):
+	if enabled == true:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	if enabled == false:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func get_fullscreen() -> bool:
+	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 
 func _update_quality_preset_settings():
 	pass

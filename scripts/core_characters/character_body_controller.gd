@@ -93,3 +93,6 @@ func _handle_character_hurt(health_loss: float, point:= Vector3.ZERO, direction:
 func _update_surface(delta):
 	if surface_material_helper.current_state_id == "hurt":
 		surface_material_helper.enter_state("default", 0.25)
+
+func die():
+	game.tasks.schedule(game, str(character.get_instance_id()) + "-dies", 5, character.queue_free)

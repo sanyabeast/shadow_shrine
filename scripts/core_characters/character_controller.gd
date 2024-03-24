@@ -275,7 +275,10 @@ func _die():
 	if config.death_fx != null:
 		world.spawn_fx(config.death_fx, global_position)
 	
-	visible = false
+	if body_controller != null:
+		body_controller.die()
+	else:
+		queue_free()
 
 func _update_abilities(delta):
 	health.update(delta)

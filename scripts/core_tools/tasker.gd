@@ -42,7 +42,7 @@ class Task:
 	
 	# Finish the task.
 	func finish():
-		if finish_callback != null and finish_callback:
+		if finish_callback != null and finish_callback.get_object() != null:
 			finish_callback.call()
 	
 	# Check if the task is valid (has a valid owner).
