@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@icon("res://assets/_dev/_icons/planet_1.png")
 extends Node
 class_name GSurfaceMaterialHelper
 const TAG: String = "SurfaceMaterialHelper"

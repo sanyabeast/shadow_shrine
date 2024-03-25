@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@icon("res://assets/_dev/_icons/46.png")
 extends Node3D
 
 @export var remove_at_production: bool = false

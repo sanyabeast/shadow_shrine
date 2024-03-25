@@ -2,7 +2,6 @@
 # Date: Feb. 2024
 
 extends GGameMode
-
 class_name GGameModeDefaultGame
 const TAG = "GameModeDefaultGame"
 

@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@icon("res://assets/_dev/_icons/35b.png")
 extends Node
 class_name GMenuActions
 const TAG: String = "MenuActions"

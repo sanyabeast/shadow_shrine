@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@icon("res://assets/_dev/_icons/35.png")
 extends Node
 class_name GProcedure
 const TAG: String = "Procedure"

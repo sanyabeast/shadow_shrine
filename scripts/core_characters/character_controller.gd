@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
+@icon("res://assets/_dev/_icons/char_35.png")
 extends CharacterBody3D
 
 class_name GCharacterController

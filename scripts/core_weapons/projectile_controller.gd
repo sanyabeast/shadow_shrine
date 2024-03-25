@@ -1,6 +1,8 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
+
+@icon("res://assets/_dev/_icons/shuriken_1.png")
 extends Area3D
 
 class_name GProjectileController

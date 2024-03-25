@@ -3,6 +3,7 @@
 
 # This script defines a weapon controller for handling firing mechanics.
 
+@icon("res://assets/_dev/_icons/sword_2.png")
 extends Node3D
 
 class_name GWeaponController

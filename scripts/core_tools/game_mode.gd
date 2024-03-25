@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
+@icon("res://assets/_dev/_icons/compass_1b.png")
 extends Node3D
 class_name GGameMode
 

@@ -3,6 +3,7 @@
 
 # This script defines a door controller that manages the opening and closing of a door in a 3D game.
 
+@icon("res://assets/_dev/_icons/door_1.png")
 extends Area3D
 class_name GDoorController
 const TAG: String = "DoorController"
