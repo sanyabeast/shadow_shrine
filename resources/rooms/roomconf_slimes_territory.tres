@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="RRoomConfig" load_steps=5 format=3 uid="uid://parbjaiw46e5"]
+[gd_resource type="Resource" script_class="RRoomConfig" load_steps=4 format=3 uid="uid://parbjaiw46e5"]
 
 [ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="1_4jbu4"]
 [ext_resource type="Script" path="res://scripts/resources/res_room_config.gd" id="2_0pc0g"]
 [ext_resource type="PackedScene" uid="uid://gajmsefrdp7c" path="res://scenes/characters/char_boxed_slime_kid.tscn" id="2_eu2qo"]
-[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_o72yg"]
 
 [resource]
 script = ExtResource("2_0pc0g")
-enemies = Array[PackedScene]([ExtResource("2_eu2qo"), ExtResource("1_4jbu4"), ExtResource("3_o72yg")])
+enemies = Array[PackedScene]([ExtResource("2_eu2qo"), ExtResource("1_4jbu4")])
 max_enemies = 8

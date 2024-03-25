@@ -122,13 +122,16 @@ func _setup_ambient_sound():
 
 #region: Rooms
 func _prepare_room_states():
+	print(maze_generator.start_cell)
 	for index in maze_config.size * maze_config.size:
 		var cell: GMazeGen.Cell = maze_generator.get_cell_with_index(index)
 		var state: GRoomState = GRoomState.new()
 		
 		if cell != null:
+			dev.logd(TAG, "preapring room state for cell index %s, %s" % [index, cell])
 			state.room_index = index
 			state.seed_offset = random.randi() * MAX_SEED_OFFSET_OF_ROOM
+			
 			match cell.category:
 				GMazeGen.ECellCategory.Start:
 					state.room_template = random.choice_from_array(config.start_rooms)
@@ -140,8 +143,8 @@ func _prepare_room_states():
 					state.room_template = random.choice_from_array(config.rooms)
 				GMazeGen.ECellCategory.End:
 					state.room_template = random.choice_from_array(config.end_rooms)
-				_:
-					state.room_template = random.choice_from_array(config.rooms)
+					
+			#assert(state.room_template != null, "unabled to pick room_template for %s" % cell)
 		else:
 			state.is_placeholder = true
 		
@@ -162,7 +165,7 @@ func _spawn_room(from_direction):
 	var room_state = _get_current_room_state()
 	
 	#region: Room setup
-	print(current_maze_cell.category)
+	print(current_maze_cell)
 	active_room = room_state.room_template.instantiate()
 	active_room.set_seed_offset(room_state.seed_offset)
 	

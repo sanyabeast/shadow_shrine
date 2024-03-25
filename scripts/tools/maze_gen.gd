@@ -42,7 +42,7 @@ class Cell:
 	
 	var category: ECellCategory
 	var visited: bool = false
-	var index: int
+	var index: int = -1
 	var distance: int
 	var route: int
 	var neighbours_offsets = [{"x": -1, "y": 0}, {"x": 0, "y": -1}, {"x": 1, "y": 0}, {"x": 0, "y": 1}]
@@ -275,8 +275,6 @@ func generate(_config):
 
 	for row in cells:
 		for cell in row:
-			cell.index = -1 if cell.index == null else cell.index
-			
 			if cell.index > -1:
 				cells_indexed[cell.index] = cell
 
@@ -311,7 +309,6 @@ func generate(_config):
 	for row in cells:
 		for cell in row:
 			cell.category = ECellCategory.Empty if cell.get_walls_count() == ECellAccessibilityLevel.Isolated else cell.category
-
 
 	reset_visited()
 
