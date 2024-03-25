@@ -14,7 +14,6 @@
 
 [resource]
 script = ExtResource("1_3rr6x")
-id = ""
 title = "Slime Dungeon"
 start_rooms = Array[PackedScene]([ExtResource("1_onodg")])
 special_rooms = Array[PackedScene]([])

@@ -27,10 +27,10 @@ var sandbox: Node3D
 # fx
 var fx_queue: Array[Array] = []
 var use_fx_pool: bool = true
-var fx_pool: GPoolHelper = GPoolHelper.new(10)
+var fx_pool: GPoolHelper = GPoolHelper.new(16)
 
 var use_projectile_pool: bool = true
-var projectile_pool: GPoolHelper = GPoolHelper.new(5)
+var projectile_pool: GPoolHelper = GPoolHelper.new(8)
 
 var level_scene: Node = null
 
