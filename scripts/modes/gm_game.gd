@@ -14,7 +14,7 @@ const MAX_SEED_OFFSET_OF_ROOM: int = 64
 
 class GRoomState:
 	var room_index: int
-	var template_index: int
+	var room_template: PackedScene
 	var saved_content: Node3D
 	var visited: bool = false
 	var passed: bool = false
@@ -123,13 +123,25 @@ func _setup_ambient_sound():
 #region: Rooms
 func _prepare_room_states():
 	for index in maze_config.size * maze_config.size:
-		var cell = maze_generator.get_cell_with_index(index)
+		var cell: GMazeGen.Cell = maze_generator.get_cell_with_index(index)
 		var state: GRoomState = GRoomState.new()
 		
 		if cell != null:
 			state.room_index = index
-			state.template_index = random.randi() % config.rooms.size()
 			state.seed_offset = random.randi() * MAX_SEED_OFFSET_OF_ROOM
+			match cell.category:
+				GMazeGen.ECellCategory.Start:
+					state.room_template = random.choice_from_array(config.start_rooms)
+				GMazeGen.ECellCategory.Default:
+					state.room_template = random.choice_from_array(config.rooms)
+				GMazeGen.ECellCategory.Shortcut:
+					state.room_template = random.choice_from_array(config.rooms)
+				GMazeGen.ECellCategory.Loop:
+					state.room_template = random.choice_from_array(config.rooms)
+				GMazeGen.ECellCategory.End:
+					state.room_template = random.choice_from_array(config.end_rooms)
+				_:
+					state.room_template = random.choice_from_array(config.rooms)
 		else:
 			state.is_placeholder = true
 		
@@ -150,18 +162,30 @@ func _spawn_room(from_direction):
 	var room_state = _get_current_room_state()
 	
 	#region: Room setup
-	active_room = config.rooms[room_state.template_index].instantiate()
+	print(current_maze_cell.category)
+	active_room = room_state.room_template.instantiate()
 	active_room.set_seed_offset(room_state.seed_offset)
 	
 	for dir in world.directions_list:
 		active_room.doors_map[dir] = not current_maze_cell.walls[dir]
 		
-	if room_state.saved_content != null:
-		active_room.upload_saved_content(room_state.saved_content)
-		
 	world.add_to_level(active_room)
 	world.set_sandbox(active_room.content)
-	active_room.initialize(room_state.saved_content == null)
+	
+	active_room.initialize()
+	
+	if room_state.saved_content == null:
+		match current_maze_cell.category:
+			GMazeGen.ECellCategory.Start:
+				room_state.passed = true
+			GMazeGen.ECellCategory.Default:
+				active_room.spawn_enemies()
+			GMazeGen.ECellCategory.Shortcut:
+				active_room.spawn_enemies()
+			GMazeGen.ECellCategory.End:
+				active_room.spawn_enemies()
+	else:
+		active_room.upload_saved_content(room_state.saved_content)
 	
 	if room_state.passed == true:
 		active_room.open_doors(true)
@@ -186,7 +210,11 @@ func _spawn_room(from_direction):
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
 	
 	if not room_state.visited:
-		widgets.controller.highlights.show_message("Room #%s '%s'" % [current_maze_cell.index, maze_generator.get_cell_category_pretty_name(current_maze_cell.category)], "kill all enemies")
+		match  current_maze_cell.category:
+			GMazeGen.ECellCategory.Start:
+				widgets.controller.highlights.show_message("%s" % [config.title], "")
+			_:
+				widgets.controller.highlights.show_message("Room #%s '%s'" % [current_maze_cell.index, maze_generator.get_cell_category_pretty_name(current_maze_cell.category)], "kill all enemies")
 		room_state.visited = true
 	#endregion
 	

@@ -56,17 +56,13 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func initialize(init_content = true):
+func initialize():
 	doors_container.global_position.y = 0
 	
 	_traverse(self)
 	_init_spots()
-	
 	_apply_doors_map()
 	
-	if init_content:
-		_apply_spots()
-		
 	dev.logd(TAG, "room initialized: %s" % self)
 
 func set_seed_offset(_seed_offset: int):
@@ -107,7 +103,7 @@ func _init_spots():
 	
 	dev.logd(TAG, "room spots set up. found %s enemy spots, %s pickup spots, %s chest spots" % [_enemy_spots_list.size(), _pickup_spots_list.size(), _chest_spots_list.size()])
 
-func _apply_spots():
+func spawn_enemies():
 	for spot in _enemy_spots_list:
 		_spawn_enemy(spot)
 

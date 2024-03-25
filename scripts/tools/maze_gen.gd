@@ -221,7 +221,8 @@ func generate(_config):
 	_prepare()
 
 	var stack = []
-	var current_cell = get_random_cell()
+	#var current_cell = get_random_cell()
+	var current_cell = get_cell(floor(config.size / 2), floor(config.size / 2))
 	start_cell = current_cell
 	var end_cell = current_cell
 	current_cell.distance = 0

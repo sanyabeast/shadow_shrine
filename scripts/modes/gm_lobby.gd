@@ -20,7 +20,8 @@ func _ready():
 		demo_room.doors_map[dir] = dir == world.EDirection.East
 	
 	demo_room.set_seed_offset(0)
-	demo_room.initialize(true)
+	demo_room.initialize()
+	demo_room.spawn_enemies()
 	demo_room.open_doors(true)
 	
 	bg_music_player.play_mix()

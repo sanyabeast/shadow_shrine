@@ -14,6 +14,11 @@
 
 [resource]
 script = ExtResource("1_3rr6x")
+id = ""
+title = "Slime Dungeon"
+start_rooms = Array[PackedScene]([ExtResource("1_onodg")])
+special_rooms = Array[PackedScene]([])
+end_rooms = Array[PackedScene]([ExtResource("10_eq472")])
 rooms = Array[PackedScene]([ExtResource("1_onodg"), ExtResource("2_5mmap"), ExtResource("3_k42xl"), ExtResource("10_eq472")])
 explore_playlist = Array[AudioStream]([ExtResource("5_l5ydt"), ExtResource("6_neldi"), ExtResource("2_ylic5")])
 battle_playlist = Array[AudioStream]([ExtResource("1_xjn8s"), ExtResource("1_aybe2"), ExtResource("2_uem5a")])
