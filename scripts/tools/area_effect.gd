@@ -6,72 +6,75 @@ extends Area3D
 class_name GAreaEffect
 const TAG: String = "AreaEffect"
 
-@export var max_affected_targets: int = -1
+@export var max_targets_inside: int = -1
 @export var enter_procedures: Array[GProcedure]
 @export var exit_procedures: Array[GProcedure]
+@export var repeat_procedures: Array[GProcedure]
+@export var repeat_procedures_rate: float = 1
 
-@export_subgroup("Targeting")
-@export var affect_player: bool = false
-@export var affect_enemies: bool = false
-@export var affect_friends: bool = false
+@export_subgroup("Activation")
+@export var activated_by_player: bool = false
+@export var activated_by_enemies: bool = false
+@export var activated_by_friends: bool = false
+@export var activated_by_static: bool = false
+@export var activated_by_projectile: bool = false
 
-@export var affect_static: bool = false
-
-var _affected_targets: int = 0
 var _is_wasted: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_collision_layer_value(world.ECollisionBodyType.Character, false)
+	set_collision_layer_value(world.ECollisionBodyType.Static, false)
+	set_collision_layer_value(world.ECollisionBodyType.Projectile, false)
+	set_collision_layer_value(world.ECollisionBodyType.Area, true)
+	
+	set_collision_mask_value(
+		world.ECollisionBodyType.Character, 
+		activated_by_player or activated_by_enemies or activated_by_friends
+	)
+	
+	set_collision_mask_value(world.ECollisionBodyType.Static, activated_by_static)
+	set_collision_mask_value(world.ECollisionBodyType.Projectile, activated_by_projectile)
+	set_collision_mask_value(world.ECollisionBodyType.Area, false)
+	
 	body_entered.connect(_handle_body_entered)
 	body_exited.connect(_handle_body_exited)
-	pass # Replace with function body.
 
 func _should_affect(body) -> bool:
-	if max_affected_targets >= 0 and _affected_targets >= max_affected_targets:
-		_is_wasted = true
-		return false
-	else:
-		if body is GCharacterController:
-			if characters.is_player(body):
-				if affect_player:
-					return true
+	if body is GCharacterController:
+		if characters.is_player(body):
+			if activated_by_player:
+				return true
+		else:
+			if body.is_friendly:
+				return activated_by_friends
 			else:
-				if body.is_friendly:
-					return affect_friends
-				else:
-					return affect_enemies
-		pass
-	return false
+				return activated_by_enemies
 
 func _handle_body_entered(body):
-	if not _is_wasted:
-		if _should_affect(body):
-			_run_enter_procedures(body)
-			_affected_targets += 1
-			
-	if max_affected_targets >= 0 and _affected_targets >= max_affected_targets:
-		_is_wasted = true
-	#if body
-	#if not _is_wasted:
-		#if body is GCharacterController:
-			#if keeper and body != keeper:
-				#dev.logd(TAG, 'projectile hit character %s' % body)
-				#_handle_hit(body)
-		#else:
-			#dev.logd(TAG, 'projectile hit something %s' % body)
-			#_handle_block()
+	if _should_affect(body):
+		_run_enter_procedures(body)
 	
 func _handle_body_exited(body):
-	if not _is_wasted:
-		if _should_affect(body):
-			_run_exit_procedures(body)
+	if _should_affect(body):
+		_run_exit_procedures(body)
 
 func _run_enter_procedures(body):
-	pass
+	for proc in enter_procedures:
+		proc.source = self
+		proc.target = body
+		proc.position = global_position
+		proc.direction = global_position.direction_to(body)
+		proc.normal = body.global_position.direction_to(self)
+		
+		proc.start()
 
 func _run_exit_procedures(body):
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	for proc in exit_procedures:
+		proc.source = self
+		proc.target = body
+		proc.position = global_position
+		proc.direction = global_position.direction_to(body)
+		proc.normal = body.global_position.direction_to(self)
+		
+		proc.start()
