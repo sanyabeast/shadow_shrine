@@ -257,7 +257,7 @@ menu_sfx = ExtResource("2_5nin2")
 libraries = {
 "": SubResource("AnimationLibrary_kxkj3")
 }
-blend_times = [&"open", &"open", 0.3, &"open", &"close", 0.3, &"open", &"RESET", 0.3, &"close", &"open", 0.3, &"close", &"close", 0.3, &"close", &"RESET", 0.3]
+blend_times = [&"close", &"close", 0.3, &"close", &"open", 0.3, &"close", &"RESET", 0.3, &"open", &"close", 0.3, &"open", &"open", 0.3, &"open", &"RESET", 0.3]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_y3q5o")
