@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
+@icon("res://assets/_dev/_icons/gem_01b.png")
 extends Control
 class_name GWidgetLabel
 const TAG: String = "WidgetLabel"

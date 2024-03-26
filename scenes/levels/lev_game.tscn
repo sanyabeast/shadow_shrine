@@ -46,13 +46,14 @@ environment = ExtResource("8_884il")
 script = ExtResource("8_2paxw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, 0.433013, -0.75, 0, 2, 0)
+transform = Transform3D(-0.721049, 0.288482, -0.629973, -0.0235277, 0.898486, 0.438371, 0.692484, 0.330909, -0.641065, 0, 20, 0)
 light_color = Color(0.905882, 0.862745, 0.854902, 1)
-light_energy = 0.0
+light_energy = 0.5
 shadow_enabled = true
 
 [node name="LocationMistSoft" parent="Environment" instance=ExtResource("6_rd3vp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
+amount = 16
 
 [node name="Architecture" type="Node3D" parent="."]
 

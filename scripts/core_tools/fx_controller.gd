@@ -114,6 +114,9 @@ func get_time()->float:
 
 # Called erw frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if _is_started and not visible:
+		visible = true
+		
 	if  _is_started and not is_disposed:
 		match config.dispose_strategy:
 			RFXConfig.EFXDisposeStrategy.Lifetime:
@@ -145,8 +148,10 @@ func stop_fx():
 func dispose():
 	is_disposed = true
 	#dev.logd(TAG, "disposing FX at %s, pool: %s" % [name,  world.use_fx_pool])
-	stop_fx()
+	#stop_fx()
+	visible = false
 	if world.use_fx_pool:
+		stop_fx()
 		world.fx_pool.push(config.resource_path, self)
 	else:
 		queue_free()

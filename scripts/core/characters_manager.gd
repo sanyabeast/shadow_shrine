@@ -44,7 +44,8 @@ func _process(delta):
 	if tools.IS_DEBUG:
 		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
 		dev.print_screen("player_state", "player (innvul. / immortal / unshak.): %s / %s / %s" % [force_player_invulnerable, force_player_immortal, force_player_unshakable])
-	
+			
+		
 	
 func _physics_process(delta):
 	if not game.paused:
@@ -55,6 +56,7 @@ func _physics_process(delta):
 			for character in list:
 				if not is_player(character):
 					npc_driver.update_physics(character, delta)
+					
 		
 #endregion
 

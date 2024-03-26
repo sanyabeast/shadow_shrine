@@ -216,6 +216,9 @@ func _process(delta):
 				"speed": "Speed: %s" % speed.value
 			}
 		)
+		
+	if tools.IS_DEBUG:
+		nav_agent.debug_enabled = dev.show_debug_graphics
 	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
 	if not characters.is_invulnerable(self):

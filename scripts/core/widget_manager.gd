@@ -6,6 +6,10 @@ const TAG: String = "WidgetManager"
 var controller
 var tokens: Dictionary
 
+func _ready():
+	set_token("app_version", ProjectSettings.get_setting("application/config/version", "0.0.0.0"))
+	set_token("app_build_type", "dev" if tools.IS_DEBUG else "release")
+
 func set_controller(_controller):
 	controller = _controller
 

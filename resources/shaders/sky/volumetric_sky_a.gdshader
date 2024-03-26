@@ -1,7 +1,4 @@
-[gd_resource type="Environment" load_steps=10 format=3 uid="uid://cuc8x6fxi66m0"]
-
-[sub_resource type="Shader" id="Shader_mggth"]
-code = "// Cloud Raymarching based on: A. Schneider. “The Real-Time Volumetric Cloudscapes Of Horizon: Zero Dawn”. ACM SIGGRAPH. Los Angeles, CA: ACM SIGGRAPH, 2015. Web. 26 Aug. 2015.
+// Cloud Raymarching based on: A. Schneider. “The Real-Time Volumetric Cloudscapes Of Horizon: Zero Dawn”. ACM SIGGRAPH. Los Angeles, CA: ACM SIGGRAPH, 2015. Web. 26 Aug. 2015.
 
 shader_type sky;
 render_mode use_half_res_pass, use_quarter_res_pass;
@@ -266,68 +263,4 @@ void sky() {
 	} else {
 		COLOR = HALF_RES_COLOR.rgb; // Change to col.rgb for full resolution
 	}
-}"
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_22htf"]
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_uyvmk"]
-noise = SubResource("FastNoiseLite_22htf")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5a4wx"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qpsph"]
-noise = SubResource("FastNoiseLite_5a4wx")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4d8rw"]
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_ne33k"]
-noise = SubResource("FastNoiseLite_4d8rw")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eonfc"]
-shader = SubResource("Shader_mggth")
-shader_parameter/wind_direction = Vector2(1, 1)
-shader_parameter/wind_speed = 10.0
-shader_parameter/_density = 0.05
-shader_parameter/cloud_coverage = 0.5
-shader_parameter/_time_offset = 0.0
-shader_parameter/rayleigh = 6.829
-shader_parameter/rayleigh_color = Color(0.26, 0.41, 0.58, 1)
-shader_parameter/mie = 0.005
-shader_parameter/mie_eccentricity = 0.8
-shader_parameter/mie_color = Color(0.63, 0.77, 0.92, 1)
-shader_parameter/turbidity = 10.0
-shader_parameter/sun_disk_scale = 1.0
-shader_parameter/ground_color = Color(0.196078, 0.196078, 0.196078, 1)
-shader_parameter/exposure = 0.1
-shader_parameter/worlnoise = SubResource("NoiseTexture3D_ne33k")
-shader_parameter/perlworlnoise = SubResource("NoiseTexture3D_uyvmk")
-shader_parameter/weathermap = SubResource("NoiseTexture2D_qpsph")
-
-[sub_resource type="Sky" id="Sky_aryfk"]
-sky_material = SubResource("ShaderMaterial_eonfc")
-
-[resource]
-background_mode = 2
-sky = SubResource("Sky_aryfk")
-ambient_light_source = 3
-reflected_light_source = 2
-tonemap_mode = 3
-ssao_enabled = true
-ssao_radius = 0.58
-ssao_intensity = 16.0
-ssao_power = 0.861523
-sdfgi_enabled = true
-sdfgi_y_scale = 0
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 1.6
-glow_bloom = 0.5
-fog_enabled = true
-fog_light_color = Color(0.364706, 0.364706, 0.364706, 1)
-fog_sky_affect = 0.0
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.025
-volumetric_fog_sky_affect = 0.0
-adjustment_enabled = true
-adjustment_brightness = 1.15
-adjustment_saturation = 1.5
+}

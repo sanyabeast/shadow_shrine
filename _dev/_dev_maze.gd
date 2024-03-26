@@ -1,8 +1,8 @@
 # Author: @sanyabeast
 # Date: Jan. 2024
 
+@icon("res://assets/_dev/_icons/35d.png")
 extends Control  # Or any other GUI node
-
 class_name GDevMazePainter
 
 var cell_size: Vector2 = Vector2(10, 10)  # Size of each cell in pixels

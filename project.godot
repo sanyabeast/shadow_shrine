@@ -38,8 +38,8 @@ dev="*res://_dev/_dev_global.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/vsync/vsync_mode=2
@@ -60,6 +60,7 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "blue",
 "res://assets/_dev/": "purple",
+"res://assets/_dev/_icons/": "gray",
 "res://assets/meta/": "gray",
 "res://misc/": "gray",
 "res://resources/": "gray",

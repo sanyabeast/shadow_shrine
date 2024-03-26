@@ -13,13 +13,6 @@ height = 1.0
 
 [node name="AreaEffect" type="Area3D"]
 script = ExtResource("1_gvf0c")
-max_targets_inside = null
-repeat_procedures_rate = null
-activated_by_player = null
-activated_by_enemies = null
-activated_by_friends = null
-activated_by_static = null
-activated_by_projectile = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

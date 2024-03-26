@@ -21,6 +21,10 @@ class GDudeState extends GNpcDriver.GNpcState:
 	
 	var current_distance_to_target_position: float = 0
 	
+	func initialize(character: GCharacterController):
+		#character.nav_agent.avoidance_enabled = true
+		pass
+	
 	func update(character: GCharacterController, delta: float):
 		_update_values(character, delta)
 		
@@ -81,6 +85,7 @@ class GDudeState extends GNpcDriver.GNpcState:
 				)
 
 		nav_agent.target_position = target_position
+		nav_agent.velocity = character.velocity * 1.
 
 		if current_distance_to_target_position > target_desired_distance_avg or not has_los_with_player:
 			walk_power = 1
@@ -100,11 +105,13 @@ class GDudeState extends GNpcDriver.GNpcState:
 			is_firing = true
 			#character.look_direction = character.global_position.direction_to(target_position)
 				
-		target_walk_power = lerpf(
+		target_walk_power = walk_power * lerpf(
 			character.config.walk_power_sinus_min_power,
-			walk_power,
+			1,
 			(sin((game.time + sin_offset) * character.config.walk_power_sinus_rate) + 1) / 2
 		)
+		
+		#target_walk_power = walk_power
 		
 		target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
 			tools.restrict_to_8_axis(tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z)))
@@ -140,6 +147,7 @@ func _init():
 
 func _create_state(character: GCharacterController):
 	_states[character] = GDudeState.new(self)
+	_states[character].initialize(character)
 
 #region: State update
 func update(character: GCharacterController, delta: float):

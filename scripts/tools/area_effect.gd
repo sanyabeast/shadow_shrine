@@ -50,6 +50,7 @@ func _should_affect(body) -> bool:
 				return activated_by_friends
 			else:
 				return activated_by_enemies
+	return false
 
 func _handle_body_entered(body):
 	if _should_affect(body):

@@ -13,7 +13,7 @@
 
 [sub_resource type="Curve" id="Curve_4te7g"]
 min_value = -1.0
-bake_resolution = 32
+bake_resolution = 128
 _data = [Vector2(0, 0.0166522), 0.0, 3.76863, 0, 0, Vector2(1, -0.0383859), -3.66954, 0.0, 0, 0]
 point_count = 2
 
@@ -107,9 +107,6 @@ target_position = Vector3(0, 0, -1)
 shape = SubResource("SphereShape3D_c4877")
 
 [node name="Body" type="Node3D" parent="."]
-
-[node name="GPUParticles3D" parent="Body" instance=ExtResource("4_yskga")]
-visible = false
 
 [node name="ProcImpulse" type="Node" parent="."]
 script = ExtResource("7_npsni")

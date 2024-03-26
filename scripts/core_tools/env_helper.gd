@@ -20,7 +20,7 @@ func _update_settings():
 	# HIGH PRESET
 	environment.ssil_enabled = app.graphics_quality >= 2
 	environment.ssao_enabled = app.graphics_quality >= 2
-	environment.volumetric_fog_enabled = app.graphics_quality >= 3
+	environment.volumetric_fog_enabled = app.graphics_quality >= 2
 	
 	# GENERIC FOG ONLY ON GRAPHICS BELOW MEDIUM INCLUDING
 	environment.fog_enabled = app.graphics_quality <= 1

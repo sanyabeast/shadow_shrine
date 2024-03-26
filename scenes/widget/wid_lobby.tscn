@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d4mddqq5hmhux"]
+[gd_scene load_steps=23 format=3 uid="uid://d4mddqq5hmhux"]
 
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_controller.gd" id="1_epcpp"]
 [ext_resource type="Script" path="res://scripts/core_widgets/menu/menu_advanced_item.gd" id="2_2fp76"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://b8xia6ybsx3k8" path="res://assets/fonts/fon_infini_gras.otf" id="3_vhu03"]
 [ext_resource type="PackedScene" uid="uid://df57o0ekejdac" path="res://scenes/widget/wid_settings_menu.tscn" id="4_260ek"]
 [ext_resource type="PackedScene" uid="uid://dugi2yr5i4hv3" path="res://_dev/widget/_wid_dev_menu_.tscn" id="7_7tvm0"]
+[ext_resource type="Script" path="res://scripts/core_widgets/widget_label.gd" id="9_bm0hb"]
 
 [sub_resource type="Animation" id="Animation_bn2kt"]
 length = 0.001
@@ -517,3 +518,51 @@ layout_mode = 1
 [node name="_DevMenu" parent="." instance=ExtResource("7_7tvm0")]
 visible = false
 layout_mode = 1
+
+[node name="app_version" type="Label" parent="." node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -26.0
+offset_right = -7.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.235294)
+theme_override_font_sizes/font_size = 10
+text = "2.1.1.0"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("9_bm0hb")
+render_label = NodePath(".")
+use_bound_value = true
+bound_token = "app_version"
+bound_value_update_rate = 1.0
+
+[node name="app_build" type="Label" parent="." node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -16.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.117647)
+theme_override_font_sizes/font_size = 8
+text = "test"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("9_bm0hb")
+render_label = NodePath(".")
+use_bound_value = true
+bound_token = "app_build_type"
+bound_value_update_rate = 1.0

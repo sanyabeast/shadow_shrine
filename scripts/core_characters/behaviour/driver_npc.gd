@@ -18,6 +18,9 @@ class GNpcState:
 	func _init(_driver: GNpcDriver):
 		driver = _driver
 	
+	func initialize(character: GCharacterController):
+		pass
+	
 	func update(character: GCharacterController, delta: float):
 		pass
 		

@@ -22,12 +22,12 @@ func _ready():
 	demo_room.set_seed_offset(0)
 	demo_room.initialize()
 	demo_room.spawn_enemies()
-	demo_room.open_doors(true)
+	demo_room.close_doors(true)
 	
 	bg_music_player.play_mix()
 	
 	game.tasks.queue(self, "main_menu_fade_in", 0.5, screen_fx.fade_in.bind(2), null)
-	game.tasks.queue(self, "doors", 2, null, demo_room.close_doors)
+	game.tasks.queue(self, "doors", 2, null, demo_room.open_doors)
 	
 	game.resume()
 	characters.enable_ai()

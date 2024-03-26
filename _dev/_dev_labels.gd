@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Jan. 2024
 
+@icon("res://assets/_dev/_icons/35d.png")
 extends Control
 
 class_name GDevLabels
@@ -43,7 +44,7 @@ func set_label(target: Node3D, lines: Dictionary):
 			label = _labels[label_id][line_id]
 		else:
 			label = Label.new()
-			label.add_theme_font_size_override("font_size", 12)
+			label.add_theme_font_size_override("font_size", 8)
 			label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
 			_labels[label_id][line_id] = label
 			container.add_child(label)
