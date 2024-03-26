@@ -20,6 +20,8 @@ const TAG: String = "AreaEffect"
 @export var activated_by_projectile: bool = false
 
 var _is_wasted: bool = false
+var bodies_inside: Dictionary = {}
+var _time_gate:= GTimeGateHelper.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,6 +42,19 @@ func _ready():
 	body_entered.connect(_handle_body_entered)
 	body_exited.connect(_handle_body_exited)
 
+func _process(delta):
+	if repeat_procedures.size() and _time_gate.check("repeat", 1. / repeat_procedures_rate):
+		for key in bodies_inside.keys():
+			_run_procedures(bodies_inside[key], repeat_procedures)
+	
+	if tools.IS_DEBUG:
+		dev.set_label(
+			self,
+			{
+				"inside": "bodies inside: %s" % bodies_inside.keys().size()
+			}
+		)
+
 func _should_affect(body) -> bool:
 	if body is GCharacterController:
 		if characters.is_player(body):
@@ -52,30 +67,22 @@ func _should_affect(body) -> bool:
 				return activated_by_enemies
 	return false
 
-func _handle_body_entered(body):
+func _handle_body_entered(body: Node3D):
 	if _should_affect(body):
-		_run_enter_procedures(body)
+		bodies_inside[body.get_instance_id()] = body
+		_run_procedures(body, enter_procedures)
 	
 func _handle_body_exited(body):
 	if _should_affect(body):
-		_run_exit_procedures(body)
+		bodies_inside.erase(body.get_instance_id())
+		_run_procedures(body, exit_procedures)
 
-func _run_enter_procedures(body):
-	for proc in enter_procedures:
+func _run_procedures(body: Node3D, procedures: Array[GProcedure]):
+	for proc in procedures:
 		proc.source = self
 		proc.target = body
 		proc.position = global_position
-		proc.direction = global_position.direction_to(body)
-		proc.normal = body.global_position.direction_to(self)
-		
-		proc.start()
-
-func _run_exit_procedures(body):
-	for proc in exit_procedures:
-		proc.source = self
-		proc.target = body
-		proc.position = global_position
-		proc.direction = global_position.direction_to(body)
-		proc.normal = body.global_position.direction_to(self)
+		proc.direction = global_position.direction_to(body.global_position)
+		proc.normal = body.global_position.direction_to(global_position)
 		
 		proc.start()

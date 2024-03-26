@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-@icon("res://assets/_dev/_icons/body_1.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji187.svg")
 extends Node3D
 
 class_name GCharacterBodyController

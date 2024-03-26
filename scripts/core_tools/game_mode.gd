@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
-@icon("res://assets/_dev/_icons/compass_1b.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji351.svg")
 extends Node3D
 class_name GGameMode
 
@@ -32,3 +32,7 @@ func finish_game():
 	print("game mode: finishing...")
 	pass
 #endregion
+
+func trigger(id: String):
+	dev.logd("GameMode", "implement .trigger function (triggered: %s)" % id)
+	pass

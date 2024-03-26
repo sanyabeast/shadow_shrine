@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-@icon("res://assets/_dev/_icons/coolface_1.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji73.svg")
 extends Node
 
 class_name GPlayerDriver

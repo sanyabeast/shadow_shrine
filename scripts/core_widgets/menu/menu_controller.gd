@@ -3,7 +3,7 @@
 
 # This script defines a menu controller for managing navigation and interaction with a menu system.
 
-@icon("res://assets/_dev/_icons/book_01g.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji191.svg")
 extends Control
 class_name GMenuController
 const TAG: String = "MenuController"

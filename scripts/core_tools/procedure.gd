@@ -25,10 +25,10 @@ var rotation: Quaternion
 var power: float = 0
 var index: int = 0
 var text: String = ""
-var source: Node3D
-var target: Node3D
+var source: Node
+var target: Node
 var enabled: bool = false
-var targets: Array[Node3D] = []
+var targets: Array[Node] = []
 var items: Array = []
 var params: Dictionary = {}
 var callback: Callable
@@ -56,4 +56,4 @@ func start():
 	pass
 
 func _start():
-	dev.logd(TAG, "implement procedure start function")
+	dev.logd(TAG, "implement procedure start function, triggered: %s" % name)

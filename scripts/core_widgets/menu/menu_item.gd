@@ -3,7 +3,7 @@
 
 # This script defines a menu item control with customizable options and animations.
 
-@icon("res://assets/_dev/_icons/gem_01f.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji191.svg")
 extends Control
 class_name GMenuItem
 const TAG: String = "MenuItem"

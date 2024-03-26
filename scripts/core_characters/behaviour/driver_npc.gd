@@ -1,7 +1,7 @@
 # Author: @sanyabeast
 # Date: Mar. 2024
 
-@icon("res://assets/_dev/_icons/creature_1.png")
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji107.svg")
 extends Node
 
 class_name GNpcDriver
