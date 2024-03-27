@@ -6,7 +6,7 @@
 extends GProcedure
 class_name GTriggerProcedure
 
-@export_placeholder("placeholder id") var id:= ""
+@export_placeholder("trigger id") var id:= ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,5 +19,5 @@ func _process(delta):
 func _start():
 	if game.mode != null:
 		dev.logd("TriggerProcedure", "triggering %s" % id)
-		game.mode.trigger(id)
+		game.mode.trigger(id, source)
 	pass

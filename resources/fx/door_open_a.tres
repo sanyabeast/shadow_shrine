@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="RFXConfig" load_steps=4 format=3 uid="uid://dehih0nhlhfwi"]
+
+[ext_resource type="AudioStream" uid="uid://du3uuuoxvmfjt" path="res://assets/_dev/sound/sfx/sfx_kyles__door-wood-old-open-hall-echo.ogg" id="1_7vq7a"]
+[ext_resource type="PackedScene" uid="uid://dewd0jma4gmvh" path="res://scenes/fx/fx_medium_dust_spike_a.tscn" id="2_6gude"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="3_shq5k"]
+
+[resource]
+script = ExtResource("3_shq5k")
+audio = ExtResource("1_7vq7a")
+audio_pitch_min = 1.0
+audio_pitch_max = 1.0
+audio_volume_min = 1.0
+audio_volume_max = 1.0
+audio_panning = 0.5
+content = Array[PackedScene]([ExtResource("2_6gude")])
+use_game_time = true
+dispose_strategy = 0
+lifetime = 5.0

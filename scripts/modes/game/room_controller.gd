@@ -79,7 +79,6 @@ func _traverse(node):
 	if node is GDoorController:
 		assert(not door_controllers.has(node.direction), "there already door with direction %s exists in this room (%s)" % [node.direction, self.name])
 		door_controllers[node.direction] = node
-		node.room_controller = self
 	
 	# Recursively call this function on all children
 	for child in node.get_children():
@@ -128,12 +127,12 @@ func _apply_doors_map():
 			var cell_idx = world_to_gridmap(walls_gridmap, door_controllers[dir].global_position)
 			walls_gridmap.set_cell_item(world_to_gridmap(walls_gridmap, door_controllers[dir].global_position), -1)
 			
-			door_controllers[dir].close(true)
+			door_controllers[dir].disable(true)
 			door_controllers[dir].show()
 		else:
 			assert(door_controllers[dir] != null, "failed to initialize door at direction %s at room %s: no door controller found" % [dir, self])
 			
-			door_controllers[dir].close(true)
+			door_controllers[dir].disable(true)
 			door_controllers[dir].hide()
 
 
@@ -159,25 +158,15 @@ func world_to_gridmap(gridmap: GridMap, world_position: Vector3) -> Vector3i:
 	cell_z = floor(relative_position.z / cell_size.z)
 	
 	return Vector3i(cell_x, 0, cell_z)
-	
-func handle_player_entered_door_area(door: GDoorController, player: GCharacterController):
-	if doors_opened:
-		dev.logd(TAG, "player %s entered door %s at room" % [player.name, self])
-		game.mode.handle_player_entered_door_area(door.direction, player)
-		#close_doors()
-	
-func handle_player_exited_door_area(door: GDoorController, player: GCharacterController):
-	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(door.direction)])
-	game.mode.handle_player_exited_door_area(door.direction, player)
-	
-func open_doors(silent = false):
+
+func open_doors(skip_fx: bool = false):
 	dev.logd(TAG, "opening all doors...")
 	for key in door_controllers:
-		door_controllers[key].open(silent)
+		door_controllers[key].enable(skip_fx)
 	doors_opened = true	
 	
-func close_doors(silent = false):
+func close_doors(skip_fx: bool = false):
 	dev.logd(TAG, "closing all doors...")
 	for key in door_controllers:
-		door_controllers[key].close(silent)
+		door_controllers[key].disable(skip_fx)
 	doors_opened = false	

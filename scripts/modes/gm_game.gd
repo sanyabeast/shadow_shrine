@@ -244,12 +244,6 @@ func _next_room_main(from_direction: world.EDirection):
 #endregion
 
 #region: EVENT HANDLERS
-func handle_player_entered_door_area(direction: world.EDirection, player: GCharacterController):
-	dev.logd(TAG, "player %s entered door %s" % [player.name, world.get_direction_pretty_name(direction)])
-	_next_room(direction)
-
-func handle_player_exited_door_area(direction: world.EDirection, player: GCharacterController):
-	dev.logd(TAG, "player %s exited door %s" % [player.name, world.get_direction_pretty_name(direction)])
 
 func _handle_enemies_appear():
 	dev.logd(TAG, "enemies appear")
@@ -277,3 +271,16 @@ func _handle_player_dead():
 	game.finish(false)
 #endregion
 
+#region: Triggers
+func _process_trigger(id: String, source: Node3D):
+	match id:
+		"player_enters_door":
+			var door: GDoorController = source
+			_when_player_enters_door(door)
+
+func _when_player_enters_door(door: GDoorController):
+	var direction:= door.direction
+	dev.logd(TAG, "player %s entered door %s" % [player.name, world.get_direction_pretty_name(direction)])
+	_next_room(direction)
+
+#endregion

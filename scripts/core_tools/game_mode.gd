@@ -33,6 +33,8 @@ func finish_game():
 	pass
 #endregion
 
-func trigger(id: String):
-	dev.logd("GameMode", "implement .trigger function (triggered: %s)" % id)
-	pass
+func trigger(id: String, source: Node3D):
+	_process_trigger(id, source)
+
+func _process_trigger(id: String, source: Node3D):
+	dev.logd("GameMode", "implement ._process_trigger function (triggered: %s)" % id)
