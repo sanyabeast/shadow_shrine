@@ -29,21 +29,22 @@ enum EOperatingMode {
 	FLOAT
 }
 
-@export_category("Rendering")
-@export_subgroup("Textual")
+@export_category("# WidgetLabel ~ Rendering")
+@export_subgroup("# WidgetLabel ~ Textual")
 @export var use_textual_rendering: bool = true
 @export var render_label: Label
 @export var use_template: bool = false
 @export var template: String = "< {content} >"
 
-@export_subgroup("Animated")
+@export_subgroup("# WidgetLabel ~ Animated")
 @export var use_animated_rendering: bool = false
 @export var total_progress_animation_player: AnimationPlayer
 @export var total_progress_animation_name: String = "progress"
 @export var fraction_progress_animation_players: Array[AnimationPlayer]
 @export var fraction_progress_animation_name: String = "progress"
 
-@export_category("Content")
+@export_category("# WidgetLabel ~ Content")
+@export_subgroup("# WidgetLabel ~ Content")
 @export var txt: String = ""
 @export var value: float = 0
 
@@ -57,7 +58,7 @@ enum EOperatingMode {
 
 @export var pick_initial_txt_from_render_label: bool = true
 
-@export_subgroup("Bound Value")
+@export_subgroup("# WidgetLabel ~ Bound Value")
 @export var use_bound_value: bool = false
 @export var bound_token: String = ""
 @export var bound_token_max: String = ""

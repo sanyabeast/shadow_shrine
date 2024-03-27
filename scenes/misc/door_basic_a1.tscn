@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://b2dpxeii4p11d"]
+[gd_scene load_steps=46 format=3 uid="uid://b2dpxeii4p11d"]
 
 [ext_resource type="Script" path="res://scripts/modes/game/door_controller.gd" id="1_mxn31"]
 [ext_resource type="Resource" uid="uid://dehih0nhlhfwi" path="res://resources/fx/door_open_a.tres" id="2_tu5bo"]
 [ext_resource type="Resource" uid="uid://dk5jiruf04b0m" path="res://resources/fx/door_close_a.tres" id="3_2ptag"]
+[ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="4_iua7x"]
 [ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="5_c0khy"]
 [ext_resource type="Texture2D" uid="uid://c508aknb32464" path="res://assets/props/jerdelia/props/door_a1/textures/Image_10.003.png" id="5_qm88s"]
 [ext_resource type="Texture2D" uid="uid://dd0ijddoe7ud" path="res://assets/props/jerdelia/props/door_a1/textures/Image_11.002.png" id="6_dx384"]
@@ -24,18 +25,14 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sey77"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq60h"]
-transparency = 1
-shading_mode = 2
-diffuse_mode = 1
-specular_mode = 2
-disable_ambient_light = true
-disable_fog = true
-albedo_color = Color(0, 0.682353, 1, 0.101961)
-disable_receive_shadows = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7wi1"]
+render_priority = 0
+shader = ExtResource("4_iua7x")
+shader_parameter/albedo = Vector4(1, 0, 1, 0.5)
+shader_parameter/opacity = 0.25
 
 [sub_resource type="BoxMesh" id="BoxMesh_hxtvx"]
-material = SubResource("StandardMaterial3D_pq60h")
+material = SubResource("ShaderMaterial_k7wi1")
 
 [sub_resource type="Resource" id="Resource_6r7sw"]
 script = ExtResource("7_mhe75")
@@ -378,25 +375,26 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bespo"]
 
-[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("surface_material_helper", "enter_procedures", "anim_player")]
+[node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("surface_material_helper", "enter_procedures", "anim_player", "gizmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_mxn31")
 surface_material_helper = NodePath("GSurfaceMaterialHelper")
-open_fx = ExtResource("2_tu5bo")
-close_fx = ExtResource("3_2ptag")
 enter_procedures = [NodePath("GTriggerProcedure")]
 activated_by_player = true
 enable_fx = ExtResource("2_tu5bo")
 disable_fx = ExtResource("3_2ptag")
 anim_player = NodePath("BodyRoot/AnimationPlayer")
+gizmo = NodePath("EnteringArea/MeshInstance3D")
 
 [node name="EnteringArea" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.684633)
 shape = SubResource("BoxShape3D_sey77")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="EnteringArea"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnteringArea" node_paths=PackedStringArray("meshes")]
 mesh = SubResource("BoxMesh_hxtvx")
 script = ExtResource("5_c0khy")
+use_states = true
+meshes = [NodePath(".")]
 
 [node name="GSurfaceMaterialHelper" type="Node" parent="." node_paths=PackedStringArray("overlay_meshes")]
 script = ExtResource("16_b53aa")

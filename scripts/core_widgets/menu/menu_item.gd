@@ -9,6 +9,7 @@ class_name GMenuItem
 const TAG: String = "MenuItem"
 
 # Exported variables for customization.
+@export_subgroup("# Menu Item")
 @export var id: String = ""
 @export var has_options: bool = false
 @export var value: float = 0

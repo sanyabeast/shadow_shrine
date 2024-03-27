@@ -6,6 +6,7 @@ extends Node3D
 class_name GRoomController
 const TAG: String = "RoomController"
 
+@export_subgroup("# RoomController")
 @export var config: RRoomConfig
 @export var player_spawn: Node3D
 @export var doors_opened: bool = false
@@ -17,16 +18,16 @@ const TAG: String = "RoomController"
 	world.EDirection.West: true,
 }
 
-@export_subgroup("Referencies")
+@export_subgroup("# RoomController ~ Referencies")
 @export var content: Node3D
 @export var doors_container: Node3D
 @export var walls_gridmap: GridMap
 @export var obstacles_gridmap: GridMap
 
-@export_subgroup("Misc")
+@export_subgroup("# RoomController ~ Misc")
 @export var auto_initialize: bool = false
 
-@export_subgroup("Spots")
+@export_subgroup("# RoomController ~ Spots")
 @export var enemy_spots: Node3D
 @export var pickup_spots: Node3D
 @export var chest_spots: Node3D

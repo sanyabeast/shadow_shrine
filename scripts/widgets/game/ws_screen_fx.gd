@@ -6,6 +6,7 @@ extends Control
 class_name GScreenFX
 const TAG: String = "ScreenFX"
 
+@export_subgroup("# Screen FX")
 @onready var anim_player = $AnimationPlayer
 @export var start_from_black: bool = true
 @export var dark_fader: CanvasItem

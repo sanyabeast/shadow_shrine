@@ -6,7 +6,7 @@ extends Area3D
 class_name GAreaEffect
 const TAG: String = "AreaEffect"
 
-@export_subgroup("[ Area Effect ]")
+@export_subgroup("# Area Effect")
 @export var enabled: bool = true
 @export var max_targets_inside: int = -1
 @export var enter_procedures: Array[GProcedure]
@@ -14,29 +14,33 @@ const TAG: String = "AreaEffect"
 @export var repeat_procedures: Array[GProcedure]
 @export var repeat_procedures_rate: float = 1
 
-@export_subgroup("Activation")
+@export_subgroup("# Area Effect ~ Activation")
 @export var activated_by_player: bool = false
 @export var activated_by_enemies: bool = false
 @export var activated_by_friends: bool = false
 @export var activated_by_static: bool = false
 @export var activated_by_projectile: bool = false
 
-@export_subgroup("FX")
+@export_subgroup("# Area Effect ~ FX")
 @export var enter_fx: RFXConfig
 @export var exit_fx: RFXConfig
 @export var repeat_fx: RFXConfig
 @export var enable_fx: RFXConfig
 @export var disable_fx: RFXConfig
 
-@export_subgroup("Animations")
+@export_subgroup("# Area Effect ~ Animations")
 @export var anim_player: AnimationPlayer
+
+@export_subgroup("# Area Effect ~ Misc")
+@export var gizmo: GGizmo
 
 var _is_wasted: bool = false
 var bodies_inside: Dictionary = {}
 var _time_gate:= GTimeGateHelper.new(true)
+var _bodies_inside_count: int = 0
 
 func _to_string():
-	return "AreaEffect(name: %s, enabled: %s, bodies_inside: %s)" % [name, enabled, bodies_inside.size()]
+	return "AreaEffect(name: %s, enabled: %s, bodies_inside: %s)" % [name, enabled, _bodies_inside_count]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,6 +77,15 @@ func _process(delta):
 	
 	if tools.IS_DEBUG:
 		dev.set_label(self, { "self": to_string() } )
+		
+		if gizmo != null:
+			if enabled:
+				if _bodies_inside_count > 0:
+					gizmo.state = "active"
+				else:
+					gizmo.state = "default"
+			else:
+				gizmo.state = "disabled"
 
 func _should_affect(body) -> bool:
 	if body is GCharacterController:
@@ -89,6 +102,7 @@ func _should_affect(body) -> bool:
 func _handle_body_entered(body: Node3D):
 	if _should_affect(body):
 			bodies_inside[body.get_instance_id()] = body
+			_bodies_inside_count = bodies_inside.keys().size()
 			if enabled:
 				if enter_fx:
 					world.spawn_fx(enter_fx, global_position, null, global_rotation_degrees)
@@ -98,6 +112,7 @@ func _handle_body_entered(body: Node3D):
 func _handle_body_exited(body):
 	if _should_affect(body):
 		bodies_inside.erase(body.get_instance_id())
+		_bodies_inside_count = bodies_inside.keys().size()
 		if enabled:
 			if exit_fx:
 				world.spawn_fx(exit_fx, global_position, null, global_rotation_degrees)

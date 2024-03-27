@@ -15,28 +15,29 @@ const CANCEL_COOLDOWN: float = 0.05
 const MAX_OPTION_CHANGE_RATE: float = 10
 
 # Exported variables for customization.
+@export_subgroup("# Menu Controller")
 @export var id: String = ""
 @export var anim_player: AnimationPlayer
 
-@export_subgroup("Items")
+@export_subgroup("# Menu Controller ~ Items")
 @export var items: Array[GMenuItem]
 @export var index: int = 0
 
-@export_subgroup("Submenus")
+@export_subgroup("# Menu Controller ~ Submenus")
 @export var submenus: Array[GMenuController]
 @export var active_submenu: GMenuController = null
 var parent_menu: GMenuController = null
 
-@export_subgroup("Actions")
+@export_subgroup("# Menu Controller ~ Actions")
 @export var actions: GMenuActions
 
-@export_subgroup("Behaviour")
+@export_subgroup("# Menu Controller ~ Behaviour")
 @export var close_submenu_on_hide: bool = true
 @export var interactive: bool = true
 @export var toggle_visibility_on_submenu: Array[Control] = []
 @export var reinitialize_items_on_show: bool = false
 
-@export_subgroup("Sound")
+@export_subgroup("# Menu Controller ~ Sound")
 @export var menu_sfx: RMenuSFX
 
 var cooldown: GCooldowns = GCooldowns.new(false)

@@ -21,6 +21,7 @@ class GRoomState:
 	var seed_offset: int
 	var is_placeholder: bool = false
 
+@export_subgroup("# Standard Game Mode")
 @export var config: RGameLevelConfig
 @export var player: GCharacterController
 @export var player_packed: PackedScene
@@ -45,6 +46,8 @@ var _battle_ambience_mixer: GAmbientPlaylistPlayer
 
 var screen_fx: GScreenFX
 var random: GRandHelper = GRandHelper.new()
+
+var _door_triggers_enabled:= false
 
 
 #region: API
@@ -221,6 +224,8 @@ func _spawn_room(from_direction):
 		room_state.visited = true
 	#endregion
 	
+	_door_triggers_enabled = true
+	
 func _next_room(from_direction: world.EDirection, skip_fade: bool = false):
 	if skip_fade:
 		_next_room_main(from_direction)
@@ -275,10 +280,12 @@ func _handle_player_dead():
 func _process_trigger(id: String, source: Node3D):
 	match id:
 		"player_enters_door":
-			var door: GDoorController = source
-			_when_player_enters_door(door)
+			if _door_triggers_enabled:
+				var door: GDoorController = source
+				_when_player_enters_door(door)
 
 func _when_player_enters_door(door: GDoorController):
+	_door_triggers_enabled = false
 	var direction:= door.direction
 	dev.logd(TAG, "player %s entered door %s" % [player.name, world.get_direction_pretty_name(direction)])
 	_next_room(direction)

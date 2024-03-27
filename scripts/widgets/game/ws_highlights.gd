@@ -2,10 +2,11 @@ extends Control
 class_name GHighlightsWidget
 const TAG: String = "HighlightsWidget"
 	
+@export_subgroup("# Highlights Widget")
 @onready var label: GWidgetLabel = $Label
 @export var messages: Array[RHighlightsMessage] = []
 
-@export_subgroup("Referencies")
+@export_subgroup("# Highlights Widget ~ Referencies")
 @export var anim_player: AnimationPlayer
 @export var title_label: GWidgetLabel
 @export var subtitle_label: GWidgetLabel

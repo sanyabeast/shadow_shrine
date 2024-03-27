@@ -5,6 +5,7 @@ extends GGameMode
 class_name GGameModeLobby
 const TAG: String = "GameModeLobby"
 
+@export_subgroup("# Lobby")
 @export var demo_room: GRoomController
 @export var bg_music_player: GAmbientPlaylistPlayer
 @export var camera_anim_player: AnimationPlayer

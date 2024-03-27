@@ -32,6 +32,7 @@ layout_mode = 1
 
 [node name="ScreenFX" parent="." instance=ExtResource("6_k48no")]
 layout_mode = 1
+start_from_black = true
 
 [node name="HighlightsWidget" parent="." instance=ExtResource("7_m823x")]
 layout_mode = 1

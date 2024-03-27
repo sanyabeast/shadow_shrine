@@ -23,10 +23,11 @@ var far_look_fov: float = 25
 var far_look_elevation: float = 18
 var far_root_elevation: float = 0
 
+@export_subgroup("# Camera Controller")
 @onready var camera_root: Node3D = $CameraRoot
 @onready var camera_node: Camera3D = $CameraRoot/Camera3D
 
-@export_subgroup("Spotlight")
+@export_subgroup("# Camera Controller - Spotlight")
 @export var spotlight_enabled: bool = false
 @export var spotlight: SpotLight3D
 @export var spotlight_move_speed: float = 5

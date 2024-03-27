@@ -8,29 +8,30 @@ extends Area3D
 class_name GProjectileController
 const TAG: String = "ProjectileController"
 
+@export_subgroup("# Projectile Controller")
 @export var config: RProjectileConfig
 @export var hit_procedures: Array[GProcedure] = []
 @export var ray: RayCast3D
 @export var surface_helper: GSurfaceMaterialHelper
 
-@export_subgroup("Projectile FX")
+@export_subgroup("# Projectile Controller ~ Projectile FX")
 @export var launch_fx: RFXConfig
 @export var block_fx: RFXConfig
 @export var hit_fx: RFXConfig
 @export var waste_fx: RFXConfig
 
-@export_subgroup("Body")
+@export_subgroup("# Projectile Controller ~ Body")
 @export var body: Node3D
 @export var hide_body_on_block: bool = true
 @export var hide_body_on_hit: bool = true
 
-@export_subgroup("Misc")
+@export_subgroup("# Projectile Controller ~ Misc")
 @export var auto_launch: bool = false
 @export var direction: Vector3 = Vector3.FORWARD
 @export var keeper: Node3D
 @export var pool_key: String = ""
 
-@export_subgroup("FX Anchors")
+@export_subgroup("# Projectile Controller ~ FX Anchors")
 @export var launch_fx_anchor: Node3D
 @export var block_fx_anchor: Node3D
 @export var hit_fx_anchor: Node3D

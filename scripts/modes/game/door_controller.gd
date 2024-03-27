@@ -7,15 +7,10 @@ extends GAreaEffect
 class_name GDoorController
 #const TAG: String = "DoorController"
 
-@export_subgroup("[ Door Controller ]")
+@export_subgroup("# Door Controller")
 @export var surface_material_helper: GSurfaceMaterialHelper
-
 @onready var player_spawn: Node3D = $PlayerSpawn
 @onready var blocker: StaticBody3D = $Blocker
-
-@export_subgroup("Door FX")
-@export var open_fx: RFXConfig
-@export var close_fx: RFXConfig
 
 var direction: world.EDirection = world.EDirection.North
 

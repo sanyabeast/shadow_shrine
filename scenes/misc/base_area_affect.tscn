@@ -1,24 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr8y7v3c4hyo5"]
+[gd_scene load_steps=7 format=3 uid="uid://cr8y7v3c4hyo5"]
 
 [ext_resource type="Script" path="res://scripts/tools/area_effect.gd" id="1_gvf0c"]
-[ext_resource type="Material" uid="uid://cxe6ywxcsv0oh" path="res://resources/_dev/_base_gizmo_material.tres" id="2_52x1h"]
+[ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="2_sn85x"]
 [ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="3_thfat"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bgdeg"]
 height = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7ssk"]
+render_priority = 0
+shader = ExtResource("2_sn85x")
+shader_parameter/albedo = Vector4(1, 0, 1, 0.5)
+shader_parameter/opacity = 0.1
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_dtgc7"]
-material = ExtResource("2_52x1h")
+material = SubResource("ShaderMaterial_o7ssk")
 height = 1.0
 
-[node name="AreaEffect" type="Area3D"]
+[node name="AreaEffect" type="Area3D" node_paths=PackedStringArray("gizmo")]
 script = ExtResource("1_gvf0c")
+gizmo = NodePath("CollisionShape3D/Gizmo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_bgdeg")
 
-[node name="Gizmo" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Gizmo" type="MeshInstance3D" parent="CollisionShape3D" node_paths=PackedStringArray("meshes")]
 mesh = SubResource("CylinderMesh_dtgc7")
 skeleton = NodePath("../..")
 script = ExtResource("3_thfat")
+use_states = true
+meshes = [NodePath(".")]

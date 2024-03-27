@@ -103,6 +103,9 @@ var has_weapon: bool:
 	get:
 		return weapon != null
 
+func _to_string():
+	return "CharacterController(name: %s, health: %s/%s)" % [name, health.value, max_health.value]
+
 func _ready():
 	_traverse(self)
 
@@ -208,17 +211,17 @@ func _process(delta):
 		if weapon:
 			weapon.keeper = self
 
-		dev.set_label(
-			self,
-			{
-				"health": "Health: %s" % health.value,
-				"max_health": "Max health: %s" % max_health.value,
-				"speed": "Speed: %s" % speed.value
-			}
-		)
+		dev.set_label(self, { "self": to_string() })
 		
 	if tools.IS_DEBUG:
 		nav_agent.debug_enabled = dev.show_debug_graphics
+		nav_agent.debug_path_custom_color = Color.from_hsv(
+			fmod(float(get_instance_id()) / 90, 1.),
+			1.,
+			0.5,
+			1.0
+		)
+		nav_agent.debug_use_custom = true
 	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
 	if not characters.is_invulnerable(self):

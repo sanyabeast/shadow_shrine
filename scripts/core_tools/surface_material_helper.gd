@@ -8,11 +8,12 @@ const TAG: String = "SurfaceMaterialHelper"
 
 const DEFAULT_TRANSITION_DURATION: float = 0.3
 
+@export_subgroup("# Surface Material Helper")
 @export var overlay_meshes: Array[MeshInstance3D]
 @export var copy_props: bool = false
 @export var overlay_material: ShaderMaterial
 
-@export_subgroup("States")
+@export_subgroup("# Surface Material Helper ~ States")
 @export var use_states: bool = false
 @export var states: RSurfaceStates
 @export var state_update_rate: float = 0

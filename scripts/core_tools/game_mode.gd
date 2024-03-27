@@ -5,8 +5,11 @@
 extends Node3D
 class_name GGameMode
 
+@export_subgroup("# Game Mode")
 @export var player_driver: GPlayerDriver
 @export var npc_driver: GNpcDriver
+
+var cooldowns:= GCooldowns.new(true)
 
 #region: Lifecycle
 func _ready():

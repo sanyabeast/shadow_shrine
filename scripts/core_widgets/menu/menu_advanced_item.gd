@@ -10,11 +10,11 @@ enum EValueFormatType {
 	ConsoleTypeFrom_0_1,
 }
 
-@export_subgroup("Title")
+@export_subgroup("# Advanced Menu Item ~ Title")
 @export var title: String = ""
 @export var title_element: Label
 
-@export_subgroup("Value")
+@export_subgroup("# Advanced Menu Item ~ Value")
 @export var value_element: GWidgetLabel
 
 var _prev_value: String = ""
