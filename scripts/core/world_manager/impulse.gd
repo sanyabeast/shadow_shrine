@@ -41,7 +41,8 @@ func update(delta):
 	
 func add(_d:= Vector3.ZERO, _p:= 1.0):
 	power = max(power, _p)
-	direction = (direction + _d).normalized()
+	#direction = (direction + _d).normalized()
+	direction  = _d
 
 func apply():
 	if target is GCharacterController:

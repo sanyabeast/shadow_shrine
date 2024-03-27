@@ -66,15 +66,10 @@ func _ready():
 		launch()
 		
 	# collsiion
-	set_collision_layer_value(world.ECollisionBodyType.Character, false)
-	set_collision_layer_value(world.ECollisionBodyType.Static, false)
-	set_collision_layer_value(world.ECollisionBodyType.Projectile, true)
-	set_collision_layer_value(world.ECollisionBodyType.Area, false)
-	
-	set_collision_mask_value(world.ECollisionBodyType.Character, true)
-	set_collision_mask_value(world.ECollisionBodyType.Static, true)
-	set_collision_mask_value(world.ECollisionBodyType.Projectile, false)
-	set_collision_mask_value(world.ECollisionBodyType.Area, false)
+	world.set_collision(self, world.ECollisionBodyType.Projectile, [
+		world.ECollisionBodyType.Character,
+		world.ECollisionBodyType.Static
+	])
 	
 	pass # Replace with function body.
 

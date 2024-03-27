@@ -64,15 +64,12 @@ func _physics_process(delta):
 func link(character: GCharacterController):
 	dev.logd(TAG, "linking character: %s" % character.name)
 	
-	character.set_collision_layer_value(world.ECollisionBodyType.Character, true)
-	character.set_collision_layer_value(world.ECollisionBodyType.Static, false)
-	character.set_collision_layer_value(world.ECollisionBodyType.Projectile, false)
-	character.set_collision_layer_value(world.ECollisionBodyType.Area, false)
-	
-	character.set_collision_mask_value(world.ECollisionBodyType.Character, true)
-	character.set_collision_mask_value(world.ECollisionBodyType.Static, true)
-	character.set_collision_mask_value(world.ECollisionBodyType.Projectile, true)
-	character.set_collision_mask_value(world.ECollisionBodyType.Area, true)
+	world.set_collision(character, world.ECollisionBodyType.Character, [
+		world.ECollisionBodyType.Character,
+		world.ECollisionBodyType.Static,
+		world.ECollisionBodyType.Projectile,
+		world.ECollisionBodyType.Area
+	])
 	
 	list.append(character)
 	
@@ -240,6 +237,8 @@ func _update_npc(delta):
 
 func should_hit(shooter: Node3D, target: Node3D) -> bool:
 	if shooter is GCharacterController and target is GCharacterController:
+		if target.is_dead:
+			return false
 		if characters.is_player(shooter) and characters.is_enemy(target) and not is_invulnerable(target):
 			return true
 		elif characters.is_enemy(shooter) and characters.is_player(target) and not is_invulnerable(player):

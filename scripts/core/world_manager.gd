@@ -205,3 +205,17 @@ func _update_impulses(delta: float):
 		else:
 			impulse_data.update(delta)
 			impulse_data.apply()
+
+func set_collision(target: Node3D, layer: ECollisionBodyType, mask: Array[ECollisionBodyType]):
+	if target is CollisionObject3D:
+		target.set_collision_layer_value(world.ECollisionBodyType.Character, layer == world.ECollisionBodyType.Character)
+		target.set_collision_layer_value(world.ECollisionBodyType.Static, layer == world.ECollisionBodyType.Static)
+		target.set_collision_layer_value(world.ECollisionBodyType.Projectile, layer == world.ECollisionBodyType.Projectile)
+		target.set_collision_layer_value(world.ECollisionBodyType.Area, layer == world.ECollisionBodyType.Area)
+		
+		target.set_collision_mask_value(world.ECollisionBodyType.Character, mask.find(world.ECollisionBodyType.Character) > -1)
+		target.set_collision_mask_value(world.ECollisionBodyType.Static, mask.find(world.ECollisionBodyType.Static) > -1)
+		target.set_collision_mask_value(world.ECollisionBodyType.Projectile, mask.find(world.ECollisionBodyType.Projectile) > -1)
+		target.set_collision_mask_value(world.ECollisionBodyType.Area, mask.find(world.ECollisionBodyType.Area) > -1)
+	else:
+		print("CANNOT SETUP COLLISION FOR %s" % target)

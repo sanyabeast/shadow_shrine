@@ -193,11 +193,6 @@ func _spawn_room(from_direction):
 	else:
 		active_room.upload_saved_content(room_state.saved_content)
 	
-	if room_state.passed == true:
-		active_room.open_doors(true)
-	else:
-		active_room.close_doors()
-	#endregion
 	
 	#region: Player setup
 	if is_first_room_in_game:
@@ -208,6 +203,12 @@ func _spawn_room(from_direction):
 		var player_spawn = active_room.door_controllers[oposite_direction].player_spawn
 		characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0))
 		
+	#endregion
+	
+	if room_state.passed == true:
+		active_room.open_doors(true)
+	else:
+		active_room.close_doors()
 	#endregion
 	
 	#region: Post load

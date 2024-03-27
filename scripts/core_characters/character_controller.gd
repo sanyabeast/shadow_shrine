@@ -219,7 +219,7 @@ func _die():
 	for node in hide_on_death:
 		node.visible = false
 		
-	collider.disabled = true	
+	#collider.disabled = true	
 
 	if config.death_fx != null:
 		world.spawn_fx(config.death_fx, global_position)

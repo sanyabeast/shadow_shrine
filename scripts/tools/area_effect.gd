@@ -44,19 +44,16 @@ func _to_string():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_collision_layer_value(world.ECollisionBodyType.Character, false)
-	set_collision_layer_value(world.ECollisionBodyType.Static, false)
-	set_collision_layer_value(world.ECollisionBodyType.Projectile, false)
-	set_collision_layer_value(world.ECollisionBodyType.Area, true)
+	var coll_mask: Array[world.ECollisionBodyType] = []
 	
-	set_collision_mask_value(
-		world.ECollisionBodyType.Character, 
-		activated_by_player or activated_by_enemies or activated_by_friends
-	)
+	if activated_by_player or activated_by_enemies or activated_by_friends:
+		coll_mask.append(world.ECollisionBodyType.Character)
+	if activated_by_static:
+		coll_mask.append(world.ECollisionBodyType.Static)
+	if activated_by_projectile:
+		coll_mask.append(world.ECollisionBodyType.Projectile)
 	
-	set_collision_mask_value(world.ECollisionBodyType.Static, activated_by_static)
-	set_collision_mask_value(world.ECollisionBodyType.Projectile, activated_by_projectile)
-	set_collision_mask_value(world.ECollisionBodyType.Area, false)
+	world.set_collision(self, world.ECollisionBodyType.Area, coll_mask)
 	
 	body_entered.connect(_handle_body_entered)
 	body_exited.connect(_handle_body_exited)
@@ -130,6 +127,8 @@ func _run_procedures(body: Node3D, procedures: Array[GProcedure]):
 		proc.start()
 
 func enable(skip_fx: bool = false):
+	skip_fx = skip_fx or not visible
+	
 	if not skip_fx and enable_fx:
 		world.spawn_fx(enable_fx, global_position, null, global_rotation_degrees)
 		
@@ -141,6 +140,8 @@ func enable(skip_fx: bool = false):
 	enabled = true
 	
 func disable(skip_fx: bool = false):
+	skip_fx = skip_fx or not visible
+	
 	if not skip_fx and disable_fx:
 		world.spawn_fx(disable_fx, global_position, null, global_rotation_degrees)
 		
