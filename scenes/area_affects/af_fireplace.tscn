@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbwbgsbyjn8rd"]
+
+[ext_resource type="Script" path="res://scripts/tools/area_effect.gd" id="1_qssrs"]
+[ext_resource type="PackedScene" uid="uid://btaoqr5td4pmy" path="res://scenes/fx/fire/fx_fireplace_a.tscn" id="2_2atmv"]
+[ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="2_nufft"]
+[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="3_vinyg"]
+[ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="5_eu0s4"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1l18a"]
+height = 1.0
+radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7ssk"]
+render_priority = 0
+shader = ExtResource("2_nufft")
+shader_parameter/albedo = Vector4(1, 0, 1, 0.5)
+shader_parameter/opacity = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4aj5y"]
+material = SubResource("ShaderMaterial_o7ssk")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.0
+
+[node name="AreaEffect" type="Area3D" node_paths=PackedStringArray("repeat_procedures", "gizmo")]
+script = ExtResource("1_qssrs")
+repeat_procedures = [NodePath("GDamageProcedure")]
+activated_by_player = true
+activated_by_enemies = true
+activated_by_friends = true
+gizmo = NodePath("CollisionShape3D/Gizmo")
+
+[node name="FXFireBasicA" parent="." instance=ExtResource("2_2atmv")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_1l18a")
+
+[node name="Gizmo" type="MeshInstance3D" parent="CollisionShape3D" node_paths=PackedStringArray("meshes")]
+mesh = SubResource("CylinderMesh_4aj5y")
+skeleton = NodePath("../..")
+script = ExtResource("3_vinyg")
+use_states = true
+meshes = [NodePath(".")]
+
+[node name="GDamageProcedure" type="Node" parent="."]
+script = ExtResource("5_eu0s4")

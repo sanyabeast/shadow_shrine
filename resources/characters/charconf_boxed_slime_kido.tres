@@ -11,6 +11,7 @@
 [sub_resource type="Resource" id="Resource_0104i"]
 script = ExtResource("3_obyms")
 audio = ExtResource("1_gh2ke")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 0.97
 audio_pitch_max = 1.0
 audio_volume_min = 1.0
@@ -24,6 +25,7 @@ lifetime = 5.0
 [sub_resource type="Resource" id="Resource_avqrj"]
 script = ExtResource("3_obyms")
 audio = ExtResource("5_xewb6")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 0.8
 audio_pitch_max = 1.2
 audio_volume_min = 1.0

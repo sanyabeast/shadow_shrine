@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://gajmsefrdp7c"]
+[gd_scene load_steps=34 format=3 uid="uid://gajmsefrdp7c"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/charconf_boxed_slime_kido.tres" id="2_vy3e7"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_op30v"]
+[ext_resource type="AudioStream" uid="uid://dqjbsf5qn815j" path="res://assets/_dev/sound/sfx/slime/635874__wax_vibe__moving-meat.ogg" id="4_f3phw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="4_if374"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="5_2pxgc"]
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_8m3ld"]
@@ -252,9 +253,16 @@ weapon = NodePath("Aim/BasicMeleeWeapon")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
 shape = SubResource("CapsuleShape3D_174we")
 
-[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("surface_material_helper")]
+[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("surface_material_helper", "footsteps_sfx")]
 script = ExtResource("3_op30v")
 surface_material_helper = NodePath("StandardGameSurfaceMaterialHelper")
+footsteps_sfx = NodePath("FootstepsSFX")
+
+[node name="FootstepsSFX" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource("4_f3phw")
+pitch_scale = 1.75
+autoplay = true
+max_distance = 30.0
 
 [node name="StandardGameSurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("9_8f766")]
 overlay_meshes = [NodePath("../Node3D/enemy")]

@@ -16,6 +16,7 @@ enum EFXDisposeStrategy {
 # Exported variables for configuring audio and content of the FX.
 @export_subgroup("♥ FXConfig")
 @export var audio: AudioStream  # Audio stream for the FX.
+@export var audio_variants: Array[AudioStream]
 @export var audio_pitch_min: float = 1  # Minimum pitch for audio playback.
 @export var audio_pitch_max: float = 1  # Maximum pitch for audio playback.
 @export var audio_volume_min: float = 1  # Minimum volume for audio playback.

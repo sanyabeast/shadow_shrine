@@ -74,12 +74,17 @@ func _check_active_content():
 	
 func _setup_content():
 	if config:
-		if config.audio != null:
+		if config.audio != null or config.audio_variants.size() > 0:
 			var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 			add_child(audio_player)
 			
 			audio_player.bus = "SFX"
-			audio_player.stream = config.audio
+			
+			if config.audio_variants.size() > 0:
+				audio_player.stream = tools.get_random_element_from_array(config.audio_variants)
+			else:
+				audio_player.stream = config.audio
+				
 			audio_player.panning_strength = config.audio_panning
 			audio_player.pitch_scale = _get_variable_pitch_value(config)
 			audio_player.max_db = linear_to_db(randf_range(config.audio_volume_min, config.audio_volume_max))

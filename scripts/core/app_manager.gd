@@ -81,7 +81,7 @@ func get_setting(key: String, default: Variant = null):
 
 func _load_settings():
 	set_volume(get_setting(SETTINGS_AUDIO_MASTER_VOLUME_KEY, 1))
-	set_music_volume(get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 1))
+	set_music_volume(get_setting(SETTINGS_AUDIO_MUSIC_VOLUME_KEY, 0.5))
 	set_sfx_volume(get_setting(SETTINGS_AUDIO_SFX_VOLUME_KEY, 1))
 	
 	set_render_scale(get_setting(SETTINGS_VIDEO_RENDER_SCALE, 1))

@@ -9,6 +9,8 @@ const TAG: String = "CharacterBodyController"
 
 @export_subgroup("# CharacterBodyController")
 @export var surface_material_helper: GSurfaceMaterialHelper
+@export var footsteps_sfx: AudioStreamPlayer3D
+@export var footsteps_max_volume: float = 0.5
 
 var character: GCharacterController
 var anim_tree: AnimationTree
@@ -19,10 +21,11 @@ var tasks: GTasker = GTasker.new(true)
 var _prev_look_direction: Vector3 = Vector3.UP
 var _scalar_velocity_smoothed: float = 0
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+	if footsteps_sfx != null:
+		footsteps_sfx.seek(randf() * footsteps_sfx.stream.get_length())
 
 func initialize(_character: GCharacterController):
 	character = _character
@@ -46,7 +49,15 @@ func _process(delta):
 			_update_surface(delta)	
 			
 		_scalar_velocity_smoothed = lerpf(_scalar_velocity_smoothed, character.get_scalar_velocity(), 0.2)
+		
+		if footsteps_sfx != null:
+			_update_footsteps_sfx()
 	pass
+
+func _update_footsteps_sfx():
+	footsteps_sfx.volume_db = linear_to_db(
+		clampf((character.velocity.length() / character.speed.value) * footsteps_max_volume, 0., 1.)
+	)
 
 func _traverse(node):
 	if node is AnimationTree:

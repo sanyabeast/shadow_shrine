@@ -1,11 +1,4 @@
-[gd_resource type="ParticleProcessMaterial" load_steps=11 format=3 uid="uid://ch1liu3x62dmx"]
-
-[sub_resource type="Curve" id="Curve_8y3l6"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.171418, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_3ja06"]
-curve = SubResource("Curve_8y3l6")
+[gd_resource type="ParticleProcessMaterial" load_steps=8 format=3 uid="uid://ch1liu3x62dmx"]
 
 [sub_resource type="Curve" id="Curve_h5i3a"]
 min_value = -360.0
@@ -18,21 +11,16 @@ curve = SubResource("Curve_h5i3a")
 
 [sub_resource type="Gradient" id="Gradient_lwm15"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.402072, 0.837306, 1)
-colors = PackedColorArray(1, 0.833333, 0, 0.32549, 1, 0.166667, 0, 0.47451, 0.55, 0, 0, 0, 0.46, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.349004, 0.663745, 1)
+colors = PackedColorArray(1, 0.635945, 0, 0.32549, 1, 0.276498, 0, 0.223059, 1, 0, 0, 0.150123, 0.364055, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_necdk"]
 gradient = SubResource("Gradient_lwm15")
 
-[sub_resource type="Curve" id="Curve_3khgj"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.57861, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_bdood"]
-curve = SubResource("Curve_3khgj")
+[sub_resource type="CurveTexture" id="CurveTexture_jrsjj"]
 
 [sub_resource type="Curve" id="Curve_fdl55"]
-_data = [Vector2(0.00417428, 0), 0.0, 3.62869, 0, 0, Vector2(0.375232, 0.88106), 1.64306, 1.64306, 0, 0, Vector2(1, 0), -3.38653, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 3.62869, 0, 0, Vector2(0.354167, 0.93854), -0.277179, -0.277179, 0, 0, Vector2(1, 0), -1.77577, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_ljb2o"]
@@ -51,9 +39,9 @@ gravity = Vector3(0, 2, 0)
 linear_accel_max = 2.0
 radial_accel_max = 0.5
 tangential_accel_min = -0.5
-scale_min = 0.4
-scale_max = 0.5
+scale_min = 0.3
+scale_max = 0.4
 scale_curve = SubResource("CurveTexture_ljb2o")
+color = Color(0.294118, 0.294118, 0.294118, 1)
 color_ramp = SubResource("GradientTexture1D_necdk")
-alpha_curve = SubResource("CurveTexture_3ja06")
-emission_curve = SubResource("CurveTexture_bdood")
+emission_curve = SubResource("CurveTexture_jrsjj")

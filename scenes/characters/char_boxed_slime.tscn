@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=29 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -12,6 +12,7 @@
 [ext_resource type="Shader" path="res://resources/materials/extracted/char_boxed_slime_a.gdshader" id="7_qb3ey"]
 [ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="8_wyiil"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_pdf4v"]
+[ext_resource type="AudioStream" uid="uid://dqjbsf5qn815j" path="res://assets/_dev/sound/sfx/slime/635874__wax_vibe__moving-meat.ogg" id="12_1cfur"]
 [ext_resource type="PackedScene" uid="uid://b8vcya2mgfvq0" path="res://scenes/weapons/gun_toxic_gob_launcher.tscn" id="12_7dxem"]
 [ext_resource type="PackedScene" uid="uid://b8wfnmvsfucib" path="res://scenes/fx/fx_toxic_bubbles.tscn" id="12_ykgel"]
 
@@ -253,9 +254,17 @@ config = ExtResource("2_vw4ig")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354, 0)
 shape = SubResource("CapsuleShape3D_174we")
 
-[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("surface_material_helper")]
+[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("surface_material_helper", "footsteps_sfx")]
 script = ExtResource("3_i0uoy")
 surface_material_helper = NodePath("CharacterBodySurfaceMaterialHelper")
+footsteps_sfx = NodePath("FootstepsSFX")
+footsteps_max_volume = 1.0
+
+[node name="FootstepsSFX" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource("12_1cfur")
+pitch_scale = 1.75
+autoplay = true
+max_distance = 30.0
 
 [node name="CharacterBodySurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("8_wyiil")]
 overlay_meshes = [NodePath("../Node3D/enemy")]
