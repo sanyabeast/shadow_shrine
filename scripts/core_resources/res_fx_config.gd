@@ -14,6 +14,7 @@ enum EFXDisposeStrategy {
 }
 
 # Exported variables for configuring audio and content of the FX.
+@export_subgroup("♥ FXConfig")
 @export var audio: AudioStream  # Audio stream for the FX.
 @export var audio_pitch_min: float = 1  # Minimum pitch for audio playback.
 @export var audio_pitch_max: float = 1  # Maximum pitch for audio playback.
@@ -24,7 +25,7 @@ enum EFXDisposeStrategy {
 @export var use_game_time: bool = true  # Flag to determine whether to use game time.
 
 # Exported variables for configuring the disposal of FX.
-@export_subgroup("Disposing")
+@export_subgroup("♥ FXConfig ~ Disposing")
 @export var dispose_strategy: EFXDisposeStrategy = EFXDisposeStrategy.Lifetime  # Strategy for FX disposal.
 @export var lifetime: float = 5  # Lifetime of the FX when using the 'Lifetime' disposal strategy.
 

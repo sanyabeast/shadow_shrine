@@ -7,6 +7,7 @@ extends Resource
 class_name RCharacterConfig
 
 # Exported variables for customizing character attributes.
+@export_subgroup("♥ CharacterConfig")
 @export var health: float = 3  # Health points of the character.
 @export var max_health: float = 3  # Max Health points of the character.
 @export var speed: float = 5  # Movement speed of the character.
@@ -16,7 +17,7 @@ class_name RCharacterConfig
 @export var mass: float = 1  # Mass of the character.
 
 # Exported variables for NPC-specific settings.
-@export_subgroup("NPC")
+@export_subgroup("♥ CharacterConfig ~ NPC")
 @export var patrolling_distance: float = 5  # Distance for patrolling behavior.
 @export var target_position_refresh_timeout: float = 3  # Timeout for refreshing the target position.
 
@@ -31,6 +32,6 @@ class_name RCharacterConfig
 @export var walk_power_sinus_power: float = 0
 
 # Exported variables for character special effects.
-@export_subgroup("Character FX")
+@export_subgroup("♥ CharacterConfig ~ FX")
 @export var hurt_fx: RFXConfig  # FX configuration for hurt state.
 @export var death_fx: RFXConfig  # FX configuration for death state.

@@ -2,6 +2,8 @@ extends Resource
 class_name RMazeConfig
 
 ## Defines size of maze grid
+
+@export_subgroup("♥ MazeConfig")
 @export_range(2, 8, 1) var size: int = 3
 @export_range(0, 1, 0.01) var sparseness: float = 0.5
 @export_range(0, 1, 0.01) var dead_ends: float = 0.5

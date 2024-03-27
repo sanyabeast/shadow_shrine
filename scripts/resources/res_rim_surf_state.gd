@@ -4,7 +4,6 @@ extends RSurfaceState
 class_name RRimSurfaceState 
 
 @export var id: String
-
 @export var process_overlay_material: bool = true
 @export var overlay_albedo: Color = Color.WHITE
 @export var overlay_thickness: float = 0.25

@@ -9,7 +9,7 @@ extends Node3D
 class_name GWeaponController
 const TAG: String = "WeaponController"
 
-# Exported variable for weapon configuration.
+@export_subgroup("# WeaponController")
 @export var config: RWeaponConfig
 # Reference to the keeper node for managing the weapon's ownership.
 @export var keeper: Node3D

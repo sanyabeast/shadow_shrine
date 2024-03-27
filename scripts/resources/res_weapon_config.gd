@@ -9,6 +9,7 @@ enum EDamageType {
 	Hitscan,
 }
 
+@export_subgroup("♥ WeaponConfig")
 @export var damage_type: EDamageType = EDamageType.Projectile
 @export var projectiles: Array[PackedScene]
 @export var fire_rate: float = 5

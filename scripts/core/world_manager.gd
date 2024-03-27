@@ -31,10 +31,9 @@ var fx_pool: GPoolHelper = GPoolHelper.new(16)
 
 var use_projectile_pool: bool = true
 var projectile_pool: GPoolHelper = GPoolHelper.new(8)
-
 var level_scene: Node = null
-
 var los_server:= GLosServer.new()
+var _impulses: Dictionary = {}
 
 func _process(delta):
 	_update_level_scene(delta)
@@ -52,9 +51,12 @@ func _process(delta):
 			projectile_pool.dictionary_size,
 			projectile_pool.overflow_stat
 		])
+		
+		dev.print_screen("world_impulses_tasks", "active impulses: %s" % [_impulses.keys().size()])
 	
 func _physics_process(delta):
 	los_server.update(delta)
+	_update_impulses(delta)
 	
 func _update_level_scene(delta):
 	var current_scene = get_tree().current_scene
@@ -183,3 +185,23 @@ func _clear_pools():
 	fx_pool.clear()
 	projectile_pool.clear()
 #endregion
+
+#region: Impulses
+func commit_impulse(target: Node3D, direction: Vector3, power: float):
+	if GImpulse.is_applicable(target):
+		var impulse_data: GImpulse
+		if _impulses.has(target):
+			impulse_data = _impulses[target]
+			impulse_data.add(direction, power,)
+		else:
+			impulse_data = GImpulse.new(target, direction, power)
+			_impulses[target] = impulse_data
+
+func _update_impulses(delta: float):
+	for key in _impulses.keys():
+		var impulse_data: GImpulse = _impulses[key]
+		if not impulse_data.is_valid or impulse_data.is_finished:
+			_impulses.erase(key)
+		else:
+			impulse_data.update(delta)
+			impulse_data.apply()

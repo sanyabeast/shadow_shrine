@@ -7,6 +7,7 @@ extends Node3D
 class_name GCharacterBodyController
 const TAG: String = "CharacterBodyController"
 
+@export_subgroup("# CharacterBodyController")
 @export var surface_material_helper: GSurfaceMaterialHelper
 
 var character: GCharacterController

@@ -8,49 +8,29 @@ class_name GCharacterController
 const TAG: String = "CharacterController"
 
 signal on_hurt(health_loss: float, point: Vector3, direction: Vector3)
+signal on_fire(weapon: GWeaponController, direction: Vector3)
 
-class GAbility:
-	signal on_changed(name: String, old_value: float, new_value: float, increased: bool)
+@export_subgroup("# CharacterController")
+@export var config: RCharacterConfig
+@onready var aim_rig: Node3D = $Aim
+@onready var collider: CollisionShape3D = $CollisionShape3D
 
-	var name: String = ""
-	var value: float = 0
-	var target_value: float = 1
-	var max_value: float = -1
-	var transition_speed: float = 0
+@export_subgroup("# CharacterController ~ Player Mode")
+@export var use_as_player: bool = false
 
-	func _init(_name: String, _value: float, _max_value = null, _transition_speed = null):
-		name = _name
+@export_subgroup("# CharacterController ~ NPC Mode")
+@export var ai_enabled: bool = true
+@export var is_friendly: bool = false
 
-		if _max_value != null:
-			max_value = _max_value
+@export_subgroup("# CharacterController ~ Misc")
+@export var is_invulnerable: bool = false
+@export var is_immortal: bool = false
+@export var is_unshakable: bool = false
+@export var hide_on_death: Array[Node3D] = []
 
-		if _transition_speed != null:
-			transition_speed = _transition_speed
-
-		set_value(_value)
-
-	func update(delta: float):
-		if transition_speed <= 0:
-			value = target_value
-		else:
-			value = move_toward(value, target_value, transition_speed * delta)
-
-	func alter_value(delta: float):
-		set_value(target_value + delta)
-
-	func set_value(new_value: float):
-		var old_value: float = target_value
-
-		if max_value >= 0:
-			new_value = clampf(new_value, 0, max_value)
-
-		target_value = new_value
-
-		if new_value != old_value:
-			#dev.logd(TAG, "Ability %s target value set to %s" % [name, target_value])
-			on_changed.emit(name, old_value, new_value, new_value > old_value)
-
-		update(0)
+@export_subgroup("# CharacterController ~ Referencies")
+@export var body_controller: GCharacterBodyController
+@export var weapon: GWeaponController
 
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
@@ -73,32 +53,6 @@ var impulse_power: float = 0
 var _last_damage_point: Vector3 = Vector3.ZERO
 var _last_damage_direction: Vector3 = Vector3.ZERO
 
-@export var config: RCharacterConfig
-
-@onready var body: Node3D = $Body
-@onready var aim_rig: Node3D = $Aim
-@onready var collider: CollisionShape3D = $CollisionShape3D
-
-@export_subgroup("Player Mode")
-@export var use_as_player: bool = false
-
-@export_subgroup("NPC Mode")
-@export var ai_enabled: bool = true
-@export var is_friendly: bool = false
-
-@export_subgroup("Misc")
-@export var is_invulnerable: bool = false
-@export var is_immortal: bool = false
-@export var is_unshakable: bool = false
-@export var hide_on_death: Array[Node3D] = []
-
-@export_subgroup("Referencies")
-@export var body_controller: GCharacterBodyController
-@export var weapon: GWeaponController
-
-
-signal on_fire(weapon: GWeaponController, direction: Vector3)
-
 var has_weapon: bool:
 	get:
 		return weapon != null
@@ -108,24 +62,12 @@ func _to_string():
 
 func _ready():
 	_traverse(self)
-
 	add_child(nav_agent)
 
 	if body_controller != null:
 		body_controller.initialize(self)
 
-	# Abilities
-	health = GAbility.new("health", config.health, config.max_health)
-	max_health = GAbility.new("max_health", config.max_health)
-	speed = GAbility.new("speed", config.speed)
-	protection = GAbility.new("protection", config.protection)
-	damage = GAbility.new("damage", config.damage)
-
-	health.on_changed.connect(_handle_ability_change)
-	max_health.on_changed.connect(_handle_ability_change)
-	speed.on_changed.connect(_handle_ability_change)
-	protection.on_changed.connect(_handle_ability_change)
-	damage.on_changed.connect(_handle_ability_change)
+	_init_abilities()
 	
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
@@ -147,25 +89,31 @@ func _traverse(node):
 	for child in node.get_children():
 		_traverse(child)
 
+func _init_abilities():
+	# Abilities
+	health = GAbility.new("health", config.health, config.max_health)
+	max_health = GAbility.new("max_health", config.max_health)
+	speed = GAbility.new("speed", config.speed)
+	protection = GAbility.new("protection", config.protection)
+	damage = GAbility.new("damage", config.damage)
+
+	health.on_changed.connect(_handle_ability_change)
+	max_health.on_changed.connect(_handle_ability_change)
+	speed.on_changed.connect(_handle_ability_change)
+	protection.on_changed.connect(_handle_ability_change)
+	damage.on_changed.connect(_handle_ability_change)
+
 func _physics_process(delta):
 	if not game.paused:
 		var _walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
-
 		velocity.x = walk_direction.x * _walk_power * speed.value * game.speed
 		velocity.z = walk_direction.z * _walk_power * speed.value * game.speed
-
 		velocity += impulse_direction * (pow(impulse_power, 0.5)) * game.speed
 
-		#move_and_collide(global_transform.basis.z)
 		velocity.y = 0
 		global_position.y = 0
 
 		move_and_slide()
-
-		impulse_power = move_toward(impulse_power, 0, 2 * delta)
-
-		#if not is_on_floor():
-			#velocity.y += -9.8 * delta
 
 		if not is_dead:
 			if is_on_wall() and get_slide_collision_count() > 0:
@@ -175,10 +123,11 @@ func _physics_process(delta):
 
 				if collider != null:
 					if not characters.is_player(self) and collider is GridMap:
-						commit_impulse(coll.get_normal(), 2)
+						world.commit_impulse(self, coll.get_normal(), 2)
 
 					if collider is GCharacterController and characters.is_player(collider):
-						commit_impulse(
+						world.commit_impulse(
+							self,
 							coll.get_normal(),
 							2 * clampf(pow(collider.get_mass() / get_mass(), 2), 0, 1)
 						)
@@ -215,13 +164,14 @@ func _process(delta):
 		
 	if tools.IS_DEBUG:
 		nav_agent.debug_enabled = dev.show_debug_graphics
-		nav_agent.debug_path_custom_color = Color.from_hsv(
-			fmod(float(get_instance_id()) / 90, 1.),
-			1.,
-			0.5,
-			1.0
-		)
-		nav_agent.debug_use_custom = true
+		if nav_agent.debug_enabled:
+			nav_agent.debug_path_custom_color = Color.from_hsv(
+				fmod(float(get_instance_id()) / 90, 1.),
+				1.,
+				0.5,
+				1.0
+			)
+			nav_agent.debug_use_custom = true
 	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
 	if not characters.is_invulnerable(self):
@@ -232,16 +182,8 @@ func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vecto
 func commit_heal(value: float):
 	health.alter_value(value)
 
-func commit_impulse(direction: Vector3, power: float):
-	if not characters.is_unshakable(self):
-		impulse_direction = (impulse_direction + direction).normalized()
-		impulse_direction.y = 0
-		impulse_power = max(impulse_power, power)
-		pass
-
 func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
 	#dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
-
 	match name:
 		"health":
 			if not increased:
