@@ -1,13 +1,34 @@
+# Author: @sanyabeast
+# Date: Feb. 2024
+
+
+@icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji181.svg")
 extends GPUParticles3D
 class_name GParticlesHelper3D
 const TAG: String = "ParticlesHelper3D"
 
-@export_subgroup("Velocity to Amount")
+enum EPositioningMode {
+	TwoDimensional,
+	ThreeDimensional,
+	LookAt
+}
+
+@export_subgroup("# ParticlesHelper3D ~ Velocity to Amount")
 @export var use_velocity_to_amount: bool = false
 @export var velocity_to_amount_min_amount: float = 0
 @export var velocity_to_amount_max_amount: float = 1
 @export var velocity_to_amount_max_velocity: float = 2
 @export var velocity_to_amount_curve: float = 1.5
+
+@export_subgroup("# ParticlesHelper3D ~ Camera Space Positioning")
+@export var use_camera_space_positioning:= false
+@export var camera_space_positioning_mode:= EPositioningMode.TwoDimensional
+@export var camera_space_positioning_offset:= Vector3.ZERO
+
+@export_subgroup("# ParticlesHelper3D ~ Player Positioning")
+@export var use_player_positioning:= false
+@export var player_positioning_mode:= EPositioningMode.TwoDimensional
+@export var player_positioning_offset:= Vector3.ZERO
 
 var _direction: Vector3 = Vector3.ZERO
 var _velocity: Vector3 = Vector3.ZERO
@@ -37,7 +58,42 @@ func _process(delta):
 			lerpf(velocity_to_amount_min_amount, velocity_to_amount_max_amount, pow(_velocity_progress, velocity_to_amount_curve)),
 			0.2
 		)
+		
+	if use_camera_space_positioning:
+		_update_camera_space_positioning(delta)
+	
+	if use_player_positioning:
+		_update_player_positioning(delta)
 	
 	# - - - - - - - 
 	_prev_global_position = global_position
+	pass
+
+func _update_camera_space_positioning(delta: float):
+	var camera3d: Camera3D = camera_manager.get_camera3d()
+	if camera3d != null:
+		match camera_space_positioning_mode:
+			EPositioningMode.TwoDimensional:
+				global_position.x = camera3d.global_position.x + camera_space_positioning_offset.x
+				global_position.z = camera3d.global_position.z + camera_space_positioning_offset.z
+			EPositioningMode.ThreeDimensional:
+				global_position = camera3d.global_position + camera_space_positioning_offset
+			EPositioningMode.LookAt:
+				global_position = camera3d.global_position + camera_space_positioning_offset	
+				basis.z = camera3d.basis.z
+	pass
+
+func _update_player_positioning(delta: float):
+	var player: GCharacterController = characters.player
+	
+	if player != null:
+		match camera_space_positioning_mode:
+			EPositioningMode.TwoDimensional:
+				global_position.x = player.global_position.x + camera_space_positioning_offset.x
+				global_position.z = player.global_position.z + camera_space_positioning_offset.z
+			EPositioningMode.ThreeDimensional:
+				global_position = player.global_position + camera_space_positioning_offset
+			EPositioningMode.LookAt:
+				global_position = player.global_position + camera_space_positioning_offset	
+				basis.z = player.basis.z
 	pass

@@ -1,4 +1,4 @@
-[gd_resource type="ParticleProcessMaterial" load_steps=8 format=3 uid="uid://ch1liu3x62dmx"]
+[gd_resource type="ParticleProcessMaterial" load_steps=7 format=3 uid="uid://ch1liu3x62dmx"]
 
 [sub_resource type="Curve" id="Curve_h5i3a"]
 min_value = -360.0
@@ -11,16 +11,14 @@ curve = SubResource("Curve_h5i3a")
 
 [sub_resource type="Gradient" id="Gradient_lwm15"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.349004, 0.663745, 1)
-colors = PackedColorArray(1, 0.635945, 0, 0.32549, 1, 0.276498, 0, 0.223059, 1, 0, 0, 0.150123, 0.364055, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.603984)
+colors = PackedColorArray(1, 0.8, 0, 1, 1, 0.0392157, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_necdk"]
 gradient = SubResource("Gradient_lwm15")
 
-[sub_resource type="CurveTexture" id="CurveTexture_jrsjj"]
-
 [sub_resource type="Curve" id="Curve_fdl55"]
-_data = [Vector2(0, 0), 0.0, 3.62869, 0, 0, Vector2(0.354167, 0.93854), -0.277179, -0.277179, 0, 0, Vector2(1, 0), -1.77577, 0.0, 0, 0]
+_data = [Vector2(0.00328939, 0.0284568), 0.0, 1.31745, 0, 0, Vector2(0.50402, 1), -0.277179, -0.277179, 0, 0, Vector2(1, 0), -1.77577, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_ljb2o"]
@@ -42,6 +40,5 @@ tangential_accel_min = -0.5
 scale_min = 0.3
 scale_max = 0.4
 scale_curve = SubResource("CurveTexture_ljb2o")
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(1, 1, 1, 0.556863)
 color_ramp = SubResource("GradientTexture1D_necdk")
-emission_curve = SubResource("CurveTexture_jrsjj")

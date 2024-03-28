@@ -1,26 +1,30 @@
-[gd_scene load_steps=28 format=3 uid="uid://btaoqr5td4pmy"]
+[gd_scene load_steps=28 format=3 uid="uid://b0apcopihg7kq"]
 
-[ext_resource type="Material" uid="uid://ch1liu3x62dmx" path="res://resources/materials/particles/pmat_fire_like_a.tres" id="1_3irge"]
-[ext_resource type="AudioStream" uid="uid://c6vsyrc6themh" path="res://assets/_dev/sound/sfx/612277__robinhood76__10835-big-fire-loop.ogg" id="2_7v2cq"]
-[ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="2_j46de"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="2_l5mhy"]
-[ext_resource type="Texture2D" uid="uid://bgoc4sue1tox5" path="res://assets/_dev/flake_a50.png" id="2_u31dy"]
+[ext_resource type="Material" uid="uid://ch1liu3x62dmx" path="res://resources/materials/particles/pmat_fire_like_a.tres" id="1_eailv"]
+[ext_resource type="AudioStream" uid="uid://c6vsyrc6themh" path="res://assets/_dev/sound/sfx/612277__robinhood76__10835-big-fire-loop.ogg" id="2_7n1cw"]
+[ext_resource type="Texture2D" uid="uid://d23ardhv41j" path="res://assets/_dev/flake_a25.png" id="2_evbfb"]
+[ext_resource type="Texture2D" uid="uid://bgoc4sue1tox5" path="res://assets/_dev/flake_a50.png" id="3_gokiq"]
+[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="3_vs7qs"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1j4c8"]
-blend_mode = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfu7i"]
+transparency = 1
 shading_mode = 0
+diffuse_mode = 3
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_j46de")
+albedo_texture = ExtResource("2_evbfb")
 disable_receive_shadows = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_xf7ei"]
-material = SubResource("StandardMaterial3D_1j4c8")
+[sub_resource type="SphereMesh" id="SphereMesh_1kshf"]
+material = SubResource("StandardMaterial3D_wfu7i")
 radial_segments = 8
 rings = 8
 
 [sub_resource type="Curve" id="Curve_dwxba"]
-_data = [Vector2(0.00328939, 1), 0.0, -3.11616, 0, 0, Vector2(0.880482, 0.0402761), -0.00159585, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0.678516), 0.0, -1.77909, 0, 0, Vector2(1, 0), -0.00159585, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_3daul"]
 curve = SubResource("Curve_dwxba")
@@ -60,10 +64,10 @@ angular_velocity_max = 180.0
 radial_velocity_min = -0.01
 radial_velocity_max = 0.01
 gravity = Vector3(0, 1.5, 0)
-linear_accel_max = 0.25
+linear_accel_max = 0.5
 radial_accel_max = 0.15
-tangential_accel_min = -0.1
-tangential_accel_max = 0.1
+tangential_accel_min = -0.5
+tangential_accel_max = 0.5
 scale_max = 2.0
 scale_curve = SubResource("CurveTexture_uox2g")
 color_ramp = SubResource("GradientTexture1D_ud7rs")
@@ -73,7 +77,7 @@ alpha_curve = SubResource("CurveTexture_3daul")
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_u31dy")
+albedo_texture = ExtResource("3_gokiq")
 disable_receive_shadows = true
 billboard_mode = 3
 billboard_keep_scale = true
@@ -120,12 +124,11 @@ linear_accel_max = 1.0
 scale_min = 0.1
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_0vfee")
-color = Color(1, 0.901961, 0.607843, 1)
+color = Color(1, 0.796078, 0.192157, 1)
 color_ramp = SubResource("GradientTexture1D_3akbi")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_enqdy"]
 transparency = 1
-blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 billboard_mode = 3
@@ -138,18 +141,18 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_enqdy")
 size = Vector2(0.1, 0.1)
 
-[node name="FXFireBasicA" type="GPUParticles3D"]
+[node name="FXFireBasicB" type="GPUParticles3D"]
 cast_shadow = 0
 amount = 24
 lifetime = 0.75
-speed_scale = 0.75
-process_material = ExtResource("1_3irge")
-draw_pass_1 = SubResource("SphereMesh_xf7ei")
-script = ExtResource("2_l5mhy")
+speed_scale = 0.5
+process_material = ExtResource("1_eailv")
+draw_pass_1 = SubResource("SphereMesh_1kshf")
+script = ExtResource("3_vs7qs")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125105, 0)
-stream = ExtResource("2_7v2cq")
+stream = ExtResource("2_7n1cw")
 max_db = 0.0
 autoplay = true
 max_distance = 15.0
@@ -157,7 +160,7 @@ panning_strength = 4.0
 bus = &"SFX"
 doppler_tracking = 2
 
-[node name="VFX_Fireplace_Smoke" type="GPUParticles3D" parent="."]
+[node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.031949, 0)
 cast_shadow = 0
 amount = 16
@@ -166,9 +169,9 @@ speed_scale = 0.5
 process_material = SubResource("ParticleProcessMaterial_akjr1")
 draw_pass_1 = SubResource("QuadMesh_xytgd")
 
-[node name="VFX_Fireplace_Sparks" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.228573, 0)
-lifetime = 0.75
+lifetime = 0.5
 explosiveness = 0.1
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_u6sim")
