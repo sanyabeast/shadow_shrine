@@ -22,18 +22,22 @@ enum ECollisionBodyType {
 }
 
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
-var sandbox: Node3D
+@export var sandbox: Node3D
 
 # fx
 var fx_queue: Array[Array] = []
-var use_fx_pool: bool = true
+@export var use_fx_pool: bool = true
 var fx_pool: GPoolHelper = GPoolHelper.new(16)
 
-var use_projectile_pool: bool = true
+@export var use_projectile_pool: bool = true
 var projectile_pool: GPoolHelper = GPoolHelper.new(8)
-var level_scene: Node = null
+@export var level_scene: Node = null
 var los_server:= GLosServer.new()
 var _impulses: Dictionary = {}
+
+# wind
+@export var wind_direction: float = 0
+@export var wind_power: float = 0.5
 
 func _process(delta):
 	_update_level_scene(delta)

@@ -1,10 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://dilqskmcw7lt8"]
+[gd_scene load_steps=22 format=3 uid="uid://dilqskmcw7lt8"]
 
-[ext_resource type="Texture2D" uid="uid://caauew2nati6q" path="res://assets/_dev/sprites/liquid_puddle_a3.png" id="1_q7msb"]
+[ext_resource type="Texture2D" uid="uid://bpv0lxlvtoqje" path="res://assets/_dev/flake_a75.png" id="1_7yw4d"]
 [ext_resource type="Texture2D" uid="uid://dwniida38iik3" path="res://assets/_dev/sprites/particles/bubbles_pack/bubble_3_grayscale.png" id="2_76yma"]
 
+[sub_resource type="Gradient" id="Gradient_wi56v"]
+colors = PackedColorArray(1, 1, 1, 1, 0.24424, 0.24424, 0.24424, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r3oxh"]
+gradient = SubResource("Gradient_wi56v")
+
 [sub_resource type="Gradient" id="Gradient_147ew"]
-colors = PackedColorArray(0.231573, 0.26, 0.0468, 1, 0, 0, 0, 0)
+interpolation_mode = 2
+colors = PackedColorArray(0.450211, 0.488479, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0cxv2"]
 gradient = SubResource("Gradient_147ew")
@@ -16,6 +23,8 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_7cqi7"]
 curve = SubResource("Curve_6xupu")
 
+[sub_resource type="CurveTexture" id="CurveTexture_oljvk"]
+
 [sub_resource type="Curve" id="Curve_x1pcx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.09616, 0.0, 0, 0]
 point_count = 2
@@ -24,27 +33,30 @@ point_count = 2
 curve = SubResource("Curve_x1pcx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_78mbe"]
-particle_flag_rotate_y = true
 emission_shape = 1
-emission_sphere_radius = 0.05
-angle_min = -180.0
-angle_max = 180.0
+emission_sphere_radius = 0.1
 angular_velocity_min = 45.0
 angular_velocity_max = 45.0
-radial_velocity_max = 0.5
-gravity = Vector3(0, 0, 0)
+orbit_velocity_curve = SubResource("CurveTexture_oljvk")
+radial_velocity_min = -2.0
+radial_velocity_max = 2.0
+gravity = Vector3(0, -2, 0)
 scale_min = 2.0
-scale_max = 2.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_lsn16")
 color_ramp = SubResource("GradientTexture1D_0cxv2")
+color_initial_ramp = SubResource("GradientTexture1D_r3oxh")
 emission_curve = SubResource("CurveTexture_7cqi7")
+turbulence_enabled = true
+turbulence_noise_strength = 20.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4228k"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_q7msb")
+albedo_texture = ExtResource("1_7yw4d")
 disable_receive_shadows = true
+shadow_to_opacity = true
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -94,9 +106,8 @@ material = SubResource("StandardMaterial3D_vk43k")
 size = Vector2(0.1, 0.1)
 
 [node name="FxToxicGobIdle" type="GPUParticles3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00559998, 0, 0.00792421)
 amount = 32
-lifetime = 0.25
+lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_78mbe")
 draw_pass_1 = SubResource("QuadMesh_vvoxm")
 

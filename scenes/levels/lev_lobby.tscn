@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="2_jdpm4"]
 [ext_resource type="Script" path="res://scripts/tools/ambient_sound_player.gd" id="2_wsyxj"]
 [ext_resource type="Shader" path="res://resources/shaders/sky/volumetric_sky_a.gdshader" id="3_0akjs"]
-[ext_resource type="Script" path="res://scripts/core_tools/env_helper.gd" id="3_jtwy5"]
+[ext_resource type="Script" path="res://scripts/core_tools/wenv_helper.gd" id="3_jtwy5"]
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="4_2lte1"]
 [ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="5_2k1dm"]
 [ext_resource type="Script" path="res://scripts/tools/handcamera.gd" id="6_2vkhj"]

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Shadow Shrine"
 config/version="0.0.1.2"
-run/main_scene="res://scenes/levels/lev_launcher.tscn"
+run/main_scene="res://scenes/levels/_lev_launcher.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
 boot_splash/show_image=false
@@ -318,4 +318,5 @@ global_illumination/sdfgi/frames_to_converge=2
 global_illumination/sdfgi/frames_to_update_lights=0
 environment/volumetric_fog/volume_size=32
 environment/volumetric_fog/volume_depth=32
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 anti_aliasing/quality/use_taa=true

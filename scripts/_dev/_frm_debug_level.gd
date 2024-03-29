@@ -8,5 +8,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	pass
+	if characters.player != null:
+		world.wind_direction = characters.player.body_controller.global_rotation_degrees.y

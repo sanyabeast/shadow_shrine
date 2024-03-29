@@ -2,7 +2,6 @@
 # Date: Mar. 2024
 
 extends WorldEnvironment
-
 class_name GWorldEnvironmentHelper
 const TAG: String = "WorldEnvironmentHelper"
 

@@ -160,7 +160,10 @@ func _process(delta):
 		if weapon:
 			weapon.keeper = self
 
-		dev.set_label(self, { "self": to_string() })
+		dev.set_label(self, { 
+			"self": to_string(),
+			"rotation": "%.2f" % tools.rotation_degrees_y_from_direction(walk_direction)
+		})
 		
 	if tools.IS_DEBUG:
 		nav_agent.debug_enabled = dev.show_debug_graphics
