@@ -210,7 +210,7 @@ menu_sfx = ExtResource("2_fc8hn")
 libraries = {
 "": SubResource("AnimationLibrary_cymmk")
 }
-blend_times = [&"close", &"open", 0.1, &"close", &"close", 0.1, &"close", &"RESET", 0.1]
+blend_times = [&"close", &"close", 0.1, &"close", &"open", 0.1, &"close", &"RESET", 0.1]
 
 [node name="Content" type="ColorRect" parent="."]
 material = SubResource("CanvasItemMaterial_r4lfd")
