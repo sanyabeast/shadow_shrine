@@ -37,7 +37,7 @@ var _impulses: Dictionary = {}
 
 # wind
 @export var wind_direction: float = 0
-@export var wind_power: float = 0.5
+@export var wind_power: float = 0
 
 func _process(delta):
 	_update_level_scene(delta)

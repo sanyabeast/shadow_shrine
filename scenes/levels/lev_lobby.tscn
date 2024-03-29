@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="2_jdpm4"]
 [ext_resource type="Script" path="res://scripts/tools/ambient_sound_player.gd" id="2_wsyxj"]
 [ext_resource type="Shader" path="res://resources/shaders/sky/volumetric_sky_a.gdshader" id="3_0akjs"]
-[ext_resource type="Script" path="res://scripts/core_tools/wenv_helper.gd" id="3_jtwy5"]
+[ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="3_jtwy5"]
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="4_2lte1"]
 [ext_resource type="PackedScene" uid="uid://c4xjw5gcn3d0n" path="res://scenes/rooms/room_a3.tscn" id="5_2k1dm"]
 [ext_resource type="Script" path="res://scripts/tools/handcamera.gd" id="6_2vkhj"]
@@ -143,10 +143,10 @@ npc_driver = NodePath("GNpcDriverBasicGameDude")
 script = ExtResource("2_jdpm4")
 
 [node name="Environment" type="Node3D" parent="."]
+script = ExtResource("3_jtwy5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_gkp8r")
-script = ExtResource("3_jtwy5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.0871557, 0.0868241, 0.992404, 0, -0.996194, 0.0871558, 0.996194, -0.00759613, -0.0868241, 0, 2, 0)
@@ -184,31 +184,31 @@ script = ExtResource("6_2vkhj")
 transform = Transform3D(-0.564723, 0, -0.82528, 0, 1, 0, 0.82528, 0, -0.564723, -3.734, 0, 1.85)
 
 [node name="GeneralSkeleton" parent="RockLee/Body/rock_dude/Armature" index="0"]
-bones/0/position = Vector3(6.17268e-05, 0.26664, 0.000855633)
-bones/0/rotation = Quaternion(0.0213546, -0.104268, -0.00744769, 0.994292)
-bones/1/rotation = Quaternion(0.0826335, 0.0178697, 0.00597115, 0.996402)
-bones/2/rotation = Quaternion(0.0251074, 0.034777, 0.00853363, 0.999043)
-bones/3/rotation = Quaternion(-0.0769212, 0.0331306, 0.0121835, 0.996412)
-bones/4/rotation = Quaternion(-0.0350257, 0.0161661, -0.0607112, 0.99741)
-bones/5/rotation = Quaternion(0.0477652, -0.0038314, 0.0642722, 0.996781)
-bones/7/rotation = Quaternion(0.525693, 0.484308, 0.515533, -0.472565)
-bones/8/rotation = Quaternion(0.016537, 0.805408, -0.592253, 0.0167395)
-bones/9/rotation = Quaternion(0.103726, -0.700062, 0.103354, 0.698908)
-bones/10/rotation = Quaternion(0.0290464, 0.719424, -0.0290372, 0.693355)
-bones/11/rotation = Quaternion(0.0363848, 0.00355405, 0.0365822, 0.998662)
-bones/15/rotation = Quaternion(0.52648, -0.483667, -0.51599, -0.471847)
-bones/16/rotation = Quaternion(-0.00525683, 0.830069, -0.556197, 0.0400463)
-bones/17/rotation = Quaternion(0.119609, 0.698691, -0.118245, 0.695373)
-bones/18/rotation = Quaternion(-0.0267827, -0.720662, -0.00702954, 0.692733)
-bones/19/rotation = Quaternion(0.0322006, -0.0036513, -0.0363574, 0.998813)
-bones/23/rotation = Quaternion(0.121096, 0.160799, 0.974707, -0.0970893)
-bones/24/rotation = Quaternion(-0.0247974, 0.978673, -0.199643, 0.0415637)
-bones/25/rotation = Quaternion(-0.0332521, 0.681758, -0.724572, 0.0953709)
-bones/26/rotation = Quaternion(0.0208371, 0.99923, 0.0260616, 0.0206502)
-bones/28/rotation = Quaternion(-0.0783298, 0.111182, 0.989577, 0.0473276)
-bones/29/rotation = Quaternion(0.0240243, 0.97804, -0.203167, -0.0397872)
-bones/30/rotation = Quaternion(0.0546356, 0.62959, -0.773294, -0.0514571)
-bones/31/rotation = Quaternion(-0.0205266, 0.998465, 0.0467195, -0.0215311)
+bones/0/position = Vector3(-0.000554455, 0.269699, 0.00431844)
+bones/0/rotation = Quaternion(0.00949563, -0.100072, -0.0106779, 0.994878)
+bones/1/rotation = Quaternion(0.0569502, 0.0190896, 0.00655578, 0.998173)
+bones/2/rotation = Quaternion(0.00795924, 0.0361528, 0.00991096, 0.999265)
+bones/3/rotation = Quaternion(-0.0944472, 0.0342894, 0.0139636, 0.994841)
+bones/4/rotation = Quaternion(0.0933267, 0.0190963, -0.0576826, 0.99378)
+bones/5/rotation = Quaternion(0.0402456, -0.0106069, 0.0708445, 0.996619)
+bones/7/rotation = Quaternion(0.540292, 0.468234, 0.507631, -0.480782)
+bones/8/rotation = Quaternion(-0.0774139, 0.795627, -0.600817, -0.00193358)
+bones/9/rotation = Quaternion(0.11912, -0.656503, 0.114962, 0.735934)
+bones/10/rotation = Quaternion(0.0222572, 0.712976, -0.0381877, 0.699794)
+bones/11/rotation = Quaternion(0.0810203, 0.00522979, 0.0386031, 0.995951)
+bones/15/rotation = Quaternion(0.528035, -0.479754, -0.504831, -0.485964)
+bones/16/rotation = Quaternion(0.0810725, 0.835981, -0.542095, 0.0263805)
+bones/17/rotation = Quaternion(0.15136, 0.65402, -0.129658, 0.729751)
+bones/18/rotation = Quaternion(0.0151129, -0.719063, -0.0069537, 0.694746)
+bones/19/rotation = Quaternion(0.0826162, -0.0053937, -0.0387118, 0.995815)
+bones/23/rotation = Quaternion(0.126709, 0.105352, 0.981628, -0.0961939)
+bones/24/rotation = Quaternion(-0.0200332, 0.991478, -0.123087, 0.0376842)
+bones/25/rotation = Quaternion(-0.031083, 0.700057, -0.707208, 0.0938657)
+bones/26/rotation = Quaternion(0.0210736, 0.999235, 0.0258893, 0.0203853)
+bones/28/rotation = Quaternion(-0.0838186, 0.0431883, 0.994422, 0.0472699)
+bones/29/rotation = Quaternion(0.0138858, 0.991897, -0.118239, -0.0443635)
+bones/30/rotation = Quaternion(0.0539122, 0.65868, -0.748964, -0.0478214)
+bones/31/rotation = Quaternion(-0.020798, 0.998298, 0.0507121, -0.0199238)
 
 [node name="MainMenu" parent="." instance=ExtResource("8_hefke")]
 

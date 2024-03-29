@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bsag3neuxumld" path="res://assets/_dev/sound/sfx/slime/sfx_167074__drminky__slime-death-1.ogg" id="3_3ifnq"]
 [ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="4_5krdg"]
 [ext_resource type="PackedScene" uid="uid://dilqskmcw7lt8" path="res://scenes/fx/toxic_gob/fx_toxic_gob_idle.tscn" id="4_yskga"]
-[ext_resource type="AudioStream" uid="uid://i6iglfdjhg10" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click2.ogg" id="5_uks3f"]
+[ext_resource type="AudioStream" uid="uid://ugaleggyirh6" path="res://assets/_dev/sound/sfx/slime/sfx_340794__kuchenanderung1__slime-squish-reverse.ogg" id="6_54ugl"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="7_npsni"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="8_3t6og"]
 [ext_resource type="PackedScene" uid="uid://5d1bm3pkxif6" path="res://scenes/fx/toxic_gob/fx_toxic_gob_splash.tscn" id="8_bjo8a"]
@@ -37,6 +37,7 @@ ballistic_curve = SubResource("Curve_4te7g")
 [sub_resource type="Resource" id="Resource_xaaxq"]
 script = ExtResource("4_5krdg")
 audio = ExtResource("3_3ifnq")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 0.9
 audio_pitch_max = 1.25
 audio_volume_min = 1.4
@@ -49,7 +50,8 @@ lifetime = 5.0
 
 [sub_resource type="Resource" id="Resource_n8ojx"]
 script = ExtResource("4_5krdg")
-audio = ExtResource("5_uks3f")
+audio = ExtResource("6_54ugl")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 1.0
 audio_pitch_max = 0.9
 audio_volume_min = 1.1
@@ -63,6 +65,7 @@ lifetime = 5.0
 [sub_resource type="Resource" id="Resource_qgbi8"]
 script = ExtResource("4_5krdg")
 audio = ExtResource("8_spk2w")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 1.0
 audio_pitch_max = 1.25
 audio_volume_min = 1.5
@@ -75,7 +78,8 @@ lifetime = 5.0
 
 [sub_resource type="Resource" id="Resource_5724u"]
 script = ExtResource("4_5krdg")
-audio = ExtResource("5_uks3f")
+audio = ExtResource("6_54ugl")
+audio_variants = Array[AudioStream]([])
 audio_pitch_min = 1.0
 audio_pitch_max = 1.0
 audio_volume_min = 1.0

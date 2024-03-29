@@ -27,6 +27,7 @@ func _prepare():
 	
 	_setup_player()
 	game.resume()
+	
 	characters.enable_player()
 	characters.enable_ai()
 	
@@ -60,6 +61,9 @@ func _handle_all_enemies_dead():
 	dev.logd(TAG, "all enemies died")
 
 func _handle_player_dead():
-	game.finish(false)
+	if freeroam_mode != null:
+		freeroam_mode.handle_player_dead()
+	else:
+		game.finish(false)
 #endregion
 

@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="5_ufud1"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_nsc11"]
-[ext_resource type="Script" path="res://scripts/core_tools/wenv_helper.gd" id="8_2paxw"]
+[ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="8_2paxw"]
 [ext_resource type="Environment" uid="uid://cuc8x6fxi66m0" path="res://resources/misc/wenv_default_a.tres" id="8_884il"]
 
 [sub_resource type="Resource" id="Resource_ipqy4"]
@@ -40,10 +40,10 @@ script = ExtResource("5_ufud1")
 [node name="GUI" parent="." instance=ExtResource("5_h0u01")]
 
 [node name="Environment" type="Node3D" parent="."]
+script = ExtResource("8_2paxw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = ExtResource("8_884il")
-script = ExtResource("8_2paxw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.721049, 0.288482, -0.629973, -0.0235277, 0.898486, 0.438371, 0.692484, 0.330909, -0.641065, 0, 20, 0)

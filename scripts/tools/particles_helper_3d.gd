@@ -30,6 +30,11 @@ enum EPositioningMode {
 @export var player_positioning_mode:= EPositioningMode.TwoDimensional
 @export var player_positioning_offset:= Vector3.ZERO
 
+@export_subgroup("# ParticlesHelper3D ~ Wind")
+@export var use_wind_to_gravity: bool = false
+@export var wind_to_gravity_strength: float = 1
+@export var wind_to_gravity_update_rate: float = 5
+
 var _direction: Vector3 = Vector3.ZERO
 var _velocity: Vector3 = Vector3.ZERO
 var _velocity_scalar: float = 0
@@ -41,6 +46,8 @@ var _timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_prev_global_position = global_position
+	#if use_wind_to_gravity:
+		#process_material = process_material.duplicate()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,6 +71,9 @@ func _process(delta):
 	
 	if use_player_positioning:
 		_update_player_positioning(delta)
+	
+	if use_wind_to_gravity and  _timer_gate.check("wtg_update", 1 / wind_to_gravity_update_rate):
+		_update_wind_to_gravity(delta)
 	
 	# - - - - - - - 
 	_prev_global_position = global_position
@@ -97,3 +107,9 @@ func _update_player_positioning(delta: float):
 				global_position = player.global_position + camera_space_positioning_offset	
 				basis.z = player.basis.z
 	pass
+
+func _update_wind_to_gravity(delta):
+	var mat: ParticleProcessMaterial = process_material
+	var wind_dir: Vector2 = tools.angle_to_direction_v2(world.wind_direction)
+	process_material.gravity.x = -wind_dir.x * wind_to_gravity_strength * world.wind_power
+	process_material.gravity.z = -wind_dir.y * wind_to_gravity_strength * world.wind_power

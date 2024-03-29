@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://hhgqktwpdy5r"]
+[gd_scene load_steps=12 format=3 uid="uid://hhgqktwpdy5r"]
 
+[ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="1_ct5a3"]
 [ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="1_gu2do"]
 
 [sub_resource type="Curve" id="Curve_icqkn"]
-_data = [Vector2(0, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23572, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_epxn2"]
 curve = SubResource("Curve_icqkn")
@@ -34,7 +35,7 @@ angle_min = -180.0
 angle_max = 180.0
 angular_velocity_max = 5.0
 orbit_velocity_curve = SubResource("CurveTexture_8uyxj")
-gravity = Vector3(0, -0.2, 0)
+gravity = Vector3(0, -2, 0)
 scale_min = 0.2
 scale_max = 0.3
 scale_curve = SubResource("CurveTexture_6e8v7")
@@ -43,17 +44,24 @@ collision_mode = 1
 collision_friction = 0.5
 collision_bounce = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rlveb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ljlx"]
 transparency = 3
 alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
 shading_mode = 2
 vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ct5a3")
 metallic_specular = 1.0
+roughness = 0.31
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
-[sub_resource type="BoxMesh" id="BoxMesh_w4f5k"]
-material = SubResource("StandardMaterial3D_rlveb")
-size = Vector3(0.1, 0.1, 0.1)
+[sub_resource type="QuadMesh" id="QuadMesh_lne1d"]
+material = SubResource("StandardMaterial3D_7ljlx")
+size = Vector2(0.2, 0.2)
 
 [node name="VFX_LightSnowWeather" type="GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.306, 0)
@@ -61,8 +69,11 @@ amount = 2048
 lifetime = 30.0
 preprocess = 30.0
 fixed_fps = 0
-collision_base_size = 0.1
+collision_base_size = 0.25
 visibility_aabb = AABB(-10.4769, -17.1247, -7.71402, 20.9527, 32.2504, 16.0423)
 process_material = SubResource("ParticleProcessMaterial_077vp")
-draw_pass_1 = SubResource("BoxMesh_w4f5k")
+draw_pass_1 = SubResource("QuadMesh_lne1d")
 script = ExtResource("1_gu2do")
+use_wind_to_gravity = true
+wind_to_gravity_strength = 0.5
+wind_to_gravity_update_rate = 2.0

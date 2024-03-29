@@ -1,15 +1,14 @@
-[gd_scene load_steps=40 format=3 uid="uid://dvpgb2jrxx8p1"]
+[gd_scene load_steps=28 format=3 uid="uid://dvpgb2jrxx8p1"]
 
 [ext_resource type="Script" path="res://scripts/core_tools/misc/gm_freeroam.gd" id="1_8mwe0"]
 [ext_resource type="Script" path="res://scripts/_dev/_frm_debug_level.gd" id="2_frhg8"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_m2bip"]
 [ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="5_66keu"]
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="6_538dh"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="7_oiriu"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_wid_dev_hud.tscn" id="7_urvor"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="8_e1eu0"]
-[ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="10_10c1j"]
-[ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="10_icugc"]
+[ext_resource type="Script" path="res://scripts/core_tools/wenv_helper.gd" id="10_10c1j"]
+[ext_resource type="PackedScene" uid="uid://hhgqktwpdy5r" path="res://scenes/fx/weather/vfx_light_snow_weather.tscn" id="10_w3bvv"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="11_a2q6q"]
 [ext_resource type="PackedScene" uid="uid://dbwbgsbyjn8rd" path="res://scenes/area_affects/af_fireplace.tscn" id="11_me8eh"]
 [ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/mlib_jerdelia_a.tres" id="12_1psnx"]
@@ -18,15 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="12_wbav5"]
 [ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="13_xgsen"]
 [ext_resource type="PackedScene" uid="uid://b0apcopihg7kq" path="res://scenes/fx/fire/fx_fireplace_b.tscn" id="15_ksseg"]
-
-[sub_resource type="Curve" id="Curve_l5lsx"]
-max_value = 360.0
-_data = [Vector2(0, 167.368), 0.0, 0.0, 0, 0, Vector2(0.144639, 112.014), 456.056, 456.056, 0, 0, Vector2(0.259272, 174.748), 0.0, 0.0, 0, 0, Vector2(0.323331, 278.076), 0.0, 0.0, 0, 0, Vector2(0.462818, 204.271), 0.0, 0.0, 0, 0, Vector2(0.589683, 100.943), 0.0, 0.0, 0, 0, Vector2(0.6706, 237.483), 0.0, 0.0, 0, 0, Vector2(0.837899, 263.315), 0.0, 0.0, 0, 0, Vector2(1, 174.748), 0.0, 0.0, 0, 0]
-point_count = 9
-
-[sub_resource type="Curve" id="Curve_3iadt"]
-_data = [Vector2(0, 0.444409), 0.0, 0.0, 0, 0, Vector2(0.174983, 0.885191), 0.0, 0.0, 0, 0, Vector2(0.472603, 0.485413), 0.0, 0.0, 0, 0, Vector2(0.646999, 0.38909), 0.0, 0.0, 0, 0, Vector2(0.717802, 0.901742), 0.0, 0.0, 0, 0, Vector2(1, 0.495892), 0.0, 0.0, 0, 0]
-point_count = 6
 
 [sub_resource type="Shader" id="Shader_mggth"]
 code = "// Cloud Raymarching based on: A. Schneider. “The Real-Time Volumetric Cloudscapes Of Horizon: Zero Dawn”. ACM SIGGRAPH. Los Angeles, CA: ACM SIGGRAPH, 2015. Web. 26 Aug. 2015.
@@ -360,70 +350,16 @@ adjustment_enabled = true
 adjustment_brightness = 1.15
 adjustment_saturation = 1.5
 
-[sub_resource type="Curve" id="Curve_icqkn"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23572, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_epxn2"]
-curve = SubResource("Curve_icqkn")
-
-[sub_resource type="Curve" id="Curve_uyxhu"]
-min_value = -2.0
-max_value = 2.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_8uyxj"]
-curve = SubResource("Curve_uyxhu")
-
-[sub_resource type="Curve" id="Curve_ho3d0"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.3392, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_6e8v7"]
-curve = SubResource("Curve_ho3d0")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dpa23"]
-particle_flag_align_y = true
-particle_flag_rotate_y = true
-emission_shape = 3
-emission_box_extents = Vector3(24, 0.01, 14)
-angle_min = -180.0
-angle_max = 180.0
-angular_velocity_max = 5.0
-orbit_velocity_curve = SubResource("CurveTexture_8uyxj")
-gravity = Vector3(0, -1, 0)
-scale_min = 0.2
-scale_max = 0.3
-scale_curve = SubResource("CurveTexture_6e8v7")
-alpha_curve = SubResource("CurveTexture_epxn2")
-collision_mode = 1
-collision_friction = 0.5
-collision_bounce = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ljlx"]
-transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
-shading_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("10_icugc")
-metallic_specular = 1.0
-roughness = 0.31
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_lne1d"]
-material = SubResource("StandardMaterial3D_7ljlx")
-size = Vector2(0.2, 0.2)
-
-[node name="LevelFreeroam" type="Node3D" node_paths=PackedStringArray("player_driver", "npc_driver")]
+[node name="LevelFreeroam" type="Node3D"]
 script = ExtResource("1_8mwe0")
-player_driver = NodePath("GPlayerDriver")
-npc_driver = NodePath("GNpcDriver")
+freeroam_mode = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("2_frhg8"))
+
+player = Object(CharacterBody3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":1,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"motion_mode":0,"up_direction":Vector3(0, 1, 0),"slide_on_ceiling":true,"velocity":Vector3(0, 0, 0),"max_slides":6,"wall_min_slide_angle":0.261799,"floor_stop_on_slope":false,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.785398,"floor_snap_length":0.1,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.01,"script":Resource("res://scripts/core_characters/character_controller.gd"),"config":null,"use_as_player":true,"ai_enabled":true,"is_friendly":false,"is_invulnerable":false,"is_immortal":false,"is_unshakable":false,"hide_on_death":Array[Node3D]([]),"body_controller":null,"weapon":null)
+
+player_driver = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("5_66keu"))
+
+npc_driver = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("6_538dh"))
+
 
 [node name="FreeroamMode" type="Node" parent="."]
 script = ExtResource("2_frhg8")
@@ -434,14 +370,15 @@ script = ExtResource("5_66keu")
 [node name="GNpcDriver" type="Node" parent="."]
 script = ExtResource("6_538dh")
 
+[node name="_DevGUI" parent="." instance=ExtResource("7_urvor")]
+
+[node name="GUI" parent="." instance=ExtResource("8_e1eu0")]
+
 [node name="Environment" type="Node3D" parent="."]
-script = ExtResource("10_10c1j")
-use_wind_cycle = true
-wind_direction_curve = SubResource("Curve_l5lsx")
-wind_power_curve = SubResource("Curve_3iadt")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_fiae8")
+script = ExtResource("10_10c1j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.716119, 0.334922, -0.612372, -0.0226699, 0.865729, 0.5, 0.697609, 0.371942, -0.612372, 0, 7.32464, 0)
@@ -451,32 +388,16 @@ shadow_enabled = true
 
 [node name="LocationMistSoft" parent="Environment" instance=ExtResource("11_a2q6q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
+visible = false
 amount = 16
-script = ExtResource("7_oiriu")
-use_wind_to_gravity = true
 
 [node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254776, 1.09534, -0.854996)
 size = Vector3(32.6535, 10.8259, 31.1862)
 
-[node name="_DevGUI" parent="." instance=ExtResource("7_urvor")]
-
-[node name="GUI" parent="." instance=ExtResource("8_e1eu0")]
-
-[node name="VFX_LightSnowWeather" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.02735, 0)
-amount = 4096
-lifetime = 10.0
-preprocess = 30.0
-fixed_fps = 0
-collision_base_size = 0.25
-visibility_aabb = AABB(-16.176, -15.2848, -16.3572, 32.351, 18.9983, 31.5642)
-process_material = SubResource("ParticleProcessMaterial_dpa23")
-draw_pass_1 = SubResource("QuadMesh_lne1d")
-script = ExtResource("7_oiriu")
-use_wind_to_gravity = true
-wind_to_gravity_strength = 0.5
-wind_to_gravity_update_rate = 2.0
+[node name="VFX_LightSnowWeather" parent="." instance=ExtResource("10_w3bvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.31499, 0)
+visibility_aabb = AABB(-16.176, -11.7345, -16.3572, 32.351, 11.8976, 31.5642)
 
 [node name="Architecture" type="Node3D" parent="."]
 
