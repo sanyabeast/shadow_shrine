@@ -41,3 +41,7 @@ func trigger(id: String, source: Node3D):
 
 func _process_trigger(id: String, source: Node3D):
 	dev.logd("GameMode", "implement ._process_trigger function (triggered: %s)" % id)
+
+func quit():
+	app.load_main_menu_level()
+	pass

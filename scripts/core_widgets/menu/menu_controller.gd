@@ -156,7 +156,6 @@ func prev_option():
 func submit():
 	if cooldown.ready("submit_allowed"):
 		items[index].submit()
-	
 		play_sound(true)
 
 func cancel():

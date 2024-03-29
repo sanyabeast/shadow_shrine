@@ -11,7 +11,7 @@ func _handle_submit(id: String, item: GMenuItem):
 		"settings":
 			menu.open_submenu("settings_menu")
 		"quit":
-			game.mode.quit_to_main_menu()
+			game.quit()
 		"_dev_menu":
 			menu.open_submenu("_dev_menu")
 			

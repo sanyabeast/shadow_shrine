@@ -57,8 +57,17 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		set_fullscreen(not get_fullscreen())
-			
-
+		
+	if tools.IS_DEBUG:
+		if Input.is_action_just_pressed("_dev_load_main_menu"):
+			app.load_main_menu_level()
+		if Input.is_action_just_pressed("_dev_load_game_level"):
+			app.load_default_game_level()
+		if Input.is_action_just_pressed("_dev_load_debug_level"):
+			app.load_debug_level()	
+		if Input.is_action_just_pressed("_dev_reload_level"):
+			app.reload_level()
+	
 func quit():
 	dev.logd(TAG, "quitting...")
 	get_tree().quit()
@@ -89,6 +98,37 @@ func _load_settings():
 	set_vnlank_mode(get_setting(SETTINGS_VIDEO_VBLANK_MODE, DisplayServer.VSYNC_ENABLED))
 	
 	set_graphics_quality(get_setting(SETTINGS_VIDEO_PRESET, EGraphicsQualityPreset.High))
+#endregion
+
+#region: Levels
+
+func reload_level():
+	load_level(get_tree().current_scene.scene_file_path)
+	#tools.reload_scene()
+	
+func load_level(level_path: String):
+	dev.logd(TAG, "loading (deffered) level: %s" % level_path)
+	var tree: SceneTree = get_tree()
+	if tree.current_scene == null:
+		_load_level(level_path)
+	else:
+		#_load_level(level_path)
+		call_deferred("_load_level", level_path)
+
+func _load_level(level_path: String):
+	dev.logd(TAG, "loading level: %s" % level_path)
+	var tree: SceneTree = get_tree()
+	tree.unload_current_scene()
+	tree.change_scene_to_file(level_path)
+
+func load_main_menu_level():
+	load_level(ProjectSettings.get_setting("game/meta/main_menu_level_path"))
+	
+func load_default_game_level():
+	load_level(ProjectSettings.get_setting("game/meta/default_game_level_path"))
+	
+func load_debug_level():
+	load_level(ProjectSettings.get_setting("game/meta/default_debug_level_path"))
 #endregion
 
 #region: Sound management

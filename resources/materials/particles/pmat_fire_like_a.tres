@@ -12,7 +12,7 @@ curve = SubResource("Curve_h5i3a")
 [sub_resource type="Gradient" id="Gradient_lwm15"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.603984)
-colors = PackedColorArray(1, 0.8, 0, 1, 1, 0.0392157, 0, 1)
+colors = PackedColorArray(1, 0.848848, 0.24424, 1, 1, 0.0879191, 0.0506912, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_necdk"]
 gradient = SubResource("Gradient_lwm15")

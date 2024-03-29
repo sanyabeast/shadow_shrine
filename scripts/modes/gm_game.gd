@@ -51,7 +51,7 @@ var _door_triggers_enabled:= false
 
 
 #region: API
-func quit_to_main_menu():
+func quit():
 	screen_fx.fade_out(0.2)
 	app.tasks.queue(world.get_scene(), "load_main_menu_level", 0.4, null, tools.load_scene.bind(main_menu_scene))
 #endregion
@@ -68,11 +68,6 @@ func _reset_maze():
 	maze_generator.set_seed(game.seed)
 	maze_generator.generate(maze_config)
 #endregion
-
-#region: Lifecycle
-func _ready():
-	super._ready()
-	pass # Replace with function body.
 
 func _process(delta):
 	super._process(delta)

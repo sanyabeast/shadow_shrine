@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Shadow Shrine"
-config/version="0.0.1.1"
-run/main_scene="res://scenes/levels/lev_lobby.tscn"
+config/version="0.0.1.2"
+run/main_scene="res://scenes/levels/lev_launcher.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120
 boot_splash/show_image=false
@@ -71,7 +71,8 @@ folder_colors={
 "res://resources/shaders/": "green",
 "res://scenes/": "orange",
 "res://scenes/_dev/": "purple",
-"res://scenes/fx/": "red",
+"res://scenes/fx/": "gray",
+"res://scenes/levels/": "red",
 "res://scripts/": "green",
 "res://scripts/_dev/": "purple",
 "res://scripts/core/": "teal",
@@ -84,6 +85,12 @@ folder_colors={
 "res://scripts/widgets/": "green",
 "res://scripts/widgets/actions/": "green"
 }
+
+[game]
+
+meta/main_menu_level_path="res://scenes/levels/lev_lobby.tscn"
+meta/default_game_level_path="res://scenes/levels/lev_game.tscn"
+meta/default_debug_level_path="res://scenes/levels/_lev_freeroam.tscn"
 
 [importer_defaults]
 
@@ -267,6 +274,26 @@ _dev_toggle_gizmo={
 toggle_fullscreen={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+_dev_load_main_menu={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":49,"key_label":0,"unicode":49,"echo":false,"script":null)
+]
+}
+_dev_load_game_level={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":50,"key_label":0,"unicode":50,"echo":false,"script":null)
+]
+}
+_dev_load_debug_level={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":51,"echo":false,"script":null)
+]
+}
+_dev_reload_level={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":48,"key_label":0,"unicode":48,"echo":false,"script":null)
 ]
 }
 

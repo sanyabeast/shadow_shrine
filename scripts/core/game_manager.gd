@@ -82,3 +82,8 @@ func start():
 	if mode != null:
 		mode.start_game()
 
+func quit():
+	if mode != null:
+		mode.quit()
+	else:
+		app.load_main_menu_level()

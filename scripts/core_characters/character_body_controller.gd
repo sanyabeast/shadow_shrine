@@ -25,6 +25,7 @@ var _scalar_velocity_smoothed: float = 0
 func _ready():
 	pass # Replace with function body.
 	if footsteps_sfx != null:
+		footsteps_sfx.panning_strength = 2.;
 		footsteps_sfx.seek(randf() * footsteps_sfx.stream.get_length())
 
 func initialize(_character: GCharacterController):

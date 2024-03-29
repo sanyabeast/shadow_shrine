@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://hhgqktwpdy5r"]
+
+[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="1_gu2do"]
+
+[sub_resource type="Curve" id="Curve_icqkn"]
+_data = [Vector2(0, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_epxn2"]
+curve = SubResource("Curve_icqkn")
+
+[sub_resource type="Curve" id="Curve_uyxhu"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8uyxj"]
+curve = SubResource("Curve_uyxhu")
+
+[sub_resource type="Curve" id="Curve_ho3d0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.3392, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6e8v7"]
+curve = SubResource("Curve_ho3d0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_077vp"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(12, 0.01, 7)
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_max = 5.0
+orbit_velocity_curve = SubResource("CurveTexture_8uyxj")
+gravity = Vector3(0, -0.2, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_6e8v7")
+alpha_curve = SubResource("CurveTexture_epxn2")
+collision_mode = 1
+collision_friction = 0.5
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rlveb"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 2
+vertex_color_use_as_albedo = true
+metallic_specular = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4f5k"]
+material = SubResource("StandardMaterial3D_rlveb")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="VFX_LightSnowWeather" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.306, 0)
+amount = 2048
+lifetime = 30.0
+preprocess = 30.0
+fixed_fps = 0
+collision_base_size = 0.1
+visibility_aabb = AABB(-10.4769, -17.1247, -7.71402, 20.9527, 32.2504, 16.0423)
+process_material = SubResource("ParticleProcessMaterial_077vp")
+draw_pass_1 = SubResource("BoxMesh_w4f5k")
+script = ExtResource("1_gu2do")

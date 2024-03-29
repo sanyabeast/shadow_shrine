@@ -21,7 +21,7 @@ func _init_item(id: String):
 func _handle_submit(id: String, item: GMenuItem):
 	match id:
 		"reload_current_scene":
-			world.reload()
+			app.reload_level()
 		"finish_game":
 			game.finish(item.get_bool())
 		"test_highlight_message":
@@ -37,6 +37,8 @@ func _handle_submit(id: String, item: GMenuItem):
 				game.tasks.queue(self, "_test_impulse", 0.5, null, characters.commit_impulse_to_all_enemies.bind(characters.player.global_position, 2))
 			else:
 				game.tasks.queue(self, "_test_impulse", 0.5, null, characters.commit_impulse_to_all_characters.bind(Vector3.ZERO, 2))
+		"load_debug_level":
+			app.load_debug_level()
 		
 func _handle_option_change(id: String, item: GMenuItem):
 	match id:
@@ -48,3 +50,5 @@ func _handle_option_change(id: String, item: GMenuItem):
 			game.speed = item.get_float()
 		"set_player_immortal":
 			characters.force_player_immortal = item.get_bool()
+		"debug_graphics":
+			dev.show_debug_graphics = item.get_bool()

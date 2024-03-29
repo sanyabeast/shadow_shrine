@@ -160,10 +160,6 @@ func get_closest_reachable_point(point: Vector3)->Vector3:
 func get_scene() -> Node3D:
 	return tools.get_scene()
 
-func reload():
-	tools.load_scene(get_tree().current_scene.scene_file_path)
-	#tools.reload_scene()e
-		
 func add_to_sandbox(object: Node):
 	if sandbox != null:
 		sandbox.add_child(object)

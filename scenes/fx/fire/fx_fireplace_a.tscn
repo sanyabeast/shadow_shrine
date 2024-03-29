@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://btaoqr5td4pmy"]
+[gd_scene load_steps=29 format=3 uid="uid://btaoqr5td4pmy"]
 
 [ext_resource type="Material" uid="uid://ch1liu3x62dmx" path="res://resources/materials/particles/pmat_fire_like_a.tres" id="1_3irge"]
 [ext_resource type="AudioStream" uid="uid://c6vsyrc6themh" path="res://assets/_dev/sound/sfx/612277__robinhood76__10835-big-fire-loop.ogg" id="2_7v2cq"]
 [ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="2_j46de"]
 [ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="2_l5mhy"]
 [ext_resource type="Texture2D" uid="uid://bgoc4sue1tox5" path="res://assets/_dev/flake_a50.png" id="2_u31dy"]
+[ext_resource type="Script" path="res://scripts/tools/audio_stream_helper.gd" id="5_807wv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1j4c8"]
 blend_mode = 1
@@ -92,7 +93,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1)
 gradient = SubResource("Gradient_vjtvs")
 
 [sub_resource type="Curve" id="Curve_nwta4"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.1921, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.55602, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_gf516"]
@@ -112,11 +113,12 @@ emission_sphere_radius = 0.2
 angle_min = -180.0
 angle_max = 180.0
 orbit_velocity_max = 1.0
-radial_velocity_min = 0.5
-radial_velocity_max = 0.5
+radial_velocity_max = 2.0
 radial_velocity_curve = SubResource("CurveTexture_gf516")
-gravity = Vector3(0, 1, 0)
+gravity = Vector3(0, 0.25, 0)
 linear_accel_max = 1.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
 scale_min = 0.1
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_0vfee")
@@ -150,12 +152,14 @@ script = ExtResource("2_l5mhy")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125105, 0)
 stream = ExtResource("2_7v2cq")
-max_db = 0.0
+attenuation_model = 1
+max_db = -8.0
 autoplay = true
 max_distance = 15.0
-panning_strength = 4.0
 bus = &"SFX"
 doppler_tracking = 2
+script = ExtResource("5_807wv")
+seek_to_random_on_start = true
 
 [node name="VFX_Fireplace_Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.031949, 0)
@@ -168,7 +172,7 @@ draw_pass_1 = SubResource("QuadMesh_xytgd")
 
 [node name="VFX_Fireplace_Sparks" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.228573, 0)
-lifetime = 0.75
+lifetime = 0.4
 explosiveness = 0.1
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_u6sim")

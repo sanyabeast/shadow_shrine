@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dbwbgsbyjn8rd"]
+[gd_scene load_steps=9 format=3 uid="uid://dbwbgsbyjn8rd"]
 
 [ext_resource type="Script" path="res://scripts/tools/area_effect.gd" id="1_qssrs"]
 [ext_resource type="PackedScene" uid="uid://btaoqr5td4pmy" path="res://scenes/fx/fire/fx_fireplace_a.tscn" id="2_2atmv"]
 [ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="2_nufft"]
 [ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="3_vinyg"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="5_eu0s4"]
-[ext_resource type="PackedScene" uid="uid://b0apcopihg7kq" path="res://scenes/fx/fire/fx_fireplace_b.tscn" id="6_8kh5b"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1l18a"]
 height = 1.0
@@ -32,7 +31,6 @@ activated_by_friends = true
 gizmo = NodePath("CollisionShape3D/Gizmo")
 
 [node name="FXFireBasicA" parent="." instance=ExtResource("2_2atmv")]
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -47,5 +45,3 @@ meshes = [NodePath(".")]
 
 [node name="GDamageProcedure" type="Node" parent="."]
 script = ExtResource("5_eu0s4")
-
-[node name="FXFireBasicB" parent="." instance=ExtResource("6_8kh5b")]
