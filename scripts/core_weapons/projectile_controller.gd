@@ -71,7 +71,14 @@ func _ready():
 		world.ECollisionBodyType.Static
 	])
 	
-	pass # Replace with function body.
+	if block_fx_anchor == null:
+		block_fx_anchor = self
+	if hit_fx_anchor == null:
+		hit_fx_anchor = self
+	if launch_fx_anchor == null:
+		launch_fx_anchor = self
+	
+	name = "projectile"
 
 func launch():
 	if config.bound_to_weapon and weapon != null:
@@ -195,7 +202,7 @@ func dispose():
 	_is_disposed = true
 	
 	if waste_fx:
-		world.spawn_fx(waste_fx, global_position)
+		world.spawn_fx(waste_fx, block_fx_anchor.global_position, null, block_fx_anchor.global_rotation)
 	
 	if body != null:
 		body.hide()

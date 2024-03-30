@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcodt2rcm5f7a"]
+[gd_scene load_steps=12 format=3 uid="uid://bcodt2rcm5f7a"]
 
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="1_ojbct"]
+[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="2_6shgh"]
 
 [sub_resource type="Gradient" id="Gradient_wk8us"]
 offsets = PackedFloat32Array(0, 0.224104, 0.49772, 0.761564, 1)
@@ -65,3 +66,6 @@ fixed_fps = 60
 visibility_aabb = AABB(-7.06723, -4, -5.0005, 14.1345, 8, 10.001)
 process_material = SubResource("ParticleProcessMaterial_alfvj")
 draw_pass_1 = SubResource("QuadMesh_ed38q")
+script = ExtResource("2_6shgh")
+use_wind_to_gravity = true
+wind_to_gravity_strength = 0.5

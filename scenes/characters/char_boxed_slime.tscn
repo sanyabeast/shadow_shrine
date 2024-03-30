@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cgseiay2l8uf"]
+[gd_scene load_steps=32 format=3 uid="uid://cgseiay2l8uf"]
 
 [ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_axkfw"]
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
@@ -41,25 +41,36 @@ overlay_emission_strength = 3.0
 script = ExtResource("6_hxo2j")
 list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_pxeve"), SubResource("Resource_aaw1u")])
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_s78p2"]
-frequency = 0.2462
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nhn4e"]
+frequency = 0.0703
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lud8v"]
-noise = SubResource("FastNoiseLite_s78p2")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v743q"]
+noise = SubResource("FastNoiseLite_nhn4e")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_60aw5"]
+frequency = 0.1125
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6ygmv"]
+noise = SubResource("FastNoiseLite_60aw5")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44o5u"]
 resource_name = "slime.001"
+transparency = 1
 albedo_texture = ExtResource("2_dx2ui")
 roughness = 0.2
 emission_enabled = true
 emission = Color(0.054902, 0.0705882, 0, 1)
 normal_enabled = true
 normal_texture = ExtResource("4_1km65")
+clearcoat_enabled = true
+clearcoat_roughness = 0.04
+clearcoat_texture = SubResource("NoiseTexture2D_v743q")
 ao_enabled = true
 ao_texture = ExtResource("3_1kjhj")
 refraction_enabled = true
 refraction_scale = -0.13
-refraction_texture = SubResource("NoiseTexture2D_lud8v")
+refraction_texture = SubResource("NoiseTexture2D_6ygmv")
+grow_amount = 0.1
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pr830"]
 _surfaces = [{

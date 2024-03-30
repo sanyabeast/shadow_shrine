@@ -67,3 +67,5 @@ func _handle_player_dead():
 		game.finish(false)
 #endregion
 
+func quit():
+	app.load_main_menu_level()

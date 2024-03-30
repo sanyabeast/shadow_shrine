@@ -2,7 +2,7 @@
 
 [sub_resource type="Gradient" id="Gradient_147ew"]
 offsets = PackedFloat32Array(0, 0.779672, 1)
-colors = PackedColorArray(0.197647, 0.32, 0, 1, 0.0501867, 0.08, 0.0112, 1, 0.442347, 0.52, 0.1872, 0)
+colors = PackedColorArray(0.38268, 0.488479, 0, 1, 0.0501867, 0.08, 0.0112, 1, 0.442347, 0.52, 0.1872, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0cxv2"]
 gradient = SubResource("Gradient_147ew")
@@ -34,6 +34,8 @@ radial_accel_max = 15.0
 scale_curve = SubResource("CurveTexture_lsn16")
 color_ramp = SubResource("GradientTexture1D_0cxv2")
 emission_curve = SubResource("CurveTexture_7cqi7")
+hue_variation_min = -0.04
+hue_variation_max = 0.04
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4228k"]
 transparency = 1

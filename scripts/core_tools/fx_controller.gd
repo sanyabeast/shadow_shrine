@@ -20,13 +20,16 @@ var _audio_players: Array[AudioStreamPlayer3D] = []
 var _active_content_count: int = 0
 var _active_particle_systems_count: int = 0
 var _active_audio_players_count: int = 0
-var _on_shot_map: Dictionary = {}
+var _one_shot_map: Dictionary = {}
+
+var _cooldowns := GCooldowns.new(true)
 
 func _init(_config: RFXConfig):
 	config = _config
 	
 func _ready():
 	_setup_content()
+	name = "fx"
 	if autostart:
 		start()
 	pass # Replace with function body.
@@ -57,7 +60,6 @@ func _launch_content():
 		if ps is GPUTrail3D:
 			ps._old_pos = ps.global_position
 			ps.restart()
-			
 		ps.restart()
 			
 	for ap in _audio_players:
@@ -79,6 +81,7 @@ func _check_active_content_count():
 			_active_audio_players_count += 1
 	
 	_active_content_count = count
+	_cooldowns.start("check_active_content_count", 1)
 	
 func _setup_content():
 	if config:
@@ -110,7 +113,7 @@ func _setup_content():
 	_traverse(self)
 	
 	for p in _particle_systems:
-		_on_shot_map[p.get_instance_id()] = p.one_shot
+		_one_shot_map[p.get_instance_id()] = p.one_shot
 	
 func _get_variable_pitch_value(config: RFXConfig) -> float:
 	var current_pitch_value: float = (
@@ -129,33 +132,47 @@ func get_time()->float:
 
 # Called erw frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if _is_started and not visible:
-		visible = true
-		
-	if  _is_started and not is_disposed:
-		match config.dispose_strategy:
-			RFXConfig.EFXDisposeStrategy.Lifetime:
-				if get_time() - _started_at >= config.lifetime:
-					dispose()
-					return
-					
-			RFXConfig.EFXDisposeStrategy.BoundObject:
-				if bound_object == null or not bound_object.is_inside_tree():
-					dispose()
-					return
-					
-			RFXConfig.EFXDisposeStrategy.Content:
-				dev.logr(TAG, "Content based FX disposing is not implemented yet")
-		
-		if bound_object != null:
+	if  _is_started:
+		if not visible:
+			visible = true
+			
+		if bound_object != null and bound_object.is_inside_tree():
 			global_position = bound_object.global_position
-			rotation = bound_object.global_rotation
+			rotation = bound_object.global_rotation			
+		
+		if not is_finished:
+			match config.dispose_strategy:
+				RFXConfig.EFXDisposeStrategy.Lifetime:
+					if get_time() - _started_at >= config.lifetime:
+						finish()
+						return
+						
+				RFXConfig.EFXDisposeStrategy.BoundObject:
+					if bound_object == null or not bound_object.is_inside_tree():
+						finish()
+						return
+						
+				RFXConfig.EFXDisposeStrategy.Content:
+					if _cooldowns.ready_or_start("check_active_content_count", 1, true):
+						_check_active_content_count()
+						
+					dev.logr(TAG, "Content based FX disposing is not implemented yet")
+		else:
+			if not is_disposed:
+				if _cooldowns.ready_or_start("check_active_content_count", 1, true):
+					_check_active_content_count()
+				
+				if _active_particle_systems_count == 0:
+					if _cooldowns.ready_or_start("dispose_after_finish", 2, false):
+						dispose()
+			pass
 
+func _physics_process(delta):
+	pass
 			
 func dispose():
 	is_disposed = true
-	#dev.logd(TAG, "disposing FX at %s, pool: %s" % [name,  world.use_fx_pool])
-	#stop_fx()
+	
 	visible = false
 	if world.use_fx_pool:
 		world.fx_pool.push(config.resource_path, self)
@@ -164,3 +181,15 @@ func dispose():
 
 func reborn():
 	is_disposed = false
+	is_finished = false
+	
+	for ps in _particle_systems:
+		ps.one_shot = _one_shot_map[ps.get_instance_id()]
+
+func finish():
+	is_finished = true	
+	_set_all_one_shot()
+
+func _set_all_one_shot():
+	for ps in _particle_systems:
+		ps.one_shot = true

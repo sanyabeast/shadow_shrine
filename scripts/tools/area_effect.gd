@@ -63,6 +63,8 @@ func _ready():
 		enable(true)
 	else:
 		disable(true)
+	
+	name = "area_effect"
 
 func _process(delta):
 	if enabled and repeat_procedures.size() and _time_gate.check("repeat", 1. / repeat_procedures_rate):

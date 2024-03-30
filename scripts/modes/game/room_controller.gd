@@ -55,7 +55,7 @@ func _ready():
 		random.set_seed(game.seed + seed_offset)
 		initialize()
 	
-	pass # Replace with function body.
+	name = "room"
 
 func initialize():
 	doors_container.global_position.y = 0

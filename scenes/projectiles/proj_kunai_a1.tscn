@@ -185,7 +185,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.146514)
 
 [node name="FXAnchorBlockHit" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.203243)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.029486)
 
 [node name="ProcDamage" type="Node" parent="."]
 script = ExtResource("10_0oiqp")

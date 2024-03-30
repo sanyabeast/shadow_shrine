@@ -93,11 +93,18 @@ func estimated(id: String) -> float:
 
 # Check if a cooldown with the given ID is ready, optionally triggering on the first call.
 func ready(id: String, on_first_call = false) -> bool:
-	if _cooldowns_data.has(id):
+	if exists(id):
 		return _cooldowns_data[id].ready()
 	else:
 		return on_first_call
 
+# Check if a cooldown with the given ID is ready, optionally triggering on the first call.
+func ready_or_start(id: String, duration: float, on_first_call = false,) -> bool:
+	if exists(id):
+		return _cooldowns_data[id].ready()
+	else:
+		start(id, duration)
+		return on_first_call
 
 # Reset all cooldowns in the manager.
 func reset():

@@ -53,7 +53,7 @@ var _door_triggers_enabled:= false
 #region: API
 func quit():
 	screen_fx.fade_out(0.2)
-	app.tasks.queue(world.get_scene(), "load_main_menu_level", 0.4, null, tools.load_scene.bind(main_menu_scene))
+	app.tasks.queue(world.get_scene(), "load_main_menu_level", 0.4, null, app.load_main_menu_level())
 #endregion
 
 #region: Game
