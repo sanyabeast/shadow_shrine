@@ -69,6 +69,9 @@ func _ready():
 
 	_init_abilities()
 	
+	if weapon != null:
+		weapon.keeper = self
+	
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
 		
@@ -158,9 +161,6 @@ func _process(delta):
 		# Always rotate the aim node toward the aim direction
 		if look_direction.length_squared() > 0:
 			aim_rig.look_at(aim_rig.global_position + look_direction, Vector3.UP)
-
-		if weapon:
-			weapon.keeper = self
 
 		dev.set_label(self, { 
 			"self": to_string(),

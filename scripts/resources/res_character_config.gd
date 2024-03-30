@@ -31,6 +31,9 @@ class_name RCharacterConfig
 @export var walk_power_sinus_rate: float = 2
 @export var walk_power_sinus_power: float = 0
 
+@export var walk_axis_restriction: GTools.EAxisRestrictionType = GTools.EAxisRestrictionType.None
+@export var look_axis_restriction: GTools.EAxisRestrictionType = GTools.EAxisRestrictionType.None
+
 # Exported variables for character special effects.
 @export_subgroup("♥ CharacterConfig ~ FX")
 @export var hurt_fx: RFXConfig  # FX configuration for hurt state.

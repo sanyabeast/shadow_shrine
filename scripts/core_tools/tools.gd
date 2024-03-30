@@ -7,6 +7,12 @@ const TAG: String = "Tools"
 
 var IS_DEBUG: bool = OS.is_debug_build()
 
+enum EAxisRestrictionType {
+	None,
+	Axis4,
+	Axis8
+}
+
 func logd(tag: String, data):
 	if IS_DEBUG:
 		print("[ %s ]: %s" % [tag, data])

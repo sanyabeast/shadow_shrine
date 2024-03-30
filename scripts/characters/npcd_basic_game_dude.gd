@@ -98,9 +98,23 @@ class GDudeState extends GNpcDriver.GNpcState:
 					#tools.to_v2(character.global_position.direction_to(target_position))
 				#)
 			#)
-			target_look_angle = tools.rotation_degrees_y_from_direction_v2(
-				tools.to_v2(character.global_position.direction_to(target_position))
-			)
+			
+			
+			match character.config.look_axis_restriction:
+				GTools.EAxisRestrictionType.Axis8:
+					target_look_angle = tools.rotation_degrees_y_from_direction_v2(
+						tools.restrict_to_8_axis(tools.to_v2(character.global_position.direction_to(target_position)))
+					)
+				GTools.EAxisRestrictionType.Axis4:
+					target_look_angle = tools.rotation_degrees_y_from_direction_v2(
+						tools.restrict_to_4_axis(tools.to_v2(character.global_position.direction_to(target_position)))
+					)	
+				_:
+					target_look_angle = tools.rotation_degrees_y_from_direction_v2(
+						tools.to_v2(character.global_position.direction_to(target_position))
+					)
+					
+
 			
 			is_firing = true
 			#character.look_direction = character.global_position.direction_to(target_position)
@@ -113,9 +127,20 @@ class GDudeState extends GNpcDriver.GNpcState:
 		
 		#target_walk_power = walk_power
 		
-		target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
-			tools.restrict_to_8_axis(tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z)))
-		)
+		match character.config.walk_axis_restriction:
+			GTools.EAxisRestrictionType.Axis8:
+				target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
+					tools.restrict_to_8_axis(tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z)))
+				)
+			GTools.EAxisRestrictionType.Axis4:
+				target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
+					tools.restrict_to_4_axis(tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z)))
+				)	
+			_:
+				target_walk_angle = tools.rotation_degrees_y_from_direction_v2(
+					tools.to_v2(Vector3(walk_direction.x, 0, walk_direction.z))
+				)	
+
 
 		target_walk_angle += (
 			sin((game.time + sin_offset) * character.config.walk_direction_sinus_rate)

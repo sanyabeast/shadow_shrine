@@ -54,5 +54,7 @@ walk_direction_sinus_power = 0.5
 walk_power_sinus_min_power = 0.25
 walk_power_sinus_rate = 3.0
 walk_power_sinus_power = 0.0
+walk_axis_restriction = 2
+look_axis_restriction = 1
 hurt_fx = SubResource("Resource_avqrj")
 death_fx = SubResource("Resource_0104i")
