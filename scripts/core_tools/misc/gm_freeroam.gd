@@ -31,6 +31,9 @@ func _prepare():
 	characters.enable_player()
 	characters.enable_ai()
 	
+	if freeroam_mode != null:
+		freeroam_mode.on_start()
+	
 	screen_fx.fade_in((1))
 
 func _process(delta):
