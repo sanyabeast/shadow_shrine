@@ -13,10 +13,14 @@ const TAG: String = "FX"
 var _is_started: bool = false
 var _started_at: float
 var is_disposed: bool = false
+var is_finished: bool = false
 
 var _particle_systems: Array[GPUParticles3D] = []
 var _audio_players: Array[AudioStreamPlayer3D] = []
-var _active_content: int = 0
+var _active_content_count: int = 0
+var _active_particle_systems_count: int = 0
+var _active_audio_players_count: int = 0
+var _on_shot_map: Dictionary = {}
 
 func _init(_config: RFXConfig):
 	config = _config
@@ -59,18 +63,22 @@ func _launch_content():
 	for ap in _audio_players:
 		ap.play()
 		
-func _check_active_content():
+func _check_active_content_count():
 	var count: int = 0
+	_active_particle_systems_count = 0
+	_active_audio_players_count = 0
 	
 	for ps in _particle_systems:
 		if ps.emitting:
 			count += 1
+			_active_particle_systems_count += 1
 			
 	for ap in _audio_players:
 		if ap.playing:
 			count += 1
+			_active_audio_players_count += 1
 	
-	_active_content = count
+	_active_content_count = count
 	
 func _setup_content():
 	if config:
@@ -100,8 +108,10 @@ func _setup_content():
 		dispose()
 		
 	_traverse(self)
-	stop_fx()
-
+	
+	for p in _particle_systems:
+		_on_shot_map[p.get_instance_id()] = p.one_shot
+	
 func _get_variable_pitch_value(config: RFXConfig) -> float:
 	var current_pitch_value: float = (
 		tools.sin_normalized(game.time * 1.25) + 
@@ -141,14 +151,6 @@ func _process(delta):
 			global_position = bound_object.global_position
 			rotation = bound_object.global_rotation
 
-
-func stop_fx():
-	for ps in _particle_systems:
-		ps.emitting = false
-		if ps is GPUTrail3D:
-			ps._old_pos = ps.global_position
-	for ap in _audio_players:
-		ap.playing = false
 			
 func dispose():
 	is_disposed = true
@@ -156,7 +158,6 @@ func dispose():
 	#stop_fx()
 	visible = false
 	if world.use_fx_pool:
-		stop_fx()
 		world.fx_pool.push(config.resource_path, self)
 	else:
 		queue_free()

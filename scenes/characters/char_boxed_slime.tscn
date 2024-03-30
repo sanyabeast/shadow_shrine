@@ -33,9 +33,9 @@ script = ExtResource("5_ajw58")
 id = "hurt"
 process_overlay_material = true
 overlay_albedo = Color(0.960784, 0.12549, 0.12549, 1)
-overlay_thickness = 0.2
-overlay_brightness = 0.5
-overlay_emission_strength = 2.0
+overlay_thickness = 0.4
+overlay_brightness = 0.75
+overlay_emission_strength = 3.0
 
 [sub_resource type="Resource" id="Resource_363de"]
 script = ExtResource("6_hxo2j")
