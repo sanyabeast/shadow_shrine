@@ -45,10 +45,7 @@ var _expore_ambience_mixer: GAmbientPlaylistPlayer
 var _battle_ambience_mixer: GAmbientPlaylistPlayer
 
 var screen_fx: GScreenFX
-var random: GRandHelper = GRandHelper.new()
-
 var _door_triggers_enabled:= false
-
 
 #region: API
 func quit():
@@ -59,7 +56,6 @@ func quit():
 #region: Game
 func reset():
 	is_first_room_in_game = true
-	random.set_seed(game.seed)
 	_reset_maze()
 	_prepare_room_states()
 	_next_room(world.EDirection.North, true)
@@ -128,27 +124,24 @@ func _prepare_room_states():
 		if cell != null:
 			dev.logd(TAG, "preapring room state for cell index %s, %s" % [index, cell])
 			state.room_index = index
-			state.seed_offset = random.randi() * MAX_SEED_OFFSET_OF_ROOM
+			state.seed_offset = game.random.randi() * MAX_SEED_OFFSET_OF_ROOM
 			
 			match cell.category:
 				GMazeGen.ECellCategory.Start:
-					state.room_template = random.choice_from_array(config.start_rooms)
+					state.room_template = game.random.choice_from_array(config.start_rooms)
 				GMazeGen.ECellCategory.Default:
-					state.room_template = random.choice_from_array(config.rooms)
+					state.room_template = game.random.choice_from_array(config.rooms)
 				GMazeGen.ECellCategory.Shortcut:
-					state.room_template = random.choice_from_array(config.rooms)
+					state.room_template = game.random.choice_from_array(config.rooms)
 				GMazeGen.ECellCategory.Loop:
-					state.room_template = random.choice_from_array(config.rooms)
+					state.room_template = game.random.choice_from_array(config.rooms)
 				GMazeGen.ECellCategory.End:
-					state.room_template = random.choice_from_array(config.end_rooms)
+					state.room_template = game.random.choice_from_array(config.end_rooms)
 					
 			#assert(state.room_template != null, "unabled to pick room_template for %s" % cell)
 		else:
 			state.is_placeholder = true
-		
 		room_states.append(state)
-			
-	pass 
 
 func _get_current_room_state() -> GRoomState:
 	return room_states[current_maze_cell.index]

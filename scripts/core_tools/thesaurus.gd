@@ -14,7 +14,9 @@ enum EThesaurusCategory {
 	CHARACTER,
 	WEAPON,
 	PROJECTILE,
-	ABILITY
+	ABILITY,
+	LOCATION,
+	ITEM
 }
 
 # The unique identifier for the thesaurus.
@@ -27,13 +29,15 @@ var random:= GRandHelper.new()
 
 ## Converts the GThesaurus object to a string representation.
 func _to_string():
-	return "Thesaurus(id: %s, data: %s, characters: %s, weapons: %s, projectiles: %s, abilities: %s)" % [
+	return "Thesaurus(id: %s, data: %s, characters: %s, weapons: %s, projectiles: %s, abilities: %s, locations: %s, items: %s)" % [
 		id,
 		all_entries[EThesaurusCategory.DATA].keys().size(),
 		all_entries[EThesaurusCategory.CHARACTER].keys().size(),
 		all_entries[EThesaurusCategory.WEAPON].keys().size(),
 		all_entries[EThesaurusCategory.PROJECTILE].keys().size(),
 		all_entries[EThesaurusCategory.ABILITY].keys().size(),
+		all_entries[EThesaurusCategory.LOCATION].keys().size(),
+		all_entries[EThesaurusCategory.ITEM].keys().size(),
 	]
 
 ## Initializes the GThesaurus object.
@@ -66,6 +70,10 @@ func add_entry(category: EThesaurusCategory, entry: GThesaurusEntry):
 	if entries.has(entry.id):
 		dev.logd(TAG, "entry with id `%s` already exists in category `%s`. overwriting..." % [entry.id, get_category_name(category)])
 	entries[entry.id] = entry
+
+func get_entry(category: EThesaurusCategory, id: String) -> GThesaurusEntry:
+	var entries = get_entries(category)
+	return entries[id]
 
 ## Retrieves entries for a specific category.
 func get_entries(category) -> Dictionary:

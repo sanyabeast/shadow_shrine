@@ -34,7 +34,7 @@ func _process(delta):
 			current.global_position = target_node.global_position
 	pass
 	
-	if camera_manager.target_node == null and characters.player != null:
+	if characters.player != null:
 		camera_manager.target_node = characters.player
 		
 func get_camera3d():

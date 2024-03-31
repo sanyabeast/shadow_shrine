@@ -77,8 +77,6 @@ func _ready():
 		hit_fx_anchor = self
 	if launch_fx_anchor == null:
 		launch_fx_anchor = self
-	
-	name = "projectile"
 
 func launch():
 	if config.bound_to_weapon and weapon != null:

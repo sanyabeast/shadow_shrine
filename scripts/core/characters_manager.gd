@@ -14,6 +14,7 @@ signal on_enemy_dead
 signal on_enemy_alive
 
 var player: GCharacterController
+var player_character_id: String = ""
 var player_invulnerable: bool = true
 var player_mass_scale: float = 10
 
@@ -35,6 +36,8 @@ var force_player_invulnerable: bool = false
 var force_player_immortal: bool = false
 var force_player_unshakable: bool = true
 
+var last_player_position: Vector3 = Vector3.ZERO
+
 #region: Process
 func _process(delta):
 	if not game.paused:
@@ -45,7 +48,8 @@ func _process(delta):
 		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
 		dev.print_screen("player_state", "player (innvul. / immortal / unshak.): %s / %s / %s" % [force_player_invulnerable, force_player_immortal, force_player_unshakable])
 			
-		
+	if tools.is_node_active(player):
+		last_player_position = player.global_position
 	
 func _physics_process(delta):
 	if not game.paused:
@@ -114,7 +118,11 @@ func _update_player(delta):
 	
 func set_player(character: GCharacterController):
 	dev.logd(TAG, "active player set to: %s" % character)
+	if player != null:
+		player.on_hurt.disconnect(_handle_player_hurt)
+		
 	player = character
+	player_character_id = character.id
 	player.on_hurt.connect(_handle_player_hurt)
 
 func is_player(character: GCharacterController) -> bool:
@@ -128,6 +136,27 @@ func teleport_player(position: Vector3, rotation = null):
 	else:
 		tools.logd(TAG, "no players to teleport")
 
+
+func respawn_player(position: Vector3, look_angle: float = 0) -> GCharacterController:
+	if player_character_id.length() > 0:
+		return spawn_player(player_character_id, position, look_angle)
+	else:
+		dev.logd(TAG, "failed to respawn player:  `player_character_id` is empty")
+	return null
+
+func spawn_player(character_id: String, position: Vector3, look_angle: float = 0):
+	var _player = spawn_character(world.get_scene(), character_id, position, look_angle)
+	set_player(_player)
+
+func spawn_character(parent_node: Node3D, character_id: String, position: Vector3, look_angle: float = 0) -> GCharacterController:
+	var entry: GThesaurusEntry = game.thesaurus.get_entry(GThesaurus.EThesaurusCategory.CHARACTER, character_id)
+	var prefab = entry.main_scene
+	var _character: GCharacterController = prefab.instantiate(3)
+	parent_node.add_child(_character)
+	_character.global_position = position
+	_character.look_direction = tools.angle_to_direction(look_angle)
+	return _character
+
 func kill_player():
 	if player != null:
 		player.die()
@@ -136,15 +165,6 @@ func remove_player():
 	if player != null:
 		player.queue_free()
 
-func spawn_player(scene: PackedScene, position: Vector3):
-	var _player = scene.instantiate()
-	assert(_player is GCharacterController, "only GCharacterController scenes can be used to spawn a player")
-	_player.global_position = position
-	_player.use_as_player = true
-	set_player(_player)
-	world.add_object_to_root(_player)
-	pass
-	
 func enable_player():
 	player_enabled = true
 	

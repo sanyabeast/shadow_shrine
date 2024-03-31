@@ -76,8 +76,6 @@ func _ready():
 	
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
-		
-	name = "character"
 
 func _enter_tree():
 	characters.link(self)

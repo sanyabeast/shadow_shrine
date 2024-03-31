@@ -94,6 +94,7 @@ func _update_los(key_index: int):
 func _check_ray():
 	if _los_test_ray == null:
 		_los_test_ray = RayCast3D.new()
+		_los_test_ray.name = 'los_test_ray'
 		_los_test_ray.collide_with_bodies = true
 		
 		_los_test_ray.set_collision_mask_value(world.ECollisionBodyType.Static, true)

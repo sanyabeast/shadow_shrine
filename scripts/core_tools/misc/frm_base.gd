@@ -19,4 +19,11 @@ func on_start():
 	pass
 
 func handle_player_dead():
+	game.finish(false)
+	pass
+
+func handle_enemies_appear():
+	pass
+
+func handle_enemies_disappear():
 	pass

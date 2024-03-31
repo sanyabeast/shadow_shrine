@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://cu6q2ybvxarm2"]
+[gd_scene load_steps=31 format=3 uid="uid://cu6q2ybvxarm2"]
 
 [ext_resource type="Script" path="res://scripts/modes/gm_lobby.gd" id="1_kkbjp"]
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="2_jdpm4"]
 [ext_resource type="Script" path="res://scripts/tools/ambient_sound_player.gd" id="2_wsyxj"]
+[ext_resource type="PackedScene" uid="uid://cc1jy1gk5wv5j" path="res://scenes/thesaurus/_thes_main.tscn" id="2_x5ms4"]
 [ext_resource type="Shader" path="res://resources/shaders/sky/volumetric_sky_a.gdshader" id="3_0akjs"]
 [ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="3_jtwy5"]
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="4_2lte1"]
@@ -131,13 +132,16 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_ed38q"]
 material = SubResource("StandardMaterial3D_ftd5f")
 
-[node name="LevelLobby" type="Node3D" node_paths=PackedStringArray("demo_room", "bg_music_player", "screen_fx", "npc_driver")]
+[node name="LevelLobby" type="Node3D" node_paths=PackedStringArray("demo_room", "bg_music_player", "screen_fx", "npc_driver", "thesaurus")]
 script = ExtResource("1_kkbjp")
-demo_room = NodePath("Architecture/RoomA3")
+demo_room = NodePath("RoomA3")
 bg_music_player = NodePath("Environment/GAmbientPlaylistPlayer")
 screen_fx = NodePath("ScreenFX")
 default_game_scene = "res://scenes/levels/lev_game.tscn"
 npc_driver = NodePath("GNpcDriverBasicGameDude")
+thesaurus = NodePath("ThesaurusMainA")
+
+[node name="ThesaurusMainA" parent="." instance=ExtResource("2_x5ms4")]
 
 [node name="GNpcDriverBasicGameDude" type="Node" parent="."]
 script = ExtResource("2_jdpm4")
@@ -168,10 +172,9 @@ visibility_aabb = AABB(-7.06723, -4, -5.0005, 14.1345, 8, 10.001)
 process_material = SubResource("ParticleProcessMaterial_ss0ph")
 draw_pass_1 = SubResource("QuadMesh_ed38q")
 
-[node name="Architecture" type="Node3D" parent="."]
-
-[node name="RoomA3" parent="Architecture" instance=ExtResource("5_2k1dm")]
+[node name="RoomA3" parent="." instance=ExtResource("5_2k1dm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.34341, 0, 0.605349)
+enemy_types = Array[String](["boxed_slime", "boxed_slime_kid"])
 
 [node name="CameraRoot" type="Node3D" parent="."]
 transform = Transform3D(0.34202, -0.163176, -0.925416, 0, 0.984807, -0.173648, 0.939693, 0.0593911, 0.336824, -4.7, 0.07, 2.41)
@@ -184,37 +187,34 @@ script = ExtResource("6_2vkhj")
 transform = Transform3D(-0.564723, 0, -0.82528, 0, 1, 0, 0.82528, 0, -0.564723, -3.734, 0, 1.85)
 
 [node name="GeneralSkeleton" parent="RockLee/Body/rock_dude/Armature" index="0"]
-bones/0/position = Vector3(-0.000554455, 0.269699, 0.00431844)
-bones/0/rotation = Quaternion(0.00949563, -0.100072, -0.0106779, 0.994878)
-bones/1/rotation = Quaternion(0.0569502, 0.0190896, 0.00655578, 0.998173)
-bones/2/rotation = Quaternion(0.00795924, 0.0361528, 0.00991096, 0.999265)
-bones/3/rotation = Quaternion(-0.0944472, 0.0342894, 0.0139636, 0.994841)
-bones/4/rotation = Quaternion(0.0933267, 0.0190963, -0.0576826, 0.99378)
-bones/5/rotation = Quaternion(0.0402456, -0.0106069, 0.0708445, 0.996619)
-bones/7/rotation = Quaternion(0.540292, 0.468234, 0.507631, -0.480782)
-bones/8/rotation = Quaternion(-0.0774139, 0.795627, -0.600817, -0.00193358)
-bones/9/rotation = Quaternion(0.11912, -0.656503, 0.114962, 0.735934)
-bones/10/rotation = Quaternion(0.0222572, 0.712976, -0.0381877, 0.699794)
-bones/11/rotation = Quaternion(0.0810203, 0.00522979, 0.0386031, 0.995951)
-bones/15/rotation = Quaternion(0.528035, -0.479754, -0.504831, -0.485964)
-bones/16/rotation = Quaternion(0.0810725, 0.835981, -0.542095, 0.0263805)
-bones/17/rotation = Quaternion(0.15136, 0.65402, -0.129658, 0.729751)
-bones/18/rotation = Quaternion(0.0151129, -0.719063, -0.0069537, 0.694746)
-bones/19/rotation = Quaternion(0.0826162, -0.0053937, -0.0387118, 0.995815)
-bones/23/rotation = Quaternion(0.126709, 0.105352, 0.981628, -0.0961939)
-bones/24/rotation = Quaternion(-0.0200332, 0.991478, -0.123087, 0.0376842)
-bones/25/rotation = Quaternion(-0.031083, 0.700057, -0.707208, 0.0938657)
-bones/26/rotation = Quaternion(0.0210736, 0.999235, 0.0258893, 0.0203853)
-bones/28/rotation = Quaternion(-0.0838186, 0.0431883, 0.994422, 0.0472699)
-bones/29/rotation = Quaternion(0.0138858, 0.991897, -0.118239, -0.0443635)
-bones/30/rotation = Quaternion(0.0539122, 0.65868, -0.748964, -0.0478214)
-bones/31/rotation = Quaternion(-0.020798, 0.998298, 0.0507121, -0.0199238)
+bones/0/position = Vector3(8.80319e-05, 0.266813, 0.000707749)
+bones/0/rotation = Quaternion(0.0198868, -0.101702, -0.00942746, 0.994571)
+bones/1/rotation = Quaternion(0.0809445, 0.0173484, 0.0060468, 0.996549)
+bones/2/rotation = Quaternion(0.0243865, 0.0336728, 0.00756638, 0.999107)
+bones/3/rotation = Quaternion(-0.0776733, 0.031178, 0.0115846, 0.996424)
+bones/4/rotation = Quaternion(-0.0226361, 0.0189766, -0.0681533, 0.997238)
+bones/5/rotation = Quaternion(0.0439267, -0.00781776, 0.0705754, 0.996508)
+bones/7/rotation = Quaternion(0.526912, 0.482383, 0.516191, -0.472458)
+bones/8/rotation = Quaternion(-0.0225857, 0.812965, -0.581801, 0.00923776)
+bones/9/rotation = Quaternion(0.120546, -0.68454, 0.115773, 0.709556)
+bones/10/rotation = Quaternion(0.0414991, 0.718825, -0.0306673, 0.693273)
+bones/11/rotation = Quaternion(0.0725085, 0.00488468, 0.0382851, 0.996621)
+bones/15/rotation = Quaternion(0.519775, -0.490328, -0.51483, -0.473669)
+bones/16/rotation = Quaternion(-0.0188986, 0.827168, -0.560383, 0.03751)
+bones/17/rotation = Quaternion(0.113512, 0.707673, -0.117221, 0.68744)
+bones/18/rotation = Quaternion(-0.0125628, -0.711494, -0.042896, 0.701269)
+bones/19/rotation = Quaternion(0.0368214, -0.0037568, -0.036573, 0.998645)
+bones/23/rotation = Quaternion(0.121266, 0.159454, 0.974664, -0.0994953)
+bones/24/rotation = Quaternion(-0.0226676, 0.979113, -0.19848, 0.037811)
+bones/25/rotation = Quaternion(-0.0316519, 0.681715, -0.724734, 0.0949959)
+bones/26/rotation = Quaternion(0.0209085, 0.999232, 0.0259988, 0.0205702)
+bones/28/rotation = Quaternion(-0.0783454, 0.106436, 0.990216, 0.0447775)
+bones/29/rotation = Quaternion(0.0252229, 0.978918, -0.198068, -0.0430439)
+bones/30/rotation = Quaternion(0.0557037, 0.631397, -0.771779, -0.0509214)
+bones/31/rotation = Quaternion(-0.0197956, 0.99843, 0.0474773, -0.0221694)
 
 [node name="MainMenu" parent="." instance=ExtResource("8_hefke")]
 
 [node name="ScreenFX" parent="." instance=ExtResource("9_mwgfu")]
-
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.11436, 14.0616, -0.645565)
 
 [editable path="RockLee"]

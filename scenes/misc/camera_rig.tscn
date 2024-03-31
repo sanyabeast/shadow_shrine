@@ -8,9 +8,6 @@ script = ExtResource("1_ytbkx")
 spotlight_enabled = true
 spotlight = NodePath("SpotLight3D")
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573577, 0, 0, 0)
-
 [node name="CameraRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819151, -0.573576, 0, 0.573576, 0.819151, 0, 0, 0)
 

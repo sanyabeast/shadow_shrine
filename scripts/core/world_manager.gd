@@ -22,24 +22,28 @@ enum ECollisionBodyType {
 }
 
 var directions_list: Array[EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
-@export var sandbox: Node3D
+var sandbox: Node3D
 
 # fx
 var fx_queue: Array[Array] = []
-@export var use_fx_pool: bool = true
+var use_fx_pool: bool = true
 var fx_pool: GPoolHelper = GPoolHelper.new(16)
 
-@export var use_projectile_pool: bool = true
+var use_projectile_pool: bool = true
 var projectile_pool: GPoolHelper = GPoolHelper.new(8)
-@export var level_scene: Node = null
+var level_scene: Node = null
 var los_server:= GLosServer.new()
 var _impulses: Dictionary = {}
 
 # wind
-@export var wind_direction: float = 0
-@export var wind_power: float = 0
+var wind_direction: float = 0
+var wind_power: float = 0
+
+var audio_listener: AudioListener3D
+var audio_listener_position: Vector3 = Vector3.ZERO
 
 func _process(delta):
+	_check_audio_listener()
 	_update_level_scene(delta)
 	_update_fx_queue()
 		
@@ -61,6 +65,12 @@ func _process(delta):
 func _physics_process(delta):
 	los_server.update(delta)
 	_update_impulses(delta)
+	
+func _check_audio_listener():
+	if audio_listener == null:
+		audio_listener = AudioListener3D.new()
+		audio_listener.name = "world_audio_listener"
+		add_to_level(audio_listener)
 	
 func _update_level_scene(delta):
 	var current_scene = get_tree().current_scene
@@ -143,12 +153,19 @@ func get_direction_pretty_name(dir: EDirection) -> String:
 	return "?"
 	
 #region: Navigation		
-func get_random_reachable_point_in_square(origin: Vector3, square_size: float):
-	var random_point: Vector3 = Vector3(
-		origin.x + randf_range(-square_size / 2, square_size / 2),
-		origin.y + randf_range(-square_size / 2, square_size / 2),
-		origin.z + randf_range(-square_size / 2, square_size / 2)
-	)
+func get_random_reachable_point_in_square(origin: Vector3, square_size: float, min_distance: float = 0):
+	min_distance = min(min_distance, square_size / 2)
+	var distance = null
+	var random_point: Vector3 = Vector3.ZERO
+	
+	while distance == null or distance < min_distance:
+		random_point = Vector3(
+			origin.x + randf_range(-square_size / 2, square_size / 2),
+			0,
+			origin.z + randf_range(-square_size / 2, square_size / 2)
+		)
+		
+		distance = random_point.distance_to(origin)
 	
 	var reachable_point: Vector3 = get_closest_reachable_point(random_point)
 	return reachable_point

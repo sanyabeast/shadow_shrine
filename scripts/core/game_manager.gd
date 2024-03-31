@@ -19,6 +19,8 @@ var is_won: bool = false
 var thesaurus: GThesaurus
 var difficulty: float = 1
 
+var random:= GRandHelper.new()
+
 signal on_seed_changed(seed: int)
 
 # Called when the node enters the scene tree for the first time.
@@ -27,9 +29,10 @@ func _ready():
 	set_seed(saved_seed)
 	pass # Replace with function body.
 
-func set_seed(_seed: int):
-	if seed != _seed:
+func set_seed(_seed: int, force: bool = false):
+	if seed != _seed or force:
 		seed = _seed
+		random.set_seed(_seed)
 		dev.logd(TAG, "seed set to %s" % seed)
 		app.set_setting("game_seed", seed)
 		on_seed_changed.emit(seed)

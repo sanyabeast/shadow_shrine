@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="4_h4ubn"]
 [ext_resource type="PackedScene" uid="uid://gajmsefrdp7c" path="res://scenes/characters/char_boxed_slime_kid.tscn" id="5_w6ch8"]
 
-[node name="Thesaurus" type="Node"]
+[node name="ThesaurusMainA" type="Node"]
 script = ExtResource("1_l7g12")
 id = "main_dev"
 
@@ -37,3 +37,4 @@ main_scene = ExtResource("5_w6ch8")
 demo_scene = ExtResource("5_w6ch8")
 
 [node name="weapons" type="Node" parent="."]
+script = ExtResource("2_kc8s0")

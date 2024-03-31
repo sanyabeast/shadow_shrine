@@ -38,9 +38,9 @@ main_menu_scene = "res://scenes/levels/lev_lobby.tscn"
 maze_config = SubResource("Resource_ipqy4")
 player_driver = NodePath("GPlayerDriver")
 npc_driver = NodePath("GNpcDriver")
-thesaurus = NodePath("Thesaurus")
+thesaurus = NodePath("ThesaurusMainA")
 
-[node name="Thesaurus" parent="." instance=ExtResource("5_txlse")]
+[node name="ThesaurusMainA" parent="." instance=ExtResource("5_txlse")]
 
 [node name="GPlayerDriver" type="Node" parent="."]
 script = ExtResource("4_hapcl")

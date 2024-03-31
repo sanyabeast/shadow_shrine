@@ -1,5 +1,9 @@
 extends GFreeroamMode
 
+@export var max_enemies: float = 10
+@export var enemies: Array[String] = []
+
+var _time_gate:= GTimeGateHelper.new(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -7,7 +11,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if _time_gate.check("fill-enemies", 1) and characters.alive_enemies_count < max_enemies:
+		_spawn_enemy()
 
 func handle_player_dead():
+	characters.respawn_player(
+		world.get_random_reachable_point_in_square(characters.last_player_position, 16, 8)
+	)
 	pass
+
+func _spawn_enemy():
+	var entry = game.thesaurus.get_one_item_from_list_by_rarity(GThesaurus.EThesaurusCategory.CHARACTER, enemies, game.difficulty)
+	var enemy = characters.spawn_character(world.get_scene(), entry.id, 
+		world.get_random_reachable_point_in_square(characters.last_player_position, 32, 16)
+	)
+	
+	

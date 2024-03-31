@@ -1,55 +1,476 @@
-[gd_scene load_steps=42 format=3 uid="uid://bdyfbnq4358i5"]
+[gd_scene load_steps=83 format=3 uid="uid://dvpgb2jrxx8p1"]
 
-[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_oakvq"]
-[ext_resource type="AudioStream" uid="uid://bquunkx0o70df" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a2.ogg" id="2_vq0hq"]
-[ext_resource type="PackedScene" uid="uid://cjxp7bhkq1jxj" path="res://scenes/fx/fx_blood_splash_a1.tscn" id="2_w4c2s"]
-[ext_resource type="Script" path="res://scripts/resources/res_character_config.gd" id="3_1f4tj"]
-[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="3_tp1ci"]
-[ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="4_4oh8m"]
-[ext_resource type="Shader" path="res://_dev/shaders/_standard_material.gdshader" id="4_7ocvb"]
-[ext_resource type="Shader" path="res://_dev/shaders/rim_light/_shad_rim_light_emiss_add.gdshader" id="4_hb20l"]
-[ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="4_jdb74"]
-[ext_resource type="Texture2D" uid="uid://ewh41f7cu16q" path="res://assets/props/jerdelia/textures/Basecolor_0.001.png" id="5_dq6ql"]
-[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_fdnua"]
-[ext_resource type="AudioStream" uid="uid://orx4umwx3jsl" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a1.ogg" id="5_i7c88"]
-[ext_resource type="AudioStream" uid="uid://dcg8iwo0b65mg" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a3.ogg" id="6_jt0y2"]
-[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_q628a"]
-[ext_resource type="Texture2D" uid="uid://dj3u40lm6ye5w" path="res://assets/props/jerdelia/textures/Normals_0.001.png" id="6_tlev0"]
-[ext_resource type="AnimationLibrary" uid="uid://clkln4le7ihoi" path="res://assets/animations/alib_humanoid_basic_a.blend" id="7_mf4ef"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="8_n8tpr"]
-[ext_resource type="Texture2D" uid="uid://cpkmu1v4kianp" path="res://assets/_dev/sprites/human_footsteps_shoes_a2.png" id="9_mcqkw"]
-[ext_resource type="PackedScene" uid="uid://df4spb30etq8v" path="res://scenes/weapons/gun_kunai_launcher.tscn" id="16_y4bgj"]
-[ext_resource type="PackedScene" uid="uid://b8vcya2mgfvq0" path="res://scenes/weapons/gun_toxic_gob_launcher.tscn" id="17_cdtes"]
-[ext_resource type="AudioStream" uid="uid://ddylhomvrfqc1" path="res://assets/_dev/sound/sfx/275082__arnaud-coutancier__footsteps-on-big-gravels-loop.ogg" id="19_nr20q"]
+[ext_resource type="Script" path="res://scripts/core_tools/misc/gm_freeroam.gd" id="1_8mwe0"]
+[ext_resource type="Script" path="res://scripts/_dev/_frm_debug_level.gd" id="2_frhg8"]
+[ext_resource type="PackedScene" uid="uid://cc1jy1gk5wv5j" path="res://scenes/thesaurus/_thes_main.tscn" id="3_7bydh"]
+[ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="5_66keu"]
+[ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="6_538dh"]
+[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="7_oiriu"]
+[ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_wid_dev_hud.tscn" id="7_urvor"]
+[ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="8_e1eu0"]
+[ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="10_10c1j"]
+[ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="10_icugc"]
+[ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="11_a2q6q"]
+[ext_resource type="PackedScene" uid="uid://dbwbgsbyjn8rd" path="res://scenes/area_affects/af_fireplace.tscn" id="11_me8eh"]
+[ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/mlib_jerdelia_a.tres" id="12_1psnx"]
+[ext_resource type="MeshLibrary" uid="uid://bkd8f1a12u0eu" path="res://assets/meshlibs/mlib_jerdelia_b.tres" id="12_8840w"]
+[ext_resource type="NavigationMesh" uid="uid://bgx5alovo2u6x" path="res://resources/misc/navmesh_settings_a1.tres" id="12_usyif"]
+[ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="12_wbav5"]
+[ext_resource type="PackedScene" uid="uid://gajmsefrdp7c" path="res://scenes/characters/char_boxed_slime_kid.tscn" id="13_ntkp4"]
+[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="13_r3hca"]
+[ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="13_xgsen"]
+[ext_resource type="AudioStream" uid="uid://bquunkx0o70df" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a2.ogg" id="14_8ft1l"]
+[ext_resource type="PackedScene" uid="uid://b0apcopihg7kq" path="res://scenes/fx/fire/fx_fireplace_b.tscn" id="15_ksseg"]
+[ext_resource type="PackedScene" uid="uid://cjxp7bhkq1jxj" path="res://scenes/fx/fx_blood_splash_a1.tscn" id="15_x2lar"]
+[ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="16_hh363"]
+[ext_resource type="AudioStream" uid="uid://orx4umwx3jsl" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a1.ogg" id="17_261nu"]
+[ext_resource type="AudioStream" uid="uid://dcg8iwo0b65mg" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a3.ogg" id="18_6myje"]
+[ext_resource type="Script" path="res://scripts/resources/res_character_config.gd" id="19_r43x6"]
+[ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="20_17iiq"]
+[ext_resource type="AudioStream" uid="uid://ddylhomvrfqc1" path="res://assets/_dev/sound/sfx/275082__arnaud-coutancier__footsteps-on-big-gravels-loop.ogg" id="21_npsdq"]
+[ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="22_va3rh"]
+[ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="23_blicp"]
+[ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="24_t4brj"]
+[ext_resource type="Shader" path="res://_dev/shaders/rim_light/_shad_rim_light_emiss_add.gdshader" id="25_d3fei"]
+[ext_resource type="Shader" path="res://_dev/shaders/_standard_material.gdshader" id="26_d3uud"]
+[ext_resource type="Texture2D" uid="uid://ewh41f7cu16q" path="res://assets/props/jerdelia/textures/Basecolor_0.001.png" id="27_7xntp"]
+[ext_resource type="Texture2D" uid="uid://dj3u40lm6ye5w" path="res://assets/props/jerdelia/textures/Normals_0.001.png" id="28_xrkvf"]
+[ext_resource type="AnimationLibrary" uid="uid://clkln4le7ihoi" path="res://assets/animations/alib_humanoid_basic_a.blend" id="29_e1pnl"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="30_3frob"]
+[ext_resource type="Texture2D" uid="uid://cpkmu1v4kianp" path="res://assets/_dev/sprites/human_footsteps_shoes_a2.png" id="31_r132c"]
+[ext_resource type="PackedScene" uid="uid://df4spb30etq8v" path="res://scenes/weapons/gun_kunai_launcher.tscn" id="32_10g7i"]
+[ext_resource type="PackedScene" uid="uid://b8vcya2mgfvq0" path="res://scenes/weapons/gun_toxic_gob_launcher.tscn" id="33_n3itc"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="40_fdavk"]
+
+[sub_resource type="Curve" id="Curve_l5lsx"]
+max_value = 360.0
+_data = [Vector2(0, 167.368), 0.0, 0.0, 0, 0, Vector2(0.144639, 112.014), 456.056, 456.056, 0, 0, Vector2(0.259272, 174.748), 0.0, 0.0, 0, 0, Vector2(0.323331, 278.076), 0.0, 0.0, 0, 0, Vector2(0.462818, 204.271), 0.0, 0.0, 0, 0, Vector2(0.589683, 100.943), 0.0, 0.0, 0, 0, Vector2(0.6706, 237.483), 0.0, 0.0, 0, 0, Vector2(0.837899, 263.315), 0.0, 0.0, 0, 0, Vector2(1, 174.748), 0.0, 0.0, 0, 0]
+point_count = 9
+
+[sub_resource type="Curve" id="Curve_3iadt"]
+_data = [Vector2(0, 0.444409), 0.0, 0.0, 0, 0, Vector2(0.174983, 0.885191), 0.0, 0.0, 0, 0, Vector2(0.472603, 0.485413), 0.0, 0.0, 0, 0, Vector2(0.646999, 0.38909), 0.0, 0.0, 0, 0, Vector2(0.717802, 0.901742), 0.0, 0.0, 0, 0, Vector2(1, 0.495892), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Shader" id="Shader_mggth"]
+code = "// Cloud Raymarching based on: A. Schneider. “The Real-Time Volumetric Cloudscapes Of Horizon: Zero Dawn”. ACM SIGGRAPH. Los Angeles, CA: ACM SIGGRAPH, 2015. Web. 26 Aug. 2015.
+
+shader_type sky;
+render_mode use_half_res_pass, use_quarter_res_pass;
+
+uniform sampler3D worlnoise : filter_linear_mipmap, repeat_enable;
+uniform sampler3D perlworlnoise : filter_linear_mipmap, repeat_enable;
+uniform sampler2D weathermap : filter_linear_mipmap, repeat_enable;
+
+uniform vec2 wind_direction = vec2(1, 0);
+uniform float wind_speed :hint_range(0.0, 20.0) = 1.0;
+uniform float _density : hint_range(0.01, 0.2) = 0.05;
+uniform float cloud_coverage :hint_range(0.1, 1.0) = 0.25;
+uniform float _time_offset : hint_range(0.0, 1000.0, 0.5) = 0.0;
+
+// Approximately earth sizes
+const float g_radius = 6000000.0; //ground radius
+const float sky_b_radius = 6001500.0;//bottom of cloud layer
+const float sky_t_radius = 6004000.0;//top of cloud layer
+
+uniform float rayleigh : hint_range(0, 64) = 2.0;
+uniform vec4 rayleigh_color : source_color = vec4(0.26, 0.41, 0.58, 1.0);
+uniform float mie : hint_range(0, 1) = 0.005;
+uniform float mie_eccentricity : hint_range(-1, 1) = 0.8;
+uniform vec4 mie_color : source_color = vec4(0.63, 0.77, 0.92, 1.0);
+
+uniform float turbidity : hint_range(0, 1000) = 10.0;
+uniform float sun_disk_scale : hint_range(0, 360) = 1.0;
+uniform vec4 ground_color : source_color = vec4(1.0);
+uniform float exposure : hint_range(0, 128) = 0.1;
+
+const vec3 UP = vec3( 0.0, 1.0, 0.0 );
+
+// Sun constants
+const float SOL_SIZE = 0.00872663806;
+const float SUN_ENERGY = 1000.0;
+
+// optical length at zenith for molecules
+const float rayleigh_zenith_size = 8.4e3;
+const float mie_zenith_size = 1.25e3;
+
+// From: https://www.shadertoy.com/view/4sfGzS credit to iq
+float hash(vec3 p) {
+	p  = fract( p * 0.3183099 + 0.1 );
+	p *= 17.0;
+	return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+}
+
+// Utility function that maps a value from one range to another. 
+float remap(float originalValue,  float originalMin,  float originalMax,  float newMin,  float newMax) {
+	return newMin + (((originalValue - originalMin) / (originalMax - originalMin)) * (newMax - newMin));
+}
+
+// Phase function
+float henyey_greenstein(float cos_theta, float g) {
+	const float k = 0.0795774715459;
+	return k * (1.0 - g * g) / (pow(1.0 + g * g - 2.0 * g * cos_theta, 1.5));
+}
+
+// Simple Analytic sky. In a real project you should use a texture
+vec3 atmosphere(vec3 eye_dir) {
+	float zenith_angle = clamp( dot(UP, normalize(LIGHT0_DIRECTION)), -1.0, 1.0 );
+	float sun_energy = max(0.0, 1.0 - exp(-((PI * 0.5) - acos(zenith_angle)))) * SUN_ENERGY * LIGHT0_ENERGY;
+	float sun_fade = 1.0 - clamp(1.0 - exp(LIGHT0_DIRECTION.y), 0.0, 1.0);
+
+	// Rayleigh coefficients.
+	float rayleigh_coefficient = rayleigh - ( 1.0 * ( 1.0 - sun_fade ) );
+	vec3 rayleigh_beta = rayleigh_coefficient * rayleigh_color.rgb * 0.0001;
+	// mie coefficients from Preetham
+	vec3 mie_beta = turbidity * mie * mie_color.rgb * 0.000434;
+
+	// optical length
+	float zenith = acos(max(0.0, dot(UP, eye_dir)));
+	float optical_mass = 1.0 / (cos(zenith) + 0.15 * pow(93.885 - degrees(zenith), -1.253));
+	float rayleigh_scatter = rayleigh_zenith_size * optical_mass;
+	float mie_scatter = mie_zenith_size * optical_mass;
+
+	// light extinction based on thickness of atmosphere
+	vec3 extinction = exp(-(rayleigh_beta * rayleigh_scatter + mie_beta * mie_scatter));
+
+	// in scattering
+	float cos_theta = dot(eye_dir, normalize(LIGHT0_DIRECTION));
+
+	float rayleigh_phase = (3.0 / (16.0 * PI)) * (1.0 + pow(cos_theta * 0.5 + 0.5, 2.0));
+	vec3 betaRTheta = rayleigh_beta * rayleigh_phase;
+
+	float mie_phase = henyey_greenstein(cos_theta, mie_eccentricity);
+	vec3 betaMTheta = mie_beta * mie_phase;
+
+	vec3 Lin = pow(sun_energy * ((betaRTheta + betaMTheta) / (rayleigh_beta + mie_beta)) * (1.0 - extinction), vec3(1.5));
+	// Hack from https://github.com/mrdoob/three.js/blob/master/examples/jsm/objects/Sky.js
+	Lin *= mix(vec3(1.0), pow(sun_energy * ((betaRTheta + betaMTheta) / (rayleigh_beta + mie_beta)) * extinction, vec3(0.5)), clamp(pow(1.0 - zenith_angle, 5.0), 0.0, 1.0));
+
+	// Hack in the ground color
+	Lin  *= mix(ground_color.rgb, vec3(1.0), smoothstep(-0.1, 0.1, dot(UP, eye_dir)));
+
+	// Solar disk and out-scattering
+	float sunAngularDiameterCos = cos(SOL_SIZE * sun_disk_scale);
+	float sunAngularDiameterCos2 = cos(SOL_SIZE * sun_disk_scale*0.5);
+	float sundisk = smoothstep(sunAngularDiameterCos, sunAngularDiameterCos2, cos_theta);
+	vec3 L0 = (sun_energy * 1900.0 * extinction) * sundisk * LIGHT0_COLOR;
+	// Note: Add nightime here: L0 += night_sky * extinction
+
+	vec3 color = (Lin + L0) * 0.04;
+	color = pow(color, vec3(1.0 / (1.2 + (1.2 * sun_fade))));
+	color *= exposure;
+	return color;
+}
+
+float GetHeightFractionForPoint(float inPosition) { 
+	float height_fraction = (inPosition -  sky_b_radius) / (sky_t_radius - sky_b_radius); 
+	return clamp(height_fraction, 0.0, 1.0);
+}
+
+vec4 mixGradients(float cloudType){
+	const vec4 STRATUS_GRADIENT = vec4(0.02f, 0.05f, 0.09f, 0.11f);
+	const vec4 STRATOCUMULUS_GRADIENT = vec4(0.02f, 0.2f, 0.48f, 0.625f);
+	const vec4 CUMULUS_GRADIENT = vec4(0.01f, 0.0625f, 0.78f, 1.0f);
+	float stratus = 1.0f - clamp(cloudType * 2.0f, 0.0, 1.0);
+	float stratocumulus = 1.0f - abs(cloudType - 0.5f) * 2.0f;
+	float cumulus = clamp(cloudType - 0.5f, 0.0, 1.0) * 2.0f;
+	return STRATUS_GRADIENT * stratus + STRATOCUMULUS_GRADIENT * stratocumulus + CUMULUS_GRADIENT * cumulus;
+}
+
+float densityHeightGradient(float heightFrac, float cloudType) {
+	vec4 cloudGradient = mixGradients(cloudType);
+	return smoothstep(cloudGradient.x, cloudGradient.y, heightFrac) - smoothstep(cloudGradient.z, cloudGradient.w, heightFrac);
+}
+
+float intersectSphere(vec3 pos, vec3 dir,float r) {
+    float a = dot(dir, dir);
+    float b = 2.0 * dot(dir, pos);
+    float c = dot(pos, pos) - (r * r);
+	float d = sqrt((b*b) - 4.0*a*c);
+	float p = -b - d;
+	float p2 = -b + d;
+    return max(p, p2) / (2.0 * a);
+}
+
+// Returns density at a given point
+// Heavily based on method from Schneider
+float density(vec3 pip, vec3 weather, float mip) {
+	float time = TIME;
+	vec3 p = pip;
+	float height_fraction = GetHeightFractionForPoint(length(p));
+	p.xz += time * 20.0 * normalize(wind_direction) * wind_speed * 0.6;
+	vec4 n = textureLod(perlworlnoise, p.xyz*0.00008, mip-2.0);
+	float fbm = n.g*0.625+n.b*0.25+n.a*0.125;
+	float g = densityHeightGradient(height_fraction, weather.r);
+	float base_cloud = remap(n.r, -(1.0-fbm), 1.0, 0.0, 1.0);
+	float weather_coverage = cloud_coverage*weather.b;
+	base_cloud = remap(base_cloud*g, 1.0-(weather_coverage), 1.0, 0.0, 1.0);
+	base_cloud *= weather_coverage;
+	p.xz -= time * normalize(wind_direction) * 40.;
+	p.y -= time * 40.;
+	vec3 hn = textureLod(worlnoise, p*0.001, mip).rgb;
+	float hfbm = hn.r*0.625+hn.g*0.25+hn.b*0.125;
+	hfbm = mix(hfbm, 1.0-hfbm, clamp(height_fraction*4.0, 0.0, 1.0));
+	base_cloud = remap(base_cloud, hfbm*0.4 * height_fraction, 1.0, 0.0, 1.0);
+	return pow(clamp(base_cloud, 0.0, 1.0), (1.0 - height_fraction) * 0.8 + 0.5);
+}
+
+vec4 march(vec3 pos,  vec3 end, vec3 dir, int depth) {
+	const vec3 RANDOM_VECTORS[6] = {vec3( 0.38051305f,  0.92453449f, -0.02111345f),vec3(-0.50625799f, -0.03590792f, -0.86163418f),vec3(-0.32509218f, -0.94557439f,  0.01428793f),vec3( 0.09026238f, -0.27376545f,  0.95755165f),vec3( 0.28128598f,  0.42443639f, -0.86065785f),vec3(-0.16852403f,  0.14748697f,  0.97460106f)};
+	float T = 1.0;
+	float alpha = 0.0;
+	float ss = length(dir);
+	dir = normalize(dir);
+	vec3 p = pos + hash(pos * 10.0) * ss;
+	const float t_dist = sky_t_radius-sky_b_radius;
+	float lss = (t_dist / 36.0);
+	vec3 ldir = normalize(LIGHT0_DIRECTION);
+	vec3 L = vec3(0.0);
+	int count=0;
+	float t = 1.0;
+	float costheta = dot(ldir, dir);
+	// Stack multiple phase functions to emulate some backscattering
+	float phase = max(max(henyey_greenstein(costheta, 0.6), henyey_greenstein(costheta, (0.4 - 1.4 * ldir.y))), henyey_greenstein(costheta, -0.2));
+	// Precalculate sun and ambient colors
+	// This should really come from a uniform or texture for performance reasons
+	vec3 atmosphere_sun = atmosphere(LIGHT0_DIRECTION) * LIGHT0_ENERGY * ss * 0.1;
+	vec3 atmosphere_ambient = atmosphere(normalize(vec3(1.0, 1.0, 0.0)));
+	vec3 atmosphere_ground = atmosphere(normalize(vec3(1.0, -1.0, 0.0)));
+	
+	const float weather_scale = 0.00006;
+	float time = TIME * 0.001 + 0.005 * _time_offset;
+	vec2 weather_pos = time * normalize(wind_direction) * wind_speed;
+	
+	for (int i = 0; i < depth; i++) {
+		p += dir * ss;
+		vec3 weather_sample = texture(weathermap, p.xz * weather_scale + 0.5 + weather_pos).xyz;
+		float height_fraction = GetHeightFractionForPoint(length(p));
+
+		t = density(p, weather_sample, 0.0);
+		float dt = exp(-_density*t*ss);
+		T *= dt;
+		vec3 lp = p;
+		float lt = 1.0;
+		float cd = 0.0;
+
+		if (t > 0.0) { //calculate lighting, but only when we are in the cloud
+			float lheight_fraction = 0.0;
+			for (int j = 0; j < 6; j++) {
+				lp += (ldir + RANDOM_VECTORS[j]*float(j))*lss;
+				lheight_fraction = GetHeightFractionForPoint(length(lp));
+				vec3 lweather = texture(weathermap, lp.xz * weather_scale + 0.5 + weather_pos).xyz;
+				lt = density(lp, lweather, float(j));
+				cd += lt;
+			}
+			
+			// Take a single distant sample
+			lp = p + ldir * 18.0 * lss;
+			lheight_fraction = GetHeightFractionForPoint(length(lp));
+			vec3 lweather = texture(weathermap, lp.xz * weather_scale + 0.5).xyz;
+			lt = pow(density(lp, lweather, 5.0), (1.0 - lheight_fraction) * 0.8 + 0.5);
+			cd += lt;
+			
+			// captures the direct lighting from the sun
+			float beers = exp(-_density * cd * lss);
+			float beers2 = exp(-_density * cd * lss * 0.25) * 0.7;
+			float beers_total = max(beers, beers2);
+
+			vec3 ambient = mix(atmosphere_ground, vec3(1.0), smoothstep(0.0, 1.0, height_fraction)) * _density * mix(atmosphere_ambient, vec3(1.0), 0.4) * (LIGHT0_DIRECTION.y);
+			alpha += (1.0 - dt) * (1.0 - alpha);
+			L += (ambient + beers_total * atmosphere_sun * phase * alpha) * T * t;
+		}
+	}
+	return clamp(vec4(L, alpha), 0.0, 1.0);
+}
+
+void sky() {
+	vec3 dir = EYEDIR;
+
+	vec4 col = vec4(0.0);
+	if (dir.y>0.0) {
+		vec3 camPos = vec3(0.0, g_radius, 0.0);
+		vec3 start = camPos + dir * intersectSphere(camPos, dir, sky_b_radius);
+		vec3 end = camPos + dir * intersectSphere(camPos, dir, sky_t_radius);
+		float shelldist = (length(end-start));
+		// Take fewer steps towards horizon
+		float steps = (mix(96.0, 54.0, clamp(dot(dir, vec3(0.0, 1.0, 0.0)), 0.0, 1.0)));
+		vec3 raystep = dir * shelldist / steps;
+		vec4 volume = march(start, end, raystep, int(steps));
+		vec3 background = atmosphere(dir);
+		// Draw cloud shape
+		col = vec4(background*(1.0-volume.a)+volume.xyz, 1.0);
+		// Blend distant clouds into the sky
+		col.xyz = mix(clamp(col.xyz, vec3(0.0), vec3(1.0)), clamp(background, vec3(0.0), vec3(1.0)), smoothstep(0.6, 1.0, 1.0-dir.y));
+	} else {
+		col = vec4(atmosphere(dir), 1.0);
+	}
+	
+	// Draw to quarter res buffer for reflections
+	// Draw to half res buffer for main sky
+	if (AT_QUARTER_RES_PASS && AT_CUBEMAP_PASS) {
+		COLOR = col.xyz;
+		ALPHA = 1.0;
+	} else if (AT_HALF_RES_PASS && !AT_CUBEMAP_PASS) {
+		COLOR = col.xyz;
+		ALPHA = 1.0;
+	} else if (AT_CUBEMAP_PASS) {
+		COLOR = QUARTER_RES_COLOR.rgb;
+	} else {
+		COLOR = HALF_RES_COLOR.rgb; // Change to col.rgb for full resolution
+	}
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5mw4b"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_6071y"]
+noise = SubResource("FastNoiseLite_5mw4b")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xfh2g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gi5k0"]
+noise = SubResource("FastNoiseLite_xfh2g")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nj1q7"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_ml2vc"]
+noise = SubResource("FastNoiseLite_nj1q7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0ifh"]
+shader = SubResource("Shader_mggth")
+shader_parameter/wind_direction = Vector2(1, 1)
+shader_parameter/wind_speed = 10.0
+shader_parameter/_density = 0.05
+shader_parameter/cloud_coverage = 0.5
+shader_parameter/_time_offset = 0.0
+shader_parameter/rayleigh = 6.829
+shader_parameter/rayleigh_color = Color(0.26, 0.41, 0.58, 1)
+shader_parameter/mie = 0.005
+shader_parameter/mie_eccentricity = 0.8
+shader_parameter/mie_color = Color(0.63, 0.77, 0.92, 1)
+shader_parameter/turbidity = 10.0
+shader_parameter/sun_disk_scale = 1.0
+shader_parameter/ground_color = Color(0.196078, 0.196078, 0.196078, 1)
+shader_parameter/exposure = 0.1
+shader_parameter/worlnoise = SubResource("NoiseTexture3D_ml2vc")
+shader_parameter/perlworlnoise = SubResource("NoiseTexture3D_6071y")
+shader_parameter/weathermap = SubResource("NoiseTexture2D_gi5k0")
+
+[sub_resource type="Sky" id="Sky_xefpb"]
+sky_material = SubResource("ShaderMaterial_j0ifh")
+
+[sub_resource type="Environment" id="Environment_fiae8"]
+background_mode = 2
+sky = SubResource("Sky_xefpb")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+ssao_enabled = true
+ssao_radius = 0.58
+ssao_intensity = 16.0
+ssao_power = 0.861523
+sdfgi_enabled = true
+sdfgi_y_scale = 0
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.6
+glow_bloom = 0.5
+fog_enabled = true
+fog_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.025
+volumetric_fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_brightness = 1.15
+adjustment_saturation = 1.5
+
+[sub_resource type="Curve" id="Curve_icqkn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23572, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_epxn2"]
+curve = SubResource("Curve_icqkn")
+
+[sub_resource type="Curve" id="Curve_uyxhu"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8uyxj"]
+curve = SubResource("Curve_uyxhu")
+
+[sub_resource type="Curve" id="Curve_ho3d0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.3392, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6e8v7"]
+curve = SubResource("Curve_ho3d0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dpa23"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(24, 0.01, 14)
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_max = 5.0
+orbit_velocity_curve = SubResource("CurveTexture_8uyxj")
+gravity = Vector3(0, -1, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_6e8v7")
+alpha_curve = SubResource("CurveTexture_epxn2")
+collision_mode = 1
+collision_friction = 0.5
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ljlx"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("10_icugc")
+metallic_specular = 1.0
+roughness = 0.31
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_lne1d"]
+material = SubResource("StandardMaterial3D_7ljlx")
+size = Vector2(0.2, 0.2)
 
 [sub_resource type="Resource" id="Resource_17o4l"]
-script = ExtResource("3_tp1ci")
-audio_variants = Array[AudioStream]([ExtResource("2_vq0hq")])
+script = ExtResource("16_hh363")
+audio_variants = Array[AudioStream]([ExtResource("14_8ft1l")])
 audio_pitch_min = 0.9
 audio_pitch_max = 0.95
 audio_volume_min = 1.0
 audio_volume_max = 1.0
 audio_panning = 0.5
-content = Array[PackedScene]([ExtResource("2_w4c2s")])
+content = Array[PackedScene]([ExtResource("15_x2lar")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
 
 [sub_resource type="Resource" id="Resource_3rjl1"]
-script = ExtResource("3_tp1ci")
-audio_variants = Array[AudioStream]([ExtResource("5_i7c88"), ExtResource("2_vq0hq"), ExtResource("6_jt0y2")])
+script = ExtResource("16_hh363")
+audio_variants = Array[AudioStream]([ExtResource("17_261nu"), ExtResource("14_8ft1l"), ExtResource("18_6myje")])
 audio_pitch_min = 1.1
 audio_pitch_max = 1.15
 audio_volume_min = 1.0
 audio_volume_max = 1.0
 audio_panning = 0.5
-content = Array[PackedScene]([ExtResource("2_w4c2s")])
+content = Array[PackedScene]([ExtResource("15_x2lar")])
 use_game_time = true
 dispose_strategy = 0
 lifetime = 5.0
 
 [sub_resource type="Resource" id="Resource_mh2lt"]
-script = ExtResource("3_1f4tj")
+script = ExtResource("19_r43x6")
 health = 5.0
 max_health = 5.0
 speed = 5.0
@@ -58,14 +479,14 @@ damage = 1.0
 mass = 2.0
 patrolling_distance = 5.0
 target_position_refresh_timeout = 3.0
-walk_direction_degrees_change_speed = 720.0
+walk_direction_degrees_change_speed = 360.0
 walk_power_change_speed = 5.0
 walk_direction_sinus_rate = 0.0
 walk_direction_sinus_power = 0.0
 walk_power_sinus_min_power = 0.0
 walk_power_sinus_rate = 0.0
 walk_power_sinus_power = 0.0
-walk_axis_restriction = 2
+walk_axis_restriction = 0
 look_axis_restriction = 0
 hurt_fx = SubResource("Resource_3rjl1")
 death_fx = SubResource("Resource_17o4l")
@@ -75,7 +496,7 @@ radius = 0.245
 height = 0.915
 
 [sub_resource type="Resource" id="Resource_pd2wt"]
-script = ExtResource("5_fdnua")
+script = ExtResource("23_blicp")
 id = "default"
 process_overlay_material = true
 overlay_albedo = Color(1, 1, 1, 0.521569)
@@ -84,7 +505,7 @@ overlay_brightness = 0.5
 overlay_emission_strength = 0.5
 
 [sub_resource type="Resource" id="Resource_gtb4g"]
-script = ExtResource("5_fdnua")
+script = ExtResource("23_blicp")
 id = "hurt"
 process_overlay_material = true
 overlay_albedo = Color(1, 0, 0, 1)
@@ -93,12 +514,12 @@ overlay_brightness = 0.5
 overlay_emission_strength = 0.0
 
 [sub_resource type="Resource" id="Resource_yh4av"]
-script = ExtResource("6_q628a")
+script = ExtResource("24_t4brj")
 list = Array[Resource("res://scripts/core_resources/surface_states/res_surf_state.gd")]([SubResource("Resource_pd2wt"), SubResource("Resource_gtb4g")])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o1q83"]
 render_priority = 0
-shader = ExtResource("4_hb20l")
+shader = ExtResource("25_d3fei")
 shader_parameter/albedo = Color(1, 0.658824, 0.313726, 1)
 shader_parameter/rimThickness = 0.25
 shader_parameter/rimBrightness = 0.5
@@ -106,7 +527,7 @@ shader_parameter/rimBrightness = 0.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jq0ca"]
 resource_name = "SimplygonCastMaterial.001"
 render_priority = 0
-shader = ExtResource("4_7ocvb")
+shader = ExtResource("26_d3uud")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.5
@@ -118,8 +539,8 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("5_dq6ql")
-shader_parameter/texture_normal = ExtResource("6_tlev0")
+shader_parameter/texture_albedo = ExtResource("27_7xntp")
+shader_parameter/texture_normal = ExtResource("28_xrkvf")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gsvjq"]
 resource_name = "rock_dude_ProcessedGeometry_LOD1_001"
@@ -485,7 +906,7 @@ diffuse_mode = 3
 disable_ambient_light = true
 disable_fog = true
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("9_mcqkw")
+albedo_texture = ExtResource("31_r132c")
 emission_enabled = true
 emission = Color(0.854902, 1, 0, 1)
 emission_energy_multiplier = 0.27
@@ -499,83 +920,164 @@ billboard_keep_scale = true
 material = SubResource("StandardMaterial3D_6ntp4")
 size = Vector2(0.5, 0.5)
 
-[node name="RockLee" type="CharacterBody3D"]
+[node name="LevelFreeroam" type="Node3D" node_paths=PackedStringArray("freeroam_mode", "player_driver", "npc_driver", "thesaurus")]
+script = ExtResource("1_8mwe0")
+freeroam_mode = NodePath("FreeroamMode")
+player_driver = NodePath("GPlayerDriver")
+npc_driver = NodePath("GNpcDriver")
+thesaurus = NodePath("ThesaurusMainA")
+
+[node name="FreeroamMode" type="Node" parent="."]
+script = ExtResource("2_frhg8")
+
+[node name="ThesaurusMainA" parent="." instance=ExtResource("3_7bydh")]
+
+[node name="GPlayerDriver" type="Node" parent="."]
+script = ExtResource("5_66keu")
+
+[node name="GNpcDriver" type="Node" parent="."]
+script = ExtResource("6_538dh")
+
+[node name="Environment" type="Node3D" parent="."]
+script = ExtResource("10_10c1j")
+use_wind_cycle = true
+wind_direction_curve = SubResource("Curve_l5lsx")
+wind_power_curve = SubResource("Curve_3iadt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_fiae8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.716119, 0.334922, -0.612372, -0.0226699, 0.865729, 0.5, 0.697609, 0.371942, -0.612372, 0, 7.32464, 0)
+light_color = Color(0.905882, 0.862745, 0.854902, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="LocationMistSoft" parent="Environment" instance=ExtResource("11_a2q6q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)
+amount = 16
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254776, 1.09534, -0.854996)
+size = Vector3(32.6535, 10.8259, 31.1862)
+
+[node name="VFX_LightSnowWeather" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.02735, 0)
+amount = 4096
+lifetime = 10.0
+preprocess = 30.0
+fixed_fps = 0
+collision_base_size = 0.25
+visibility_aabb = AABB(-16.176, -15.2848, -16.3572, 32.351, 18.9983, 31.5642)
+process_material = SubResource("ParticleProcessMaterial_dpa23")
+draw_pass_1 = SubResource("QuadMesh_lne1d")
+script = ExtResource("7_oiriu")
+use_wind_to_gravity = true
+wind_to_gravity_strength = 0.5
+wind_to_gravity_update_rate = 2.0
+
+[node name="CameraRig" parent="." instance=ExtResource("12_wbav5")]
+
+[node name="_DevGUI" parent="." instance=ExtResource("7_urvor")]
+
+[node name="GUI" parent="." instance=ExtResource("8_e1eu0")]
+
+[node name="mobs" type="Node3D" parent="."]
+
+[node name="BoxedSlime" parent="mobs" instance=ExtResource("13_xgsen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46626, 0, -0.654832)
+
+[node name="BoxedSlimeKiddo" parent="mobs" instance=ExtResource("13_ntkp4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.39143, 0, 0.33346)
+
+[node name="BoxedSlimeKiddo_2" parent="mobs" node_paths=PackedStringArray("hide_on_death", "weapon") instance=ExtResource("13_ntkp4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.76461, 0, 0.822161)
+is_friendly = true
+hide_on_death = [NodePath("../BoxedSlimeKiddo/ToxicBubbles")]
+weapon = NodePath("../BoxedSlimeKiddo/Aim/BasicMeleeWeapon")
+
+[node name="RockLee_2" parent="mobs" instance=ExtResource("40_fdavk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.78241, 1.19209e-07, 1.52074)
+
+[node name="RockLee" type="CharacterBody3D" parent="." node_paths=PackedStringArray("weapon")]
 disable_mode = 1
 floor_stop_on_slope = false
 safe_margin = 0.01
-script = ExtResource("1_oakvq")
+script = ExtResource("13_r3hca")
 id = "rock_lee"
 config = SubResource("Resource_mh2lt")
+use_as_player = true
+weapon = NodePath("Aim/KunaiLauncherWeapon")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RockLee"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.454, 0)
 shape = SubResource("CapsuleShape3D_y6lm4")
 
-[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("surface_material_helper", "footsteps_sfx")]
-script = ExtResource("4_jdb74")
+[node name="Body" type="Node3D" parent="RockLee" node_paths=PackedStringArray("surface_material_helper", "footsteps_sfx")]
+script = ExtResource("20_17iiq")
 surface_material_helper = NodePath("StandardGameSurfaceMaterialHelper")
 footsteps_sfx = NodePath("FootstepsSFX")
 footsteps_max_volume = 1.0
 
-[node name="FootstepsSFX" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource("19_nr20q")
+[node name="FootstepsSFX" type="AudioStreamPlayer3D" parent="RockLee/Body"]
+stream = ExtResource("21_npsdq")
 pitch_scale = 1.75
 autoplay = true
 max_distance = 30.0
 
-[node name="StandardGameSurfaceMaterialHelper" parent="Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("4_4oh8m")]
+[node name="StandardGameSurfaceMaterialHelper" parent="RockLee/Body" node_paths=PackedStringArray("overlay_meshes") instance=ExtResource("22_va3rh")]
 overlay_meshes = [NodePath("../rock_dude/Armature/GeneralSkeleton/hero")]
 states = SubResource("Resource_yh4av")
 
-[node name="rock_dude" type="Node3D" parent="Body"]
+[node name="rock_dude" type="Node3D" parent="RockLee/Body"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Armature" type="Node3D" parent="Body/rock_dude"]
+[node name="Armature" type="Node3D" parent="RockLee/Body/rock_dude"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="Body/rock_dude/Armature"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="RockLee/Body/rock_dude/Armature"]
 unique_name_in_owner = true
 motion_scale = 0.27434
 bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000759773, 0.27434, 0.000476186)
 bones/0/enabled = true
-bones/0/position = Vector3(4.25142e-05, 0.266807, 0.000983754)
-bones/0/rotation = Quaternion(0.0208906, -0.102719, -0.00682567, 0.994468)
+bones/0/position = Vector3(-0.00126913, 0.26846, 0.00276701)
+bones/0/rotation = Quaternion(0.0129495, -0.0921062, -0.00720158, 0.995639)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Spine"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.43188e-11, 0.032504, -0.000275717)
 bones/1/enabled = true
 bones/1/position = Vector3(3.43188e-11, 0.032504, -0.000275717)
-bones/1/rotation = Quaternion(0.0817059, 0.0160998, 0.00515066, 0.996513)
+bones/1/rotation = Quaternion(0.0706031, 0.0183705, 0.00638972, 0.997315)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Chest"
 bones/2/parent = 1
 bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5534e-15, 0.0406456, -0.00334262)
 bones/2/enabled = true
 bones/2/position = Vector3(1.5534e-15, 0.0406456, -0.00334262)
-bones/2/rotation = Quaternion(0.0252193, 0.0344221, 0.00908673, 0.999048)
+bones/2/rotation = Quaternion(0.0147764, 0.0359513, 0.010015, 0.999194)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "UpperChest"
 bones/3/parent = 2
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05105e-11, 0.046452, -0.00382014)
 bones/3/enabled = true
 bones/3/position = Vector3(-3.05105e-11, 0.046452, -0.00382014)
-bones/3/rotation = Quaternion(-0.0767635, 0.0333365, 0.0126232, 0.996412)
+bones/3/rotation = Quaternion(-0.08521, 0.0304322, 0.0122346, 0.995823)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Neck"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87169e-12, 0.0522586, -0.00429765)
 bones/4/enabled = true
 bones/4/position = Vector3(-9.87169e-12, 0.0522586, -0.00429765)
-bones/4/rotation = Quaternion(-0.0349649, 0.0159771, -0.0609336, 0.997401)
+bones/4/rotation = Quaternion(0.0167578, 0.0141673, -0.0594101, 0.997992)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "Head"
 bones/5/parent = 4
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69199e-11, 0.0356893, -0.00127722)
 bones/5/enabled = true
 bones/5/position = Vector3(4.69199e-11, 0.0356893, -0.00127722)
-bones/5/rotation = Quaternion(0.0493346, -0.00375432, 0.0645464, 0.996687)
+bones/5/rotation = Quaternion(0.0431271, -0.00918915, 0.0700104, 0.996571)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "mixamorig_HeadTop_End"
 bones/6/parent = 5
@@ -589,35 +1091,35 @@ bones/7/parent = 3
 bones/7/rest = Transform3D(0, 1, 0, 0, 0, 1, 1, 0, 0, 0.0240227, 0.037042, -0.00341825)
 bones/7/enabled = true
 bones/7/position = Vector3(0.0240227, 0.037042, -0.00341825)
-bones/7/rotation = Quaternion(0.525802, 0.484115, 0.515688, -0.472474)
+bones/7/rotation = Quaternion(0.526955, 0.482798, 0.515537, -0.4727)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "LeftUpperArm"
 bones/8/parent = 7
 bones/8/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.00173275, 0.0494465, -0.0300429)
 bones/8/enabled = true
 bones/8/position = Vector3(0.00173275, 0.0494465, -0.0300429)
-bones/8/rotation = Quaternion(0.0205888, 0.804382, -0.593225, 0.0251188)
+bones/8/rotation = Quaternion(-0.00483142, 0.796336, -0.604586, 0.0173844)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "LeftLowerArm"
 bones/9/parent = 8
 bones/9/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4.4117e-05, 0.0418206, -0.00690595)
 bones/9/enabled = true
 bones/9/position = Vector3(-4.4117e-05, 0.0418206, -0.00690595)
-bones/9/rotation = Quaternion(0.102584, -0.699649, 0.102563, 0.699606)
+bones/9/rotation = Quaternion(0.0954664, -0.692754, 0.101385, 0.707601)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "LeftHand"
 bones/10/parent = 9
 bones/10/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -0.000655043, 0.0615445, -0.0012908)
 bones/10/enabled = true
 bones/10/position = Vector3(-0.000655043, 0.0615445, -0.0012908)
-bones/10/rotation = Quaternion(0.0299659, 0.7199, -0.0302114, 0.692772)
+bones/10/rotation = Quaternion(0.030248, 0.715218, -0.0459545, 0.696733)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "mixamorig_LeftHandIndex1"
 bones/11/parent = 10
 bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000176197, 0.01569, 0.00190729)
 bones/11/enabled = true
 bones/11/position = Vector3(-0.000176197, 0.01569, 0.00190729)
-bones/11/rotation = Quaternion(0.034199, 0.00347526, 0.0365307, 0.998741)
+bones/11/rotation = Quaternion(0.0410149, 0.0038441, 0.0366885, 0.998477)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "mixamorig_LeftHandIndex2"
 bones/12/parent = 11
@@ -645,35 +1147,35 @@ bones/15/parent = 3
 bones/15/rest = Transform3D(0, -1, 0, 0, 0, 1, -1, 0, 0, -0.0240227, 0.0370602, -0.00314519)
 bones/15/enabled = true
 bones/15/position = Vector3(-0.0240227, 0.0370602, -0.00314519)
-bones/15/rotation = Quaternion(0.525901, -0.484306, -0.515154, -0.472749)
+bones/15/rotation = Quaternion(0.529621, -0.478547, -0.509128, -0.48092)
 bones/15/scale = Vector3(1, 1, 1)
 bones/16/name = "RightUpperArm"
 bones/16/parent = 15
 bones/16/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.00227886, 0.0494465, -0.0300064)
 bones/16/enabled = true
 bones/16/position = Vector3(-0.00227886, 0.0494465, -0.0300064)
-bones/16/rotation = Quaternion(-0.00142648, 0.828059, -0.55864, 0.047294)
+bones/16/rotation = Quaternion(0.0609315, 0.8261, -0.558251, 0.0469177)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/name = "RightLowerArm"
 bones/17/parent = 16
 bones/17/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.00107936, 0.0418206, -0.006975)
 bones/17/enabled = true
 bones/17/position = Vector3(0.00107936, 0.0418206, -0.006975)
-bones/17/rotation = Quaternion(0.116488, 0.697549, -0.116397, 0.697358)
+bones/17/rotation = Quaternion(0.143314, 0.671552, -0.15372, 0.710528)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/name = "RightHand"
 bones/18/parent = 17
 bones/18/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0.000525926, 0.0615445, -0.00322273)
 bones/18/enabled = true
 bones/18/position = Vector3(0.000525926, 0.0615445, -0.00322273)
-bones/18/rotation = Quaternion(-0.0267686, -0.720331, -0.00438958, 0.6931)
+bones/18/rotation = Quaternion(-0.0204099, -0.732807, 0.0230046, 0.679742)
 bones/18/scale = Vector3(1, 1, 1)
 bones/19/name = "mixamorig_RightHandIndex1"
 bones/19/parent = 18
 bones/19/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000732266, 0.0146088, -0.011044)
 bones/19/enabled = true
 bones/19/position = Vector3(-0.000732266, 0.0146088, -0.011044)
-bones/19/rotation = Quaternion(0.0344035, -0.00373207, -0.0363721, 0.998739)
+bones/19/rotation = Quaternion(0.060562, -0.00457148, -0.0376645, 0.997443)
 bones/19/scale = Vector3(1, 1, 1)
 bones/20/name = "mixamorig_RightHandIndex2"
 bones/20/parent = 19
@@ -701,28 +1203,28 @@ bones/23/parent = 0
 bones/23/rest = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, 0.0262738, -0.0194159, -0.00766166)
 bones/23/enabled = true
 bones/23/position = Vector3(0.0262738, -0.0194159, -0.00766166)
-bones/23/rotation = Quaternion(0.120768, 0.153778, 0.976091, -0.094944)
+bones/23/rotation = Quaternion(0.121977, 0.128425, 0.979617, -0.0947559)
 bones/23/scale = Vector3(1, 1, 1)
 bones/24/name = "LeftLowerLeg"
 bones/24/parent = 23
 bones/24/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.00142792, 0.122986, 0.00402629)
 bones/24/enabled = true
 bones/24/position = Vector3(-0.00142792, 0.122986, 0.00402629)
-bones/24/rotation = Quaternion(-0.0241799, 0.979714, -0.194697, 0.0408458)
+bones/24/rotation = Quaternion(-0.0205696, 0.987993, -0.149561, 0.0328463)
 bones/24/scale = Vector3(1, 1, 1)
 bones/25/name = "LeftFoot"
 bones/25/parent = 24
 bones/25/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0.000992076, 0.0983898, 0.00588034)
 bones/25/enabled = true
 bones/25/position = Vector3(0.000992076, 0.0983898, 0.00588034)
-bones/25/rotation = Quaternion(-0.0343572, 0.682708, -0.72354, 0.0960138)
+bones/25/rotation = Quaternion(-0.0331626, 0.693627, -0.71331, 0.0947116)
 bones/25/scale = Vector3(1, 1, 1)
 bones/26/name = "LeftToes"
 bones/26/parent = 25
 bones/26/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.0100081, 0.0329863, -0.0307945)
 bones/26/enabled = true
 bones/26/position = Vector3(-0.0100081, 0.0329863, -0.0307945)
-bones/26/rotation = Quaternion(0.0208296, 0.999228, 0.0261488, 0.0206584)
+bones/26/rotation = Quaternion(0.0208713, 0.999232, 0.0260592, 0.0205312)
 bones/26/scale = Vector3(1, 1, 1)
 bones/27/name = "mixamorig_LeftToe_End"
 bones/27/parent = 26
@@ -736,28 +1238,28 @@ bones/28/parent = 0
 bones/28/rest = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, -0.0262737, -0.0194159, -0.00710944)
 bones/28/enabled = true
 bones/28/position = Vector3(-0.0262737, -0.0194159, -0.00710944)
-bones/28/rotation = Quaternion(-0.0776937, 0.112776, 0.989386, 0.0485815)
+bones/28/rotation = Quaternion(-0.0861118, 0.0756502, 0.992158, 0.0498492)
 bones/28/scale = Vector3(1, 1, 1)
 bones/29/name = "RightLowerLeg"
 bones/29/parent = 28
 bones/29/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.00142791, 0.122986, 0.00399655)
 bones/29/enabled = true
 bones/29/position = Vector3(0.00142791, 0.122986, 0.00399655)
-bones/29/rotation = Quaternion(0.0243467, 0.97864, -0.199929, -0.0412323)
+bones/29/rotation = Quaternion(0.0168304, 0.984035, -0.171095, -0.0460307)
 bones/29/scale = Vector3(1, 1, 1)
 bones/30/name = "RightFoot"
 bones/30/parent = 29
 bones/30/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, -0.000992076, 0.0983899, 0.0062905)
 bones/30/enabled = true
 bones/30/position = Vector3(-0.000992076, 0.0983899, 0.0062905)
-bones/30/rotation = Quaternion(0.0553806, 0.633042, -0.770346, -0.0525135)
+bones/30/rotation = Quaternion(0.0528316, 0.642207, -0.763158, -0.0486672)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/name = "RightToes"
 bones/31/parent = 30
 bones/31/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.0100081, 0.0321019, -0.0307945)
 bones/31/enabled = true
 bones/31/position = Vector3(0.0100081, 0.0321019, -0.0307945)
-bones/31/rotation = Quaternion(-0.0211779, 0.998463, 0.0470158, -0.0203115)
+bones/31/rotation = Quaternion(-0.0217113, 0.998339, 0.0500094, -0.0186026)
 bones/31/scale = Vector3(1, 1, 1)
 bones/32/name = "mixamorig_RightToe_End"
 bones/32/parent = 31
@@ -767,41 +1269,83 @@ bones/32/position = Vector3(-0.00711934, 0.0166344, 0.00130366)
 bones/32/rotation = Quaternion(0, 0, 0, 1)
 bones/32/scale = Vector3(1, 1, 1)
 
-[node name="hero" type="MeshInstance3D" parent="Body/rock_dude/Armature/GeneralSkeleton"]
+[node name="hero" type="MeshInstance3D" parent="RockLee/Body/rock_dude/Armature/GeneralSkeleton"]
 material_overlay = SubResource("ShaderMaterial_o1q83")
 mesh = SubResource("ArrayMesh_gsvjq")
 skin = SubResource("Skin_f6anp")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Body/rock_dude"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RockLee/Body/rock_dude"]
 libraries = {
 "": SubResource("AnimationLibrary_sux07"),
-"Basic": ExtResource("7_mf4ef")
+"Basic": ExtResource("29_e1pnl")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="Body"]
+[node name="AnimationTree" type="AnimationTree" parent="RockLee/Body"]
 root_node = NodePath("../rock_dude")
 libraries = {
 "": SubResource("AnimationLibrary_sux07"),
-"Basic": ExtResource("7_mf4ef")
+"Basic": ExtResource("29_e1pnl")
 }
-tree_root = ExtResource("8_n8tpr")
+tree_root = ExtResource("30_3frob")
 anim_player = NodePath("../rock_dude/AnimationPlayer")
 parameters/conditions/is_dead = false
 parameters/Move/blend_position = 0.0116172
 
-[node name="VFX_HumanBootsteps" type="GPUParticles3D" parent="Body"]
+[node name="VFX_HumanBootsteps" type="GPUParticles3D" parent="RockLee/Body"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.021, 0.065, -0.018)
 amount = 16
 visibility_aabb = AABB(-3.93457, -4, -4, 8, 8, 8)
 process_material = SubResource("ParticleProcessMaterial_0aalk")
 draw_pass_1 = SubResource("PlaneMesh_nee35")
 
-[node name="Aim" type="Node3D" parent="."]
+[node name="Aim" type="Node3D" parent="RockLee"]
 
-[node name="KunaiLauncherWeapon" parent="Aim" instance=ExtResource("16_y4bgj")]
+[node name="KunaiLauncherWeapon" parent="RockLee/Aim" instance=ExtResource("32_10g7i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368659, -0.19761)
 
-[node name="GunToxicGobLauncher" parent="Aim" instance=ExtResource("17_cdtes")]
+[node name="GunToxicGobLauncher" parent="RockLee/Aim" instance=ExtResource("33_n3itc")]
 visible = false
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="RockLee"]
+
+[node name="AF_FireplaceA" parent="." instance=ExtResource("11_me8eh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.45215, 0, -1.51966)
+
+[node name="AF_FireplaceA_2" parent="." node_paths=PackedStringArray("repeat_procedures", "gizmo") instance=ExtResource("11_me8eh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.52946, 0, 1.46547)
+repeat_procedures = [NodePath("../AF_FireplaceA/GDamageProcedure")]
+gizmo = NodePath("../AF_FireplaceA/CollisionShape3D/Gizmo")
+
+[node name="AF_FireplaceA_3" parent="." node_paths=PackedStringArray("repeat_procedures", "gizmo") instance=ExtResource("11_me8eh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.52946, 0, 1.11536)
+repeat_procedures = [NodePath("../AF_FireplaceA/GDamageProcedure")]
+gizmo = NodePath("../AF_FireplaceA/CollisionShape3D/Gizmo")
+
+[node name="AF_FireplaceA_4" parent="." node_paths=PackedStringArray("repeat_procedures", "gizmo") instance=ExtResource("11_me8eh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.18023, 0, 1.16237)
+repeat_procedures = [NodePath("../AF_FireplaceA/GDamageProcedure")]
+gizmo = NodePath("../AF_FireplaceA/CollisionShape3D/Gizmo")
+
+[node name="nav_region" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("12_usyif")
+
+[node name="floor" type="GridMap" parent="nav_region"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("12_1psnx")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 0, 1048579, 65534, 65535, 3, 7, 0, 1048579, 8, 0, 3, 9, 65535, 3, 9, 65534, 3, 8, 65534, 3, 8, 65535, 3, 3, 2, 1048579, 1, 2, 1048579, 2, 1, 1048579, 3, 1, 1048579, 4, 1, 1048579, 4, 5, 1441795, 5, 5, 1441795, 6, 5, 1441795, 7, 6, 3, 3, 10, 1441795, 5, 4, 1048579, 5, 3, 1048579, 5, 2, 1048579, 4, 2, 1048579, 5, 65529, 1441795, 6, 65525, 1441795, 5, 65525, 1048579, 5, 65524, 1048579, 4, 65524, 3, 3, 65523, 1048579, 2, 65523, 3, 1, 65522, 3, 0, 65522, 3, 65535, 65522, 3, 0, 65527, 3, 65535, 65530, 1441795, 65535, 65531, 1441795, 65535, 65532, 1441795, 0, 65532, 1441795, 65534, 65531, 1441795, 65533, 65531, 1441795, 65532, 65531, 3, 65530, 65529, 1441795, 2, 65534, 1441795, 7, 65530, 1441795, 3, 65533, 3, 3, 65534, 1441795, 2, 65527, 3, 2, 65526, 3, 3, 65526, 3, 4, 65526, 3, 7, 65526, 1441795, 7, 65527, 1441795, 6, 65527, 3, 6, 65528, 1441795, 4, 65531, 1048579, 9, 65529, 3, 11, 65532, 3, 9, 65533, 1441795, 8, 65533, 1441795, 12, 65533, 3, 12, 65534, 1441795, 12, 0, 3, 11, 1, 3, 12, 2, 1441795, 11, 4, 1048579, 10, 4, 1441795, 7, 3, 655363, 9, 3, 1441795, 7, 9, 1441795, 6, 9, 1441795, 5, 9, 1441795, 4, 8, 1441795, 3, 8, 1441795, 65529, 6, 655363, 65533, 2, 1441795, 65533, 3, 1441795, 65535, 4, 1441795, 65533, 7, 1441795, 65531, 7, 1441795, 65531, 6, 1441795, 65531, 5, 3, 65530, 2, 3, 65527, 65534, 1441795, 65527, 65533, 1441795, 65526, 65534, 1048579, 65526, 65535, 1441795, 65529, 2, 3, 65526, 1, 1048579, 65530, 0, 1441795, 65529, 0, 1441795, 65529, 65532, 1441795, 65528, 65532, 1441795, 65529, 65531, 1441795, 65530, 65531, 1441795, 65530, 65528, 1441795, 65527, 65524, 3, 65531, 65527, 1441795, 65531, 65528, 1441795, 65533, 65527, 3, 65533, 65526, 1441795, 65532, 65526, 3, 65531, 65526, 1441795, 65530, 65525, 1048579, 65530, 65527, 1441795, 65526, 2, 3, 65526, 5, 1441795, 65527, 5, 3, 65527, 6, 1441795, 65528, 6, 3, 65524, 65535, 1441795, 65528, 65533, 1441795, 65531, 65525, 1441795, 65533, 65530, 1441795, 1, 65531, 1441795, 2, 65530, 1441795, 4, 65532, 1048579, 5, 65535, 1048579, 5, 0, 1048579, 7, 2, 1441795, 7, 1, 1441795, 6, 2, 1048579, 6, 3, 1048579, 6, 4, 1441795, 4, 7, 1441795, 7, 8, 1441795, 6, 8, 1441795, 5, 8, 1441795, 0, 7, 1441795, 1, 7, 1441795, 0, 6, 1441795, 65535, 5, 1441795, 65535, 7, 655363, 6, 7, 1441795, 2, 3, 1441795, 1, 3, 1048579, 2, 4, 1048579, 1, 5, 1441795, 65534, 0, 1048579, 65531, 1, 1441795, 65531, 0, 1441795, 65527, 65530, 1441795, 65526, 65528, 1441795, 65525, 65528, 1441795, 65525, 65529, 1441795, 65526, 65532, 1441795, 0, 65534, 1441795, 0, 65533, 1441795, 1, 65533, 1441795, 1, 65532, 1048579, 1, 65530, 1441795, 0, 65526, 1441795, 1, 65526, 1441795, 1, 65525, 1441795, 65534, 65528, 1441795, 65529, 65528, 1048579, 65526, 65526, 1441795, 65523, 65524, 1441795, 65523, 65525, 1441795, 65526, 65529, 1441795, 65526, 65530, 1441795, 65525, 0, 1441795, 65523, 65533, 1441795, 65524, 65531, 1441795, 65524, 65532, 1441795, 65523, 65535, 1441795, 65523, 0, 1441795, 65523, 1, 1441795, 65522, 65535, 1441795, 65524, 0, 1441795, 65525, 1, 1441795, 65525, 2, 1441795, 65521, 65535, 1441795, 65525, 4, 1048579, 65525, 5, 1441795, 65526, 6, 1441795, 65527, 7, 1441795, 65528, 7, 1441795, 65528, 8, 1441795, 65529, 10, 1441795, 65530, 9, 1441795, 65531, 9, 655363, 65532, 9, 655363, 65534, 9, 1441795, 65534, 10, 1441795, 65535, 10, 1441795, 7, 10, 1441795, 65533, 10, 655363, 8, 6, 1048579, 7, 7, 1048579, 8, 8, 1441795, 9, 6, 1441795, 9, 5, 1441795, 14, 65534, 1048579, 15, 65533, 1048579, 8, 1, 1048579, 11, 65535, 1048579, 11, 65534, 1048579, 11, 65533, 1441795, 12, 65532, 1048579, 12, 65531, 1048579, 13, 65531, 1048579, 14, 65530, 1048579, 13, 65530, 1048579, 12, 65530, 1048579, 11, 65530, 1048579, 9, 65530, 1048579, 6, 65532, 1441795, 5, 65530, 1441795, 2, 65522, 1048579, 2, 65521, 1048579, 3, 65521, 1048579, 3, 65522, 1048579, 4, 65523, 1048579, 11, 65531, 1048579, 9, 65532, 1048579, 8, 65532, 1441795, 7, 65532, 1048579, 7, 65531, 1048579, 9, 65527, 1048579, 9, 65528, 1048579, 8, 65528, 1048579, 8, 65529, 1048579, 7, 65529, 1441795, 65534, 65526, 1441795, 65534, 65527, 1441795, 65530, 65526, 1441795, 65527, 65521, 1048579, 65527, 65522, 1048579, 65527, 65523, 1048579, 65528, 65523, 1048579, 65528, 65524, 1441795, 65528, 65525, 1441795, 65528, 65526, 1441795, 65529, 65526, 1441795, 65529, 65527, 1441795, 0, 3, 1048579, 1, 65534, 1441795, 65531, 65532, 1048579, 65533, 65533, 3, 65531, 2, 1441795, 65531, 4, 1048579, 65528, 3, 655363, 65528, 4, 655363, 65533, 4, 1048579, 65534, 65534, 1048579, 3, 65535, 3, 3, 0, 1048579, 65532, 65534, 1441795, 4, 65534, 1441795, 4, 65535, 1048579, 4, 0, 1048579, 5, 65534, 1048579, 5, 1, 1048579, 6, 1, 1048579, 1, 4, 1441795, 0, 4, 1441795, 65530, 1, 1441795, 65529, 1, 3, 65529, 65535, 1441795, 65529, 65534, 3, 65526, 65531, 1441795, 65528, 65531, 1441795, 65525, 65532, 1441795, 65534, 65529, 1441795, 0, 65529, 1441795, 0, 65530, 1441795, 0, 65531, 1441795, 0, 5, 1441795, 65529, 5, 655363, 65527, 4, 655363, 65530, 6, 655363, 65527, 3, 655363, 4, 65533, 1441795, 5, 65533, 1441795, 5, 65532, 1441795, 6, 65531, 1441795, 6, 65530, 1441795, 6, 65529, 1441795, 5, 65528, 1441795, 7, 65528, 1441795, 7, 65525, 1441795, 7, 65524, 1441795, 8, 65524, 1441795, 8, 65525, 1441795, 8, 65526, 1441795, 5, 65531, 1441795, 65534, 65530, 1441795, 65533, 65529, 1441795, 65533, 65528, 1441795, 65533, 65525, 1441795, 65532, 65525, 1441795, 65532, 65524, 1441795, 65531, 65524, 1441795, 65530, 65524, 1441795, 65529, 65524, 1441795, 65529, 65525, 1441795, 65532, 65528, 1441795, 65531, 65529, 1441795, 0, 65535, 1441795, 0, 0, 1441795, 0, 1, 1441795, 65535, 1, 1441795, 65534, 1, 1441795, 65533, 1, 1441795, 65534, 2, 1441795, 65532, 2, 1441795, 65528, 65535, 1441795, 65528, 65534, 1441795, 65526, 65533, 1441795, 65527, 65532, 1441795, 65525, 65531, 1441795, 65525, 65533, 1441795, 65534, 3, 1441795, 65535, 3, 1441795, 1, 6, 1441795, 2, 6, 1441795, 3, 6, 1441795, 4, 6, 1441795, 5, 6, 1441795, 5, 7, 1441795, 8, 7, 1441795, 9, 7, 1441795, 10, 5, 1441795, 10, 3, 1441795, 11, 3, 1441795, 11, 2, 1441795, 12, 1, 1441795, 13, 1, 1441795, 13, 0, 1441795, 13, 65535, 1441795, 13, 65534, 1441795, 10, 65533, 1441795, 7, 65533, 1441795, 6, 65533, 1441795, 10, 1, 1441795, 10, 2, 1441795, 9, 2, 1441795, 8, 2, 1441795, 8, 3, 1441795, 9, 4, 1441795, 1, 9, 1441795, 0, 9, 1441795, 65535, 9, 1441795, 65534, 8, 1441795, 65533, 8, 1441795, 65532, 8, 1441795, 65532, 7, 1441795, 65533, 9, 1441795, 0, 10, 1441795, 1, 10, 1441795, 2, 10, 1441795, 4, 10, 1441795, 5, 10, 1441795, 2, 2, 1441795, 65532, 1, 1441795)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="walls" type="GridMap" parent="nav_region"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("12_8840w")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(13, 65533, 1048576, 14, 65534, 1048576, 14, 65535, 1048576, 65532, 65527, 1048576, 65531, 65528, 0, 65530, 65527, 1441792, 65531, 65527, 1441792, 65531, 65526, 1441792, 131067, 65527, 1441792, 196603, 65527, 1441792, 262139, 65527, 1441792, 327675, 65527, 1441792, 327676, 65527, 1441792, 327675, 65528, 1441792, 327674, 65527, 1441792, 327675, 65526, 1441792, 393211, 65527, 1441792, 2, 65529, 1441792, 2, 65528, 1441792, 2, 65526, 1441792, 2, 65527, 1441792, 2, 65525, 1441792, 9, 65525, 1441792, 9, 65526, 1441792, 9, 65527, 1441792, 9, 65528, 1441792, 9, 65529, 1441792, 8, 65530, 1441792, 7, 65530, 1441792, 7, 65531, 1441792, 3, 65524, 1441792, 4, 65523, 1441792, 5, 65523, 1441792, 6, 65523, 1441792, 7, 65523, 1441792, 8, 65524, 1441792, 3, 65530, 1441792, 4, 65530, 1441792, 4, 65531, 1441792)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="FXFireBasicB" parent="." instance=ExtResource("15_ksseg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53006, 0, -0.403021)

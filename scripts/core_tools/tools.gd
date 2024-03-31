@@ -83,6 +83,7 @@ func get_random_element_from_array(arr: Array):
 func get_random_key_from_dict(dict: Dictionary):
 	if dict.is_empty():
 		return null
+		
 	var keys = dict.keys()
 	var random_index = randi() % keys.size()
 	return keys[random_index]
@@ -252,6 +253,9 @@ static func to_string_array(inp: Array) -> Array[String]:
 		else:
 			output.append(item.to_string())
 	return output
+
+static func is_node_active(node) -> bool:
+	return node != null and node.is_inside_tree() and node.is_visible_in_tree()
 	
 static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target_mat: ShaderMaterial):
 	target_mat.set_shader_parameter("albedo", source_mat.albedo_color)
