@@ -64,7 +64,6 @@ folder_colors={
 "res://assets/meta/": "gray",
 "res://misc/": "gray",
 "res://resources/": "gray",
-"res://resources/glossary/": "purple",
 "res://resources/levels/": "purple",
 "res://resources/materials/": "teal",
 "res://resources/materials/particles/": "gray",

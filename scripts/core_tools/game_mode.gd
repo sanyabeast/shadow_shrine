@@ -8,6 +8,7 @@ class_name GGameMode
 @export_subgroup("# Game Mode")
 @export var player_driver: GPlayerDriver
 @export var npc_driver: GNpcDriver
+@export var thesaurus: GThesaurus
 
 var cooldowns:= GCooldowns.new(true)
 
@@ -15,6 +16,8 @@ var cooldowns:= GCooldowns.new(true)
 func _ready():
 	_prepare()
 	game.set_mode(self)
+	if thesaurus != null:
+		game.set_thesaurus(thesaurus)
 	pass # Replace with function body.
 
 func _prepare():

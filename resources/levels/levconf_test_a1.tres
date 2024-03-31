@@ -15,6 +15,7 @@
 [resource]
 script = ExtResource("1_3rr6x")
 title = "Slime Dungeon"
+enemy_types = Array[String](["boxed_slime", "boxed_slime_kid"])
 start_rooms = Array[PackedScene]([ExtResource("1_onodg")])
 special_rooms = Array[PackedScene]([])
 end_rooms = Array[PackedScene]([ExtResource("10_eq472")])

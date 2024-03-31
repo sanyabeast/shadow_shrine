@@ -29,7 +29,6 @@ signal on_graphics_quality_preset_changed
 
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
 
-var data: RDataIndex
 var tasks: GTasker = GTasker.new(false)
 var cooldowns: GCooldowns = GCooldowns.new(false)
 var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
@@ -45,12 +44,8 @@ func _ready():
 	if settings_config_err_code != 0:
 		dev.logd(TAG, "settings_config config error: %s" % settings_config_err_code)
 	
-	data = load(data_index_path)
-	dev.logd(TAG, "app  ready, data index resource loaded: %s" % data)
 	dev.logd(TAG, "is debug: %s" % tools.IS_DEBUG)
 	_load_settings()
-	
-	pass # Replace with function body.
 
 func _process(delta):
 	tasks.update()

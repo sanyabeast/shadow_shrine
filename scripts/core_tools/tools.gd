@@ -221,20 +221,38 @@ func calculate_reflected_direction(direction: Vector3, normal: Vector3) -> Vecto
 	
 	return reflected_direction
 
-func cycle_within_range(value, from_val, to):
+static func cycle_within_range(value, from_val, to):
 	if value > to:
 		value = from_val + (value - from_val) % (to - from_val + 1)
 	if value < from_val:
 		value = to - (from_val - value) % (to - from_val + 1) + 1
 	return value
 
-func move_toward_color(from: Color, to: Color, speed: float) -> Color:
+static func move_toward_color(from: Color, to: Color, speed: float) -> Color:
 	return Color(
 		move_toward(from.r, to.r, speed),
 		move_toward(from.g, to.g, speed),
 		move_toward(from.b, to.b, speed)
 	)
+	
+static func array_unique(array):
+	var unique = []
 
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+
+	return unique
+	
+static func to_string_array(inp: Array) -> Array[String]:
+	var output: Array[String] = []
+	for item in inp:
+		if item is String:
+			output.append(item)
+		else:
+			output.append(item.to_string())
+	return output
+	
 static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target_mat: ShaderMaterial):
 	target_mat.set_shader_parameter("albedo", source_mat.albedo_color)
 	target_mat.set_shader_parameter("point_size", source_mat.point_size)

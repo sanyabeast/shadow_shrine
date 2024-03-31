@@ -11,6 +11,7 @@ signal on_hurt(health_loss: float, point: Vector3, direction: Vector3)
 signal on_fire(weapon: GWeaponController, direction: Vector3)
 
 @export_subgroup("# CharacterController")
+@export var id: String = ""
 @export var config: RCharacterConfig
 @onready var aim_rig: Node3D = $Aim
 @onready var collider: CollisionShape3D = $CollisionShape3D
@@ -61,6 +62,7 @@ func _to_string():
 	return "CharacterController(name: %s, health: %s/%s)" % [name, health.value, max_health.value]
 
 func _ready():
+	assert(id.length() > 0, "character `id` must be non-empty string, found `%s` at `%s`" % [id, name])
 	_traverse(self)
 	add_child(nav_agent)
 

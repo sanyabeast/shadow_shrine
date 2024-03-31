@@ -16,6 +16,9 @@ var seed: int = 0
 var is_over: bool = false
 var is_won: bool = false
 
+var thesaurus: GThesaurus
+var difficulty: float = 1
+
 signal on_seed_changed(seed: int)
 
 # Called when the node enters the scene tree for the first time.
@@ -87,3 +90,7 @@ func quit():
 		mode.quit()
 	else:
 		app.load_main_menu_level()
+
+func set_thesaurus(_thesaurus: GThesaurus):
+	dev.logd(TAG, "changing thesaurus to `%s`" % _thesaurus.id)
+	thesaurus = _thesaurus

@@ -257,6 +257,7 @@ _data = {
 disable_mode = 1
 safe_margin = 0.01
 script = ExtResource("1_axkfw")
+id = "boxed_slime"
 config = ExtResource("2_vw4ig")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

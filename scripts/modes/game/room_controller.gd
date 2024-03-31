@@ -6,10 +6,18 @@ extends Node3D
 class_name GRoomController
 const TAG: String = "RoomController"
 
+enum EEnemyTypeListMergeMode {
+	OVERWRITE,
+	JOIN,
+	JOIN_UNIQUE
+}
+
 @export_subgroup("# RoomController")
-@export var config: RRoomConfig
 @export var player_spawn: Node3D
-@export var doors_opened: bool = false
+
+@export_subgroup("# RoomController ~ Enemies")
+@export var enemy_types: Array[String] = []
+@export var enemy_type_list_merge_mode:= EEnemyTypeListMergeMode.JOIN_UNIQUE
 
 @export var doors_map: Dictionary = {
 	world.EDirection.North: true,
@@ -26,6 +34,7 @@ const TAG: String = "RoomController"
 
 @export_subgroup("# RoomController ~ Misc")
 @export var auto_initialize: bool = false
+@export var doors_opened: bool = false
 
 @export_subgroup("# RoomController ~ Spots")
 @export var enemy_spots: Node3D
@@ -54,6 +63,18 @@ func _ready():
 	if auto_initialize:
 		random.set_seed(game.seed + seed_offset)
 		initialize()
+		
+	if game.mode is GGameModeDefaultGame:
+		match enemy_type_list_merge_mode:
+			EEnemyTypeListMergeMode.OVERWRITE:
+				pass
+			EEnemyTypeListMergeMode.JOIN:
+				enemy_types = game.mode.config.enemy_types + enemy_types
+			EEnemyTypeListMergeMode.JOIN_UNIQUE:
+				var unique_enemy_types = tools.to_string_array(
+					tools.array_unique(game.mode.config.enemy_types + enemy_types)
+				)
+				enemy_types = unique_enemy_types
 	
 	name = "room"
 
@@ -108,14 +129,22 @@ func spawn_enemies():
 		_spawn_enemy(spot)
 
 func _spawn_enemy(spot: Node3D):
-	if config != null and config.enemies.size() > 0:
-		var prefab: PackedScene = random.choice_from_array(config.enemies)
-		#dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
+	if enemy_types.size() > 0:
+		pass
+		var character_entry: GThesaurusEntry = game.thesaurus.get_one_item_from_list_by_rarity(
+			GThesaurus.EThesaurusCategory.CHARACTER, 
+			enemy_types,
+			game.difficulty,
+		)
+		
+		var prefab = character_entry.main_scene
+		#var prefab: PackedScene = random.choice_from_array(config.enemies)
+		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: GCharacterController = prefab.instantiate()
 		content.add_child(enemy)
 		enemy.global_position = spot.global_position
 		enemy.global_rotation_degrees.y = spot.global_rotation_degrees.y
-		#enemy.global_rotation_degrees.y = random.range(0, 360)
+		enemy.global_rotation_degrees.y = random.range(0, 360)
 	else:
 		dev.logr(TAG, "unable to spawn enemys at specifiet spot: room config not congigured proprly")
 	pass

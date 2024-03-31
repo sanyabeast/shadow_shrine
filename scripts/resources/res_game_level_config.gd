@@ -6,6 +6,7 @@ class_name RGameLevelConfig
 
 @export_subgroup("♥ GameLevelConfig")
 @export var title: String = ""
+@export var enemy_types: Array[String] = []
 
 @export_subgroup("♥ GameLevelConfig ~ Rooms")
 @export var start_rooms: Array[PackedScene] = []

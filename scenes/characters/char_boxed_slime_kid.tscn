@@ -245,6 +245,7 @@ ideal_distance_max = 1.0
 disable_mode = 1
 safe_margin = 0.01
 script = ExtResource("1_yjlnt")
+id = "boxed_slime_kid"
 config = ExtResource("2_vy3e7")
 hide_on_death = [NodePath("ToxicBubbles")]
 weapon = NodePath("Aim/BasicMeleeWeapon")

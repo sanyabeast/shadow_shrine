@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cc1jy1gk5wv5j"]
+
+[ext_resource type="Script" path="res://scripts/core_tools/thesaurus.gd" id="1_l7g12"]
+[ext_resource type="Script" path="res://scripts/core_tools/thesaurus/thesaurus_entry.gd" id="2_c37lg"]
+[ext_resource type="Script" path="res://scripts/core_tools/thesaurus/thesaurus_directory.gd" id="2_kc8s0"]
+[ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_gscqm"]
+[ext_resource type="PackedScene" uid="uid://cgseiay2l8uf" path="res://scenes/characters/char_boxed_slime.tscn" id="4_h4ubn"]
+[ext_resource type="PackedScene" uid="uid://gajmsefrdp7c" path="res://scenes/characters/char_boxed_slime_kid.tscn" id="5_w6ch8"]
+
+[node name="Thesaurus" type="Node"]
+script = ExtResource("1_l7g12")
+id = "main_dev"
+
+[node name="characters" type="Node" parent="."]
+script = ExtResource("2_kc8s0")
+category = 1
+
+[node name="rock_lee" type="Node" parent="characters"]
+script = ExtResource("2_c37lg")
+title = "Rock Lee"
+rarity = 100.0
+main_scene = ExtResource("3_gscqm")
+demo_scene = ExtResource("3_gscqm")
+
+[node name="boxed_slime" type="Node" parent="characters"]
+script = ExtResource("2_c37lg")
+title = "Boxed Slime"
+rarity = 1.1
+main_scene = ExtResource("4_h4ubn")
+demo_scene = ExtResource("4_h4ubn")
+
+[node name="boxed_slime_kid" type="Node" parent="characters"]
+script = ExtResource("2_c37lg")
+title = "Kid Boxed Slime"
+rarity = 0.15
+main_scene = ExtResource("5_w6ch8")
+demo_scene = ExtResource("5_w6ch8")
+
+[node name="weapons" type="Node" parent="."]

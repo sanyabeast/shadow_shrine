@@ -1,6 +1,7 @@
 # Author: @sanyabeast
 # Date: Feb. 2024
 
+@icon("res://assets/_dev/_icons/camera_a.png")
 extends Node3D
 
 class_name GCameraController

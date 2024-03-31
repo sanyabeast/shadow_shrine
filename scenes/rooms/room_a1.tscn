@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dir4wp4krqhop"]
+[gd_scene load_steps=12 format=3 uid="uid://dir4wp4krqhop"]
 
 [ext_resource type="Script" path="res://scripts/modes/game/room_controller.gd" id="1_xkknt"]
-[ext_resource type="Resource" uid="uid://parbjaiw46e5" path="res://resources/rooms/roomconf_slimes_territory.tres" id="2_fvwsk"]
 [ext_resource type="MeshLibrary" uid="uid://svtnrvr0ko6v" path="res://assets/meshlibs/mlib_jerdelia_a.tres" id="2_yhkkk"]
 [ext_resource type="PackedScene" uid="uid://b2dpxeii4p11d" path="res://scenes/misc/door_basic_a1.tscn" id="3_3pn2a"]
 [ext_resource type="MeshLibrary" uid="uid://bkd8f1a12u0eu" path="res://assets/meshlibs/mlib_jerdelia_b.tres" id="4_infnt"]
@@ -25,12 +24,16 @@ edge_max_length = 0.5
 
 [node name="RoomA1" type="Node3D" node_paths=PackedStringArray("player_spawn", "content", "doors_container", "walls_gridmap", "obstacles_gridmap", "enemy_spots")]
 script = ExtResource("1_xkknt")
-config = ExtResource("2_fvwsk")
 player_spawn = NodePath("spots/PlayerSpawnGizmo")
+enemy_types = null
+enemy_type_list_merge_mode = null
+doors_map = null
 content = NodePath("content")
 doors_container = NodePath("doors")
 walls_gridmap = NodePath("nav_region/wallls_gm")
 obstacles_gridmap = NodePath("nav_region/obstacles_gm")
+auto_initialize = null
+doors_opened = null
 enemy_spots = NodePath("spots/enemies")
 
 [node name="content" type="Node3D" parent="."]
