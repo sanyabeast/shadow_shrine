@@ -257,6 +257,7 @@ static func to_string_array(inp: Array) -> Array[String]:
 static func is_node_active(node) -> bool:
 	return node != null and node.is_inside_tree() and node.is_visible_in_tree()
 	
+	
 static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target_mat: ShaderMaterial):
 	target_mat.set_shader_parameter("albedo", source_mat.albedo_color)
 	target_mat.set_shader_parameter("point_size", source_mat.point_size)
@@ -280,3 +281,5 @@ static func copy_standard_props_to_shader(source_mat: StandardMaterial3D, target
 	target_mat.set_shader_parameter("texture_normal", source_mat.normal_texture)
 	target_mat.set_shader_parameter("texture_emission", source_mat.emission_texture)
 	
+static func is_point_inside_rect(point: Vector2, rect: Rect2) -> bool:
+	return point.x > rect.position.x and point.y > rect.position.y and point.x < (rect.position.x + rect.size.x) and point.y < (rect.position.y + rect.size.y)

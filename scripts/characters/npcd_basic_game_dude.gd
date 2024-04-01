@@ -75,9 +75,12 @@ class GDudeState extends GNpcDriver.GNpcState:
 			if characters.player != null:
 				target_position = characters.player.global_position
 			else:
-				target_position = world.get_random_reachable_point_in_square(
+				var new_target_position = world.get_random_reachable_point_in_square(
 					character.global_position, character.config.patrolling_distance
 				)
+				
+				if new_target_position != null:
+					target_position = new_target_position
 
 			if character.config.target_position_refresh_timeout > 0:
 				cooldowns.start(

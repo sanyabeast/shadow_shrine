@@ -135,10 +135,10 @@ func select_prev():
 	if interactive:
 		select(index - 1)
 
-func select_item(item: GMenuItem):
+func select_item(item: GMenuItem, force: bool = false):
 	var index = items.find(item)
 	if index >= 0:
-		select(index)
+		select(index, force)
 
 # Method to navigate to the next option within the currently selected menu item.
 func next_option():
@@ -258,6 +258,7 @@ func play_animation(name: String, progress: float = 0):
 
 func enable_interaction():
 	interactive = true
+	_update_items_mouse_input_state_explicitly()
 	
 func disable_interaction():
 	interactive = false
@@ -296,3 +297,8 @@ func play_sound(is_submit: bool = false, is_cancel: bool = false, is_alter: bool
 			_audio_player.stream = stream
 			_audio_player.pitch_scale = pitch_scale
 			_audio_player.play()
+
+func _update_items_mouse_input_state_explicitly():
+	for item in items:
+		if item.is_visible_in_tree():
+			item.update_mouse_input_state_explicitly()

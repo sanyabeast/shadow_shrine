@@ -153,21 +153,29 @@ func get_direction_pretty_name(dir: EDirection) -> String:
 	return "?"
 	
 #region: Navigation		
-func get_random_reachable_point_in_square(origin: Vector3, square_size: float, min_distance: float = 0):
+func get_random_reachable_point_in_square(origin: Vector3, square_size: float, min_distance: float = 0, max_iterations: int = 8):
 	min_distance = min(min_distance, square_size / 2)
 	var distance = null
 	var random_point: Vector3 = Vector3.ZERO
+	var current_iteration: int = 0
+	var reachable_point = null
 	
-	while distance == null or distance < min_distance:
+	while (distance == null or distance < min_distance) and current_iteration < max_iterations:
 		random_point = Vector3(
 			origin.x + randf_range(-square_size / 2, square_size / 2),
 			0,
 			origin.z + randf_range(-square_size / 2, square_size / 2)
 		)
 		
-		distance = random_point.distance_to(origin)
-	
-	var reachable_point: Vector3 = get_closest_reachable_point(random_point)
+		reachable_point = get_closest_reachable_point(random_point)
+		distance = reachable_point.distance_to(origin)
+		current_iteration += 1
+		
+		if distance < min_distance:
+			reachable_point = null
+		
+		
+	dev.logd(TAG, "get_random_reachable_point_in_square: found point `%s` in `%s` iterations" % [reachable_point, current_iteration])
 	return reachable_point
 
 func get_closest_reachable_point(point: Vector3)->Vector3:

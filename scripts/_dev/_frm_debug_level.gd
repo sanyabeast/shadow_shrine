@@ -15,15 +15,19 @@ func _process(delta):
 		_spawn_enemy()
 
 func handle_player_dead():
-	characters.respawn_player(
-		world.get_random_reachable_point_in_square(characters.last_player_position, 16, 8)
-	)
+	var spawn_position = world.get_random_reachable_point_in_square(characters.last_player_position, 16, 8)
+	if spawn_position == null:
+		spawn_position = Vector3.ZERO
+	characters.respawn_player(spawn_position)
 	pass
 
 func _spawn_enemy():
-	var entry = game.thesaurus.get_one_item_from_list_by_rarity(GThesaurus.EThesaurusCategory.CHARACTER, enemies, game.difficulty)
-	var enemy = characters.spawn_character(world.get_scene(), entry.id, 
-		world.get_random_reachable_point_in_square(characters.last_player_position, 32, 16)
-	)
+	var spawn_position = world.get_random_reachable_point_in_square(characters.last_player_position, 32, 16)
+	
+	if spawn_position != null:
+		var entry = game.thesaurus.get_one_item_from_list_by_rarity(GThesaurus.EThesaurusCategory.CHARACTER, enemies, game.difficulty)
+		var enemy = characters.spawn_character(world.get_scene(), entry.id, spawn_position)
+	else:
+		dev.logd(TAG, "enemy spawn skipped as there was no spawn point found for it")
 	
 	

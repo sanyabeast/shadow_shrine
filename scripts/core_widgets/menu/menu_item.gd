@@ -39,6 +39,7 @@ func _ready():
 	is_enumerable = options.size() > 0
 	mouse_entered.connect(_handle_mouse_entered)
 	mouse_exited.connect(_handle_mouse_exited)
+	visibility_changed.connect(_handle_visibility_changed)
 	pass # Replace with function body.
 
 # Method to represent the menu item as a string.
@@ -162,3 +163,20 @@ func _handle_mouse_entered():
 
 func _handle_mouse_exited():
 	_mouse_entered = false
+
+func _is_under_mouse() -> bool:
+	var mouse_coords = get_global_mouse_position()
+	var rect = get_global_rect()
+	_mouse_entered = tools.is_point_inside_rect(mouse_coords, rect)
+	return _mouse_entered
+
+func update_mouse_input_state_explicitly():
+	if _is_under_mouse():
+		if menu != null:
+			menu.select_item(self, true)
+
+func _handle_visibility_changed():
+	pass
+	#if is_visible_in_tree():
+		#call_deferred("update_mouse_input_state_explicitly")
+			
