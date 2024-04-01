@@ -12,12 +12,7 @@ static func is_applicable(target: Node3D) -> bool:
 		return false
 		
 	if target is GCharacterController:
-		if target.is_unshakable:
-			return false
-		elif characters.is_player(target) and characters.force_player_unshakable:
-			return false
-		else:
-			return true
+		return true
 		
 	if target is CharacterBody3D:
 		return true

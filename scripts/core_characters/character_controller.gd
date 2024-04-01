@@ -26,7 +26,6 @@ signal on_fire(weapon: GWeaponController, direction: Vector3)
 @export_subgroup("# CharacterController ~ Misc")
 @export var is_invulnerable: bool = false
 @export var is_immortal: bool = false
-@export var is_unshakable: bool = false
 @export var hide_on_death: Array[Node3D] = []
 
 @export_subgroup("# CharacterController ~ Referencies")
@@ -110,15 +109,21 @@ func _init_abilities():
 
 func _physics_process(delta):
 	if not game.paused:
-		var _walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
+		var _walk_power = walk_power
+		_walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
+			
 		velocity.x = walk_direction.x * _walk_power * speed.value * game.speed
 		velocity.z = walk_direction.z * _walk_power * speed.value * game.speed
-		velocity += impulse_direction * (pow(impulse_power, 0.5)) * game.speed
+		velocity += impulse_direction * (pow(impulse_power / config.stability, 0.5)) * game.speed
 
-		velocity.y = 0
-		global_position.y = 0
+		if global_position.y > 0:
+			velocity.y += (world.gravity * delta) * config.gravity_scale;
+		else:
+			velocity.y = 0
+			global_position.y = 0
 
-		move_and_slide()
+		#velocity.y = 0
+		#global_position.y = 0
 
 		if not is_dead:
 			if is_on_wall() and get_slide_collision_count() > 0:
@@ -128,14 +133,10 @@ func _physics_process(delta):
 
 				if collider != null:
 					if not characters.is_player(self) and collider is GridMap:
-						world.commit_impulse(self, coll.get_normal(), 2)
-
-					if collider is GCharacterController and characters.is_player(collider):
-						world.commit_impulse(
-							self,
-							coll.get_normal(),
-							2 * clampf(pow(collider.get_mass() / get_mass(), 2), 0, 1)
-						)
+						world.commit_impulse(self, coll.get_normal(), 1)
+						
+		move_and_slide()
+		#move_and_collide(velocity * delta)			
 						
 func set_walk_power(value: float):
 	if not is_dead:
@@ -148,7 +149,7 @@ func set_walk_direction(value: Vector2):
 func set_look_direction(value: Vector2):
 	if not is_dead and value.length() > 0.05:
 		look_direction = Vector3(value.x, 0, value.y)
-
+		
 func fire():
 	if not is_dead and has_weapon:
 		weapon.fire(look_direction)
@@ -200,12 +201,6 @@ func _handle_ability_change(name: String, old_value: float, new_value: float, in
 			if new_value == 0 and not characters.is_immortal(self):
 				die()
 
-func get_mass() -> float:
-	if characters.is_player(self):
-		return config.mass * characters.player_mass_scale
-	else:
-		return config.mass
-
 func get_scalar_velocity():
 	return tools.to_v2(velocity).length()
 
@@ -242,3 +237,4 @@ func _update_abilities(delta):
 
 func is_player():
 	return characters.is_player(self)
+

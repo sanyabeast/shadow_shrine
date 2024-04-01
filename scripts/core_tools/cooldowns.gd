@@ -99,7 +99,7 @@ func ready(id: String, on_first_call = false) -> bool:
 		return on_first_call
 
 # Check if a cooldown with the given ID is ready, optionally triggering on the first call.
-func ready_or_start(id: String, duration: float, on_first_call = false,) -> bool:
+func ready_or_start(id: String, duration: float, on_first_call = false) -> bool:
 	if exists(id):
 		return _cooldowns_data[id].ready()
 	else:

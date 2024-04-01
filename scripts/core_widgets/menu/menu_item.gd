@@ -54,6 +54,9 @@ func _process(delta):
 func get_float() -> float:
 	return value
 
+func get_int() -> int:
+	return int(value)
+
 # Method to get the value as a boolean.
 func get_bool() -> bool:
 	return value > 0.5

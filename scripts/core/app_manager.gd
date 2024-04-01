@@ -13,6 +13,13 @@ enum EGraphicsQualityPreset {
 	Ultra
 }
 
+enum EShadowQualityLevel {
+	NO_SHADOWS,
+	PERFORMANCE,
+	BALANCE,
+	QUALITY
+}
+
 const SETTINGS_CONFIG_PATH:= "user://settings.cfg"
 
 const SETTINGS_KEY:= "settings"
@@ -24,8 +31,10 @@ const SETTINGS_VIDEO_PRESET:= "video_settings__preset"
 const SETTINGS_VIDEO_RENDER_SCALE:= "video_settings__render_scale"
 const SETTINGS_VIDEO_RENDER_SHARPNESS:= "video_settings__render_sharpness"
 const SETTINGS_VIDEO_VBLANK_MODE:= "video_settings__vblank_mode"
+const SETTINGS_VIDEO_SHADOW_QUALITY:= "video_settings__shadow_quality"
 
 signal on_graphics_quality_preset_changed
+signal on_shadows_quality_level_changed
 
 @onready var data_index_path: String = ProjectSettings.get_setting("application/config/data_index")
 
@@ -34,6 +43,7 @@ var cooldowns: GCooldowns = GCooldowns.new(false)
 var timer_gate: GTimeGateHelper = GTimeGateHelper.new(false)
 
 var graphics_quality: EGraphicsQualityPreset = EGraphicsQualityPreset.Ultra
+var shadows_quality_level:= EShadowQualityLevel.QUALITY
 
 # Create new ConfigFile object.
 var settings_config = ConfigFile.new()
@@ -93,6 +103,7 @@ func _load_settings():
 	set_vnlank_mode(get_setting(SETTINGS_VIDEO_VBLANK_MODE, DisplayServer.VSYNC_ENABLED))
 	
 	set_graphics_quality(get_setting(SETTINGS_VIDEO_PRESET, EGraphicsQualityPreset.High))
+	set_shadow_quality(get_setting(SETTINGS_VIDEO_SHADOW_QUALITY, EShadowQualityLevel.QUALITY))
 #endregion
 
 #region: Levels
@@ -174,6 +185,10 @@ func set_graphics_quality(preset: EGraphicsQualityPreset):
 	on_graphics_quality_preset_changed.emit()
 	_update_quality_preset_settings()
 
+
+func get_graphics_quality() -> EGraphicsQualityPreset:
+	return graphics_quality
+
 func set_vnlank_mode(mode: DisplayServer.VSyncMode):
 	DisplayServer.window_set_vsync_mode(mode)
 	set_setting(SETTINGS_VIDEO_VBLANK_MODE, mode)
@@ -182,8 +197,15 @@ func set_vnlank_mode(mode: DisplayServer.VSyncMode):
 func get_vblank_mode() -> DisplayServer.VSyncMode:
 	return DisplayServer.window_get_vsync_mode()
 
-func get_graphics_quality() -> EGraphicsQualityPreset:
-	return graphics_quality
+func set_shadow_quality(level: EShadowQualityLevel):
+	shadows_quality_level = level
+	on_shadows_quality_level_changed.emit()
+	set_setting(SETTINGS_VIDEO_SHADOW_QUALITY, level)
+	pass
+	
+func get_shadow_quality() -> EShadowQualityLevel:
+	return shadows_quality_level
+
 
 func set_fullscreen(enabled: bool):
 	if enabled == true:

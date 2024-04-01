@@ -254,7 +254,7 @@ mouse_filter = 1
 script = ExtResource("1_3r0r5")
 id = "video_settings_menu"
 anim_player = NodePath("AnimationPlayer")
-items = [NodePath("Content/VBoxContainer/QualityPreset"), NodePath("Content/VBoxContainer/VBlankMode"), NodePath("Content/VBoxContainer/RenderScale"), NodePath("Content/VBoxContainer/RenderSharpness")]
+items = [NodePath("Content/VBoxContainer/QualityPreset"), NodePath("Content/VBoxContainer/VBlankMode"), NodePath("Content/VBoxContainer/RenderScale"), NodePath("Content/VBoxContainer/ShadowQuality"), NodePath("Content/VBoxContainer/RenderSharpness")]
 actions = NodePath("MenuActions")
 menu_sfx = SubResource("Resource_qq3xy")
 
@@ -528,6 +528,80 @@ uppercase = true
 script = ExtResource("5_c45jn")
 render_label = NodePath(".")
 format = 5
+
+[node name="ShadowQuality" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
+script = ExtResource("2_s4igg")
+value_element = NodePath("Background/ValueLabel")
+id = "shadows_quality"
+has_options = true
+value = 1.0
+options = Array[String](["Disabled", "Medium", "Standard", "High"])
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Content/VBoxContainer/ShadowQuality"]
+libraries = {
+"": SubResource("AnimationLibrary_rqw5d")
+}
+playback_default_blend_time = 1.0
+next/default = &"default"
+blend_times = [&"default", &"default", 0.25, &"default", &"select", 0.25, &"select", &"default", 0.1, &"select", &"select", 0.1]
+
+[node name="Background" type="ColorRect" parent="Content/VBoxContainer/ShadowQuality"]
+material = SubResource("CanvasItemMaterial_vcnjb")
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="TitleLabel" type="Label" parent="Content/VBoxContainer/ShadowQuality/Background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -26.0
+offset_right = 345.0
+offset_bottom = 26.0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(0.027451, 0.027451, 0.027451, 1)
+theme_override_fonts/font = ExtResource("3_lp17m")
+theme_override_font_sizes/font_size = 32
+text = "Shadows"
+vertical_alignment = 1
+uppercase = true
+
+[node name="ValueLabel" type="Label" parent="Content/VBoxContainer/ShadowQuality/Background" node_paths=PackedStringArray("render_label")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -26.0
+offset_right = -20.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_urh5j")
+theme_override_colors/font_color = Color(1, 0.854902, 0.45098, 1)
+theme_override_fonts/font = ExtResource("3_lp17m")
+theme_override_font_sizes/font_size = 32
+text = "IIIIIIIIII"
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("5_c45jn")
+render_label = NodePath(".")
 
 [node name="RenderSharpness" type="Control" parent="Content/VBoxContainer" node_paths=PackedStringArray("value_element", "anim_player")]
 custom_minimum_size = Vector2(0, 64)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shadow Shrine"
-config/version="0.0.1.2"
+config/version="0.0.1.3"
 run/main_scene="res://scenes/levels/_lev_launcher.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=120

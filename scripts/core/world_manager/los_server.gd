@@ -11,11 +11,13 @@ class GLosTask:
 	var source: Node3D
 	var target: Node3D
 	var has_los: bool = false
+	var jitter: float = 1
 	
 	# Initializes a new LOS task with source and target nodes.
-	func _init(_s: Node3D, _t: Node3D):
+	func _init(_s: Node3D, _t: Node3D, _jitter: float = 0.5):
 		source = _s
 		target = _t
+		jitter = _jitter
 	
 	# Checks if the LOS task is valid.
 	func is_valid() -> bool:
@@ -78,9 +80,8 @@ func _update_los(key_index: int):
 	
 	_check_ray()
 	
-	_los_test_ray.global_position = task.source.global_position
-	_los_test_ray.target_position = _los_test_ray.to_local(task.target.global_position) 
-	
+	_los_test_ray.global_position = task.source.global_position + tools.random_v3() * task.jitter
+	_los_test_ray.target_position = _los_test_ray.to_local(task.target.global_position) + tools.random_v3() * task.jitter
 	_los_test_ray.global_position.y = ray_elevation
 	_los_test_ray.target_position.y = ray_elevation
 	

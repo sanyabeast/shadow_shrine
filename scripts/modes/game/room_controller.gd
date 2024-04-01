@@ -85,6 +85,8 @@ func initialize():
 	_init_spots()
 	_apply_doors_map()
 	
+	world.set_sandbox(content)
+	
 	dev.logd(TAG, "room initialized: %s" % self)
 
 func set_seed_offset(_seed_offset: int):
@@ -141,10 +143,12 @@ func _spawn_enemy(spot: Node3D):
 		#var prefab: PackedScene = random.choice_from_array(config.enemies)
 		dev.logd(TAG, "spawning enemy %s at %s ..." % [prefab, spot.global_position])
 		var enemy: GCharacterController = prefab.instantiate()
+		
+		enemy.position = spot.global_position
 		content.add_child(enemy)
+		enemy.set_look_direction(tools.angle_to_direction_v2(randf_range(0, 360)))
 		enemy.global_position = spot.global_position
-		enemy.global_rotation_degrees.y = spot.global_rotation_degrees.y
-		enemy.global_rotation_degrees.y = random.range(0, 360)
+		
 	else:
 		dev.logr(TAG, "unable to spawn enemys at specifiet spot: room config not congigured proprly")
 	pass
@@ -169,6 +173,7 @@ func _apply_doors_map():
 func upload_saved_content(_content: Node3D):
 	content.queue_free()
 	content = _content
+	world.set_sandbox(content)
 	add_child(content)
 
 func download_saved_content() -> Node3D:

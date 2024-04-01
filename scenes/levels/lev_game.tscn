@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcjqm0cnd4b14"]
+[gd_scene load_steps=18 format=3 uid="uid://bcjqm0cnd4b14"]
 
 [ext_resource type="Script" path="res://scripts/modes/gm_game.gd" id="1_b4mm0"]
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_nsc11"]
 [ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="8_2paxw"]
 [ext_resource type="Environment" uid="uid://cuc8x6fxi66m0" path="res://resources/misc/wenv_default_a.tres" id="8_884il"]
+[ext_resource type="Script" path="res://scripts/core_tools/light_helper.gd" id="12_woeuo"]
 
 [sub_resource type="Resource" id="Resource_ipqy4"]
 script = ExtResource("4_cq4p8")
@@ -66,6 +67,7 @@ transform = Transform3D(-0.721049, 0.288482, -0.629973, -0.0235277, 0.898486, 0.
 light_color = Color(0.905882, 0.862745, 0.854902, 1)
 light_energy = 0.5
 shadow_enabled = true
+script = ExtResource("12_woeuo")
 
 [node name="LocationMistSoft" parent="Environment" instance=ExtResource("6_rd3vp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95683, 0)

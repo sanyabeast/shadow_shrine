@@ -101,6 +101,19 @@ func random_bool() -> bool:
 func random_bool2(ratio: float) -> bool:
 	return randf() < ratio
 
+func random_v3() -> Vector3:
+	return Vector3(
+		randf_range(-1, 1),
+		randf_range(-1, 1),
+		randf_range(-1, 1),
+	)
+
+func random_v2() -> Vector2:
+	return Vector2(
+		randf_range(-1, 1),
+		randf_range(-1, 1),
+	)
+
 func change_material(node: MeshInstance3D, index: int, new_material: Material):
 	if node and node is MeshInstance3D:
 		node.set_surface_override_material(index, new_material)

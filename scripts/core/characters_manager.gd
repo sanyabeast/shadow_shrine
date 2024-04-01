@@ -16,7 +16,7 @@ signal on_enemy_alive
 var player: GCharacterController
 var player_character_id: String = ""
 var player_invulnerable: bool = true
-var player_mass_scale: float = 10
+var player_incoming_impulse_scale: float = 0.2
 
 var player_enabled: bool = false
 var ai_enabled: bool = false
@@ -34,9 +34,13 @@ var is_player_friendly_fire_enabled: bool = false
 
 var force_player_invulnerable: bool = false
 var force_player_immortal: bool = false
-var force_player_unshakable: bool = true
+
 
 var last_player_position: Vector3 = Vector3.ZERO
+
+var use_character_overlapping_impulse: bool = true
+var _current_overlapping_impulse_test_character_index_a: int = 0
+var _current_overlapping_impulse_test_character_index_b: int = 0
 
 #region: Process
 func _process(delta):
@@ -46,11 +50,11 @@ func _process(delta):
 	
 	if tools.IS_DEBUG:
 		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
-		dev.print_screen("player_state", "player (innvul. / immortal / unshak.): %s / %s / %s" % [force_player_invulnerable, force_player_immortal, force_player_unshakable])
+		dev.print_screen("player_state", "player (innvul. / immortal): %s / %s / %s" % [force_player_invulnerable, force_player_immortal])
 			
 	if tools.is_node_active(player):
 		last_player_position = player.global_position
-	
+		
 func _physics_process(delta):
 	if not game.paused:
 		if  player_enabled and (player_driver != null) and (player != null) and (not player.is_dead):
@@ -61,15 +65,38 @@ func _physics_process(delta):
 				if not is_player(character):
 					npc_driver.update_physics(character, delta)
 					
+		if use_character_overlapping_impulse:
+			_update_character_overlapping_impulse(delta)			
+					
 		
 #endregion
+
+func _update_character_overlapping_impulse(delta):
+	if list.size() > 1:
+		_current_overlapping_impulse_test_character_index_a = _current_overlapping_impulse_test_character_index_a % list.size()
+	
+		var character_a = list[_current_overlapping_impulse_test_character_index_a]		
+		
+		if not character_a.is_dead:
+			for character_b in list:
+				if character_b != character_a:
+					var distance = character_a.global_position.distance_to(character_b.global_position)
+					
+					if distance < character_b.config.body_radius + character_a.config.body_radius:
+						var distance_ratio = distance / (character_b.config.body_radius + character_a.config.body_radius)
+						world.commit_impulse(
+							character_b, 
+							character_a.global_position.direction_to(character_b.global_position), 
+						4. * (1.0 - pow(distance_ratio, 2.)))
+		
+		_current_overlapping_impulse_test_character_index_a += 1
 
 #region: Linking
 func link(character: GCharacterController):
 	dev.logd(TAG, "linking character: %s" % character.name)
 	
 	world.set_collision(character, world.ECollisionBodyType.Character, [
-		world.ECollisionBodyType.Character,
+		#world.ECollisionBodyType.Character,
 		world.ECollisionBodyType.Static,
 		world.ECollisionBodyType.Projectile,
 		world.ECollisionBodyType.Area
@@ -152,6 +179,7 @@ func spawn_character(parent_node: Node3D, character_id: String, position: Vector
 	var entry: GThesaurusEntry = game.thesaurus.get_entry(GThesaurus.EThesaurusCategory.CHARACTER, character_id)
 	var prefab = entry.main_scene
 	var _character: GCharacterController = prefab.instantiate(3)
+	_character.position = position
 	parent_node.add_child(_character)
 	_character.global_position = position
 	_character.look_direction = tools.angle_to_direction(look_angle)
@@ -280,8 +308,3 @@ func is_immortal(chr: GCharacterController):
 	else:
 		return chr.is_immortal
 
-func is_unshakable(chr: GCharacterController):
-	if is_player(chr):
-		return chr.is_unshakable or force_player_unshakable
-	else:
-		return chr.is_unshakable

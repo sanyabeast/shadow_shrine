@@ -46,7 +46,6 @@ func _update_wenv_settings():
 	# HIGH PRESET
 	_environment.ssil_enabled = app.graphics_quality >= 2
 	_environment.ssao_enabled = app.graphics_quality >= 2
-	_environment.volumetric_fog_enabled = app.graphics_quality >= 2
 	
 	# GENERIC FOG ONLY ON GRAPHICS BELOW MEDIUM INCLUDING
 	_environment.fog_enabled = app.graphics_quality <= 1
@@ -54,3 +53,5 @@ func _update_wenv_settings():
 	# MEDIUM PRESET
 	_environment.adjustment_enabled = app.graphics_quality >= 1
 	_environment.glow_enabled = app.graphics_quality >= 1
+	
+	

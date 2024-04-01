@@ -39,8 +39,12 @@ var _impulses: Dictionary = {}
 var wind_direction: float = 0
 var wind_power: float = 0
 
+var gravity: float = -9.8
+
 var audio_listener: AudioListener3D
 var audio_listener_position: Vector3 = Vector3.ZERO
+
+
 
 func _process(delta):
 	_check_audio_listener()
@@ -203,6 +207,7 @@ func add_to_level(object: Node):
 		dev.logr(TAG, "get_scene returned null")
 			
 func set_sandbox(node: Node3D):
+	dev.logd(TAG, "sandbox node set to `%s`" % node.name)
 	sandbox = node
 
 func _clear_pools():
@@ -214,6 +219,9 @@ func _clear_pools():
 #region: Impulses
 func commit_impulse(target: Node3D, direction: Vector3, power: float):
 	if GImpulse.is_applicable(target):
+		if characters.is_player(target):
+			power *= characters.player_incoming_impulse_scale
+			
 		var impulse_data: GImpulse
 		if _impulses.has(target):
 			impulse_data = _impulses[target]

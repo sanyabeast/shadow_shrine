@@ -164,8 +164,6 @@ func _spawn_room(from_direction):
 		active_room.doors_map[dir] = not current_maze_cell.walls[dir]
 		
 	world.add_to_level(active_room)
-	world.set_sandbox(active_room.content)
-	
 	active_room.initialize()
 	
 	if room_state.saved_content == null:
@@ -186,10 +184,10 @@ func _spawn_room(from_direction):
 	if is_first_room_in_game:
 		is_first_room_in_game = false
 		var player_spawn = active_room.player_spawn
-		characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0), player_spawn.global_rotation_degrees.y)
+		characters.teleport_player(player_spawn.global_position)
 	else:
 		var player_spawn = active_room.door_controllers[oposite_direction].player_spawn
-		characters.teleport_player(player_spawn.global_position + Vector3(0, 2, 0))
+		characters.teleport_player(player_spawn.global_position)
 		
 	#endregion
 	

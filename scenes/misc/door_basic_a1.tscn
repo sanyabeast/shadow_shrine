@@ -17,9 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://dwduaw75sq2us" path="res://assets/props/jerdelia/props/door_a1/textures/Image_0.006.png" id="12_mv65s"]
 [ext_resource type="Texture2D" uid="uid://c3nhrhnwqwitp" path="res://assets/props/jerdelia/props/door_a1/textures/Image_1.006.png" id="13_v0yws"]
 [ext_resource type="Texture2D" uid="uid://bbstndtjyinaj" path="res://assets/props/jerdelia/props/door_a1/textures/Image_2.006.png" id="14_y8fv7"]
-[ext_resource type="Script" path="res://scripts/tools/blinking_light.gd" id="15_3u160"]
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="16_b53aa"]
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="18_wkm2t"]
+[ext_resource type="Script" path="res://scripts/core_tools/light_helper.gd" id="20_akbx4"]
 [ext_resource type="PackedScene" uid="uid://c2bxbry2ckno2" path="res://scenes/_dev/_giz_blue_arrow.tscn" id="20_divov"]
 [ext_resource type="Script" path="res://scripts/core_tools/trigger.gd" id="22_4rn15"]
 
@@ -376,7 +376,6 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_bespo"]
 
 [node name="DoorBasicA1" type="Area3D" node_paths=PackedStringArray("surface_material_helper", "enter_procedures", "anim_player", "gizmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_mxn31")
 surface_material_helper = NodePath("GSurfaceMaterialHelper")
 enter_procedures = [NodePath("GTriggerProcedure")]
@@ -387,7 +386,7 @@ anim_player = NodePath("BodyRoot/AnimationPlayer")
 gizmo = NodePath("EnteringArea/MeshInstance3D")
 
 [node name="EnteringArea" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.684633)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.685)
 shape = SubResource("BoxShape3D_sey77")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="EnteringArea" node_paths=PackedStringArray("meshes")]
@@ -405,7 +404,7 @@ states = SubResource("Resource_7w671")
 state_update_rate = 1.0
 
 [node name="BodyRoot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0)
 
 [node name="door_a1" type="Node3D" parent="BodyRoot"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, -0.5, 0.0385396)
@@ -440,13 +439,14 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.453402, 0.427526, 0.841627)
 light_color = Color(1, 0.780392, 0.588235, 1)
 light_energy = 2.0
-script = ExtResource("15_3u160")
-update_interval = 0.05
-sinus_a_rate = 1.1
-sinus_b_rate = 3.7
+script = ExtResource("20_akbx4")
+use_blinking = true
+blinking_update_interval = 0.05
+blinking_sinus_a_rate = 1.1
+blinking_sinus_b_rate = 3.7
 
 [node name="Blocker" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.398924)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.399)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blocker"]
 shape = SubResource("BoxShape3D_bespo")

@@ -75,7 +75,7 @@ func _rotate_body(delta):
 		var body_direction = look_direction
 		
 		 # Rotate the body toward the move direction if not aiming
-		if cooldowns.ready("body_to_look", true):
+		if cooldowns.ready_or_start("body_to_look", 0.25, false):
 			if walk_direction.length_squared() > 0.1:
 				body_direction = walk_direction
 				#look_at(global_position + walk_direction, Vector3.UP)
@@ -85,7 +85,7 @@ func _rotate_body(delta):
 		global_rotation_degrees.y = tools.move_toward_deg(
 			global_rotation_degrees.y,
 			tools.rotation_degrees_y_from_direction(-body_direction),
-			720 * delta
+			min(720, 135 * character.config.speed) * delta
 		)
 		
 func _update_anim_tree(delta):

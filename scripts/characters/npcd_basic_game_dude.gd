@@ -22,6 +22,8 @@ class GDudeState extends GNpcDriver.GNpcState:
 	var current_distance_to_target_position: float = 0
 	
 	func initialize(character: GCharacterController):
+		look_angle = tools.rotation_degrees_y_from_direction(character.look_direction)
+		target_look_angle = look_angle
 		#character.nav_agent.avoidance_enabled = true
 		pass
 	
@@ -73,7 +75,7 @@ class GDudeState extends GNpcDriver.GNpcState:
 			or character.config.target_position_refresh_timeout <= 0
 		):
 			if characters.player != null:
-				target_position = characters.player.global_position
+				target_position = characters.player.global_position + tools.random_v3() * characters.player.config.body_radius
 			else:
 				var new_target_position = world.get_random_reachable_point_in_square(
 					character.global_position, character.config.patrolling_distance
@@ -88,7 +90,7 @@ class GDudeState extends GNpcDriver.GNpcState:
 				)
 
 		nav_agent.target_position = target_position
-		nav_agent.velocity = character.velocity * 1.
+		#nav_agent.velocity = character.velocity * 1.
 
 		if current_distance_to_target_position > target_desired_distance_avg or not has_los_with_player:
 			walk_power = 1
