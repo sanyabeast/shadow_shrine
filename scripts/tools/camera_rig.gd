@@ -26,7 +26,7 @@ var far_root_elevation: float = 0
 
 @export_subgroup("# Camera Controller")
 @onready var camera_root: Node3D = $CameraRoot
-@onready var camera_node: Camera3D = $CameraRoot/Camera3D
+@onready var camera: Camera3D = $CameraRoot/Camera3D
 
 @export_subgroup("# Camera Controller - Spotlight")
 @export var spotlight_enabled: bool = false
@@ -37,18 +37,20 @@ var _spotlight_position: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("camera rig: ready...")
-	camera_manager.add_camera(self)
 	instance = self
 	
 	if spotlight_enabled and spotlight:
 		_spotlight_position = spotlight.global_position
+		
+	camera_manager.target_camera = camera	
+		
+func _enter_tree():
+	camera_manager.target_camera = camera
 	
-	pass # Replace with function body.
-
 func _exit_tree():
-	camera_manager.remove_camera(self)
-
+	if camera_manager.target_camera == camera:
+		camera_manager.target_camera = null
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#zoom = move_toward(zoom, target_zoom, zoom_change_speed * delta)
@@ -63,8 +65,8 @@ func _process(delta):
 	
 	var zoom_curve = zoom
 	
-	camera_node.position.y = lerpf(close_look_elevation, far_look_elevation, zoom_curve)
-	camera_node.fov = lerpf(close_look_fov, far_look_fov, zoom_curve)
+	camera.position.y = lerpf(close_look_elevation, far_look_elevation, zoom_curve)
+	camera.fov = lerpf(close_look_fov, far_look_fov, zoom_curve)
 	
 	camera_root.rotation_degrees.x = lerpf(close_look_angle, far_look_angle, zoom_curve)
 	camera_root.position.y = lerpf(close_root_elevation, far_root_elevation, zoom_curve)
@@ -74,3 +76,13 @@ func _process(delta):
 		_spotlight_position = _spotlight_position.lerp(Vector3(global_position.x, _spotlight_position.y, global_position.z), 0.01)
 		spotlight.global_position = _spotlight_position
 
+	if characters.player != null:
+		global_position = Vector3(
+			characters.player.global_position.x,
+			0,
+			characters.player.global_position.z,
+		)
+
+func _physics_process(delta):
+	pass
+	

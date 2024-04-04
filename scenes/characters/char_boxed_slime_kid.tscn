@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://gajmsefrdp7c"]
 
-[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_yjlnt"]
+[ext_resource type="Script" path="res://scripts/characters/cc_topdown_character.gd" id="1_yjlnt"]
 [ext_resource type="Resource" uid="uid://dl80x4lhgegkg" path="res://resources/characters/charconf_boxed_slime_kido.tres" id="2_vy3e7"]
 [ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_op30v"]
 [ext_resource type="AudioStream" uid="uid://dqjbsf5qn815j" path="res://assets/_dev/sound/sfx/slime/635874__wax_vibe__moving-meat.ogg" id="4_f3phw"]

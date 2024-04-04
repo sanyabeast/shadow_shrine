@@ -5,37 +5,42 @@ extends Node
 class_name GCameraManager
 const TAG: String = "CameraManager"
 
-var current: GCameraController
-var target_node: Node3D
-var speed_dependent_behaviour: bool = true
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func add_camera(camera: GCameraController):
-	set_active_camera(camera)
-
-func remove_camera(camera: GCameraController):
-	if current == camera:
-		unset_active_camera()
-	
-func set_active_camera(camera: GCameraController):
-	current = camera
-
-func unset_active_camera():
-	current = null
-	
+var camera: Camera3D
+var target_camera: Camera3D
 
 func _process(delta):
-	if current != null:
-		if target_node != null:
-			#current.global_position = current.global_position.lerp(target_node.global_position, 0.05)
-			current.global_position = target_node.global_position
-	pass
+	_check_camera()
+	#_update_target_camera(delta)
 	
-	if characters.player != null:
-		camera_manager.target_node = characters.player
+func _physics_process(delta):
+	pass
+	_update_target_camera(delta)
+		
+func _check_camera():
+	if camera == null and world.level_scene != null:
+		camera = Camera3D.new()
+		camera.name = "MainCamera"
+		world.add_to_level(camera)
+		camera.make_current()
+		camera.global_position = Vector3(0, 8, 0)
+		camera.global_rotation_degrees.x = -90
+		#camera.global_rotation_degrees.z = 180
+		
+	if camera != null and not camera.current:
+		camera.make_current()
+
+func _update_target_camera(delta):
+	if camera != null and target_camera != null:
+		camera.fov = target_camera.fov
+		#camera.global_position = target_camera.global_position
+		#camera.global_rotation = target_camera.global_rotation
+		
+		camera.global_position = camera.global_position.lerp(target_camera.global_position, 0.1) 
+		camera.global_rotation = target_camera.global_rotation
+		
+		#camera.global_position = camera.global_position.move_toward(target_camera.global_position, 16 * delta) 
+		#camera.global_rotation = target_camera.global_rotation
+	
 		
 func get_camera3d():
-	return get_viewport().get_camera_3d()
+	return camera

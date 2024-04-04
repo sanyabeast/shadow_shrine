@@ -24,6 +24,7 @@ signal on_fire(weapon: GWeaponController, direction: Vector3)
 @export var is_friendly: bool = false
 
 @export_subgroup("# CharacterController ~ Misc")
+@export var active: bool = true
 @export var is_invulnerable: bool = false
 @export var is_immortal: bool = false
 @export var hide_on_death: Array[Node3D] = []
@@ -31,6 +32,7 @@ signal on_fire(weapon: GWeaponController, direction: Vector3)
 @export_subgroup("# CharacterController ~ Referencies")
 @export var body_controller: GCharacterBodyController
 @export var weapon: GWeaponController
+
 
 var walk_power: float = 0
 var walk_direction: Vector3 = Vector3.FORWARD
@@ -108,35 +110,36 @@ func _init_abilities():
 	damage.on_changed.connect(_handle_ability_change)
 
 func _physics_process(delta):
-	if not game.paused:
-		var _walk_power = walk_power
-		_walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
-			
-		velocity.x = walk_direction.x * _walk_power * speed.value * game.speed
-		velocity.z = walk_direction.z * _walk_power * speed.value * game.speed
-		velocity += impulse_direction * (pow(impulse_power / config.stability, 0.5)) * game.speed
+	if active and visible:
+		if not game.paused:
+			var _walk_power = walk_power
+			_walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
+				
+			velocity.x = walk_direction.x * _walk_power * speed.value * game.speed
+			velocity.z = walk_direction.z * _walk_power * speed.value * game.speed
+			velocity += impulse_direction * (pow(impulse_power / config.stability, 0.5)) * game.speed
 
-		if global_position.y > 0:
-			velocity.y += (world.gravity * delta) * config.gravity_scale;
-		else:
-			velocity.y = 0
-			global_position.y = 0
+			match characters.vertical_mobility_mode:
+				GCharactersManager.ECharacterVerticalMobilityMode.GRAVITY:
+					if not is_on_floor():
+						velocity.y += (world.gravity * delta) * config.gravity_scale
+					else:
+						velocity.y = 0
+				GCharactersManager.ECharacterVerticalMobilityMode.LOCK_0:
+					velocity.y = 0
+					global_position.y = 0
 
-		#velocity.y = 0
-		#global_position.y = 0
+			if not is_dead:
+				if is_on_wall() and get_slide_collision_count() > 0:
+					# wall impulse
+					var coll: KinematicCollision3D = get_slide_collision(0)
+					var collider = coll.get_collider() if coll != null else null
 
-		if not is_dead:
-			if is_on_wall() and get_slide_collision_count() > 0:
-				# wall impulse
-				var coll: KinematicCollision3D = get_slide_collision(0)
-				var collider = coll.get_collider() if coll != null else null
-
-				if collider != null:
-					if not characters.is_player(self) and collider is GridMap:
-						world.commit_impulse(self, coll.get_normal(), 1)
-						
-		move_and_slide()
-		#move_and_collide(velocity * delta)			
+					if collider != null:
+						if not characters.is_player(self) and collider is GridMap:
+							world.commit_impulse(self, coll.get_normal(), 1)
+							
+			move_and_slide()
 						
 func set_walk_power(value: float):
 	if not is_dead:
@@ -156,28 +159,29 @@ func fire():
 		on_fire.emit(weapon, look_direction)
 
 func _process(delta):
-	if not game.paused:
-		_update_abilities(delta)
+	if active and visible:
+		if not game.paused:
+			_update_abilities(delta)
 
-		# Always rotate the aim node toward the aim direction
-		if look_direction.length_squared() > 0:
-			aim_rig.look_at(aim_rig.global_position + look_direction, Vector3.UP)
+			# Always rotate the aim node toward the aim direction
+			if look_direction.length_squared() > 0:
+				aim_rig.look_at(aim_rig.global_position + look_direction, Vector3.UP)
 
-		dev.set_label(self, { 
-			"self": to_string(),
-			"rotation": "%.2f" % tools.rotation_degrees_y_from_direction(walk_direction)
-		})
-		
-	if tools.IS_DEBUG:
-		nav_agent.debug_enabled = dev.show_debug_graphics
-		if nav_agent.debug_enabled:
-			nav_agent.debug_path_custom_color = Color.from_hsv(
-				fmod(float(get_instance_id()) / 90, 1.),
-				1.,
-				0.5,
-				1.0
-			)
-			nav_agent.debug_use_custom = true
+			dev.set_label(self, { 
+				"self": to_string(),
+				"rotation": "%.2f" % tools.rotation_degrees_y_from_direction(walk_direction)
+			})
+			
+		if tools.IS_DEBUG:
+			nav_agent.debug_enabled = dev.show_debug_graphics
+			if nav_agent.debug_enabled:
+				nav_agent.debug_path_custom_color = Color.from_hsv(
+					fmod(float(get_instance_id()) / 90, 1.),
+					1.,
+					0.5,
+					1.0
+				)
+				nav_agent.debug_use_custom = true
 	
 func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
 	if not characters.is_invulnerable(self):

@@ -39,7 +39,7 @@ var _impulses: Dictionary = {}
 var wind_direction: float = 0
 var wind_power: float = 0
 
-var gravity: float = -9.8
+var gravity: float = -4.20
 
 var audio_listener: AudioListener3D
 var audio_listener_position: Vector3 = Vector3.ZERO

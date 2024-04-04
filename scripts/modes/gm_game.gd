@@ -71,14 +71,18 @@ func _process(delta):
 	if not game.is_over and not game.paused and Input.is_action_just_pressed("pause"):
 		game.pause()
 		
-	tasks.update()
-	
 	if tools.IS_DEBUG:
 		dev.print_screen("maze_stats", "maze (index / type / x:y ) %s / %s / %s:%s" % [
 			current_maze_cell.index,
 			maze_generator.get_cell_category_pretty_name(current_maze_cell.category),
 			current_maze_cell.x, current_maze_cell.y
 		])
+		
+	tasks.update()		
+
+
+func _physics_process(delta):
+	pass
 		
 func _prepare():
 	super._prepare()
@@ -94,6 +98,7 @@ func _prepare():
 	_setup_ambient_sound()
 	reset()
 	game.resume()
+
 
 func _setup_player():
 	if player == null and player_packed != null:
@@ -200,6 +205,7 @@ func _spawn_room(from_direction):
 	#region: Post load
 	characters.enable_player()
 	tasks.queue(self, "enable_ai", 0.5, null, characters.enable_ai)
+	#tasks.queue(self, "enable_ai", 2, null, characters.enable_player)
 	screen_fx.fade_in(ROOM_ENTER_SCREEN_FX_FADE_IN_DURATION)
 	
 	if not room_state.visited:
@@ -221,6 +227,7 @@ func _next_room(from_direction: world.EDirection, skip_fade: bool = false):
 		tasks.queue(self, "_next_room", ROOM_LEAVE_SCREEN_FX_FADE_OUT_DURATION * 1.1, null, _next_room_main.bind(from_direction))
 
 func _next_room_main(from_direction: world.EDirection):
+	characters.disable_player(true)
 	if active_room != null:
 		room_states[current_maze_cell.index].saved_content = active_room.download_saved_content()
 		active_room.queue_free()

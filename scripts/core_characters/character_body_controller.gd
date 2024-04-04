@@ -41,7 +41,7 @@ func initialize(_character: GCharacterController):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if is_initialized:
+	if is_initialized and character.active and not game.paused:
 		tasks.update()
 		_rotate_body(delta)
 		if anim_tree != null:
@@ -53,7 +53,6 @@ func _process(delta):
 		
 		if footsteps_sfx != null:
 			_update_footsteps_sfx()
-	pass
 
 func _update_footsteps_sfx():
 	footsteps_sfx.volume_db = linear_to_db(

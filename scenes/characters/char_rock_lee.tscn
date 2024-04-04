@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://bdyfbnq4358i5"]
 
-[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_oakvq"]
+[ext_resource type="Script" path="res://scripts/characters/cc_topdown_character.gd" id="1_oakvq"]
 [ext_resource type="AudioStream" uid="uid://bquunkx0o70df" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a2.ogg" id="2_vq0hq"]
 [ext_resource type="PackedScene" uid="uid://cjxp7bhkq1jxj" path="res://scenes/fx/fx_blood_splash_a1.tscn" id="2_w4c2s"]
 [ext_resource type="Script" path="res://scripts/resources/res_character_config.gd" id="3_1f4tj"]

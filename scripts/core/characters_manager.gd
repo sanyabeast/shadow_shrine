@@ -13,6 +13,11 @@ signal on_enemies_alive
 signal on_enemy_dead
 signal on_enemy_alive
 
+enum ECharacterVerticalMobilityMode {
+	GRAVITY,
+	LOCK_0
+}
+
 var player: GCharacterController
 var player_character_id: String = ""
 var player_invulnerable: bool = true
@@ -35,12 +40,13 @@ var is_player_friendly_fire_enabled: bool = false
 var force_player_invulnerable: bool = false
 var force_player_immortal: bool = false
 
-
 var last_player_position: Vector3 = Vector3.ZERO
 
 var use_character_overlapping_impulse: bool = true
 var _current_overlapping_impulse_test_character_index_a: int = 0
 var _current_overlapping_impulse_test_character_index_b: int = 0
+
+var vertical_mobility_mode:= ECharacterVerticalMobilityMode.LOCK_0
 
 #region: Process
 func _process(delta):
@@ -50,7 +56,7 @@ func _process(delta):
 	
 	if tools.IS_DEBUG:
 		dev.print_screen("characters_stats", "characters: (total / enemies): %s / %s" % [list.size(), alive_enemies_count])
-		dev.print_screen("player_state", "player (innvul. / immortal): %s / %s / %s" % [force_player_invulnerable, force_player_immortal])
+		dev.print_screen("player_state", "player (innvul. / immortal): %s / %s" % [force_player_invulnerable, force_player_immortal])
 			
 	if tools.is_node_active(player):
 		last_player_position = player.global_position
@@ -193,11 +199,23 @@ func remove_player():
 	if player != null:
 		player.queue_free()
 
-func enable_player():
+func enable_player(activate: bool = true):
 	player_enabled = true
+	if activate:
+		activate_player()
 	
-func disable_player():
+func disable_player(deactivate: bool = false):
 	player_enabled = false
+	if deactivate:
+		deactivate_player()
+	
+func activate_player():
+	if player != null:
+		player.active = true
+	
+func deactivate_player():
+	if player != null:
+		player.active = false
 	
 func _handle_player_hurt(health_loss: float, point:= Vector3.ZERO, direction:= Vector3.ZERO):
 	on_player_hurt.emit(health_loss, point, direction)

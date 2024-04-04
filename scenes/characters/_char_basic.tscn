@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpdsedncbfo4e"]
 
-[ext_resource type="Script" path="res://scripts/core_characters/character_controller.gd" id="1_8c6vy"]
+[ext_resource type="Script" path="res://scripts/characters/cc_topdown_character.gd" id="1_8c6vy"]
 [ext_resource type="PackedScene" uid="uid://baxaf56wke17m" path="res://assets/_dev/characters/_charmesh_blue_dummy.blend" id="2_ax6dy"]
 [ext_resource type="PackedScene" uid="uid://byqowvfi4lk1f" path="res://assets/_dev/gizmo/_arrow_red.blend" id="3_nekau"]
 
