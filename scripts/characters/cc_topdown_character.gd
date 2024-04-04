@@ -2,10 +2,9 @@
 # Date: Feb. 2024
 
 @icon("res://assets/_dev/_icons/char_35.png")
-extends CharacterBody3D
+extends GCharacterController
 
-class_name GCharacterController
-const TAG: String = "CharacterController"
+class_name GTopDownCharacterController
 
 signal on_hurt(health_loss: float, point: Vector3, direction: Vector3)
 signal on_fire(weapon: GWeaponController, direction: Vector3)

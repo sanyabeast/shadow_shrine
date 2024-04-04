@@ -14,6 +14,11 @@ func _process(delta):
 	if _time_gate.check("fill-enemies", 1) and characters.alive_enemies_count < max_enemies:
 		_spawn_enemy()
 
+func on_start():
+	game.resume()
+	characters.enable_player()
+	#characters.enable_ai()
+
 func handle_player_dead():
 	var spawn_position = world.get_random_reachable_point_in_square(characters.last_player_position, 16, 8)
 	if spawn_position == null:

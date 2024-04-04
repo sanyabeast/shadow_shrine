@@ -26,10 +26,7 @@ func _prepare():
 	characters.on_player_dead.connect(_handle_player_dead)
 	
 	_setup_player()
-	game.resume()
 	
-	characters.enable_player()
-	characters.enable_ai()
 	
 	if freeroam_mode != null:
 		freeroam_mode.on_start()

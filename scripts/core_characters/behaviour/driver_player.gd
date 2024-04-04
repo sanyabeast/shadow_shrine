@@ -7,7 +7,7 @@ extends Node
 class_name GPlayerDriver
 const TAG: String = "PlayerDriver"
 
-func update(player: GCharacterController, delta: float):
+func update(player: GTopDownCharacterController, delta: float):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var walk_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
