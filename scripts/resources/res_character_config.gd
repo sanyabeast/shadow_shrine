@@ -16,7 +16,7 @@ class_name RCharacterConfig
 @export var damage: float = 1  # Base damage dealt by the character.
 @export var body_radius: float = 0.25
 @export var gravity_scale: float = 1
-@export var stability: float = 1
+@export var stproperty: float = 1
 
 # Exported variables for NPC-specific settings.
 @export_subgroup("♥ CharacterConfig ~ NPC")

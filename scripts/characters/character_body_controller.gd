@@ -56,7 +56,7 @@ func _process(delta):
 
 func _update_footsteps_sfx():
 	footsteps_sfx.volume_db = linear_to_db(
-		clampf((character.velocity.length() / character.get_ability_value("speed")) * footsteps_max_volume, 0., 1.)
+		clampf((character.velocity.length() / character.get_property_value("speed")) * footsteps_max_volume, 0., 1.)
 	)
 
 func _traverse(node):

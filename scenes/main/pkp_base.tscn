@@ -88,7 +88,7 @@ height = 1.0
 script = ExtResource("1_3mmhj")
 max_targets_inside = 1
 activated_by_player = true
-gizmo = NodePath("CollisionShape3D/MeshInstance3D")
+gizmo = NodePath("")
 
 [node name="Body" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

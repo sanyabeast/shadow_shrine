@@ -185,39 +185,33 @@ fov = 45.0
 
 [node name="RockLee" parent="." instance=ExtResource("7_0624v")]
 transform = Transform3D(-0.564723, 0, -0.82528, 0, 1, 0, 0.82528, 0, -0.564723, -3.734, 0, 1.85)
-use_as_player = false
-ai_enabled = true
-is_friendly = false
-active = true
-is_invulnerable = false
-is_immortal = false
 
 [node name="GeneralSkeleton" parent="RockLee/Body/rock_dude/Armature" index="0"]
-bones/0/position = Vector3(0.000171415, 0.266603, 0.000480891)
-bones/0/rotation = Quaternion(0.0220228, -0.102222, -0.00767459, 0.994488)
-bones/1/rotation = Quaternion(0.0827454, 0.0160035, 0.00473383, 0.996431)
-bones/2/rotation = Quaternion(0.0255344, 0.0339504, 0.00787374, 0.999066)
-bones/3/rotation = Quaternion(-0.0761816, 0.0321776, 0.011605, 0.996507)
-bones/4/rotation = Quaternion(-0.0316882, 0.0187488, -0.0638304, 0.997281)
-bones/5/rotation = Quaternion(0.0421432, -0.00534364, 0.0662713, 0.996897)
-bones/7/rotation = Quaternion(0.526723, 0.482644, 0.516882, -0.471648)
-bones/8/rotation = Quaternion(-0.00298187, 0.812539, -0.582613, 0.0182746)
-bones/9/rotation = Quaternion(0.117983, -0.692935, 0.113407, 0.702182)
-bones/10/rotation = Quaternion(0.0271236, 0.718215, -0.021734, 0.694953)
-bones/11/rotation = Quaternion(0.0577811, 0.0043345, 0.0375777, 0.997612)
-bones/15/rotation = Quaternion(0.521131, -0.489188, -0.515107, -0.473056)
-bones/16/rotation = Quaternion(-0.0201914, 0.826023, -0.561643, 0.0428525)
-bones/17/rotation = Quaternion(0.109349, 0.70676, -0.111296, 0.690034)
-bones/18/rotation = Quaternion(-0.0188428, -0.718142, -0.0331729, 0.69485)
-bones/19/rotation = Quaternion(0.0269898, -0.00342929, -0.0361781, 0.998975)
-bones/23/rotation = Quaternion(0.120745, 0.159781, 0.974982, -0.0964363)
-bones/24/rotation = Quaternion(-0.0228031, 0.979918, -0.194048, 0.0398197)
-bones/25/rotation = Quaternion(-0.0323496, 0.678587, -0.727587, 0.0953456)
-bones/26/rotation = Quaternion(0.0208616, 0.999205, 0.0269814, 0.0206207)
-bones/28/rotation = Quaternion(-0.075615, 0.117672, 0.989048, 0.04712)
-bones/29/rotation = Quaternion(0.0259086, 0.975846, -0.212499, -0.043552)
-bones/30/rotation = Quaternion(0.0563983, 0.63346, -0.769967, -0.0519506)
-bones/31/rotation = Quaternion(-0.0200959, 0.998523, 0.0454509, -0.02195)
+bones/0/position = Vector3(-0.000347608, 0.269032, 0.00322109)
+bones/0/rotation = Quaternion(0.0113237, -0.0976013, -0.0104775, 0.995106)
+bones/1/rotation = Quaternion(0.0613099, 0.0156182, 0.00556935, 0.997981)
+bones/2/rotation = Quaternion(0.0128181, 0.0351554, 0.00990887, 0.999251)
+bones/3/rotation = Quaternion(-0.0890145, 0.0332977, 0.0141417, 0.995373)
+bones/4/rotation = Quaternion(0.0757195, 0.0208912, -0.0640214, 0.994852)
+bones/5/rotation = Quaternion(0.0418551, -0.009872, 0.0756992, 0.996203)
+bones/7/rotation = Quaternion(0.541745, 0.466647, 0.506843, -0.481521)
+bones/8/rotation = Quaternion(-0.0858443, 0.80675, -0.584234, 0.0213654)
+bones/9/rotation = Quaternion(0.1209, -0.649211, 0.108063, 0.743123)
+bones/10/rotation = Quaternion(0.0530448, 0.714384, -0.0550622, 0.695564)
+bones/11/rotation = Quaternion(0.0888537, 0.00546264, 0.0389955, 0.995266)
+bones/15/rotation = Quaternion(0.518418, -0.491352, -0.507269, -0.482176)
+bones/16/rotation = Quaternion(0.0493425, 0.827928, -0.556415, 0.0500389)
+bones/17/rotation = Quaternion(0.144548, 0.685311, -0.137708, 0.70035)
+bones/18/rotation = Quaternion(0.0322718, -0.731512, -0.0118919, 0.68096)
+bones/19/rotation = Quaternion(0.0889234, -0.00562989, -0.0388729, 0.995264)
+bones/23/rotation = Quaternion(0.125322, 0.114974, 0.980697, -0.0964866)
+bones/24/rotation = Quaternion(-0.0197148, 0.988708, -0.144441, 0.0347069)
+bones/25/rotation = Quaternion(-0.0315213, 0.696393, -0.710727, 0.0943943)
+bones/26/rotation = Quaternion(0.0210129, 0.999226, 0.0262221, 0.0204526)
+bones/28/rotation = Quaternion(-0.0824007, 0.0681291, 0.993126, 0.0476336)
+bones/29/rotation = Quaternion(0.0173385, 0.988049, -0.145876, -0.046674)
+bones/30/rotation = Quaternion(0.0543073, 0.649308, -0.757007, -0.0488997)
+bones/31/rotation = Quaternion(-0.0202338, 0.998349, 0.0495152, -0.0209078)
 
 [node name="MainMenu" parent="." instance=ExtResource("8_hefke")]
 

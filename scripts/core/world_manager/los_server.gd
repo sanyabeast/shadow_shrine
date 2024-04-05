@@ -91,7 +91,7 @@ func _update_los(key_index: int):
 	_current_los_test_index = (_current_los_test_index + 1) % _los_tasks.keys().size()
 	pass
 
-# Checks the availability of the LOS test ray and initializes it if necessary.
+# Checks the availproperty of the LOS test ray and initializes it if necessary.
 func _check_ray():
 	if _los_test_ray == null:
 		_los_test_ray = RayCast3D.new()

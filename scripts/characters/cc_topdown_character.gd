@@ -51,21 +51,21 @@ func _init_child_node(node):
 	if body_controller == null and node is GCharacterBodyController:
 		body_controller = node
 
-func _init_abilities():
+func _init_properties():
 	# Abilities
-	add_ability("health", GAbility.new("health", config.health, config.max_health))
-	add_ability("max_health", GAbility.new("max_health", config.max_health))
-	add_ability("speed", GAbility.new("speed", config.speed))
-	add_ability("protection", GAbility.new("protection", config.protection))
-	add_ability("damage", GAbility.new("damage", config.damage))
+	add_property("health", GProperty.new("health", config.health, config.max_health))
+	add_property("max_health", GProperty.new("max_health", config.max_health))
+	add_property("speed", GProperty.new("speed", config.speed))
+	add_property("protection", GProperty.new("protection", config.protection))
+	add_property("damage", GProperty.new("damage", config.damage))
 
 func _update_physics(delta):
 	var _walk_power = walk_power
 	_walk_power = lerpf(walk_power, 0, clampf(pow(impulse_power, 2), 0, 1))
 		
-	velocity.x = walk_direction.x * _walk_power * get_ability_value("speed") * game.speed
-	velocity.z = walk_direction.z * _walk_power * get_ability_value("speed") * game.speed
-	velocity += impulse_direction * (pow(impulse_power / config.stability, 0.5)) * game.speed
+	velocity.x = walk_direction.x * _walk_power * get_property_value("speed") * game.speed
+	velocity.z = walk_direction.z * _walk_power * get_property_value("speed") * game.speed
+	velocity += impulse_direction * (pow(impulse_power / config.stproperty, 0.5)) * game.speed
 
 	match characters.vertical_mobility_mode:
 		GCharactersManager.ECharacterVerticalMobilityMode.GRAVITY:
@@ -122,17 +122,18 @@ func _update_state(delta):
 			)
 			nav_agent.debug_use_custom = true
 
-func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO):
+func commit_damage(value: float, point: Vector3 = Vector3.ZERO, direction: Vector3 = Vector3.ZERO) -> bool:
 	if not characters.is_invulnerable(self):
 		_last_damage_point = to_local(point)
 		_last_damage_direction = direction
-		alter_ability("health", -value)
+		return alter_property("health", -value)
+	return false
 
-func commit_heal(value: float):
-	alter_ability("health", value)
+func commit_heal(value: float) -> bool:
+	return alter_property("health", value)
 
-func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
-	#dev.logd(TAG, "ability %s changed %s -> %s" % [name, old_value, new_value])
+func _handle_property_change(name: String, old_value: float, new_value: float, increased: bool):
+	#dev.logd(TAG, "property %s changed %s -> %s" % [name, old_value, new_value])
 	match name:
 		"health":
 			if not increased:

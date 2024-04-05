@@ -6,6 +6,8 @@ class_name GHealProcedure
 
 @export var amount: float = 1
 
-func _start():
+func _start() -> bool:
 	if target is GTopDownCharacterController:
-		target.commit_heal(amount * power)
+		return target.commit_heal(amount * power)
+	else:
+		return false

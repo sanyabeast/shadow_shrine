@@ -15,6 +15,7 @@ var TAG: String = "AreaEffect"
 @export var repeat_procedures_rate: float = 1
 
 @export_subgroup("# Area Effect ~ Activation")
+@export var max_activations: int = -1
 @export var activated_by_player: bool = false
 @export var activated_by_enemies: bool = false
 @export var activated_by_friends: bool = false
@@ -33,14 +34,17 @@ var TAG: String = "AreaEffect"
 
 @export_subgroup("# Area Effect ~ Misc")
 @export var gizmo: GGizmo
+@export var one_success_activation: bool = true
+@export var all_success_activation: bool = false
 
 var _is_wasted: bool = false
 var bodies_inside: Dictionary = {}
 var _time_gate:= GTimeGateHelper.new(true)
 var _bodies_inside_count: int = 0
+var _current_activation_index: int = 0
 
 func _to_string():
-	return "AreaEffect(name: %s, enabled: %s, bodies_inside: %s)" % [name, enabled, _bodies_inside_count]
+	return "AreaEffect(name: %s, enabled: %s, bodies_inside: %s, activation: %s/%s)" % [name, enabled, _bodies_inside_count, _current_activation_index, max_activations]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,7 +71,7 @@ func _ready():
 	name = "area_effect"
 
 func _process(delta):
-	if enabled and repeat_procedures.size() and _time_gate.check("repeat", 1. / repeat_procedures_rate):
+	if enabled and repeat_procedures.size() > 0 and _time_gate.check("repeat", 1. / repeat_procedures_rate):
 		if bodies_inside.keys().size() > 0:
 			if exit_fx:
 					world.spawn_fx(exit_fx, global_position, null, global_rotation_degrees)
@@ -87,6 +91,9 @@ func _process(delta):
 				gizmo.state = "disabled"
 
 func _should_affect(body) -> bool:
+	if max_activations > 0 and _current_activation_index >= max_activations:
+		return false
+		
 	if body is GCharacterController:
 		if characters.is_player(body):
 			if activated_by_player:
@@ -106,7 +113,15 @@ func _handle_body_entered(body: Node3D):
 				if enter_fx:
 					world.spawn_fx(enter_fx, global_position, null, global_rotation_degrees)
 				
-				_run_procedures(body, enter_procedures)
+				var success_count = _run_procedures(body, enter_procedures)
+				
+				if all_success_activation and success_count == enter_procedures.size() - 1:
+					_current_activation_index += 1
+				elif one_success_activation and success_count > 0:
+					_current_activation_index += 1
+				elif all_success_activation == false and one_success_activation == false:
+					_current_activation_index += 1
+				
 	
 func _handle_body_exited(body):
 	if _should_affect(body):
@@ -118,15 +133,22 @@ func _handle_body_exited(body):
 			
 			_run_procedures(body, exit_procedures)
 
-func _run_procedures(body: Node3D, procedures: Array[GProcedure]):
+## returns count of successfull procedures done
+func _run_procedures(body: Node3D, procedures: Array[GProcedure]) -> int:
+	var success_count: int = 0 
 	for proc in procedures:
-		proc.source = self
-		proc.target = body
-		proc.position = global_position
-		proc.direction = global_position.direction_to(body.global_position)
-		proc.normal = body.global_position.direction_to(global_position)
-		
-		proc.start()
+		_prepare_procedure_to_start(proc, body)
+		if proc.start():
+			success_count += 1
+	return success_count
+
+func _prepare_procedure_to_start(proc: GProcedure, target: Node3D):
+	proc.source = self
+	proc.target = target
+	proc.position = global_position
+	proc.power = 1.0
+	proc.direction = global_position.direction_to(target.global_position)
+	proc.normal = target.global_position.direction_to(global_position)
 
 func enable(skip_fx: bool = false):
 	skip_fx = skip_fx or not visible

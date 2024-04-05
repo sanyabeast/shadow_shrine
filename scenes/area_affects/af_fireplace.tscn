@@ -22,13 +22,14 @@ top_radius = 0.3
 bottom_radius = 0.3
 height = 1.0
 
-[node name="AF_FireplaceA" type="Area3D" node_paths=PackedStringArray("repeat_procedures", "gizmo")]
+[node name="AF_FireplaceA" type="Area3D" node_paths=PackedStringArray("enter_procedures", "repeat_procedures", "gizmo")]
 script = ExtResource("1_yglhx")
+enter_procedures = [NodePath("GDamageProcedure")]
 repeat_procedures = [NodePath("GDamageProcedure")]
 activated_by_player = true
 activated_by_enemies = true
 activated_by_friends = true
-gizmo = NodePath("CollisionShape3D/Gizmo")
+gizmo = NodePath("")
 
 [node name="FXFireBasicA" parent="." instance=ExtResource("2_2atmv")]
 

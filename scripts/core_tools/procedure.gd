@@ -41,7 +41,7 @@ func _ready():
 func _process(delta):
 	pass
 
-func start():
+func start() -> bool:
 	#dev.logd(TAG, "starting procedure %s" % name)
 	if start_fx != null:
 		world.spawn_fx(start_fx, position)
@@ -52,8 +52,8 @@ func start():
 		if schedule_to_game_tasks:
 			game.tasks.queue(self, self.name + "task-start", schedule_task_duration, null, start)
 			
-	_start()
-	pass
+	return _start()
 
-func _start():
+func _start() -> bool:
 	dev.logd(TAG, "implement procedure start function, triggered: %s" % name)
+	return true

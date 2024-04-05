@@ -146,8 +146,8 @@ func _update_player(delta):
 		_player_prev_dead = player.is_dead
 		
 		#widgets.set_token("player_health", player.health.value)
-		widgets.set_token("player_health", player.get_ability_value("health"))
-		widgets.set_token("player_max_health", player.get_ability("health").max_value)
+		widgets.set_token("player_health", player.get_property_value("health"))
+		widgets.set_token("player_max_health", player.get_property("health").max_value)
 	
 func set_player(character: GCharacterController):
 	dev.logd(TAG, "active player set to: %s" % character)

@@ -35,22 +35,22 @@ var impulse_power: float = 0
 
 var cooldowns: GCooldowns = GCooldowns.new(true)
 
-var abilities: Dictionary = {}
+var properties: Dictionary = {}
 
 func _ready():
 	## Called when the node is added to the scene.
 	assert(id.length() > 0, "character `id` must be non-empty string, found `%s` at `%s`" % [id, name])
 	_init_character()
-	_init_abilities()
+	_init_properties()
 	
-	for k in abilities.keys():
-		abilities[k].on_changed.connect(_handle_ability_change)
+	for k in properties.keys():
+		properties[k].on_changed.connect(_handle_property_change)
 	
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
 
-func _init_abilities():
-	## Initializes character abilities.
+func _init_properties():
+	## Initializes character properties.
 	pass
 	
 func _init_character():
@@ -87,14 +87,14 @@ func _on_die():
 	## Handles the character's death.
 	queue_free()
 
-func _handle_ability_change(name: String, old_value: float, new_value: float, increased: bool):
-	## Handles changes in character abilities.
+func _handle_property_change(name: String, old_value: float, new_value: float, increased: bool):
+	## Handles changes in character properties.
 	pass
 	
 func _process(delta):
 	## Processes non-physics related logic.
 	if visible and active and not game.paused:
-		_update_abilities(delta)
+		_update_properties(delta)
 		_update_state(delta)
 	
 func _update_state(delta):
@@ -111,27 +111,30 @@ func _update_physics(delta):
 	pass
 		
 ##region: Abilities
-func add_ability(name: String, ability: GAbility):
-	## Adds an ability to the character.
-	abilities[name] = ability
+func add_property(name: String, property: GProperty):
+	## Adds an property to the character.
+	properties[name] = property
 
-func get_ability(name: String) -> GAbility:
-	## Retrieves an ability by name.
-	return abilities[name]
+func get_property(name: String) -> GProperty:
+	## Retrieves an property by name.
+	return properties[name]
 
-func get_ability_value(name: String) -> float:
-	## Retrieves the value of an ability.
-	var abil: GAbility = get_ability(name)
-	return abil.value
+func get_property_value(name: String) -> float:
+	## Retrieves the value of an property.
+	var property: GProperty = get_property(name)
+	return property.value
 	
-func alter_ability(name: String, delta_value: float) -> float:
-	## Alters the value of an ability.
-	var abil: GAbility = get_ability(name)
-	abil.alter_value(delta_value)
-	return abil.value
+func alter_property(name: String, delta_value: float) -> bool:
+	## Alters the value of an property.
+	var property: GProperty = get_property(name)
+	return property.alter_value(delta_value)
 
-func _update_abilities(delta):
-	## Updates all character abilities.
-	for k in abilities.keys():
-		abilities[k].update(delta)
+func is_property_maxed(name: String)-> bool:
+	var property: GProperty = get_property(name)
+	return property.is_maxed
+
+func _update_properties(delta):
+	## Updates all character properties.
+	for k in properties.keys():
+		properties[k].update(delta)
 ##endregion
