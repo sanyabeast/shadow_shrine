@@ -3,7 +3,7 @@
 
 extends Node
 class_name GCharactersManager
-const TAG: String = "CharactersManager"
+var TAG: String = "CharactersManager"
 
 signal on_player_dead
 signal on_player_hurt(health_loss: float, point: Vector3, direction: Vector3)
@@ -146,8 +146,8 @@ func _update_player(delta):
 		_player_prev_dead = player.is_dead
 		
 		#widgets.set_token("player_health", player.health.value)
-		widgets.set_token("player_health", player.health.value)
-		widgets.set_token("player_max_health", player.health.max_value)
+		widgets.set_token("player_health", player.get_ability_value("health"))
+		widgets.set_token("player_max_health", player.get_ability("health").max_value)
 	
 func set_player(character: GCharacterController):
 	dev.logd(TAG, "active player set to: %s" % character)
@@ -182,7 +182,7 @@ func spawn_player(character_id: String, position: Vector3, look_angle: float = 0
 	set_player(_player)
 
 func spawn_character(parent_node: Node3D, character_id: String, position: Vector3, look_angle: float = 0) -> GCharacterController:
-	var entry: GThesaurusEntry = game.thesaurus.get_entry(GThesaurus.EThesaurusCategory.CHARACTER, character_id)
+	var entry: GThesaurusEntry = game.thesaurus.get_entry("characters", character_id)
 	var prefab = entry.main_scene
 	var _character: GCharacterController = prefab.instantiate(3)
 	_character.position = position

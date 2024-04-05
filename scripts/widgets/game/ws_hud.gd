@@ -4,7 +4,7 @@
 extends Control
 
 class_name GWidgetHUD
-const TAG: String = "WidgetHUD"
+var TAG: String = "WidgetHUD"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

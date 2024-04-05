@@ -3,7 +3,7 @@
 
 extends Node
 class_name GGameManager
-const TAG: String = "GameManager"
+var TAG: String = "GameManager"
 
 var mode: GGameMode
 var time: float = 0

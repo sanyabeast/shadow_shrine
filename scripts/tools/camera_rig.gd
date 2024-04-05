@@ -5,7 +5,7 @@
 extends Node3D
 
 class_name GCameraController
-const TAG: String = "CameraController"
+var TAG: String = "CameraController"
 
 static var instance: GCameraController
 

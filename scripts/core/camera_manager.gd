@@ -3,7 +3,7 @@
 
 extends Node
 class_name GCameraManager
-const TAG: String = "CameraManager"
+var TAG: String = "CameraManager"
 
 var camera: Camera3D
 var target_camera: Camera3D

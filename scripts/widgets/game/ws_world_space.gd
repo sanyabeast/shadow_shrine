@@ -4,7 +4,7 @@
 extends Control
 
 class_name GWidgetWorldSpace
-const TAG: String = "WidgetWorldSpace"
+var TAG: String = "WidgetWorldSpace"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

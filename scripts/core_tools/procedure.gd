@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/35.png")
 extends Node
 class_name GProcedure
-const TAG: String = "Procedure"
+var TAG: String = "Procedure"
 
 @export_subgroup("FX")
 @export var start_fx: RFXConfig

@@ -5,6 +5,6 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_pvsnu")
-shader_parameter/albedo = Color(1, 0, 0, 1)
-shader_parameter/rimThickness = 0.128
-shader_parameter/rimBrightness = 1.134
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/rimThickness = 0.25
+shader_parameter/rimBrightness = 0.5

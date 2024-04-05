@@ -13,7 +13,7 @@ id = "main_dev"
 
 [node name="characters" type="Node" parent="."]
 script = ExtResource("2_kc8s0")
-category = 1
+category = "characters"
 
 [node name="rock_lee" type="Node" parent="characters"]
 script = ExtResource("2_c37lg")
@@ -38,3 +38,4 @@ demo_scene = ExtResource("5_w6ch8")
 
 [node name="weapons" type="Node" parent="."]
 script = ExtResource("2_kc8s0")
+category = "weapons"

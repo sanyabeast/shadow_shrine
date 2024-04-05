@@ -1,7 +1,7 @@
 extends Node
 
 class_name GWidgetManager
-const TAG: String = "WidgetManager"
+var TAG: String = "WidgetManager"
 
 var controller
 var tokens: Dictionary

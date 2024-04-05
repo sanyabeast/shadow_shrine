@@ -3,7 +3,7 @@
 
 extends GGameMode
 class_name GGameModeLobby
-const TAG: String = "GameModeLobby"
+var TAG: String = "GameModeLobby"
 
 @export_subgroup("# Lobby")
 @export var demo_room: GRoomController

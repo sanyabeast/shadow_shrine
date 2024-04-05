@@ -1,6 +1,6 @@
 extends Control
 class_name GHighlightsWidget
-const TAG: String = "HighlightsWidget"
+var TAG: String = "HighlightsWidget"
 	
 @export_subgroup("# Highlights Widget")
 @onready var label: GWidgetLabel = $Label

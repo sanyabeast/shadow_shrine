@@ -6,7 +6,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji191.svg")
 extends Control
 class_name GMenuController
-const TAG: String = "MenuController"
+var TAG: String = "MenuController"
 
 # Constant representing the maximum rate of menu item change.
 const MAX_MENU_ITEM_CHANGE_RATE: float = 8

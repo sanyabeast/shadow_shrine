@@ -34,6 +34,8 @@ func _ready():
 			for index in mesh.mesh.get_surface_count():
 				var mat = mesh.mesh.surface_get_material(index)
 				if mat is ShaderMaterial:
+					#mat = mat.duplicate()
+					#mesh.mesh.surface_set_material(index, mat)
 					_materials.append(mat)
 					
 		if state == "":

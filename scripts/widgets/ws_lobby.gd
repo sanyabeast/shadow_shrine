@@ -3,7 +3,7 @@
 
 extends Control
 class_name GLobbyWidget
-const TAG: String = "LobbyWidget"
+var TAG: String = "LobbyWidget"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -4,7 +4,7 @@
 extends Control
 
 class_name GDefaultGameWidget
-const TAG: String = "DefaultGameWidget"
+var TAG: String = "DefaultGameWidget"
 
 @onready var world_space: GWidgetWorldSpace = $WorldSpace
 @onready var hud: GWidgetHUD = $HUD

@@ -4,7 +4,7 @@
 extends Control
 
 class_name GScreenFX
-const TAG: String = "ScreenFX"
+var TAG: String = "ScreenFX"
 
 @export_subgroup("# Screen FX")
 @onready var anim_player = $AnimationPlayer

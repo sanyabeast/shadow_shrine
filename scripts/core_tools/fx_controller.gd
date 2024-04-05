@@ -4,7 +4,7 @@
 extends Node3D
 
 class_name GFXController
-const TAG: String = "FX"
+var TAG: String = "FX"
 
 @export var config: RFXConfig
 @export var bound_object: Node3D

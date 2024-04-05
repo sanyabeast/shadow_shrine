@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/35b.png")
 extends Node
 class_name GMenuActions
-const TAG: String = "MenuActions"
+var TAG: String = "MenuActions"
 
 var menu: GMenuController
 

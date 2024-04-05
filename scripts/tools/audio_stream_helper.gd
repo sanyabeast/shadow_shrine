@@ -1,6 +1,6 @@
 extends AudioStreamPlayer3D
 class_name GAudioStreamHelper
-const TAG: String = "AudioStringHelper"
+var TAG: String = "AudioStringHelper"
 
 @export_subgroup("# AudioStringHelper")
 @export var seek_to_random_on_start: bool = false

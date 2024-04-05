@@ -4,15 +4,12 @@
 @icon("res://assets/_dev/_icons/bookmark_a.png")
 extends Node
 class_name GThesaurusDirectory
-const TAG:= "ThesaurusDirectory"
+var TAG:= "ThesaurusDirectory"
 
-@export var category:= GThesaurus.EThesaurusCategory.DATA
+## recommendation: use lowercase plural 
+@export var category: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	assert(category != "", "Thesaurus category sould be NON-empty string - category id")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

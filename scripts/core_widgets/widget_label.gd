@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/gem_01b.png")
 extends Control
 class_name GWidgetLabel
-const TAG: String = "WidgetLabel"
+var TAG: String = "WidgetLabel"
 
 enum EValueFormatType {
 	NONE,

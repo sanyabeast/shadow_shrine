@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji125.svg")
 extends Node3D
 class_name GRoomController
-const TAG: String = "RoomController"
+var TAG: String = "RoomController"
 
 enum EEnemyTypeListMergeMode {
 	OVERWRITE,
@@ -134,7 +134,7 @@ func _spawn_enemy(spot: Node3D):
 	if enemy_types.size() > 0:
 		pass
 		var character_entry: GThesaurusEntry = game.thesaurus.get_one_item_from_list_by_rarity(
-			GThesaurus.EThesaurusCategory.CHARACTER, 
+			"characters", 
 			enemy_types,
 			game.difficulty,
 		)

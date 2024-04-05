@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode blend_mix, depth_prepass_alpha, cull_back, diffuse_burley, specular_schlick_ggx;
 uniform vec4 albedo = vec4(0.75, 0., 0.1, 0.5);
-uniform float opacity = 0.25;
+uniform float opacity =1.;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -10,7 +10,7 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	ALBEDO.rgb = albedo.rgb;
-	ALPHA = opacity;
+	ALPHA = opacity * albedo.a;
 }
 
 //void light() {

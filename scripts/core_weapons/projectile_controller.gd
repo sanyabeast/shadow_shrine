@@ -6,7 +6,7 @@
 extends Area3D
 
 class_name GProjectileController
-const TAG: String = "ProjectileController"
+var TAG: String = "ProjectileController"
 
 @export_subgroup("# Projectile Controller")
 @export var config: RProjectileConfig

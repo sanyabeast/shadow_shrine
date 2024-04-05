@@ -6,7 +6,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji191.svg")
 extends Control
 class_name GMenuItem
-const TAG: String = "MenuItem"
+var TAG: String = "MenuItem"
 
 # Exported variables for customization.
 @export_subgroup("# Menu Item")

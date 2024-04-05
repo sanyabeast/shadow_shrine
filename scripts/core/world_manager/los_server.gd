@@ -4,7 +4,7 @@
 # This script defines a LosServer class for managing Line of Sight (LOS) tasks in a 3D environment.
 
 class_name GLosServer
-const TAG: String = "LosServer"
+var TAG: String = "LosServer"
 
 # Represents a LOS task between two 3D nodes.
 class GLosTask:

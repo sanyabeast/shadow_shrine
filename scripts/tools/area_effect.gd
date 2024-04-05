@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/area_1.png")
 extends Area3D
 class_name GAreaEffect
-const TAG: String = "AreaEffect"
+var TAG: String = "AreaEffect"
 
 @export_subgroup("# Area Effect")
 @export var enabled: bool = true

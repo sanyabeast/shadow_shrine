@@ -1,6 +1,6 @@
 extends Control
 class_name GDamageDirectionHUD 
-const TAG: String = "DamageDirectionHUD"
+var TAG: String = "DamageDirectionHUD"
 
 
 class GDamageDirectionData:

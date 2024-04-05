@@ -5,7 +5,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji173.svg")
 extends GPUParticlesAttractorVectorField3D
 class_name GWindField
-const TAG:= "WindField"
+var TAG:= "WindField"
 
 
 const ATTRACTOR_ROTATION_OFFSET:= 135.0

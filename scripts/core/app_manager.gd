@@ -4,7 +4,7 @@
 extends Node
 
 class_name GAppManager
-const TAG: String = "AppManager"
+var TAG: String = "AppManager"
 
 enum EGraphicsQualityPreset {
 	Medium,

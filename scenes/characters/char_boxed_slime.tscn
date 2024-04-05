@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_ajw58"]
 [ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_hxo2j"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dfqbhio11bvio" path="res://resources/animations/trees/atree_humanoid_basic_a1.tres" id="7_lc31e"]
-[ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="8_wyiil"]
+[ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/main/standard_game_surface_material_helper.tscn" id="8_wyiil"]
 [ext_resource type="PackedScene" uid="uid://boddjwph2fog7" path="res://scenes/_dev/_giz_amber_arrow.tscn" id="10_pdf4v"]
 [ext_resource type="AudioStream" uid="uid://dqjbsf5qn815j" path="res://assets/_dev/sound/sfx/slime/635874__wax_vibe__moving-meat.ogg" id="12_1cfur"]
 [ext_resource type="PackedScene" uid="uid://b8vcya2mgfvq0" path="res://scenes/weapons/gun_toxic_gob_launcher.tscn" id="12_7dxem"]

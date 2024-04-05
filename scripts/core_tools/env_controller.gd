@@ -5,7 +5,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji178.svg")
 extends Node3D
 class_name GEnvironmentController
-const TAG: String = "EnvironmentController"
+var TAG: String = "EnvironmentController"
 
 @export_subgroup("# EnvironmentController ~ Wind")
 @export var use_wind_cycle: bool = false

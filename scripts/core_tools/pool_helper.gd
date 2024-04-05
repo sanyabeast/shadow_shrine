@@ -4,7 +4,7 @@
 # This class provides a helper for managing a pool of nodes in Godot.
 
 class_name GPoolHelper
-const TAG: String = "PoolHelper"
+var TAG: String = "PoolHelper"
 
 var max_size: int = 8
 var dictionary_size: int:

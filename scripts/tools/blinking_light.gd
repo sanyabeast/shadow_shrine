@@ -3,7 +3,7 @@
 
 extends Light3D
 class_name GBlinkLightHelper
-const TAG: String = "BlinkLightHelper"
+var TAG: String = "BlinkLightHelper"
 
 @export_subgroup("# Blinking Light Helper")
 @export var min_energy: float = 0.5

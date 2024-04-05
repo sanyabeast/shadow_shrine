@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/pencil3.png")
 extends Node
 class_name GThesaurusEntry
-const TAG:= "ThesaurusEntry"
+var TAG:= "ThesaurusEntry"
 
 @export var title: String = ""
 @export var summary: String = ""

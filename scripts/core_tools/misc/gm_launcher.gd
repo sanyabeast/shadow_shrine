@@ -1,6 +1,6 @@
 extends GGameMode
 class_name GLauncherMode
-const TAG: String = "LauncherMode"
+var TAG: String = "LauncherMode"
 
 func _ready():
 	dev.logd(TAG, "ready")

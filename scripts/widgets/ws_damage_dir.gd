@@ -1,6 +1,6 @@
 extends ColorRect
 class_name GDamageDirectionIndicator
-const TAG: String = "DamageDirectionIndicator"
+var TAG: String = "DamageDirectionIndicator"
 
 @export var fade_time: float = 3;
 

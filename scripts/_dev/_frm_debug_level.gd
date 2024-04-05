@@ -30,7 +30,7 @@ func _spawn_enemy():
 	var spawn_position = world.get_random_reachable_point_in_square(characters.last_player_position, 32, 16)
 	
 	if spawn_position != null:
-		var entry = game.thesaurus.get_one_item_from_list_by_rarity(GThesaurus.EThesaurusCategory.CHARACTER, enemies, game.difficulty)
+		var entry = game.thesaurus.get_one_item_from_list_by_rarity("characters", enemies, game.difficulty)
 		var enemy = characters.spawn_character(world.get_scene(), entry.id, spawn_position)
 	else:
 		dev.logd(TAG, "enemy spawn skipped as there was no spawn point found for it")

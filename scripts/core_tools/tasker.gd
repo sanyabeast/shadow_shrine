@@ -2,7 +2,7 @@
 # This script defines a task planner that manages various tasks with scheduling, queuing, and stacking.
 
 class_name GTasker
-const TAG: String = "TaskPlanner"
+var TAG: String = "TaskPlanner"
 
 # Counter for generating unique indices for scheduled tasks.
 static var _schedule_task_index_counter: int = 0

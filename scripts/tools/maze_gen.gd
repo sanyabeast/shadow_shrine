@@ -2,7 +2,7 @@
 # Date: Feb. 2024
 
 class_name GMazeGen
-const TAG: String = "MazeGen"
+var TAG: String = "MazeGen"
 
 #region: Enums
 enum ECellCategory {

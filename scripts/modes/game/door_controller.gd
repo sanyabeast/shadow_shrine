@@ -5,7 +5,7 @@
 
 extends GAreaEffect
 class_name GDoorController
-#const TAG: String = "DoorController"
+#var TAG: String = "DoorController"
 
 @export_subgroup("# Door Controller")
 @export var surface_material_helper: GSurfaceMaterialHelper

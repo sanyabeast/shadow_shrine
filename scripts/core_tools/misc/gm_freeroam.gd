@@ -3,7 +3,7 @@
 
 extends GGameMode
 class_name GGameModeFreeroam
-const TAG: String = "GameModeFreeroam"
+var TAG: String = "GameModeFreeroam"
 
 @export_subgroup("# Game Mode Freeroam")
 @export var freeroam_mode: GFreeroamMode

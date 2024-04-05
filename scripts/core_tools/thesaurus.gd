@@ -6,44 +6,19 @@
 @icon("res://assets/_dev/_icons/book_04g.png")
 extends Node
 class_name GThesaurus
-const TAG:= "Thesaurus"
-
-# Enum representing different categories in the thesaurus.
-enum EThesaurusCategory {
-	DATA,
-	CHARACTER,
-	WEAPON,
-	PROJECTILE,
-	ABILITY,
-	LOCATION,
-	ITEM
-}
+var TAG:= "Thesaurus"
 
 # The unique identifier for the thesaurus.
 @export var id: String = ""
-# Dictionary containing all entries categorized by EThesaurusCategory.
-var all_entries: Array = []
+# Dictionary containing all entries categorized by String.
+var content: Dictionary = {}
 
 # Random number generator instance.
 var random:= GRandHelper.new()
 
 ## Converts the GThesaurus object to a string representation.
 func _to_string():
-	return "Thesaurus(id: %s, data: %s, characters: %s, weapons: %s, projectiles: %s, abilities: %s, locations: %s, items: %s)" % [
-		id,
-		all_entries[EThesaurusCategory.DATA].keys().size(),
-		all_entries[EThesaurusCategory.CHARACTER].keys().size(),
-		all_entries[EThesaurusCategory.WEAPON].keys().size(),
-		all_entries[EThesaurusCategory.PROJECTILE].keys().size(),
-		all_entries[EThesaurusCategory.ABILITY].keys().size(),
-		all_entries[EThesaurusCategory.LOCATION].keys().size(),
-		all_entries[EThesaurusCategory.ITEM].keys().size(),
-	]
-
-## Initializes the GThesaurus object.
-func _init():
-	for i in EThesaurusCategory.values():
-		all_entries.append({})
+	return "Thesaurus(id: %s)" % [id]
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,26 +33,29 @@ func _init_content():
 	_traverse(self)
 
 ## Parses entries within a node.
-func _parse_entries(category: EThesaurusCategory, list: Node):
+func _parse_entries(category: String, list: Node):
 	for i in list.get_child_count():
 		if list.get_child(i) is GThesaurusEntry:
 			add_entry(category, list.get_child(i))
 
 ## Adds an entry to the thesaurus under specified category.
-func add_entry(category: EThesaurusCategory, entry: GThesaurusEntry):
+func add_entry(category: String, entry: GThesaurusEntry):
 	var entries = get_entries(category) 
-	dev.logd(TAG, "adding entry `%s` to category %s" % [entry.id, get_category_name(category)])
+	dev.logd(TAG, "adding entry `%s` to category %s" % [entry.id, category])
 	if entries.has(entry.id):
-		dev.logd(TAG, "entry with id `%s` already exists in category `%s`. overwriting..." % [entry.id, get_category_name(category)])
+		dev.logd(TAG, "entry with id `%s` already exists in category `%s`. overwriting..." % [entry.id, category])
 	entries[entry.id] = entry
 
-func get_entry(category: EThesaurusCategory, id: String) -> GThesaurusEntry:
+func get_entry(category: String, id: String) -> GThesaurusEntry:
 	var entries = get_entries(category)
 	return entries[id]
 
 ## Retrieves entries for a specific category.
-func get_entries(category) -> Dictionary:
-	return all_entries[category] 
+func get_entries(category: String) -> Dictionary:
+	if not content.has(category):
+		dev.logd(TAG, "dictionary for category `%s` does not exist. creating..." % category)
+		content[category] = {}
+	return content[category] 
 
 ## Traverses through nodes to parse entries.
 func _traverse(node):
@@ -87,13 +65,9 @@ func _traverse(node):
 	for child in node.get_children():
 		_traverse(child)
 
-## Retrieves the name of a category based on its enum value.
-func get_category_name(category: EThesaurusCategory) -> String:
-	return EThesaurusCategory.keys()[category]
-
 ## Retrieves a single item from a list based on rarity and specified criteria.
-func get_one_item_from_list_by_rarity(category: EThesaurusCategory, ids: Array[String], curve: float = 1) -> GThesaurusEntry:
-	dev.logd(TAG, "get_one_item_from_list_by_rarity(%s, %s)" % [get_category_name(category), ids])
+func get_one_item_from_list_by_rarity(category: String, ids: Array[String], curve: float = 1) -> GThesaurusEntry:
+	dev.logd(TAG, "get_one_item_from_list_by_rarity(%s, %s)" % [category, ids])
 	var rarity_map: Dictionary = _get_relative_rarity_map(category, curve, ids)
 	dev.logd(TAG, 'built rarity map is: %s' % rarity_map)
 	
@@ -112,7 +86,7 @@ func get_one_item_from_list_by_rarity(category: EThesaurusCategory, ids: Array[S
 	return result
 
 ## Filters entries based on specified criteria.
-func filter_entries(category: EThesaurusCategory, includes: Array[String] = [], excludes: Array[String] = []) -> Array[GThesaurusEntry]:
+func filter_entries(category: String, includes: Array[String] = [], excludes: Array[String] = []) -> Array[GThesaurusEntry]:
 	var filtered_entries: Array[GThesaurusEntry] = []
 	var cat_entries = get_entries(category)
 	
@@ -131,7 +105,7 @@ func filter_entries(category: EThesaurusCategory, includes: Array[String] = [], 
 	return filtered_entries
 
 ## Generates a rarity map based on rarity of entries.
-func _get_relative_rarity_map(category: EThesaurusCategory, curve: float = 1, includes: Array[String] = [], excludes: Array[String] = []) -> Dictionary:
+func _get_relative_rarity_map(category: String, curve: float = 1, includes: Array[String] = [], excludes: Array[String] = []) -> Dictionary:
 	var filtered_entries: Array[GThesaurusEntry] = filter_entries(category, includes, excludes)
 	var rarity_map: Dictionary = {}
 	var rarity_sum: float = 0

@@ -5,7 +5,7 @@
 extends Node
 
 class_name GPlayerDriver
-const TAG: String = "PlayerDriver"
+var TAG: String = "PlayerDriver"
 
 func update(player: GTopDownCharacterController, delta: float):
 	# Get the input direction and handle the movement/deceleration.

@@ -3,7 +3,7 @@
 
 extends GGameMode
 class_name GGameModeDefaultGame
-const TAG = "GameModeDefaultGame"
+var TAG = "GameModeDefaultGame"
 
 const AMBIENCE_LONG_FADE_TIME: float = 2
 const AMBIENCE_SHORT_FADE_TIME: float = 0.2

@@ -4,7 +4,7 @@
 @icon("res://assets/_dev/_icons/planet_1.png")
 extends Node
 class_name GSurfaceMaterialHelper
-const TAG: String = "SurfaceMaterialHelper"
+var TAG: String = "SurfaceMaterialHelper"
 
 const DEFAULT_TRANSITION_DURATION: float = 0.3
 

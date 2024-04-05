@@ -3,7 +3,7 @@
 
 extends Node
 class_name GWorldManager
-const TAG: String = "WorldManager"
+var TAG: String = "WorldManager"
 
 signal on_level_changed(from_scene, to_scene)
 

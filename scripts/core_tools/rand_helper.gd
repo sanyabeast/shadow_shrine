@@ -2,7 +2,7 @@
 # Date: Feb. 2024
 
 class_name GRandHelper
-const TAG: String = "RandomnessManager"
+var TAG: String = "RandomnessManager"
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var seed: int

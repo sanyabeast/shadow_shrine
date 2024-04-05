@@ -7,7 +7,7 @@
 extends Node3D
 
 class_name GWeaponController
-const TAG: String = "WeaponController"
+var TAG: String = "WeaponController"
 
 @export_subgroup("# WeaponController")
 @export var config: RWeaponConfig

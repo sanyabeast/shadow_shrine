@@ -11,7 +11,11 @@ class_name GPickup
 func _ready():
 	enter_procedures = procedures
 	activated_by_player = true
+	
+	super._ready()
+	name = "pickup"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	super._process(delta)
 	pass

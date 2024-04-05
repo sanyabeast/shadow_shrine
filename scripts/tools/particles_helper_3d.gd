@@ -5,7 +5,7 @@
 @icon("res://assets/_dev/_icons/dotto-emoji-main-svg/Dotto Emoji181.svg")
 extends GPUParticles3D
 class_name GParticlesHelper3D
-const TAG: String = "ParticlesHelper3D"
+var TAG: String = "ParticlesHelper3D"
 
 enum EPositioningMode {
 	TwoDimensional,
