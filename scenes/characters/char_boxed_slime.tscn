@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cd7akf1y3xs4m" path="res://assets/props/jerdelia/textures/Image_16.png" id="2_dx2ui"]
 [ext_resource type="Resource" uid="uid://d4lriv2nvp46m" path="res://resources/characters/charconf_boxed_slime.tres" id="2_vw4ig"]
 [ext_resource type="Texture2D" uid="uid://gxvon2a73fq1" path="res://assets/props/jerdelia/textures/Image_17.png" id="3_1kjhj"]
-[ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="3_i0uoy"]
+[ext_resource type="Script" path="res://scripts/characters/character_body_controller.gd" id="3_i0uoy"]
 [ext_resource type="Texture2D" uid="uid://2xc5q5mhw2uk" path="res://assets/props/jerdelia/textures/Image_18.png" id="4_1km65"]
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_ajw58"]
 [ext_resource type="Script" path="res://scripts/core_resources/surface_states/res_surf_states.gd" id="6_hxo2j"]

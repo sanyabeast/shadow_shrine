@@ -1,3 +1,6 @@
+# Author: @sanyabeast
+# Date: Apr. 2024
+
 extends GProcedure
 class_name GKillProcedure
 

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dopsy730bw21l" path="res://scenes/misc/standard_game_surface_material_helper.tscn" id="4_4oh8m"]
 [ext_resource type="Shader" path="res://_dev/shaders/_standard_material.gdshader" id="4_7ocvb"]
 [ext_resource type="Shader" path="res://_dev/shaders/rim_light/_shad_rim_light_emiss_add.gdshader" id="4_hb20l"]
-[ext_resource type="Script" path="res://scripts/core_characters/character_body_controller.gd" id="4_jdb74"]
+[ext_resource type="Script" path="res://scripts/characters/character_body_controller.gd" id="4_jdb74"]
 [ext_resource type="Texture2D" uid="uid://ewh41f7cu16q" path="res://assets/props/jerdelia/textures/Basecolor_0.001.png" id="5_dq6ql"]
 [ext_resource type="Script" path="res://scripts/resources/res_rim_surf_state.gd" id="5_fdnua"]
 [ext_resource type="AudioStream" uid="uid://orx4umwx3jsl" path="res://assets/_dev/sound/sfx/male/sfx_male_hurt_a1.ogg" id="5_i7c88"]

@@ -1,4 +1,8 @@
+# Author: @sanyabeast
+# Date: Mar. 2024
+
 extends GProcedure
+class_name GImpulseProcedure
 
 @export var min_impulse: float = 1
 @export var max_impulse: float = 1
