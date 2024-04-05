@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dehih0nhlhfwi" path="res://resources/fx/door_open_a.tres" id="2_tu5bo"]
 [ext_resource type="Resource" uid="uid://dk5jiruf04b0m" path="res://resources/fx/door_close_a.tres" id="3_2ptag"]
 [ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="4_iua7x"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="5_c0khy"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="5_c0khy"]
 [ext_resource type="Texture2D" uid="uid://c508aknb32464" path="res://assets/props/jerdelia/props/door_a1/textures/Image_10.003.png" id="5_qm88s"]
 [ext_resource type="Texture2D" uid="uid://dd0ijddoe7ud" path="res://assets/props/jerdelia/props/door_a1/textures/Image_11.002.png" id="6_dx384"]
 [ext_resource type="Texture2D" uid="uid://dlf38h0wdqew5" path="res://assets/props/jerdelia/props/door_a1/textures/Image_12.002.png" id="7_52sbi"]
@@ -21,7 +21,7 @@
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="18_wkm2t"]
 [ext_resource type="Script" path="res://scripts/core_tools/light_helper.gd" id="20_akbx4"]
 [ext_resource type="PackedScene" uid="uid://c2bxbry2ckno2" path="res://scenes/_dev/_giz_blue_arrow.tscn" id="20_divov"]
-[ext_resource type="Script" path="res://scripts/core_tools/trigger.gd" id="22_4rn15"]
+[ext_resource type="Script" path="res://scripts/core_tools/features/trigger.gd" id="22_4rn15"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sey77"]
 

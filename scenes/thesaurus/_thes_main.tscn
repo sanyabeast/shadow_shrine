@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cc1jy1gk5wv5j"]
 
-[ext_resource type="Script" path="res://scripts/core_tools/thesaurus.gd" id="1_l7g12"]
+[ext_resource type="Script" path="res://scripts/core_tools/thesaurus/thesaurus.gd" id="1_l7g12"]
 [ext_resource type="Script" path="res://scripts/core_tools/thesaurus/thesaurus_entry.gd" id="2_c37lg"]
 [ext_resource type="Script" path="res://scripts/core_tools/thesaurus/thesaurus_directory.gd" id="2_kc8s0"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_gscqm"]

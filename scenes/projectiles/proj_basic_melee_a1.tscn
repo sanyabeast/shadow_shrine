@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/core_resources/res_fx_config.gd" id="4_v383m"]
 [ext_resource type="AudioStream" uid="uid://i6iglfdjhg10" path="res://assets/_dev/sound/widget/kenney_ui-audio/Audio/click2.ogg" id="5_sms52"]
 [ext_resource type="PackedScene" uid="uid://n8ev6a8hse74" path="res://scenes/fx/fx_metal_hit_sparks_a.tscn" id="6_q0wng"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="7_lehei"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="7_lehei"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_impulse.gd" id="7_p8lvp"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="8_iww3x"]
 

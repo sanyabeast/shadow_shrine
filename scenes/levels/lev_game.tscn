@@ -4,12 +4,12 @@
 [ext_resource type="Resource" uid="uid://dlqq5u5jnmnob" path="res://resources/levels/levconf_test_a1.tres" id="2_xe5b6"]
 [ext_resource type="PackedScene" uid="uid://bdyfbnq4358i5" path="res://scenes/characters/char_rock_lee.tscn" id="3_lbhup"]
 [ext_resource type="Script" path="res://scripts/resources/res_maze_config.gd" id="4_cq4p8"]
-[ext_resource type="Script" path="res://scripts/core_characters/behaviour/driver_player.gd" id="4_hapcl"]
 [ext_resource type="PackedScene" uid="uid://b0p47j3ar04x8" path="res://_dev/widget/_wid_dev_hud.tscn" id="4_loud7"]
 [ext_resource type="PackedScene" uid="uid://duiag5itq7dxf" path="res://scenes/widget/wid_game.tscn" id="5_h0u01"]
 [ext_resource type="PackedScene" uid="uid://cc1jy1gk5wv5j" path="res://scenes/thesaurus/_thes_main.tscn" id="5_txlse"]
 [ext_resource type="Script" path="res://scripts/characters/npcd_basic_game_dude.gd" id="5_ufud1"]
 [ext_resource type="PackedScene" uid="uid://bcodt2rcm5f7a" path="res://scenes/fx/location_fx/fx_location_mist_soft.tscn" id="6_rd3vp"]
+[ext_resource type="Script" path="res://scripts/characters/pd_topdown_rogue.gd" id="6_wtj53"]
 [ext_resource type="PackedScene" uid="uid://b5b6dg5k1g4mk" path="res://scenes/misc/camera_rig.tscn" id="7_nsc11"]
 [ext_resource type="Script" path="res://scripts/core_tools/env_controller.gd" id="8_2paxw"]
 [ext_resource type="Environment" uid="uid://cuc8x6fxi66m0" path="res://resources/misc/wenv_default_a.tres" id="8_884il"]
@@ -44,7 +44,7 @@ thesaurus = NodePath("ThesaurusMainA")
 [node name="ThesaurusMainA" parent="." instance=ExtResource("5_txlse")]
 
 [node name="GPlayerDriver" type="Node" parent="."]
-script = ExtResource("4_hapcl")
+script = ExtResource("6_wtj53")
 
 [node name="GNpcDriver" type="Node" parent="."]
 script = ExtResource("5_ufud1")

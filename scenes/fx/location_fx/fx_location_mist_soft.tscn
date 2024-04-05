@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bcodt2rcm5f7a"]
 
 [ext_resource type="Texture2D" uid="uid://bga38to5aox72" path="res://assets/_dev/sprites/dust_spike_a1.png" id="1_ojbct"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="2_6shgh"]
+[ext_resource type="Script" path="res://scripts/core_tools/particles_helper.gd" id="2_6shgh"]
 
 [sub_resource type="Gradient" id="Gradient_wk8us"]
 offsets = PackedFloat32Array(0, 0.224104, 0.49772, 0.761564, 1)

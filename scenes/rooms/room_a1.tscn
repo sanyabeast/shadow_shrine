@@ -6,7 +6,7 @@
 [ext_resource type="MeshLibrary" uid="uid://bkd8f1a12u0eu" path="res://assets/meshlibs/mlib_jerdelia_b.tres" id="4_infnt"]
 [ext_resource type="PackedScene" uid="uid://bjg72s56h1dpc" path="res://scenes/_dev/giz_player_spawn.tscn" id="5_famy2"]
 [ext_resource type="PackedScene" uid="uid://bx4qukdpvbfsh" path="res://scenes/_dev/giz_enemy_spawn.tscn" id="5_fgd0k"]
-[ext_resource type="Script" path="res://scripts/core_tools/trigger.gd" id="8_joh06"]
+[ext_resource type="Script" path="res://scripts/core_tools/features/trigger.gd" id="8_joh06"]
 [ext_resource type="PackedScene" uid="uid://cr8y7v3c4hyo5" path="res://scenes/main/af_base.tscn" id="8_mgqmc"]
 [ext_resource type="Script" path="res://scripts/core_tools/procedure.gd" id="9_ck0e8"]
 [ext_resource type="PackedScene" uid="uid://dbwbgsbyjn8rd" path="res://scenes/area_affects/af_fireplace.tscn" id="11_2alo7"]

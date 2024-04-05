@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://hhgqktwpdy5r"]
 
 [ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="1_ct5a3"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="1_gu2do"]
+[ext_resource type="Script" path="res://scripts/core_tools/particles_helper.gd" id="1_gu2do"]
 
 [sub_resource type="Curve" id="Curve_icqkn"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23572, 1), 0.0, -0.648543, 0, 0, Vector2(1, 0), -0.732566, 0.0, 0, 0]

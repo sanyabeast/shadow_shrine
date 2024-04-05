@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/core_tools/features/pkp_base.gd" id="1_3mmhj"]
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="3_fnrki"]
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="4_7dia1"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="4_s52ww"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="4_s52ww"]
 
 [sub_resource type="Animation" id="Animation_o3n7x"]
 resource_name = "Default"

@@ -3,9 +3,9 @@
 [ext_resource type="Material" uid="uid://ch1liu3x62dmx" path="res://resources/materials/particles/pmat_fire_like_a.tres" id="1_3irge"]
 [ext_resource type="AudioStream" uid="uid://c6vsyrc6themh" path="res://assets/_dev/sound/sfx/612277__robinhood76__10835-big-fire-loop.ogg" id="2_7v2cq"]
 [ext_resource type="Texture2D" uid="uid://blt3cpxcntjgo" path="res://assets/_dev/flake_a.png" id="2_j46de"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="2_l5mhy"]
+[ext_resource type="Script" path="res://scripts/core_tools/particles_helper.gd" id="2_l5mhy"]
 [ext_resource type="Texture2D" uid="uid://bgoc4sue1tox5" path="res://assets/_dev/flake_a50.png" id="2_u31dy"]
-[ext_resource type="Script" path="res://scripts/tools/audio_stream_helper.gd" id="5_807wv"]
+[ext_resource type="Script" path="res://scripts/core_tools/features/audio_stream_helper.gd" id="5_807wv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1j4c8"]
 blend_mode = 1

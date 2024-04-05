@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cr8y7v3c4hyo5"]
 
-[ext_resource type="Script" path="res://scripts/tools/area_effect.gd" id="1_gvf0c"]
+[ext_resource type="Script" path="res://scripts/core_tools/features/area_effect.gd" id="1_gvf0c"]
 [ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="2_sn85x"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="3_thfat"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="3_thfat"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bgdeg"]
 height = 1.0

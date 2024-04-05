@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2bxbry2ckno2"]
 
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="1_ytxdm"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="1_ytxdm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q74b8"]
 shading_mode = 2

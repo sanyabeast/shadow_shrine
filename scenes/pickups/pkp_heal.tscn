@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bgwv1u1uuddf1" path="res://assets/pickups/icon_heart_a.blend" id="3_f54br"]
 [ext_resource type="Script" path="res://scripts/core_tools/surface_material_helper.gd" id="3_wct48"]
 [ext_resource type="Material" uid="uid://2wapxwghy5uk" path="res://resources/materials/smat_rim_light_overlay.tres" id="4_ip8ld"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="6_pm6nm"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="6_pm6nm"]
 
 [sub_resource type="Animation" id="Animation_o3n7x"]
 resource_name = "Default"

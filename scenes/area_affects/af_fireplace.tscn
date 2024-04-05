@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://dbwbgsbyjn8rd"]
 
-[ext_resource type="Script" path="res://scripts/tools/area_effect.gd" id="1_qssrs"]
+[ext_resource type="Script" path="res://scripts/core_tools/features/area_effect.gd" id="1_yglhx"]
 [ext_resource type="PackedScene" uid="uid://btaoqr5td4pmy" path="res://scenes/fx/fire/fx_fireplace_a.tscn" id="2_2atmv"]
 [ext_resource type="Shader" path="res://resources/_dev/_gizmo.gdshader" id="2_nufft"]
-[ext_resource type="Script" path="res://scripts/_dev/dev_gizmo.gd" id="3_vinyg"]
+[ext_resource type="Script" path="res://scripts/_dev/_dev_gizmo.gd" id="4_q3et2"]
 [ext_resource type="Script" path="res://scripts/procedures/proc_damage.gd" id="5_eu0s4"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1l18a"]
@@ -23,7 +23,7 @@ bottom_radius = 0.3
 height = 1.0
 
 [node name="AF_FireplaceA" type="Area3D" node_paths=PackedStringArray("repeat_procedures", "gizmo")]
-script = ExtResource("1_qssrs")
+script = ExtResource("1_yglhx")
 repeat_procedures = [NodePath("GDamageProcedure")]
 activated_by_player = true
 activated_by_enemies = true
@@ -39,7 +39,7 @@ shape = SubResource("CylinderShape3D_1l18a")
 [node name="Gizmo" type="MeshInstance3D" parent="CollisionShape3D" node_paths=PackedStringArray("meshes")]
 mesh = SubResource("CylinderMesh_4aj5y")
 skeleton = NodePath("../..")
-script = ExtResource("3_vinyg")
+script = ExtResource("4_q3et2")
 use_states = true
 meshes = [NodePath(".")]
 

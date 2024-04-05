@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://wa4u74du35be" path="res://assets/_dev/sprites/particles/bubbles_pack/bubble_7_grayscale.png" id="1_3mcx5"]
 [ext_resource type="Texture2D" uid="uid://csu501sxi20dq" path="res://assets/_dev/sprites/particles/bubble_toxic_green.png" id="2_47e0s"]
 [ext_resource type="Material" uid="uid://cv4pen5pwse5l" path="res://resources/materials/particles/pmat_slime_puddle_a1.tres" id="3_0nd77"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="3_p43w5"]
+[ext_resource type="Script" path="res://scripts/core_tools/particles_helper.gd" id="3_p43w5"]
 
 [sub_resource type="Curve" id="Curve_mesge"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330731, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

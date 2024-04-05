@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6yr1apspesxl"]
 
-[ext_resource type="Script" path="res://scripts/core_tools/misc/gm_launcher.gd" id="1_12351"]
+[ext_resource type="Script" path="res://scripts/core_tools/extra/gm_launcher.gd" id="1_12351"]
 
 [node name="LevLauncher" type="Node3D"]
 script = ExtResource("1_12351")

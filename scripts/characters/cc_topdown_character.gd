@@ -34,7 +34,7 @@ var has_weapon: bool:
 		return weapon != null
 
 func _init_character():
-	tools.traverse(self, _handle_node)
+	tools.traverse(self, _init_child_node)
 	
 	add_child(nav_agent)
 
@@ -44,7 +44,7 @@ func _init_character():
 	if weapon != null:
 		weapon.keeper = self	
 
-func _handle_node(node):
+func _init_child_node(node):
 	if weapon == null and node is GWeaponController:
 		weapon = node
 

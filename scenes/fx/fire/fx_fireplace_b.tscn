@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://c6vsyrc6themh" path="res://assets/_dev/sound/sfx/612277__robinhood76__10835-big-fire-loop.ogg" id="2_7n1cw"]
 [ext_resource type="Texture2D" uid="uid://d23ardhv41j" path="res://assets/_dev/flake_a25.png" id="2_evbfb"]
 [ext_resource type="Texture2D" uid="uid://bgoc4sue1tox5" path="res://assets/_dev/flake_a50.png" id="3_gokiq"]
-[ext_resource type="Script" path="res://scripts/tools/particles_helper_3d.gd" id="3_vs7qs"]
+[ext_resource type="Script" path="res://scripts/core_tools/particles_helper.gd" id="3_vs7qs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfu7i"]
 transparency = 1
