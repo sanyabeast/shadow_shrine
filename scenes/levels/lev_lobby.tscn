@@ -213,6 +213,9 @@ bones/29/rotation = Quaternion(0.0173385, 0.988049, -0.145876, -0.046674)
 bones/30/rotation = Quaternion(0.0543073, 0.649308, -0.757007, -0.0488997)
 bones/31/rotation = Quaternion(-0.0202338, 0.998349, 0.0495152, -0.0209078)
 
+[node name="GWalkingTalent" parent="RockLee" index="3"]
+max_speed = 5
+
 [node name="MainMenu" parent="." instance=ExtResource("8_hefke")]
 
 [node name="ScreenFX" parent="." instance=ExtResource("9_mwgfu")]

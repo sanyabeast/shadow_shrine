@@ -1,3 +1,5 @@
+# Author: @sanyabeast
+# Date: Apr. 2024
 
 class_name GProperty
 signal on_changed(name: String, old_value: float, new_value: float, increased: bool)
@@ -10,7 +12,7 @@ var transition_speed: float = 0
 
 var is_maxed: bool: 
 	get:
-		return max_value <= 0 or value >= max_value
+		return max_value > 0 and value >= max_value
 
 func _init(_name: String, _value: float, _max_value = null, _transition_speed = null):
 	name = _name

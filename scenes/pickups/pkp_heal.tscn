@@ -86,11 +86,10 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_fw47g")
 height = 1.0
 
-[node name="GHealPickup" type="Area3D" node_paths=PackedStringArray("procedures", "gizmo")]
+[node name="GHealPickup" type="Area3D" node_paths=PackedStringArray("procedures")]
 script = ExtResource("1_a7ct8")
 id = "heal"
 procedures = [NodePath("GHealProcedure")]
-gizmo = NodePath("")
 
 [node name="GHealProcedure" type="Node" parent="."]
 script = ExtResource("2_nrle7")

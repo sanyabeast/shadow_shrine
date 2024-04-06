@@ -84,11 +84,10 @@ disable_receive_shadows = true
 material = SubResource("StandardMaterial3D_v6rmf")
 height = 1.0
 
-[node name="GPickup" type="Area3D" node_paths=PackedStringArray("gizmo")]
+[node name="GPickup" type="Area3D"]
 script = ExtResource("1_3mmhj")
 max_targets_inside = 1
 activated_by_player = true
-gizmo = NodePath("")
 
 [node name="Body" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

@@ -34,8 +34,6 @@ var has_weapon: bool:
 		return weapon != null
 
 func _init_character():
-	tools.traverse(self, _init_child_node)
-	
 	add_child(nav_agent)
 
 	if body_controller != null:
@@ -44,15 +42,8 @@ func _init_character():
 	if weapon != null:
 		weapon.keeper = self	
 
-func _init_child_node(node):
-	if weapon == null and node is GWeaponController:
-		weapon = node
-
-	if body_controller == null and node is GCharacterBodyController:
-		body_controller = node
-
 func _init_properties():
-	# Abilities
+	# Properties
 	add_property("health", GProperty.new("health", config.health, config.max_health))
 	add_property("max_health", GProperty.new("max_health", config.max_health))
 	add_property("speed", GProperty.new("speed", config.speed))

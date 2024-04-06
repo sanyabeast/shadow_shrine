@@ -9,14 +9,6 @@ var TAG: String = "CharacterController"
 @export_subgroup("# Character Contrller")
 @export var id: String = ""
 
-@export_subgroup("# Character Contrller ~ Main")
-## azimuthal look angle in degrees (0 - 360)
-@export var look_angle: float = 0
-@export var look_angle_alt: float = 0
-@export var move_power: float = 0
-@export var move_angle: float = 0
-@export var move_angle_alt: float = 0
-
 @export_subgroup("# Character Contrller ~ Player Mode")
 @export var use_as_player: bool = false
 
@@ -33,15 +25,20 @@ var is_dead: bool = false
 var impulse_direction: Vector3
 var impulse_power: float = 0
 
-var cooldowns: GCooldowns = GCooldowns.new(true)
-
 var properties: Dictionary = {}
+var talents: Dictionary = {}
+
+var _property_list: Array[GProperty] = []
+var _talent_list: Array[GTalent] = []
+
+var cooldowns: GCooldowns = GCooldowns.new(true)
 
 func _ready():
 	## Called when the node is added to the scene.
 	assert(id.length() > 0, "character `id` must be non-empty string, found `%s` at `%s`" % [id, name])
 	_init_character()
 	_init_properties()
+	_init_talents()
 	
 	for k in properties.keys():
 		properties[k].on_changed.connect(_handle_property_change)
@@ -49,13 +46,18 @@ func _ready():
 	if use_as_player and characters.player == null:
 		characters.set_player(self)
 
+func _init_character():
+	## Initializes character properties.
+	pass
+	
 func _init_properties():
 	## Initializes character properties.
 	pass
 	
-func _init_character():
-	## Initializes character properties.
-	pass
+func _init_talents():
+	for node in  get_children():
+		if node is GTalent:
+			add_talent(node.id, node)
 
 func _to_string():
 	## Returns a string representation of the character.
@@ -95,7 +97,9 @@ func _process(delta):
 	## Processes non-physics related logic.
 	if visible and active and not game.paused:
 		_update_properties(delta)
+		_update_talents(delta)
 		_update_state(delta)
+		
 	
 func _update_state(delta):
 	## Updates the character's state.
@@ -104,6 +108,7 @@ func _update_state(delta):
 func _physics_process(delta):
 	## Processes physics-related logic.
 	if visible and active and not game.paused:
+		_update_talents_physics(delta)
 		_update_physics(delta)
 	
 func _update_physics(delta):
@@ -114,6 +119,7 @@ func _update_physics(delta):
 func add_property(name: String, property: GProperty):
 	## Adds an property to the character.
 	properties[name] = property
+	_update_property_list()
 
 func get_property(name: String) -> GProperty:
 	## Retrieves an property by name.
@@ -135,6 +141,36 @@ func is_property_maxed(name: String)-> bool:
 
 func _update_properties(delta):
 	## Updates all character properties.
-	for k in properties.keys():
-		properties[k].update(delta)
+	for p in _property_list:
+		p.update(delta)
+		
+func _update_property_list():
+	var new_list: Array[GProperty] = []
+	for prop in properties.values():
+		new_list.append(prop)
+	_property_list = new_list
 ##endregion
+
+#region: Talents
+func add_talent(id: String, talent: GTalent):
+	## Adds an talent to the character.
+	talents[id] = talent
+	_update_talent_list()
+
+func get_talent(id: String) -> GTalent:
+	return talents[id]
+	
+func _update_talents(delta):
+	for k in talents.keys():
+		talents[k].update(delta)
+
+func _update_talents_physics(delta):
+	for t in _talent_list:
+		t.update_physics(delta)
+
+func _update_talent_list():
+	var new_list: Array[GTalent] = []
+	for talent in talents.values():
+		new_list.append(talent)
+	_talent_list = new_list
+#endregion
