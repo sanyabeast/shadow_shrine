@@ -22,10 +22,12 @@ func logr(tag: String, data):
 		print("[ %s ]: [ ERROR! ] %s" % [tag, data])
 
 func traverse(node: Node, node_handler: Callable, deep: bool = false):
+	node_handler.call(node)
 	for child in node.get_children():
-		node_handler.call(node)
 		if deep:
-			traverse(child, node_handler)
+			traverse(child, node_handler, deep)
+		else:
+			node_handler.call(child)
 
 # Recursive function to get all descendants with a specific substring in their names
 func get_descendants_with_substring(root: Node, substring: String, matching_nodes: Array) -> Array:

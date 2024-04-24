@@ -431,10 +431,9 @@ size = Vector2(0.2, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wvbgd"]
 size = Vector3(100, 2, 100)
 
-[node name="LevelFreeroam" type="Node3D" node_paths=PackedStringArray("freeroam_mode", "player", "player_driver", "npc_driver", "thesaurus")]
+[node name="LevelFreeroam" type="Node3D" node_paths=PackedStringArray("freeroam_mode", "player_driver", "npc_driver", "thesaurus")]
 script = ExtResource("1_8mwe0")
 freeroam_mode = NodePath("FreeroamMode")
-player = NodePath("")
 player_driver = NodePath("GPlayerDriver")
 npc_driver = NodePath("GNpcDriver")
 thesaurus = NodePath("ThesaurusMainA")
