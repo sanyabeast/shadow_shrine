@@ -19,7 +19,7 @@ func _init(_use_game_time: bool):
 # Returns true if the timer gate has expired, false otherwise.
 func check(id: String, timeout: float) -> bool:
 	# Get the current time.
-	var current_time = tools.get_time()
+	var current_time = get_time()
 	
 	# Check if the timer gate doesn't exist or has exceeded the timeout.
 	if not _timer_gate_data.has(id) or current_time - _timer_gate_data[id] >= timeout:
